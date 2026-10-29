@@ -7,7 +7,7 @@ import { validateSql, MAX_ROWS } from './validate.mjs';
 export const LIMITS = { perVisitor: 2, perDay: 50, questionChars: 300, maxTokens: 400 };
 export const ORIGIN = 'https://felipealveslab.com';
 export const RECORDED_SESSION = 'https://felipealveslab.com/lab/ask-the-ledger/#recorded-session';
-export const DEFAULT_WORKERS_AI_MODEL = '@cf/meta/llama-3.1-8b-instruct'; // not verified against Cloudflare's current model list
+export const DEFAULT_WORKERS_AI_MODEL = '@cf/qwen/qwen2.5-coder-32b-instruct'; // id read on Cloudflare's model page, 2026-10-29. The earlier default, llama-3.1-8b-instruct, is no longer in the catalog.
 export const HAIKU_MODEL = 'claude-haiku-5-5';
 
 export const SYSTEM_PROMPT = `You write one read-only SQLite query for a synthetic finance ledger.
@@ -68,7 +68,7 @@ export async function generate(env, question, fetchFn = fetch) {
     max_tokens: LIMITS.maxTokens,
     messages: [{ role: 'system', content: SYSTEM_PROMPT }, { role: 'user', content: question }],
   });
-  return parseModelReply(out?.response);
+  return parseModelReply(out?.response ?? out?.choices?.[0]?.message?.content);
 }
 
 export async function handle(request, env, deps = {}) {
@@ -111,8 +111,9 @@ export async function handle(request, env, deps = {}) {
   let failed = false;
   try {
     reply = await gen(env, question);
-  } catch {
+  } catch (err) {
     failed = true;
+    console.error('model call failed:', String(err?.message ?? err).slice(0, 300));
   } finally {
     await bump(env.COUNTERS, vKey);
     await bump(env.COUNTERS, gKey);
