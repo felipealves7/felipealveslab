@@ -5,6 +5,8 @@ export function parseCsv(text) {
   let row = [];
   let field = '';
   let quoted = false;
+  // #region scan
+  // One pass over the text: commas end fields, line breaks end rows, quotes protect both.
   for (let i = 0; i < text.length; i++) {
     const c = text[i];
     if (quoted) {
@@ -19,6 +21,7 @@ export function parseCsv(text) {
       rows.push(row); row = [];
     } else field += c;
   }
+  // #endregion
   if (field !== '' || row.length) { row.push(field); rows.push(row); }
   const [header = [], ...body] = rows;
   return { columns: header, rows: body.filter((r) => !(r.length === 1 && r[0] === '')).map((r) => Object.fromEntries(header.map((h, i) => [h, r[i] ?? '']))) };
