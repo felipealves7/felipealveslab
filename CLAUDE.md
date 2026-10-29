@@ -30,6 +30,10 @@ Anything that reaches the live site reaches it because Felipe merged a pull requ
 7. **Stay in scope.** Do the task in the issue or the prompt, nothing adjacent. Note adjacent
    ideas in the pull request description instead of acting on them.
 
+8. **Keep the chat private.** Never put chat messages, quotes from Felipe's conversations, session
+   links or `Claude-Session` lines in any file, commit message, pull request, issue or comment.
+   Describe decisions in neutral words ("requested by Felipe") without quoting him.
+
 ## How the work flows
 
 | Agent | Starts when | Output | Never |
@@ -61,7 +65,7 @@ these exact headings in this order:
 2. `## The live piece`: an interactive analysis, chart or Q&A that works from cached output with no live services
 3. `## Method and results`: method, tests and evaluation results, including what failed
 4. `## Known limits and running cost`
-5. `## How it was built`: links to the pull request and the agent session
+5. `## How it was built`: the link to the pull request. Never link to the chat or agent session (see rule 8)
 6. `## My take`: **leave it empty.** Felipe writes it. A page with generated text under this heading is a defect.
 
 Front matter must state `type` (`production-like demo`, `research study` or `experiment`), the data

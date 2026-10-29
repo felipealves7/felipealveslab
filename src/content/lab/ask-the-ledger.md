@@ -75,7 +75,6 @@ To rerun it: <code>node pipelines/ask-the-ledger/evaluate.mjs</code>. A test che
 ## How it was built
 
 - Pull request: https://github.com/felipealves7/felipealveslab/pull/6
-- Agent session: https://claude.ai/code/session_01NMrhpjgbRcoSe4xeoZanLe
 - Code: `pipelines/ask-the-ledger/`. Saved output: `data/ask-the-ledger/`. Tests: `pipelines/ask-the-ledger/ledger.test.mjs`.
 
 ## My take
