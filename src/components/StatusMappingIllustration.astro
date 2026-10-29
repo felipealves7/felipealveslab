@@ -12,7 +12,7 @@ const mappingRows = Object.entries(MAPPINGS).flatMap(([source, table]) =>
   Object.entries(table).map(([label, state]) => ({
     source: sourceNames[source],
     label,
-    state: STATE_LABELS[state],
+    state: STATE_LABELS[state as keyof typeof STATE_LABELS],
   }))
 );
 ---

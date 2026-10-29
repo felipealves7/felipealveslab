@@ -74,8 +74,10 @@ export function evaluateRules(history, window = WINDOW) {
     earliest: { label: 'Earliest observed date', pick: earliestDay },
     frequent: { label: 'Most frequent date', pick: mostFrequentDay },
   };
+  /** @type {Record<'earliest' | 'frequent', { label: string, mae: number, exactShare: number, n: number, perEntity: { entity: string, mae: number }[] }>} */
+  // @ts-ignore filled in the loop below, one entry per rule
   const result = {};
-  for (const [key, rule] of Object.entries(rules)) {
+  for (const [key, rule] of /** @type {['earliest' | 'frequent', typeof rules.earliest][]} */ (Object.entries(rules))) {
     let absError = 0;
     let exact = 0;
     let n = 0;
