@@ -1,0 +1,49 @@
+{
+  "kind": "recorded example, not live",
+  "synthetic": true,
+  "note": "The queries were written by hand to show the shape of an answer. They are not model output. The rows were computed by running them on the synthetic ledger.",
+  "examples": [
+    {
+      "question": "Which entity had the highest revenue in 2025?",
+      "sql": "SELECT entity, SUM(amount) AS revenue FROM ledger WHERE account_group = 'Revenue' AND month BETWEEN '2025-01' AND '2025-12' GROUP BY entity ORDER BY revenue DESC LIMIT 1",
+      "explanation": "Adds up every Revenue account for each company across 2025 and keeps the largest. Amounts are thousands of AED.",
+      "rows": [
+        {
+          "entity": "North Hub",
+          "revenue": 39742
+        }
+      ]
+    },
+    {
+      "question": "What was operating profit by entity in Q3 2026?",
+      "sql": "SELECT entity, SUM(CASE account_group WHEN 'Revenue' THEN amount ELSE -amount END) AS operating_profit FROM ledger WHERE month BETWEEN '2026-07' AND '2026-09' GROUP BY entity ORDER BY entity LIMIT 100",
+      "explanation": "Operating profit is revenue minus cost of sales minus operating expenses, so revenue counts as plus and the other two groups as minus. Amounts are thousands of AED.",
+      "rows": [
+        {
+          "entity": "Delta Services",
+          "operating_profit": 962
+        },
+        {
+          "entity": "Harbour Retail",
+          "operating_profit": 870
+        },
+        {
+          "entity": "Lakeside Energy",
+          "operating_profit": 520
+        },
+        {
+          "entity": "North Hub",
+          "operating_profit": 1215
+        },
+        {
+          "entity": "Orchard Foods",
+          "operating_profit": 989
+        },
+        {
+          "entity": "Summit Logistics",
+          "operating_profit": 1133
+        }
+      ]
+    }
+  ]
+}

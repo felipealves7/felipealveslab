@@ -13,6 +13,7 @@ const d = entry.data;
 const fmt = (date: Date) => date.toISOString().slice(0, 10);
 const DEMOS: Record<string, string> = { 'ask-the-ledger': '/js/ledger-demo.js', 'airport-data-contract': '/js/airport-contract-demo.js' };
 const demoScript = DEMOS[entry.id];
+const extraScript = entry.id === 'ask-the-ledger' ? '/js/ledger-live.js' : undefined;
 ---
 <Base
   title={`${d.title} — Data & AI Lab`}
@@ -42,4 +43,5 @@ const demoScript = DEMOS[entry.id];
     </section>
   </main>
   {demoScript && <script is:inline src={demoScript}></script>}
+  {extraScript && <script is:inline src={extraScript}></script>}
 </Base>
