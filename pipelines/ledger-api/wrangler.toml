@@ -1,0 +1,21 @@
+# Worker `ledger-api`. Separate from the old `felipealveslab` Worker.
+# No secrets here. If the model is switched to Claude Haiku later, Felipe adds ANTHROPIC_API_KEY
+# as a Worker secret in Cloudflare and sets MODEL_PROVIDER = "anthropic".
+name = "ledger-api"
+main = "worker.mjs"
+compatibility_date = "2026-10-01"
+
+[vars]
+MODEL_PROVIDER = "workers-ai"
+
+[ai]
+binding = "AI"
+
+[[d1_databases]]
+binding = "LEDGER"
+database_name = "ledger"
+database_id = "REPLACE_WITH_D1_DATABASE_ID" # shown in the Cloudflare dashboard; an id, not a secret
+
+[[kv_namespaces]]
+binding = "COUNTERS"
+id = "REPLACE_WITH_KV_NAMESPACE_ID"
