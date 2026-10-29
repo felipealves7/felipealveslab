@@ -1,0 +1,25 @@
+/* Lab hub, Lab pages and the Ask the Ledger demo. Built on the existing design tokens. */
+.lab-list{padding-bottom:56px}
+.lab-card{display:block;text-decoration:none;color:inherit}
+.lab-card:hover h3{text-decoration:underline}
+.lab-meta{font-size:14px;color:var(--soft)}
+.lab-body{padding-bottom:72px}
+.lab-prose{max-width:820px}
+.lab-prose h2{font-family:var(--serif);font-weight:400;font-size:clamp(28px,3.4vw,40px);letter-spacing:-.035em;margin:56px 0 14px}
+.lab-prose h2:first-child{margin-top:0}
+.lab-prose table{border-collapse:collapse;width:100%;margin:18px 0;font-size:15px}
+.lab-prose th,.lab-prose td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+.lab-prose code{background:rgba(26,26,23,.06);padding:1px 5px;border-radius:3px;font-size:.92em}
+.lab-prose pre{overflow:auto;background:rgba(26,26,23,.06);padding:14px 16px;border-radius:8px}
+.ledger-demo{border:1px solid var(--line);border-radius:10px;padding:18px 20px;margin:22px 0;background:rgba(248,246,240,.6)}
+.ledger-demo label{display:block;font-weight:650;font-size:14px;margin-bottom:6px}
+.ledger-demo select{width:100%;max-width:100%;padding:10px;font:inherit;border:1px solid var(--line);border-radius:6px;background:#fff}
+.ledger-demo .row{display:flex;gap:12px;flex-wrap:wrap;margin:12px 0}
+.ledger-demo .row>div{flex:1 1 220px}
+.ledger-demo pre{white-space:pre-wrap;word-break:break-word;font-size:13px;margin:6px 0 0}
+.ledger-demo .badge{display:inline-block;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:650;border:1px solid var(--line)}
+.ledger-demo .badge.ok{background:rgba(105,113,90,.18)}
+.ledger-demo .badge.bad{background:rgba(160,60,40,.14)}
+.ledger-demo .small{font-size:13px;color:var(--soft)}
+.ledger-demo table{width:100%;border-collapse:collapse;font-size:14px;margin-top:10px}
+.ledger-demo td,.ledger-demo th{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left}

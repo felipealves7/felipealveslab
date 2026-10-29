@@ -1,0 +1,1773 @@
+{
+  "generatedBy": "pipelines/ask-the-ledger/evaluate.mjs",
+  "synthetic": true,
+  "seed": 2027,
+  "translator": "keyword rules (pipelines/ask-the-ledger/translate.mjs), no language model",
+  "ledger": {
+    "rows": 1008,
+    "entities": [
+      "North Hub",
+      "Harbour Retail",
+      "Delta Services",
+      "Summit Logistics",
+      "Orchard Foods",
+      "Lakeside Energy"
+    ],
+    "accounts": [
+      {
+        "account": "Product sales",
+        "group": "Revenue"
+      },
+      {
+        "account": "Service fees",
+        "group": "Revenue"
+      },
+      {
+        "account": "Materials",
+        "group": "Cost of sales"
+      },
+      {
+        "account": "Direct labour",
+        "group": "Cost of sales"
+      },
+      {
+        "account": "Payroll",
+        "group": "Operating expense"
+      },
+      {
+        "account": "Rent",
+        "group": "Operating expense"
+      },
+      {
+        "account": "Marketing",
+        "group": "Operating expense"
+      },
+      {
+        "account": "IT",
+        "group": "Operating expense"
+      }
+    ],
+    "from": "2025-01",
+    "to": "2026-09",
+    "unit": "AED thousand",
+    "questionsAskedIn": "2026-10"
+  },
+  "semanticLayer": [
+    {
+      "key": "revenue",
+      "label": "Revenue",
+      "definition": "Sum of all accounts in the Revenue group.",
+      "unit": "AED thousand",
+      "words": [
+        "revenue",
+        "sales",
+        "turnover"
+      ]
+    },
+    {
+      "key": "cost_of_sales",
+      "label": "Cost of sales",
+      "definition": "Sum of all accounts in the Cost of sales group.",
+      "unit": "AED thousand",
+      "words": [
+        "cost of sales",
+        "cogs",
+        "cost of goods sold",
+        "direct costs"
+      ]
+    },
+    {
+      "key": "gross_profit",
+      "label": "Gross profit",
+      "definition": "Revenue minus cost of sales.",
+      "unit": "AED thousand",
+      "words": [
+        "gross profit"
+      ]
+    },
+    {
+      "key": "gross_margin",
+      "label": "Gross margin",
+      "definition": "Gross profit divided by revenue, as a percentage. Zero when revenue is zero.",
+      "unit": "%",
+      "words": [
+        "gross margin"
+      ]
+    },
+    {
+      "key": "opex",
+      "label": "Operating expenses",
+      "definition": "Sum of all accounts in the Operating expense group.",
+      "unit": "AED thousand",
+      "words": [
+        "operating expenses",
+        "operating costs",
+        "opex",
+        "overheads"
+      ]
+    },
+    {
+      "key": "operating_profit",
+      "label": "Operating profit",
+      "definition": "Revenue minus cost of sales minus operating expenses.",
+      "unit": "AED thousand",
+      "words": [
+        "operating profit",
+        "operating income",
+        "operating result"
+      ]
+    }
+  ],
+  "summary": {
+    "total": 47,
+    "correct_answer": 30,
+    "correct_refusal": 10,
+    "wrong_answer": 5,
+    "wrongly_refused": 2,
+    "byType": {
+      "plain": {
+        "total": 30,
+        "right": 30
+      },
+      "paraphrase": {
+        "total": 4,
+        "right": 0
+      },
+      "ambiguous": {
+        "total": 4,
+        "right": 2
+      },
+      "unsupported": {
+        "total": 9,
+        "right": 8
+      }
+    }
+  },
+  "questions": [
+    {
+      "id": 1,
+      "text": "What was total revenue in 2025?",
+      "type": "plain",
+      "want": {
+        "outcome": "answer",
+        "result": {
+          "kind": "scalar",
+          "value": 181141
+        }
+      },
+      "got": {
+        "outcome": "answer",
+        "spec": {
+          "metric": "revenue",
+          "from": "2025-01",
+          "to": "2025-12",
+          "periodLabel": "2025"
+        }
+      },
+      "result": {
+        "kind": "scalar",
+        "value": 181141
+      },
+      "verdict": "correct_answer"
+    },
+    {
+      "id": 2,
+      "text": "What was revenue in 2026?",
+      "type": "plain",
+      "want": {
+        "outcome": "answer",
+        "result": {
+          "kind": "scalar",
+          "value": 157228
+        }
+      },
+      "got": {
+        "outcome": "answer",
+        "spec": {
+          "metric": "revenue",
+          "from": "2026-01",
+          "to": "2026-09",
+          "periodLabel": "2026"
+        }
+      },
+      "result": {
+        "kind": "scalar",
+        "value": 157228
+      },
+      "verdict": "correct_answer"
+    },
+    {
+      "id": 3,
+      "text": "Revenue in Q1 2026",
+      "type": "plain",
+      "want": {
+        "outcome": "answer",
+        "result": {
+          "kind": "scalar",
+          "value": 51147
+        }
+      },
+      "got": {
+        "outcome": "answer",
+        "spec": {
+          "metric": "revenue",
+          "from": "2026-01",
+          "to": "2026-03",
+          "periodLabel": "Q1 2026"
+        }
+      },
+      "result": {
+        "kind": "scalar",
+        "value": 51147
+      },
+      "verdict": "correct_answer"
+    },
+    {
+      "id": 4,
+      "text": "What was gross profit in Q4 2025?",
+      "type": "plain",
+      "want": {
+        "outcome": "answer",
+        "result": {
+          "kind": "scalar",
+          "value": 22400
+        }
+      },
+      "got": {
+        "outcome": "answer",
+        "spec": {
+          "metric": "gross_profit",
+          "from": "2025-10",
+          "to": "2025-12",
+          "periodLabel": "Q4 2025"
+        }
+      },
+      "result": {
+        "kind": "scalar",
+        "value": 22400
+      },
+      "verdict": "correct_answer"
+    },
+    {
+      "id": 5,
+      "text": "What was the gross margin in 2025?",
+      "type": "plain",
+      "want": {
+        "outcome": "answer",
+        "result": {
+          "kind": "scalar",
+          "value": 48.2
+        }
+      },
+      "got": {
+        "outcome": "answer",
+        "spec": {
+          "metric": "gross_margin",
+          "from": "2025-01",
+          "to": "2025-12",
+          "periodLabel": "2025"
+        }
+      },
+      "result": {
+        "kind": "scalar",
+        "value": 48.2
+      },
+      "verdict": "correct_answer"
+    },
+    {
+      "id": 6,
+      "text": "What was operating profit in 2026?",
+      "type": "plain",
+      "want": {
+        "outcome": "answer",
+        "result": {
+          "kind": "scalar",
+          "value": 16531
+        }
+      },
+      "got": {
+        "outcome": "answer",
+        "spec": {
+          "metric": "operating_profit",
+          "from": "2026-01",
+          "to": "2026-09",
+          "periodLabel": "2026"
+        }
+      },
+      "result": {
+        "kind": "scalar",
+        "value": 16531
+      },
+      "verdict": "correct_answer"
+    },
+    {
+      "id": 7,
+      "text": "Operating expenses in March 2026",
+      "type": "plain",
+      "want": {
+        "outcome": "answer",
+        "result": {
+          "kind": "scalar",
+          "value": 6863
+        }
+      },
+      "got": {
+        "outcome": "answer",
+        "spec": {
+          "metric": "opex",
+          "from": "2026-03",
+          "to": "2026-03",
+          "periodLabel": "2026-03"
+        }
+      },
+      "result": {
+        "kind": "scalar",
+        "value": 6863
+      },
+      "verdict": "correct_answer"
+    },
+    {
+      "id": 8,
+      "text": "Cost of sales in 2025",
+      "type": "plain",
+      "want": {
+        "outcome": "answer",
+        "result": {
+          "kind": "scalar",
+          "value": 93795
+        }
+      },
+      "got": {
+        "outcome": "answer",
+        "spec": {
+          "metric": "cost_of_sales",
+          "from": "2025-01",
+          "to": "2025-12",
+          "periodLabel": "2025"
+        }
+      },
+      "result": {
+        "kind": "scalar",
+        "value": 93795
+      },
+      "verdict": "correct_answer"
+    },
+    {
+      "id": 9,
+      "text": "Revenue by entity in 2025",
+      "type": "plain",
+      "want": {
+        "outcome": "answer",
+        "result": {
+          "kind": "table",
+          "rows": [
+            {
+              "label": "Delta Services",
+              "value": 32384
+            },
+            {
+              "label": "Harbour Retail",
+              "value": 26167
+            },
+            {
+              "label": "Lakeside Energy",
+              "value": 19074
+            },
+            {
+              "label": "North Hub",
+              "value": 39742
+            },
+            {
+              "label": "Orchard Foods",
+              "value": 25223
+            },
+            {
+              "label": "Summit Logistics",
+              "value": 38551
+            }
+          ]
+        }
+      },
+      "got": {
+        "outcome": "answer",
+        "spec": {
+          "metric": "revenue",
+          "from": "2025-01",
+          "to": "2025-12",
+          "periodLabel": "2025",
+          "groupBy": "entity"
+        }
+      },
+      "result": {
+        "kind": "table",
+        "rows": [
+          {
+            "label": "Delta Services",
+            "value": 32384
+          },
+          {
+            "label": "Harbour Retail",
+            "value": 26167
+          },
+          {
+            "label": "Lakeside Energy",
+            "value": 19074
+          },
+          {
+            "label": "North Hub",
+            "value": 39742
+          },
+          {
+            "label": "Orchard Foods",
+            "value": 25223
+          },
+          {
+            "label": "Summit Logistics",
+            "value": 38551
+          }
+        ]
+      },
+      "verdict": "correct_answer"
+    },
+    {
+      "id": 10,
+      "text": "Operating profit by entity in Q3 2026",
+      "type": "plain",
+      "want": {
+        "outcome": "answer",
+        "result": {
+          "kind": "table",
+          "rows": [
+            {
+              "label": "Delta Services",
+              "value": 962
+            },
+            {
+              "label": "Harbour Retail",
+              "value": 870
+            },
+            {
+              "label": "Lakeside Energy",
+              "value": 520
+            },
+            {
+              "label": "North Hub",
+              "value": 1215
+            },
+            {
+              "label": "Orchard Foods",
+              "value": 989
+            },
+            {
+              "label": "Summit Logistics",
+              "value": 1133
+            }
+          ]
+        }
+      },
+      "got": {
+        "outcome": "answer",
+        "spec": {
+          "metric": "operating_profit",
+          "from": "2026-07",
+          "to": "2026-09",
+          "periodLabel": "Q3 2026",
+          "groupBy": "entity"
+        }
+      },
+      "result": {
+        "kind": "table",
+        "rows": [
+          {
+            "label": "Delta Services",
+            "value": 962
+          },
+          {
+            "label": "Harbour Retail",
+            "value": 870
+          },
+          {
+            "label": "Lakeside Energy",
+            "value": 520
+          },
+          {
+            "label": "North Hub",
+            "value": 1215
+          },
+          {
+            "label": "Orchard Foods",
+            "value": 989
+          },
+          {
+            "label": "Summit Logistics",
+            "value": 1133
+          }
+        ]
+      },
+      "verdict": "correct_answer"
+    },
+    {
+      "id": 11,
+      "text": "Revenue by month in 2025",
+      "type": "plain",
+      "want": {
+        "outcome": "answer",
+        "result": {
+          "kind": "table",
+          "rows": [
+            {
+              "label": "2025-01",
+              "value": 13735
+            },
+            {
+              "label": "2025-02",
+              "value": 14977
+            },
+            {
+              "label": "2025-03",
+              "value": 15655
+            },
+            {
+              "label": "2025-04",
+              "value": 15508
+            },
+            {
+              "label": "2025-05",
+              "value": 15803
+            },
+            {
+              "label": "2025-06",
+              "value": 15620
+            },
+            {
+              "label": "2025-07",
+              "value": 15382
+            },
+            {
+              "label": "2025-08",
+              "value": 14383
+            },
+            {
+              "label": "2025-09",
+              "value": 14520
+            },
+            {
+              "label": "2025-10",
+              "value": 14922
+            },
+            {
+              "label": "2025-11",
+              "value": 14829
+            },
+            {
+              "label": "2025-12",
+              "value": 15807
+            }
+          ]
+        }
+      },
+      "got": {
+        "outcome": "answer",
+        "spec": {
+          "metric": "revenue",
+          "from": "2025-01",
+          "to": "2025-12",
+          "periodLabel": "2025",
+          "groupBy": "month"
+        }
+      },
+      "result": {
+        "kind": "table",
+        "rows": [
+          {
+            "label": "2025-01",
+            "value": 13735
+          },
+          {
+            "label": "2025-02",
+            "value": 14977
+          },
+          {
+            "label": "2025-03",
+            "value": 15655
+          },
+          {
+            "label": "2025-04",
+            "value": 15508
+          },
+          {
+            "label": "2025-05",
+            "value": 15803
+          },
+          {
+            "label": "2025-06",
+            "value": 15620
+          },
+          {
+            "label": "2025-07",
+            "value": 15382
+          },
+          {
+            "label": "2025-08",
+            "value": 14383
+          },
+          {
+            "label": "2025-09",
+            "value": 14520
+          },
+          {
+            "label": "2025-10",
+            "value": 14922
+          },
+          {
+            "label": "2025-11",
+            "value": 14829
+          },
+          {
+            "label": "2025-12",
+            "value": 15807
+          }
+        ]
+      },
+      "verdict": "correct_answer"
+    },
+    {
+      "id": 12,
+      "text": "Revenue by quarter in 2025",
+      "type": "plain",
+      "want": {
+        "outcome": "answer",
+        "result": {
+          "kind": "table",
+          "rows": [
+            {
+              "label": "2025-Q1",
+              "value": 44367
+            },
+            {
+              "label": "2025-Q2",
+              "value": 46931
+            },
+            {
+              "label": "2025-Q3",
+              "value": 44285
+            },
+            {
+              "label": "2025-Q4",
+              "value": 45558
+            }
+          ]
+        }
+      },
+      "got": {
+        "outcome": "answer",
+        "spec": {
+          "metric": "revenue",
+          "from": "2025-01",
+          "to": "2025-12",
+          "periodLabel": "2025",
+          "groupBy": "quarter"
+        }
+      },
+      "result": {
+        "kind": "table",
+        "rows": [
+          {
+            "label": "2025-Q1",
+            "value": 44367
+          },
+          {
+            "label": "2025-Q2",
+            "value": 46931
+          },
+          {
+            "label": "2025-Q3",
+            "value": 44285
+          },
+          {
+            "label": "2025-Q4",
+            "value": 45558
+          }
+        ]
+      },
+      "verdict": "correct_answer"
+    },
+    {
+      "id": 13,
+      "text": "Which entity had the highest revenue in 2025?",
+      "type": "plain",
+      "want": {
+        "outcome": "answer",
+        "result": {
+          "kind": "table",
+          "rows": [
+            {
+              "label": "North Hub",
+              "value": 39742
+            }
+          ]
+        }
+      },
+      "got": {
+        "outcome": "answer",
+        "spec": {
+          "metric": "revenue",
+          "from": "2025-01",
+          "to": "2025-12",
+          "periodLabel": "2025",
+          "groupBy": "entity",
+          "rank": {
+            "dir": "desc",
+            "n": 1
+          }
+        }
+      },
+      "result": {
+        "kind": "table",
+        "rows": [
+          {
+            "label": "North Hub",
+            "value": 39742
+          }
+        ]
+      },
+      "verdict": "correct_answer"
+    },
+    {
+      "id": 14,
+      "text": "Which entity had the lowest gross margin in 2026?",
+      "type": "plain",
+      "want": {
+        "outcome": "answer",
+        "result": {
+          "kind": "table",
+          "rows": [
+            {
+              "label": "Summit Logistics",
+              "value": 46.2
+            }
+          ]
+        }
+      },
+      "got": {
+        "outcome": "answer",
+        "spec": {
+          "metric": "gross_margin",
+          "from": "2026-01",
+          "to": "2026-09",
+          "periodLabel": "2026",
+          "groupBy": "entity",
+          "rank": {
+            "dir": "asc",
+            "n": 1
+          }
+        }
+      },
+      "result": {
+        "kind": "table",
+        "rows": [
+          {
+            "label": "Summit Logistics",
+            "value": 46.2
+          }
+        ]
+      },
+      "verdict": "correct_answer"
+    },
+    {
+      "id": 15,
+      "text": "Top 3 entities by operating expenses in Q2 2026",
+      "type": "plain",
+      "want": {
+        "outcome": "answer",
+        "result": {
+          "kind": "table",
+          "rows": [
+            {
+              "label": "Summit Logistics",
+              "value": 4514
+            },
+            {
+              "label": "North Hub",
+              "value": 4391
+            },
+            {
+              "label": "Delta Services",
+              "value": 3378
+            }
+          ]
+        }
+      },
+      "got": {
+        "outcome": "answer",
+        "spec": {
+          "metric": "opex",
+          "from": "2026-04",
+          "to": "2026-06",
+          "periodLabel": "Q2 2026",
+          "groupBy": "entity",
+          "rank": {
+            "dir": "desc",
+            "n": 3
+          }
+        }
+      },
+      "result": {
+        "kind": "table",
+        "rows": [
+          {
+            "label": "Summit Logistics",
+            "value": 4514
+          },
+          {
+            "label": "North Hub",
+            "value": 4391
+          },
+          {
+            "label": "Delta Services",
+            "value": 3378
+          }
+        ]
+      },
+      "verdict": "correct_answer"
+    },
+    {
+      "id": 16,
+      "text": "Revenue of North Hub in 2025",
+      "type": "plain",
+      "want": {
+        "outcome": "answer",
+        "result": {
+          "kind": "scalar",
+          "value": 39742
+        }
+      },
+      "got": {
+        "outcome": "answer",
+        "spec": {
+          "metric": "revenue",
+          "from": "2025-01",
+          "to": "2025-12",
+          "periodLabel": "2025",
+          "entity": "North Hub"
+        }
+      },
+      "result": {
+        "kind": "scalar",
+        "value": 39742
+      },
+      "verdict": "correct_answer"
+    },
+    {
+      "id": 17,
+      "text": "Operating profit for Delta Services in Q1 2026",
+      "type": "plain",
+      "want": {
+        "outcome": "answer",
+        "result": {
+          "kind": "scalar",
+          "value": 686
+        }
+      },
+      "got": {
+        "outcome": "answer",
+        "spec": {
+          "metric": "operating_profit",
+          "from": "2026-01",
+          "to": "2026-03",
+          "periodLabel": "Q1 2026",
+          "entity": "Delta Services"
+        }
+      },
+      "result": {
+        "kind": "scalar",
+        "value": 686
+      },
+      "verdict": "correct_answer"
+    },
+    {
+      "id": 18,
+      "text": "What was revenue last quarter?",
+      "type": "plain",
+      "want": {
+        "outcome": "answer",
+        "result": {
+          "kind": "scalar",
+          "value": 51379
+        }
+      },
+      "got": {
+        "outcome": "answer",
+        "spec": {
+          "metric": "revenue",
+          "from": "2026-07",
+          "to": "2026-09",
+          "periodLabel": "Q3 2026"
+        }
+      },
+      "result": {
+        "kind": "scalar",
+        "value": 51379
+      },
+      "verdict": "correct_answer"
+    },
+    {
+      "id": 19,
+      "text": "Gross profit last month",
+      "type": "plain",
+      "want": {
+        "outcome": "answer",
+        "result": {
+          "kind": "scalar",
+          "value": 7837
+        }
+      },
+      "got": {
+        "outcome": "answer",
+        "spec": {
+          "metric": "gross_profit",
+          "from": "2026-09",
+          "to": "2026-09",
+          "periodLabel": "2026-09"
+        }
+      },
+      "result": {
+        "kind": "scalar",
+        "value": 7837
+      },
+      "verdict": "correct_answer"
+    },
+    {
+      "id": 20,
+      "text": "Operating expenses this year",
+      "type": "plain",
+      "want": {
+        "outcome": "answer",
+        "result": {
+          "kind": "scalar",
+          "value": 58488
+        }
+      },
+      "got": {
+        "outcome": "answer",
+        "spec": {
+          "metric": "opex",
+          "from": "2026-01",
+          "to": "2026-09",
+          "periodLabel": "2026 to date"
+        }
+      },
+      "result": {
+        "kind": "scalar",
+        "value": 58488
+      },
+      "verdict": "correct_answer"
+    },
+    {
+      "id": 21,
+      "text": "Sales in 2026",
+      "type": "plain",
+      "want": {
+        "outcome": "answer",
+        "result": {
+          "kind": "scalar",
+          "value": 157228
+        }
+      },
+      "got": {
+        "outcome": "answer",
+        "spec": {
+          "metric": "revenue",
+          "from": "2026-01",
+          "to": "2026-09",
+          "periodLabel": "2026"
+        }
+      },
+      "result": {
+        "kind": "scalar",
+        "value": 157228
+      },
+      "verdict": "correct_answer"
+    },
+    {
+      "id": 22,
+      "text": "Turnover for Harbour Retail in 2025",
+      "type": "plain",
+      "want": {
+        "outcome": "answer",
+        "result": {
+          "kind": "scalar",
+          "value": 26167
+        }
+      },
+      "got": {
+        "outcome": "answer",
+        "spec": {
+          "metric": "revenue",
+          "from": "2025-01",
+          "to": "2025-12",
+          "periodLabel": "2025",
+          "entity": "Harbour Retail"
+        }
+      },
+      "result": {
+        "kind": "scalar",
+        "value": 26167
+      },
+      "verdict": "correct_answer"
+    },
+    {
+      "id": 23,
+      "text": "COGS in Q2 2025",
+      "type": "plain",
+      "want": {
+        "outcome": "answer",
+        "result": {
+          "kind": "scalar",
+          "value": 24909
+        }
+      },
+      "got": {
+        "outcome": "answer",
+        "spec": {
+          "metric": "cost_of_sales",
+          "from": "2025-04",
+          "to": "2025-06",
+          "periodLabel": "Q2 2025"
+        }
+      },
+      "result": {
+        "kind": "scalar",
+        "value": 24909
+      },
+      "verdict": "correct_answer"
+    },
+    {
+      "id": 24,
+      "text": "Gross margin by entity in 2025",
+      "type": "plain",
+      "want": {
+        "outcome": "answer",
+        "result": {
+          "kind": "table",
+          "rows": [
+            {
+              "label": "Delta Services",
+              "value": 48.1
+            },
+            {
+              "label": "Harbour Retail",
+              "value": 48.1
+            },
+            {
+              "label": "Lakeside Energy",
+              "value": 49
+            },
+            {
+              "label": "North Hub",
+              "value": 48.3
+            },
+            {
+              "label": "Orchard Foods",
+              "value": 49.1
+            },
+            {
+              "label": "Summit Logistics",
+              "value": 47.3
+            }
+          ]
+        }
+      },
+      "got": {
+        "outcome": "answer",
+        "spec": {
+          "metric": "gross_margin",
+          "from": "2025-01",
+          "to": "2025-12",
+          "periodLabel": "2025",
+          "groupBy": "entity"
+        }
+      },
+      "result": {
+        "kind": "table",
+        "rows": [
+          {
+            "label": "Delta Services",
+            "value": 48.1
+          },
+          {
+            "label": "Harbour Retail",
+            "value": 48.1
+          },
+          {
+            "label": "Lakeside Energy",
+            "value": 49
+          },
+          {
+            "label": "North Hub",
+            "value": 48.3
+          },
+          {
+            "label": "Orchard Foods",
+            "value": 49.1
+          },
+          {
+            "label": "Summit Logistics",
+            "value": 47.3
+          }
+        ]
+      },
+      "verdict": "correct_answer"
+    },
+    {
+      "id": 25,
+      "text": "What is total revenue?",
+      "type": "plain",
+      "want": {
+        "outcome": "answer",
+        "result": {
+          "kind": "scalar",
+          "value": 338369
+        }
+      },
+      "got": {
+        "outcome": "answer",
+        "spec": {
+          "metric": "revenue",
+          "from": "2025-01",
+          "to": "2026-09",
+          "periodLabel": "all periods"
+        }
+      },
+      "result": {
+        "kind": "scalar",
+        "value": 338369
+      },
+      "verdict": "correct_answer"
+    },
+    {
+      "id": 26,
+      "text": "Bottom 2 entities by revenue in 2026",
+      "type": "plain",
+      "want": {
+        "outcome": "answer",
+        "result": {
+          "kind": "table",
+          "rows": [
+            {
+              "label": "Lakeside Energy",
+              "value": 16958
+            },
+            {
+              "label": "Harbour Retail",
+              "value": 21387
+            }
+          ]
+        }
+      },
+      "got": {
+        "outcome": "answer",
+        "spec": {
+          "metric": "revenue",
+          "from": "2026-01",
+          "to": "2026-09",
+          "periodLabel": "2026",
+          "groupBy": "entity",
+          "rank": {
+            "dir": "asc",
+            "n": 2
+          }
+        }
+      },
+      "result": {
+        "kind": "table",
+        "rows": [
+          {
+            "label": "Lakeside Energy",
+            "value": 16958
+          },
+          {
+            "label": "Harbour Retail",
+            "value": 21387
+          }
+        ]
+      },
+      "verdict": "correct_answer"
+    },
+    {
+      "id": 27,
+      "text": "Monthly revenue for Summit Logistics in 2026",
+      "type": "plain",
+      "want": {
+        "outcome": "answer",
+        "result": {
+          "kind": "table",
+          "rows": [
+            {
+              "label": "2026-01",
+              "value": 3409
+            },
+            {
+              "label": "2026-02",
+              "value": 3814
+            },
+            {
+              "label": "2026-03",
+              "value": 4004
+            },
+            {
+              "label": "2026-04",
+              "value": 4046
+            },
+            {
+              "label": "2026-05",
+              "value": 4093
+            },
+            {
+              "label": "2026-06",
+              "value": 3988
+            },
+            {
+              "label": "2026-07",
+              "value": 3892
+            },
+            {
+              "label": "2026-08",
+              "value": 4078
+            },
+            {
+              "label": "2026-09",
+              "value": 3818
+            }
+          ]
+        }
+      },
+      "got": {
+        "outcome": "answer",
+        "spec": {
+          "metric": "revenue",
+          "from": "2026-01",
+          "to": "2026-09",
+          "periodLabel": "2026",
+          "entity": "Summit Logistics",
+          "groupBy": "month"
+        }
+      },
+      "result": {
+        "kind": "table",
+        "rows": [
+          {
+            "label": "2026-01",
+            "value": 3409
+          },
+          {
+            "label": "2026-02",
+            "value": 3814
+          },
+          {
+            "label": "2026-03",
+            "value": 4004
+          },
+          {
+            "label": "2026-04",
+            "value": 4046
+          },
+          {
+            "label": "2026-05",
+            "value": 4093
+          },
+          {
+            "label": "2026-06",
+            "value": 3988
+          },
+          {
+            "label": "2026-07",
+            "value": 3892
+          },
+          {
+            "label": "2026-08",
+            "value": 4078
+          },
+          {
+            "label": "2026-09",
+            "value": 3818
+          }
+        ]
+      },
+      "verdict": "correct_answer"
+    },
+    {
+      "id": 28,
+      "text": "Quarterly operating profit in 2026",
+      "type": "plain",
+      "want": {
+        "outcome": "answer",
+        "result": {
+          "kind": "table",
+          "rows": [
+            {
+              "label": "2026-Q1",
+              "value": 5084
+            },
+            {
+              "label": "2026-Q2",
+              "value": 5758
+            },
+            {
+              "label": "2026-Q3",
+              "value": 5689
+            }
+          ]
+        }
+      },
+      "got": {
+        "outcome": "answer",
+        "spec": {
+          "metric": "operating_profit",
+          "from": "2026-01",
+          "to": "2026-09",
+          "periodLabel": "2026",
+          "groupBy": "quarter"
+        }
+      },
+      "result": {
+        "kind": "table",
+        "rows": [
+          {
+            "label": "2026-Q1",
+            "value": 5084
+          },
+          {
+            "label": "2026-Q2",
+            "value": 5758
+          },
+          {
+            "label": "2026-Q3",
+            "value": 5689
+          }
+        ]
+      },
+      "verdict": "correct_answer"
+    },
+    {
+      "id": 29,
+      "text": "Gross profit by entity last year",
+      "type": "plain",
+      "want": {
+        "outcome": "answer",
+        "result": {
+          "kind": "table",
+          "rows": [
+            {
+              "label": "Delta Services",
+              "value": 15582
+            },
+            {
+              "label": "Harbour Retail",
+              "value": 12587
+            },
+            {
+              "label": "Lakeside Energy",
+              "value": 9355
+            },
+            {
+              "label": "North Hub",
+              "value": 19200
+            },
+            {
+              "label": "Orchard Foods",
+              "value": 12388
+            },
+            {
+              "label": "Summit Logistics",
+              "value": 18234
+            }
+          ]
+        }
+      },
+      "got": {
+        "outcome": "answer",
+        "spec": {
+          "metric": "gross_profit",
+          "from": "2025-01",
+          "to": "2025-12",
+          "periodLabel": "2025",
+          "groupBy": "entity"
+        }
+      },
+      "result": {
+        "kind": "table",
+        "rows": [
+          {
+            "label": "Delta Services",
+            "value": 15582
+          },
+          {
+            "label": "Harbour Retail",
+            "value": 12587
+          },
+          {
+            "label": "Lakeside Energy",
+            "value": 9355
+          },
+          {
+            "label": "North Hub",
+            "value": 19200
+          },
+          {
+            "label": "Orchard Foods",
+            "value": 12388
+          },
+          {
+            "label": "Summit Logistics",
+            "value": 18234
+          }
+        ]
+      },
+      "verdict": "correct_answer"
+    },
+    {
+      "id": 30,
+      "text": "Which entity had the highest operating profit last quarter?",
+      "type": "plain",
+      "want": {
+        "outcome": "answer",
+        "result": {
+          "kind": "table",
+          "rows": [
+            {
+              "label": "North Hub",
+              "value": 1215
+            }
+          ]
+        }
+      },
+      "got": {
+        "outcome": "answer",
+        "spec": {
+          "metric": "operating_profit",
+          "from": "2026-07",
+          "to": "2026-09",
+          "periodLabel": "Q3 2026",
+          "groupBy": "entity",
+          "rank": {
+            "dir": "desc",
+            "n": 1
+          }
+        }
+      },
+      "result": {
+        "kind": "table",
+        "rows": [
+          {
+            "label": "North Hub",
+            "value": 1215
+          }
+        ]
+      },
+      "verdict": "correct_answer"
+    },
+    {
+      "id": 31,
+      "text": "How much did we sell in 2025?",
+      "type": "paraphrase",
+      "want": {
+        "outcome": "answer",
+        "result": {
+          "kind": "scalar",
+          "value": 181141
+        }
+      },
+      "got": {
+        "outcome": "refuse",
+        "reason": "unknown_metric"
+      },
+      "result": null,
+      "verdict": "wrongly_refused"
+    },
+    {
+      "id": 32,
+      "text": "What did Orchard Foods bring in during 2025?",
+      "type": "paraphrase",
+      "want": {
+        "outcome": "answer",
+        "result": {
+          "kind": "scalar",
+          "value": 25223
+        }
+      },
+      "got": {
+        "outcome": "refuse",
+        "reason": "unknown_metric"
+      },
+      "result": null,
+      "verdict": "wrongly_refused"
+    },
+    {
+      "id": 33,
+      "text": "Revenue for the first half of 2026",
+      "type": "paraphrase",
+      "want": {
+        "outcome": "answer",
+        "result": {
+          "kind": "scalar",
+          "value": 105849
+        }
+      },
+      "got": {
+        "outcome": "answer",
+        "spec": {
+          "metric": "revenue",
+          "from": "2026-01",
+          "to": "2026-09",
+          "periodLabel": "2026"
+        }
+      },
+      "result": {
+        "kind": "scalar",
+        "value": 157228
+      },
+      "verdict": "wrong_answer"
+    },
+    {
+      "id": 34,
+      "text": "Revenue in 2025 excluding Delta Services",
+      "type": "paraphrase",
+      "want": {
+        "outcome": "answer",
+        "result": {
+          "kind": "scalar",
+          "value": 148757
+        }
+      },
+      "got": {
+        "outcome": "answer",
+        "spec": {
+          "metric": "revenue",
+          "from": "2025-01",
+          "to": "2025-12",
+          "periodLabel": "2025",
+          "entity": "Delta Services"
+        }
+      },
+      "result": {
+        "kind": "scalar",
+        "value": 32384
+      },
+      "verdict": "wrong_answer"
+    },
+    {
+      "id": 35,
+      "text": "What was the profit in 2025?",
+      "type": "ambiguous",
+      "want": {
+        "outcome": "refuse"
+      },
+      "got": {
+        "outcome": "refuse",
+        "reason": "ambiguous_metric"
+      },
+      "result": null,
+      "verdict": "correct_refusal"
+    },
+    {
+      "id": 36,
+      "text": "What were our costs in 2026?",
+      "type": "ambiguous",
+      "want": {
+        "outcome": "refuse"
+      },
+      "got": {
+        "outcome": "refuse",
+        "reason": "ambiguous_metric"
+      },
+      "result": null,
+      "verdict": "correct_refusal"
+    },
+    {
+      "id": 37,
+      "text": "Revenue in Q2",
+      "type": "ambiguous",
+      "want": {
+        "outcome": "refuse"
+      },
+      "got": {
+        "outcome": "answer",
+        "spec": {
+          "metric": "revenue",
+          "from": "2026-04",
+          "to": "2026-06",
+          "periodLabel": "Q2 2026"
+        }
+      },
+      "result": {
+        "kind": "scalar",
+        "value": 54702
+      },
+      "verdict": "wrong_answer"
+    },
+    {
+      "id": 38,
+      "text": "Revenue in March",
+      "type": "ambiguous",
+      "want": {
+        "outcome": "refuse"
+      },
+      "got": {
+        "outcome": "answer",
+        "spec": {
+          "metric": "revenue",
+          "from": "2026-03",
+          "to": "2026-03",
+          "periodLabel": "2026-03"
+        }
+      },
+      "result": {
+        "kind": "scalar",
+        "value": 17766
+      },
+      "verdict": "wrong_answer"
+    },
+    {
+      "id": 39,
+      "text": "What was EBITDA in 2025?",
+      "type": "unsupported",
+      "want": {
+        "outcome": "refuse"
+      },
+      "got": {
+        "outcome": "refuse",
+        "reason": "unsupported"
+      },
+      "result": null,
+      "verdict": "correct_refusal"
+    },
+    {
+      "id": 40,
+      "text": "Forecast revenue for Q4 2026",
+      "type": "unsupported",
+      "want": {
+        "outcome": "refuse"
+      },
+      "got": {
+        "outcome": "refuse",
+        "reason": "unsupported"
+      },
+      "result": null,
+      "verdict": "correct_refusal"
+    },
+    {
+      "id": 41,
+      "text": "Why did operating expenses rise in 2026?",
+      "type": "unsupported",
+      "want": {
+        "outcome": "refuse"
+      },
+      "got": {
+        "outcome": "refuse",
+        "reason": "unsupported"
+      },
+      "result": null,
+      "verdict": "correct_refusal"
+    },
+    {
+      "id": 42,
+      "text": "Revenue in Q4 2026",
+      "type": "unsupported",
+      "want": {
+        "outcome": "refuse"
+      },
+      "got": {
+        "outcome": "answer",
+        "spec": {
+          "metric": "revenue",
+          "from": "2026-10",
+          "to": "2026-12",
+          "periodLabel": "Q4 2026"
+        }
+      },
+      "result": {
+        "kind": "no_data"
+      },
+      "verdict": "correct_refusal"
+    },
+    {
+      "id": 43,
+      "text": "Headcount by entity",
+      "type": "unsupported",
+      "want": {
+        "outcome": "refuse"
+      },
+      "got": {
+        "outcome": "refuse",
+        "reason": "unsupported"
+      },
+      "result": null,
+      "verdict": "correct_refusal"
+    },
+    {
+      "id": 44,
+      "text": "Revenue growth 2026 vs 2025",
+      "type": "unsupported",
+      "want": {
+        "outcome": "refuse"
+      },
+      "got": {
+        "outcome": "refuse",
+        "reason": "unsupported"
+      },
+      "result": null,
+      "verdict": "correct_refusal"
+    },
+    {
+      "id": 45,
+      "text": "What was net profit in 2025?",
+      "type": "unsupported",
+      "want": {
+        "outcome": "refuse"
+      },
+      "got": {
+        "outcome": "refuse",
+        "reason": "unsupported"
+      },
+      "result": null,
+      "verdict": "correct_refusal"
+    },
+    {
+      "id": 46,
+      "text": "How many entities are there?",
+      "type": "unsupported",
+      "want": {
+        "outcome": "refuse"
+      },
+      "got": {
+        "outcome": "refuse",
+        "reason": "unsupported"
+      },
+      "result": null,
+      "verdict": "correct_refusal"
+    },
+    {
+      "id": 47,
+      "text": "What was the operating profit margin in 2026?",
+      "type": "unsupported",
+      "want": {
+        "outcome": "refuse"
+      },
+      "got": {
+        "outcome": "answer",
+        "spec": {
+          "metric": "operating_profit",
+          "from": "2026-01",
+          "to": "2026-09",
+          "periodLabel": "2026"
+        }
+      },
+      "result": {
+        "kind": "scalar",
+        "value": 16531
+      },
+      "verdict": "wrong_answer"
+    }
+  ]
+}

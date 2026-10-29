@@ -21,7 +21,9 @@ export function targetExists(root, path) {
   return (
     existsSync(join(root, 'public', rel)) ||
     existsSync(join(root, 'src/pages', `${rel}.astro`)) ||
-    existsSync(join(root, 'src/pages', rel, 'index.astro'))
+    existsSync(join(root, 'src/pages', rel, 'index.astro')) ||
+    // Lab pages are generated from src/content/lab/<slug>.md by src/pages/lab/[slug].astro
+    (/^lab\/[^/]+$/.test(rel) && existsSync(join(root, 'src/content/lab', `${rel.slice(4)}.md`)))
   );
 }
 
