@@ -3,8 +3,8 @@ name: airport-contract
 # Runs the airport data contract (pipelines/airport-contract) on OurAirports' files and saves every
 # run, passed or failed, on the branch "airport-runs", which /lab/airport-data-contract reads.
 # It never pushes to main. Runs every Monday at 03:17 UTC, after each merge that changes the
-# pipeline or this file, and by hand from the Actions tab. On pull requests it runs the pipeline as
-# a check and saves nothing.
+# pipeline or this file, and by hand from the Actions tab. On pull requests only the "check" job
+# runs: it has a read-only token and saves nothing.
 #
 # run.mjs exit codes: 0 the run passed, 1 the run failed and was recorded, 2 nothing was recorded.
 
@@ -30,11 +30,13 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  run:
+  check:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
-      contents: write # only to push the airport-runs branch; main is protected by its ruleset
+      contents: read
+    outputs:
+      exit: ${{ steps.contract.outputs.exit }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -69,16 +71,37 @@ jobs:
           retention-days: 14
           if-no-files-found: ignore
 
+      - name: Fail the job when the run failed
+        if: steps.contract.outputs.exit == '1'
+        run: |
+          echo "The contract failed. The run was recorded with its causes; see the log above."
+          exit 1
+
+  save:
+    needs: check
+    # Runs after a passed or a failed contract, never on pull requests, never when nothing was recorded.
+    if: ${{ !cancelled() && github.event_name != 'pull_request' && (needs.check.outputs.exit == '0' || needs.check.outputs.exit == '1') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write # only to push the airport-runs branch; main is protected by its ruleset
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: airport-run
+          path: ${{ runner.temp }}/run
+
       - name: Save the run on the airport-runs branch
-        if: github.event_name != 'pull_request'
         env:
+          RESULTS: ${{ runner.temp }}/run/results.json
           GIT_AUTHOR_NAME: github-actions[bot]
           GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
           GIT_COMMITTER_NAME: github-actions[bot]
           GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
         run: |
           set -euo pipefail
-          summary=$(node -e "const r = require('./data/airport-contract/results.json').runs.at(-1); console.log(r.runDate.slice(0, 10) + ' ' + r.status)")
+          summary=$(jq -r '.runs[-1] | (.runDate[0:10] + " " + .status)' "$RESULTS")
           cat > "$RUNNER_TEMP/README.md" <<'EOF'
           # airport-runs
 
@@ -97,15 +120,9 @@ jobs:
           fi
           # Build the commit from the two files without checking the branch out.
           readme=$(git hash-object -w "$RUNNER_TEMP/README.md")
-          results=$(git hash-object -w data/airport-contract/results.json)
+          results=$(git hash-object -w "$RESULTS")
           tree=$(printf '100644 blob %s\tREADME.md\n100644 blob %s\tresults.json\n' "$readme" "$results" | git mktree)
           # "[CF-Pages-Skip]" first: Cloudflare Pages does not try to build this data-only branch.
           commit=$(git commit-tree "$tree" ${parent:+-p "$parent"} -m "[CF-Pages-Skip] airport run: $summary")
           git push --quiet origin "$commit:refs/heads/airport-runs"
           echo "Saved: $summary"
-
-      - name: Fail the job when the run failed
-        if: steps.contract.outputs.exit == '1'
-        run: |
-          echo "The contract failed. The run was recorded with its causes; see the log above."
-          exit 1
