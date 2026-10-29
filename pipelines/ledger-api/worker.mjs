@@ -38,14 +38,70 @@ const readCount = async (kv, key) => Number((await kv.get(key)) ?? 0);
 const bump = async (kv, key) => kv.put(key, String((await readCount(kv, key)) + 1), { expirationTtl: 172800 });
 
 /** Pulls {sql, explanation} out of the model's text. Returns null when it is not usable JSON. */
+// The first balanced {...} from position `from`, skipping braces inside JSON strings.
+function balancedObject(text, from) {
+  let depth = 0;
+  let inString = false;
+  let escaped = false;
+  for (let i = from; i < text.length; i++) {
+    const c = text[i];
+    if (inString) {
+      if (escaped) escaped = false;
+      else if (c === '\\') escaped = true;
+      else if (c === '"') inString = false;
+    } else if (c === '"') inString = true;
+    else if (c === '{') depth++;
+    else if (c === '}' && --depth === 0) return text.slice(from, i + 1);
+  }
+  return null; // unbalanced, e.g. a reply cut off at the token limit
+}
+
+// Models often put raw line breaks inside the "sql" string, which strict JSON rejects.
+function escapeBreaksInStrings(json) {
+  let out = '';
+  let inString = false;
+  let escaped = false;
+  for (const c of json) {
+    if (inString && !escaped && (c === '\n' || c === '\r' || c === '\t')) {
+      out += c === '\n' ? '\\n' : c === '\r' ? '\\r' : '\\t';
+      continue;
+    }
+    if (inString) {
+      if (escaped) escaped = false;
+      else if (c === '\\') escaped = true;
+      else if (c === '"') inString = false;
+    } else if (c === '"') inString = true;
+    out += c;
+  }
+  return out;
+}
+
+function parseLoose(candidate) {
+  for (const text of [candidate, escapeBreaksInStrings(candidate)]) {
+    try {
+      return JSON.parse(text);
+    } catch {
+      // try the next form
+    }
+  }
+  return null;
+}
+
+/** Reads {sql, explanation} from a model reply: a parsed object, or text with JSON in it. */
 export function parseModelReply(reply) {
   let o = null;
   if (reply && typeof reply === 'object') {
     o = reply;
   } else if (typeof reply === 'string') {
-    const m = reply.match(/\{[\s\S]*\}/);
-    if (!m) return null;
-    try { o = JSON.parse(m[0]); } catch { return null; }
+    // Try each "{" in turn, so prose or a code fence around the JSON does not matter.
+    for (let i = reply.indexOf('{'), tries = 0; i !== -1 && tries < 20; i = reply.indexOf('{', i + 1), tries++) {
+      const candidate = balancedObject(reply, i);
+      const parsed = candidate && parseLoose(candidate);
+      if (parsed && typeof parsed === 'object' && 'sql' in parsed) {
+        o = parsed;
+        break;
+      }
+    }
   }
   if (!o || typeof o !== 'object') return null;
   if (o.sql !== null && typeof o.sql !== 'string') return null;
