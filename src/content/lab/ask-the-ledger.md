@@ -107,7 +107,7 @@ To rerun it: <code>node pipelines/ask-the-ledger/evaluate.mjs</code>. A test che
 
 - Pull request: https://github.com/felipealves7/felipealveslab/pull/6
 - Code: `pipelines/ask-the-ledger/`. Saved output: `data/ask-the-ledger/`. Tests: `pipelines/ask-the-ledger/ledger.test.mjs`.
-- Part 2 (issue #12): Worker in `worker/ledger-api/`, pipeline and tests in `pipelines/ledger-api/`, saved output in `data/ledger-api/`. Pull request: see the link above once opened; it is added to the list by Felipe at merge.
+- Part 2 (issue #12): Worker in `worker/ledger-api/`, pipeline and tests in `pipelines/ledger-api/`, saved output in `data/ledger-api/`. Pull request: https://github.com/felipealves7/felipealveslab/pull/14
 
 ## My take
 
