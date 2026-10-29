@@ -50,6 +50,8 @@ function proseLines(markdown) {
 
 // The anchor Astro gives a heading: github-slugger's rules for ASCII text. Lower case, punctuation
 // removed, each space turned into a hyphen; a repeated anchor gets -1, -2 and so on.
+// Only ASCII punctuation is removed here, so a heading with accented or other non-ASCII letters may get
+// a different anchor from Astro than this predicts, and a clash on such a heading could be missed.
 export function headingSlugs(markdown) {
   const occurrences = new Map();
   const slugs = [];
