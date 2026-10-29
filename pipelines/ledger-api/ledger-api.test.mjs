@@ -262,3 +262,31 @@ test('a LIMIT above 100 is lowered to 100; a smaller one is kept', () => {
 test('a table after a subquery in the FROM list is still checked', () => {
   assert.equal(validateSql('SELECT * FROM (SELECT 1), secrets').ok, false);
 });
+
+test('parseModelReply accepts an already-parsed object', () => {
+  assert.deepEqual(parseModelReply({ sql: 'SELECT 1', explanation: 'one' }), { sql: 'SELECT 1', explanation: 'one' });
+  assert.deepEqual(parseModelReply({ sql: null, explanation: 'no' }), { sql: null, explanation: 'no' });
+  assert.equal(parseModelReply({ sql: 5 }), null);
+  assert.equal(parseModelReply(undefined), null);
+});
+
+test('parseModelReply reads JSON inside a code fence', () => {
+  assert.deepEqual(parseModelReply('```json\n{"sql": "SELECT 1", "explanation": "x"}\n```'), { sql: 'SELECT 1', explanation: 'x' });
+});
+
+test('parseModelReply accepts raw line breaks inside the sql string', () => {
+  const reply = '{\n  "sql": "SELECT SUM(amount)\nFROM ledger\nWHERE entity = \'North Hub\'",\n  "explanation": "Total."\n}';
+  assert.deepEqual(parseModelReply(reply), { sql: "SELECT SUM(amount)\nFROM ledger\nWHERE entity = 'North Hub'", explanation: 'Total.' });
+});
+
+test('parseModelReply skips braces in prose before the JSON', () => {
+  assert.deepEqual(parseModelReply('Using {entity} filters: {"sql": "SELECT 1", "explanation": "x"}'), { sql: 'SELECT 1', explanation: 'x' });
+});
+
+test('parseModelReply keeps braces that sit inside strings', () => {
+  assert.deepEqual(parseModelReply('{"sql": "SELECT 1", "explanation": "uses {a} and }"}'), { sql: 'SELECT 1', explanation: 'uses {a} and }' });
+});
+
+test('parseModelReply returns null for a reply cut off at the token limit', () => {
+  assert.equal(parseModelReply('{"sql": "SELECT SUM(amount) FROM ledger WHERE'), null);
+});
