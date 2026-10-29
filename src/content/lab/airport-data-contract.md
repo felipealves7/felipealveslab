@@ -35,7 +35,7 @@ Replay a saved run step by step: where the data comes from, how it is fetched an
 
 **Results.**
 
-- **Real run, 29 Oct 2026: passed.** The files were 0.2 days old. One rule found something: 6 of 48,382 runways have a length of 0 ft. That is 0.012%, under the 0.1% allowed, so the run passed with those rows counted. Every other rule found nothing.
+- **First real run, 29 Oct 2026: passed.** This is the run saved with the page, before the weekly job started. Later runs come from the weekly job and appear in the replay above, so the figures here can differ from the latest run. The files were 0.2 days old. One rule found something: 6 of 48,382 runways have a length of 0 ft. That is 0.012%, under the 0.1% allowed, so the run passed with those rows counted. Every other rule found nothing.
 - **Rehearsed break, same day: failed, for one reason.** I renamed `iso_country` to `country_code` in memory; upstream was not changed. Three rules went red, but two of them only read the missing column. The page now reports one cause, "The airports file has no iso_country column", with the two rules listed under it. The first version of this page showed three separate red checks.
 
 **What changed in this version.**
@@ -59,6 +59,7 @@ Replay a saved run step by step: where the data comes from, how it is fetched an
 - **Few runs so far.** One real run and one rehearsal were saved before the weekly job started. A trend needs months of Mondays.
 - **Tolerances and row bounds were set after looking at the first real run.** That makes the first pass less informative than it looks.
 - **Freshness is the file date, not the truth.** A file can be new and still wrong.
+- **The weekly job needs GitHub to keep it switched on.** GitHub [disables scheduled workflows in a public repository](https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-workflow-runs/disabling-and-enabling-a-workflow) after 60 days with no repository activity. Its documentation does not say what counts as activity, and I did not test whether the job's own saves count. If the job stops, the badge at the top turns stale after 8 days.
 - **A failed download is not saved as a run.** The job shows red on GitHub and the badge goes stale after 8 days, but the page does not list the failed attempt.
 - **"Run it yourself" downloads the full files into your browser** and parses them there. The page can pause for a second or two, and a phone may run short of memory.
 - **Not the tools named in the first proposal.** This is plain Node with no dependencies, not dlt, DuckDB and dbt.
