@@ -18,7 +18,8 @@ const pass = run?.status === 'pass';
 const rehearsalCauses = rehearsal ? causes(rehearsal, reads).length : 0;
 const rehearsalRed = rehearsal ? rehearsal.checks.filter((c: { passed: boolean }) => !c.passed).length : 0;
 ---
-<section class={`ah-hero section-shell${pass ? '' : ' is-fail'}`} data-airport-hero>
+<div class="ah-wrap" data-airport-hero>
+<section class={`ah-hero section-shell${pass ? '' : ' is-fail'}`}>
   <div>
     <span class="eyebrow">Data &amp; AI Lab · data engineering</span>
     <h1>Airport data with a written contract</h1>
@@ -77,4 +78,5 @@ const rehearsalRed = rehearsal ? rehearsal.checks.filter((c: { passed: boolean }
     <div><span>Runs</span>Mondays, and after each change to the pipeline</div>
     <div><span>Limit</span>It checks shape, ranges and links, not whether a name or a coordinate is right</div>
   </div>
+</div>
 </div>

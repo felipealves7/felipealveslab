@@ -89,20 +89,21 @@ function codeCell(tag, file, region, caption) {
   if (!region) return null;
   const pre = h('pre', { class: 'ar-code', tabindex: '0' });
   const code = h('code');
-  let line = h('span', { class: 'ar-line', 'data-n': region.from });
+  // One block per line: the number comes from CSS, the code sits in its own span so it can wrap.
   let n = region.from;
+  let text = h('span', { class: 'ar-lc' });
+  const newLine = () => {
+    code.append(h('span', { class: 'ar-line', 'data-n': n }, text));
+    n += 1;
+    text = h('span', { class: 'ar-lc' });
+  };
   for (const t of tokens(region.code)) {
-    const parts = t.s.split('\n');
-    parts.forEach((part, i) => {
-      if (i > 0) {
-        code.append(line, '\n');
-        n += 1;
-        line = h('span', { class: 'ar-line', 'data-n': n });
-      }
-      if (part) line.append(t.t === 'plain' ? part : h('span', { class: `tok-${t.t}`, text: part }));
+    t.s.split('\n').forEach((part, i) => {
+      if (i > 0) newLine();
+      if (part) text.append(t.t === 'plain' ? part : h('span', { class: `tok-${t.t}`, text: part }));
     });
   }
-  code.append(line);
+  newLine();
   pre.append(code);
   const lines = region.from === region.to ? `line ${region.from}` : `lines ${region.from}–${region.to}`;
   return h('figure', { class: 'ar-cell ar-cell-in' },
@@ -184,36 +185,40 @@ function rowBars(run) {
       h('span', { class: 'ar-bar-sub', text: `${run.columns?.[t] ?? '?'} columns, ${REQUIRED_COLUMNS[t].length} read${files[t] ? ` · parsed in ${S.fmtMs(files[t].parseMs)}` : ''}` }))));
 }
 
-function ruleTile(c, follows) {
+// One rule on the board. A rule that found nothing is one line; details appear only where rows
+// were bad or the rule failed.
+function ruleItem(c, follows) {
   const state = c.passed ? (c.failed > 0 ? 'warn' : 'pass') : 'fail';
-  let detail;
+  const tolerance = c.level === 'row' ? (c.tolerance > 0 ? `${S.fmtTolerance(c.tolerance)} bad rows allowed` : 'no bad rows allowed') : 'checks the whole file';
+  let detail = null;
   if (follows) detail = h('p', { class: 'ar-rule-detail', text: `Fails because ${follows} is missing.` });
-  else if (c.level === 'table') detail = h('p', { class: 'ar-rule-detail', text: c.passed ? 'Holds for the whole file.' : c.samples.join('; ') });
-  else {
+  else if (state !== 'pass' && c.level === 'table') detail = h('p', { class: 'ar-rule-detail', text: c.samples.join('; ') });
+  else if (state !== 'pass') {
     const share = c.checked ? c.failed / c.checked : 0;
     detail = h('div', {},
-      h('p', { class: 'ar-rule-detail', text: c.failed ? `${S.fmtInt(c.failed)} of ${S.fmtInt(c.checked)} rows bad (${S.fmtShare(c.failed, c.checked)})${c.samples?.length ? `, e.g. ${c.samples[0]}` : ''}` : `0 of ${S.fmtInt(c.checked)} rows bad` }),
+      h('p', { class: 'ar-rule-detail', text: `${S.fmtInt(c.failed)} of ${S.fmtInt(c.checked)} rows bad (${S.fmtShare(c.failed, c.checked)})${c.samples?.length ? `, e.g. ${c.samples[0]}` : ''}` }),
       c.tolerance > 0 ? meter({
         value: share, limit: c.tolerance, max: Math.max(c.tolerance * 2, share * 1.1),
-        valueLabel: S.fmtShare(c.failed, c.checked), limitLabel: `${S.fmtTolerance(c.tolerance)} allowed`, state,
+        valueLabel: `${S.fmtShare(c.failed, c.checked)} bad`, limitLabel: `${S.fmtTolerance(c.tolerance)} allowed`, state,
       }) : h('p', { class: 'ar-rule-tol', text: 'No bad rows allowed.' }));
   }
-  return h('li', { class: `ar-rule is-${state}` },
+  return h('li', { class: `ar-rule is-${state}`, title: c.level === 'row' ? `${S.fmtInt(c.failed)} of ${S.fmtInt(c.checked)} rows bad; ${tolerance}` : tolerance },
     h('span', { class: 'ar-rule-mark', 'aria-hidden': 'true', text: state === 'pass' ? '✓' : state === 'warn' ? '!' : '✕' }),
     h('div', {}, h('p', { class: 'ar-rule-says', text: c.says }), detail));
 }
 
-function ruleGrid(run) {
+// The contract board: one column per file, every rule as written in contract.mjs.
+function ruleBoard(run) {
   const n = S.counts(run);
   const follows = S.followers(run, READS);
   return h('div', { class: 'ar-rules' },
     h('p', { class: 'ar-out-lead' },
-      h('strong', { text: `${n.pass} passed` }), ' · ',
-      h('span', { class: n.tolerated ? 'is-warn-text' : '', text: `${n.tolerated} within tolerance` }), ' · ',
+      h('strong', { text: `${n.pass} of ${n.rules} rules found nothing` }), ' · ',
+      h('span', { class: n.tolerated ? 'is-warn-text' : '', text: `${n.tolerated} found bad rows within tolerance` }), ' · ',
       h('span', { class: n.fail ? 'is-fail-text' : '', text: `${n.fail} failed` })),
-    S.groupByTable(run).map((g) => h('section', { class: 'ar-rule-group' },
-      h('h4', {}, `${g.table}.csv `, h('span', { text: plural(g.rows, 'row') })),
-      h('ul', { class: 'ar-rule-list' }, g.checks.map((c) => ruleTile(c, follows[c.id]))))));
+    h('div', { class: 'ar-board' }, S.groupByTable(run).map((g) => h('section', { class: 'ar-board-col' },
+      h('h4', {}, `${g.table}.csv`, h('span', { text: plural(g.rows, 'row') })),
+      h('ul', { class: 'ar-rule-list' }, g.checks.map((c) => ruleItem(c, follows[c.id])))))));
 }
 
 function fork(run) {
@@ -325,14 +330,15 @@ export async function mountAirportReplay({ root = document.getElementById('airpo
     { id: 'record', name: 'Record' },
   ];
 
-  function step(i, title, lede, state, cells, out) {
+  // wide: code cells side by side across the top, the output full width below.
+  function step(i, title, lede, state, cells, out, { wide = false } = {}) {
     const s = STEPS[i];
     return h('article', { class: `ar-step is-${state}`, id: `ar-step-${s.id}`, 'data-step': s.id },
       h('header', { class: 'ar-step-head' },
         h('span', { class: 'ar-step-n', text: String(i + 1) }),
         h('div', {}, h('h3', { text: title }), h('p', { class: 'ar-step-lede', text: lede })),
         chip(state, s.id === 'record' && state === 'idle' ? 'Not saved' : undefined)),
-      h('div', { class: 'ar-step-body' },
+      h('div', { class: `ar-step-body${wide ? ' is-wide' : ''}` },
         h('div', { class: 'ar-step-in' }, cells.filter(Boolean)),
         h('div', { class: 'ar-step-out' }, out)));
   }
@@ -398,12 +404,14 @@ export async function mountAirportReplay({ root = document.getElementById('airpo
         `${plural(n.rules, 'rule')}: ${n.tableRules} look at whole files, ${n.rowRules} at every row. A bad row is counted and not trusted; a row rule fails the run only when its share of bad rows goes over its tolerance.`,
         st.contract,
         contractCells(run),
-        outCell('Out', ruleGrid(run))),
+        outCell('Out', ruleBoard(run)),
+        { wide: true }),
       step(4, 'The gate: pass or fail',
         'One question decides the run. Both outcomes are recorded, so a failure is visible, not silent.',
         st.gate,
-        [codeCell('In', 'record.mjs', region('record.mjs', 'gate')), codeCell('In', 'run.mjs', region('run.mjs', 'exit'))],
-        outCell('Out', fork(run), causeList(run))),
+        [codeCell('In', 'record.mjs', region('record.mjs', 'gate'), 'The decision'), codeCell('In', 'run.mjs', region('run.mjs', 'exit'), 'What the scheduler sees')],
+        outCell('Out', fork(run), causeList(run)),
+        { wide: true }),
       step(5, 'Record the run',
         isSaved ? 'Every run is kept, passed or failed, newest last; the latest 52 stay. Pick a square to replay that run.'
           : 'Runs made in your browser are not saved. The weekly job saves its runs; pick a square to replay one.',
@@ -602,7 +610,7 @@ export function updateHero(data, nowMs = Date.now()) {
     set('rules', S.fmtInt(n.rules));
     set('rules-split', `${n.tableRules} on whole files, ${n.rowRules} on every row`);
     set('age', String(run.freshness.ageDays));
-    hero.classList.toggle('is-fail', run.status !== 'pass');
+    hero.querySelector('.ah-hero')?.classList.toggle('is-fail', run.status !== 'pass');
   }
   const rehearsal = S.latest(data, true);
   if (rehearsal) set('rehearsal', S.headline(rehearsal, READS));
