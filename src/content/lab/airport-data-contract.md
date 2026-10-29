@@ -45,7 +45,7 @@ Replay a saved run step by step: where the data comes from, how it is fetched an
 - Seven rehearsed breaks, from a renamed column to a file cut short. Tests check that each break fails exactly the rules it should.
 - A weekly job on GitHub Actions runs the pipeline every Monday at 03:17 UTC, and after each change to the pipeline. It saves every run, passed or failed, on the `airport-runs` branch. This page reads that branch, and falls back to the copy saved with the page.
 
-**Tests.** 32 tests: 20 for the pipeline and the breaks, 12 for the figures and sentences on this page, pinned to the saved runs.
+**Tests.** 33 tests: 20 for the pipeline and the breaks, 13 for the figures and sentences on this page, pinned to the saved runs.
 
 **How to rerun.**
 
@@ -67,7 +67,7 @@ Replay a saved run step by step: where the data comes from, how it is fetched an
 ## How it was built
 
 - First version: pull request https://github.com/felipealves7/felipealveslab/pull/11
-- This version (result-first page, replay, weekly job): pull request https://github.com/felipealves7/felipealveslab/pulls?q=head%3Aclaude%2Fairport-lab-redesign
+- This version (result-first page, replay, weekly job): pull request https://github.com/felipealves7/felipealveslab/pull/24
 - Code: `pipelines/airport-contract/` and `src/lib/airport/`. Saved runs: `data/airport-contract/`, and the `airport-runs` branch for the weekly runs. Tests: `pipelines/airport-contract/*.test.mjs` and `scripts/airport-page.test.mjs`.
 
 ## My take
