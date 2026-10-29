@@ -3,8 +3,10 @@
 // No Node-only imports here.
 import { parseCsv } from './csv.mjs';
 
+// #region source
 export const BASE_URL = 'https://davidmegginson.github.io/ourairports-data/';
 export const TABLES = ['airports', 'runways', 'countries'];
+// #endregion
 
 const clock = () => (typeof performance !== 'undefined' ? performance.now() : Date.now());
 
