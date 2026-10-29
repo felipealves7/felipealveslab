@@ -2,6 +2,7 @@
 // 1. Lab pages, data and pipelines must not mention employer names.
 // 2. No tracked file may contain something that looks like a secret.
 // 3. Every Lab page must contain the required headings, in order.
+// 4. No element id on a Lab page may repeat or equal a heading's anchor.
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -34,6 +35,59 @@ export function findEmployerTerms(text) {
 
 export function findSecrets(text) {
   return SECRET_PATTERNS.filter((p) => p.re.test(text)).map((p) => p.name);
+}
+
+// Lines outside fenced code blocks, so a "#" comment inside code is not read as a heading.
+function proseLines(markdown) {
+  const out = [];
+  let fenced = false;
+  for (const line of markdown.split(/\r?\n/)) {
+    if (/^\s*(```|~~~)/.test(line)) { fenced = !fenced; continue; }
+    if (!fenced) out.push(line);
+  }
+  return out;
+}
+
+// The anchor Astro gives a heading: github-slugger's rules for ASCII text. Lower case, punctuation
+// removed, each space turned into a hyphen; a repeated anchor gets -1, -2 and so on.
+// Only ASCII punctuation is removed here, so a heading with accented or other non-ASCII letters may get
+// a different anchor from Astro than this predicts, and a clash on such a heading could be missed.
+export function headingSlugs(markdown) {
+  const occurrences = new Map();
+  const slugs = [];
+  for (const line of proseLines(markdown)) {
+    const md = /^#{1,6}\s+(.+?)\s*#*\s*$/.exec(line);
+    const html = /<h[1-6](?![^>]*\bid=)[^>]*>(.*?)<\/h[1-6]>/i.exec(line);
+    const raw = md ? md[1] : html ? html[1].replace(/<[^>]+>/g, '') : null;
+    if (raw === null) continue;
+    const text = raw.replace(/\[([^\]]*)\]\([^)]*\)/g, '$1').replace(/[`*]/g, '');
+    const base = text.toLowerCase().replace(/[\0-\x1F!-,./:-@[-^`{-~]/g, '').replace(/ /g, '-');
+    let slug = base;
+    while (occurrences.has(slug)) {
+      occurrences.set(base, occurrences.get(base) + 1);
+      slug = `${base}-${occurrences.get(base)}`;
+    }
+    occurrences.set(slug, 0);
+    slugs.push(slug);
+  }
+  return slugs;
+}
+
+// Element ids written on the page that clash with a heading's anchor or with each other.
+// document.getElementById returns the first match, so a clash makes a script fill the wrong element.
+export function idClashes(markdown) {
+  const anchors = new Set(headingSlugs(markdown));
+  const seen = new Set();
+  const clashes = [];
+  for (const line of proseLines(markdown)) {
+    for (const m of line.matchAll(/\bid=["']([^"']+)["']/g)) {
+      const id = m[1];
+      if (anchors.has(id)) clashes.push(`id "${id}" is also a heading's anchor`);
+      else if (seen.has(id)) clashes.push(`id "${id}" is used twice`);
+      seen.add(id);
+    }
+  }
+  return clashes;
 }
 
 export function missingHeadings(markdown) {
@@ -75,6 +129,7 @@ export function run(root) {
     }
     if (rel.startsWith('src/content/lab/') && rel.endsWith('.md') && !rel.split('/').pop().startsWith('_')) {
       for (const h of missingHeadings(text)) problems.push(`${rel}: missing or out-of-order heading "${h}"`);
+      for (const c of idClashes(text)) problems.push(`${rel}: ${c}; rename the element's id`);
     }
   }
   return problems;
