@@ -11,7 +11,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "node scripts/diag-check.mjs",
+    "check": "astro check",
     "test": "node --test \"scripts/*.test.mjs\""
   },
   "dependencies": {

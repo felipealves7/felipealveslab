@@ -32,7 +32,7 @@ const mappingRows = Object.entries(MAPPINGS).flatMap(([source, table]) =>
     </thead>
     <tbody>
       {STATES.map((state) => (
-        <tr><td>{STATE_LABELS[state]}</td><td>{s.counts[state]}</td></tr>
+        <tr><td>{STATE_LABELS[state as keyof typeof STATE_LABELS]}</td><td>{s.counts[state]}</td></tr>
       ))}
     </tbody>
   </table>
