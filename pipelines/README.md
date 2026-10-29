@@ -14,3 +14,10 @@ Reads three public OurAirports tables, checks them against a written 19-check da
 ## ledger-api
 
 Cloudflare Worker for the live box on Ask the Ledger: origin check, daily caps, model call, SQL validator, D1. Also the D1 `schema.sql` and `seed.sql`, a scorer for model-written SQL, and the recorded example session. Regenerate the SQL with `node pipelines/ledger-api/build-sql.mjs`. Tests: `node --test pipelines/ledger-api/ledger-api.test.mjs`. Setup for Felipe: run `schema.sql` then `seed.sql` in the D1 console, put the real D1 and KV ids in `wrangler.toml`, deploy the Worker, then set `data-api` on the `ledger-live` box in `src/content/lab/ask-the-ledger.md`.
+
+### Deploying ledger-api (Felipe, in Cloudflare)
+
+1. Run `schema.sql`, then `seed.sql`, in the D1 console for database `ledger`.
+2. Put the D1 and KV ids in `wrangler.toml` (ids, not secrets), then `npx wrangler deploy --config pipelines/ledger-api/wrangler.toml`. Not tested from this repository.
+3. Set `data-api` on the `ledger-live` element in `src/content/lab/ask-the-ledger.md` to the Worker address.
+4. Optional scoring: `node pipelines/ledger-api/generate-queries.mjs queries.json`, then `node pipelines/ledger-api/score-sql.mjs queries.json`.

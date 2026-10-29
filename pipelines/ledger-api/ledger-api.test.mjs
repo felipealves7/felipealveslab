@@ -252,3 +252,13 @@ test('saved scorecard and recorded session match a fresh run', () => {
     assert.equal(readFileSync(join(root, 'data/ledger-api', f), 'utf8'), readFileSync(join(root, 'public/data/ledger-api', f), 'utf8'));
   }
 });
+
+test('a LIMIT above 100 is lowered to 100; a smaller one is kept', () => {
+  assert.equal(validateSql('SELECT * FROM ledger LIMIT 1000').sql, 'SELECT * FROM ledger LIMIT 100');
+  assert.equal(validateSql('SELECT * FROM ledger LIMIT 500 OFFSET 20').sql, 'SELECT * FROM ledger LIMIT 100 OFFSET 20');
+  assert.equal(validateSql('SELECT * FROM ledger LIMIT 5').sql, 'SELECT * FROM ledger LIMIT 5');
+});
+
+test('a table after a subquery in the FROM list is still checked', () => {
+  assert.equal(validateSql('SELECT * FROM (SELECT 1), secrets').ok, false);
+});

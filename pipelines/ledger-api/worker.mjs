@@ -118,7 +118,7 @@ export async function handle(request, env, deps = {}) {
     await bump(env.COUNTERS, gKey);
   }
   if (failed) return json({ error: 'model_unavailable', message: 'The model did not answer. Read the recorded session instead.', recordedSession: RECORDED_SESSION }, 502, cors);
-  if (!reply) return json({ error: 'unusable_reply', message: 'The model reply could not be read, so nothing was run.' }, 502, cors);
+  if (!reply) return json({ error: 'unusable_reply', message: 'The model reply could not be read, so nothing was run. Read the recorded session instead.', recordedSession: RECORDED_SESSION }, 502, cors);
   if (reply.sql === null) return json({ sql: null, rows: [], explanation: reply.explanation, declined: true }, 200, cors);
 
   // 5. Validate, then run
