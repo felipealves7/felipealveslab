@@ -11,7 +11,8 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 const d = entry.data;
 const fmt = (date: Date) => date.toISOString().slice(0, 10);
-const hasDemo = entry.id === 'ask-the-ledger';
+const DEMOS: Record<string, string> = { 'ask-the-ledger': '/js/ledger-demo.js', 'airport-data-contract': '/js/airport-contract-demo.js' };
+const demoScript = DEMOS[entry.id];
 ---
 <Base
   title={`${d.title} — Data & AI Lab`}
@@ -40,5 +41,5 @@ const hasDemo = entry.id === 'ask-the-ledger';
       <div class="lab-prose"><Content /></div>
     </section>
   </main>
-  {hasDemo && <script is:inline src="/js/ledger-demo.js"></script>}
+  {demoScript && <script is:inline src={demoScript}></script>}
 </Base>
