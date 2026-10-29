@@ -123,13 +123,17 @@ function outCell(tag, ...children) {
 const STATE_WORD = { pass: 'Pass', warn: 'Pass, with bad rows counted', fail: 'Fail', idle: 'Not saved' };
 const chip = (state, text) => h('span', { class: `ar-chip is-${state}`, text: text ?? STATE_WORD[state] });
 
+// A bar with a mark for the limit. The limit's label sits above its mark, the value's below the bar.
 function meter({ value, limit, max, valueLabel, limitLabel, state }) {
-  const pct = (x) => `${Math.max(0, Math.min(100, (x / max) * 100))}%`;
+  const at = (x) => Math.max(0, Math.min(100, (x / max) * 100));
+  const lp = at(limit);
+  const shift = lp > 82 ? '-100%' : lp < 18 ? '0' : '-50%';
   return h('div', { class: `ar-meter is-${state}` },
+    h('div', { class: 'ar-meter-top' }, h('span', { style: `left:${lp}%;transform:translateX(${shift})`, text: limitLabel })),
     h('div', { class: 'ar-meter-track' },
-      h('div', { class: 'ar-meter-fill', style: `width:${pct(value)}` }),
-      h('div', { class: 'ar-meter-limit', style: `left:${pct(limit)}`, title: limitLabel })),
-    h('div', { class: 'ar-meter-labels' }, h('span', { text: valueLabel }), h('span', { text: limitLabel })));
+      h('div', { class: 'ar-meter-fill', style: `width:${at(value)}%` }),
+      h('div', { class: 'ar-meter-limit', style: `left:${lp}%` })),
+    h('div', { class: 'ar-meter-labels' }, h('span', { text: valueLabel })));
 }
 
 const FILE_ROLE = {
@@ -475,7 +479,7 @@ export async function mountAirportReplay({ root = document.getElementById('airpo
     const lastFiles = [...data.runs].reverse().find((r) => r.files?.length)?.files;
     const size = lastFiles ? ` The last saved run downloaded ${S.fmtBytes(lastFiles.reduce((s, f) => s + f.bytes, 0))}.` : ' The three files add up to several megabytes.';
     const button = h('button', { type: 'button', class: 'ar-button is-primary', onclick: () => runLive(button) }, live ? 'Run again on today’s files' : 'Run it on today’s files');
-    liveBox.replaceChildren(
+    liveBox.replaceChildren(...[
       h('div', { class: 'ar-live-head' },
         h('div', {},
           h('h3', { text: 'Run it yourself' }),
@@ -483,7 +487,8 @@ export async function mountAirportReplay({ root = document.getElementById('airpo
         button),
       stateText ? h('p', { class: 'ar-note', text: stateText }) : null,
       progress,
-      live ? breakPanel() : null);
+      live ? breakPanel() : null,
+    ].filter(Boolean));
   }
 
   const progress = h('ol', { class: 'ar-progress' });

@@ -150,6 +150,8 @@
 .ar-meter.is-fail .ar-meter-fill{background:var(--fail)}
 .ar-meter-limit{position:absolute;top:-5px;bottom:-5px;width:2px;margin-left:-1px;background:var(--ink)}
 .ar-meter-labels{display:flex;justify-content:space-between;gap:12px;font-size:11.5px;color:rgba(26,26,23,.62)}
+.ar-meter-top{position:relative;height:1.35em;font-size:11px;color:var(--ink);font-weight:650}
+.ar-meter-top span{position:absolute;bottom:0;white-space:nowrap}
 .ar-fresh{display:grid;gap:12px}
 
 /* tables and bars */
