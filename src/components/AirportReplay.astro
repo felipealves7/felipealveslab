@@ -1,0 +1,26 @@
+---
+// Mounts the pipeline replay into the #airport-replay placeholder of the airport Lab page.
+// The code cells are read from the pipeline files at build time (the "#region" lines), so the page
+// always shows the code that runs. The script is bundled with the pipeline modules it imports.
+import loadSrc from '../../pipelines/airport-contract/load.mjs?raw';
+import csvSrc from '../../pipelines/airport-contract/csv.mjs?raw';
+import contractSrc from '../../pipelines/airport-contract/contract.mjs?raw';
+import recordSrc from '../../pipelines/airport-contract/record.mjs?raw';
+import runSrc from '../../pipelines/airport-contract/run.mjs?raw';
+import { regions } from '../lib/airport/regions.mjs';
+
+const code = {
+  'load.mjs': regions(loadSrc),
+  'csv.mjs': regions(csvSrc),
+  'contract.mjs': regions(contractSrc),
+  'record.mjs': regions(recordSrc),
+  'run.mjs': regions(runSrc),
+};
+// "<" is escaped so no file content can close the script element early.
+const payload = JSON.stringify(code).replace(/</g, '\\u003c');
+---
+<script is:inline type="application/json" id="airport-code" set:html={payload}></script>
+<script>
+  import { mountAirportReplay } from '../lib/airport/replay.mjs';
+  mountAirportReplay();
+</script>

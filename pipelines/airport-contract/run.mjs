@@ -56,4 +56,13 @@ async function main(argv) {
   // #endregion
 }
 
-if (process.argv[1] === fileURLToPath(import.meta.url)) await main(process.argv.slice(2));
+// Exit codes: 0 the run passed, 1 the run failed and was recorded, 2 nothing was recorded (for
+// example a download failed). The weekly job saves the run for 0 and 1 only.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  try {
+    await main(process.argv.slice(2));
+  } catch (e) {
+    console.error(`ERROR, no run recorded: ${e && e.message ? e.message : e}`);
+    process.exitCode = 2;
+  }
+}
