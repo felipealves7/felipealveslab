@@ -30,10 +30,16 @@ Anything that reaches the live site reaches it because Felipe merged a pull requ
 7. **Stay in scope.** Do the task in the issue or the prompt, nothing adjacent. Note adjacent
    ideas in the pull request description instead of acting on them.
 
-8. **Keep the chat private.** Never put chat messages, quotes from Felipe's conversations, session
-   links or `Claude-Session` lines in any file, commit message, pull request, issue or comment.
+8. **Keep the chat private.** Never write chat messages, quotes from Felipe's conversations, session
+   links or `Claude-Session` lines into any file, commit message, pull request, issue or comment.
    Describe decisions in neutral words ("requested by Felipe") without quoting him.
-   Tooling may append a session link to a pull request description or comment; remove it before finishing.
+   Claude Code adds a session link on its own to text it posts. The `chat-privacy` workflow removes
+   those links from issues, pull requests and comments within a minute, so a link added that way is
+   not a rule break: nobody blocks for it and nobody strips it by hand. Commit messages are not
+   cleaned automatically, so leave `Claude-Session` lines out of every commit.
+9. **One issue, one pull request.** Before building, list open and closed pull requests whose
+   branch starts with `claude/<issue-number>-`. If one exists, comment on the issue with its number
+   and stop. Never open a second pull request for the same issue; push to the existing branch.
 
 ## How the work flows
 
@@ -41,7 +47,7 @@ Anything that reaches the live site reaches it because Felipe merged a pull requ
 | --- | --- | --- | --- |
 | Scout | Weekly, Monday | Up to three proposal issues, ranked | Writes code |
 | Builder | Felipe labels a proposal `go` | One pull request on a `claude/` branch | Merges |
-| Critic | A pull request opens from a `claude/` branch | One review comment; label `blocked` on a rule break | Edits code |
+| Critic | A pull request opens from a `claude/` branch | One review comment; label `blocked` only for a problem a person must fix (see `critic.md`) | Edits code |
 | Keeper | Weekly, Thursday | Small fix pull requests, or one issue | Changes published conclusions |
 
 The prompt for each agent is in `.claude/prompts/<agent>.md`. Follow it exactly.

@@ -25,3 +25,5 @@
 - [ ] Page works from cached output with no live services
 - [ ] `## My take` is left empty for Felipe
 - [ ] Governance files untouched, or this pull request is labelled `governance`
+- [ ] No `Claude-Session` line in commit messages (session links in this text are removed automatically)
+- [ ] No other pull request exists for this issue
