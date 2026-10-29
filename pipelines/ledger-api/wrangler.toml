@@ -14,8 +14,8 @@ binding = "AI"
 [[d1_databases]]
 binding = "LEDGER"
 database_name = "ledger"
-database_id = "REPLACE_WITH_D1_DATABASE_ID" # shown in the Cloudflare dashboard; an id, not a secret
+database_id = "c2d91969-dbdc-4921-bb79-fdfa1030f3c6" # shown in the Cloudflare dashboard; an id, not a secret
 
 [[kv_namespaces]]
 binding = "COUNTERS"
-id = "REPLACE_WITH_KV_NAMESPACE_ID"
+id = "dfe1ae03089d4f199dc253f810328731"
