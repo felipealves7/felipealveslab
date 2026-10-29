@@ -72,5 +72,7 @@ export function validateSql(input, allowedTables = ALLOWED_TABLES) {
   if (frames.length !== 1) return fail('unbalanced parentheses');
   if (expectTable) return fail('expected a table name');
 
-  return { ok: true, sql: hasLimit ? sql : `${sql} LIMIT ${MAX_ROWS}` };
+  if (!hasLimit) return { ok: true, sql: `${sql} LIMIT ${MAX_ROWS}` };
+  // A final "LIMIT n" above the row cap is lowered, so D1 never reads more than it will return.
+  return { ok: true, sql: sql.replace(/\bLIMIT\s+(\d+)(\s+OFFSET\s+\d+)?$/i, (m, n, off = '') => (Number(n) > MAX_ROWS ? `LIMIT ${MAX_ROWS}${off}` : m)) };
 }
