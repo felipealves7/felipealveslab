@@ -33,6 +33,7 @@ Anything that reaches the live site reaches it because Felipe merged a pull requ
 8. **Keep the chat private.** Never put chat messages, quotes from Felipe's conversations, session
    links or `Claude-Session` lines in any file, commit message, pull request, issue or comment.
    Describe decisions in neutral words ("requested by Felipe") without quoting him.
+   Tooling may append a session link to a pull request description or comment; remove it before finishing.
 
 ## How the work flows
 
