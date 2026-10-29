@@ -1,0 +1,82 @@
+---
+// Result-first hero for /lab/airport-data-contract. Built from the saved runs at build time; the
+// replay script fills the same fields again when the weekly branch has a newer run, and works out
+// the freshness badge in the browser. Every figure comes from summary.mjs.
+import results from '../../data/airport-contract/results.json';
+import { readsById } from '../../pipelines/airport-contract/contract.mjs';
+import { latest, counts, rowsChecked, headline, causes, fmtInt, fmtDate } from '../lib/airport/summary.mjs';
+
+interface Props {
+  type: string;
+}
+const { type } = Astro.props;
+const reads = readsById();
+const run = latest(results, false);
+const rehearsal = latest(results, true);
+const n = run ? counts(run) : undefined;
+const pass = run?.status === 'pass';
+const rehearsalCauses = rehearsal ? causes(rehearsal, reads).length : 0;
+const rehearsalRed = rehearsal ? rehearsal.checks.filter((c: { passed: boolean }) => !c.passed).length : 0;
+---
+<div class="ah-wrap" data-airport-hero>
+<section class={`ah-hero section-shell${pass ? '' : ' is-fail'}`}>
+  <div>
+    <span class="eyebrow">Data &amp; AI Lab · data engineering</span>
+    <h1>Airport data with a written contract</h1>
+    <p class="ah-lede">
+      A small weekly pipeline downloads three public files from OurAirports, checks them against
+      <span data-field="rules">{n?.rules}</span> written rules, and says in one sentence what broke.
+    </p>
+    {run && (
+      <div class="ah-verdict">
+        <div class="ah-verdict-kicker">
+          <span>Last run · <span data-field="date">{fmtDate(run.runDate)}</span></span>
+          <span class="ah-status" data-field="status">{pass ? 'Pass' : 'Fail'}</span>
+          <span class="ah-badge" data-field="badge" hidden></span>
+        </div>
+        <p data-field="headline">{headline(run, reads)}</p>
+      </div>
+    )}
+  </div>
+  <div>
+    {run && n && (
+      <div class="ah-stats">
+        <div class="ah-stat">
+          <span class="ah-stat-value" data-field="rows">{fmtInt(rowsChecked(run))}</span>
+          <span class="ah-stat-label">rows checked in three files at the last run</span>
+        </div>
+        <div class="ah-stat">
+          <span class="ah-stat-value" data-field="rules">{n.rules}</span>
+          <span class="ah-stat-label">written rules: <span data-field="rules-split">{n.tableRules} on whole files, {n.rowRules} on every row</span></span>
+        </div>
+        <div class="ah-stat">
+          <span class="ah-stat-value"><span data-field="age">{run.freshness.ageDays}</span><small>days</small></span>
+          <span class="ah-stat-label">age of the files at the last run; up to 7 are allowed</span>
+        </div>
+        <div class="ah-stat">
+          <span class="ah-stat-value">US$0</span>
+          <span class="ah-stat-label">a month: one weekly job on GitHub's free runners for public repositories</span>
+        </div>
+      </div>
+    )}
+  </div>
+</section>
+<div class="section-shell">
+  {rehearsal && (
+    <div class="ah-proof">
+      <span class="ah-proof-kicker">Rehearsed break</span>
+      <p>
+        One renamed column, {rehearsalRed} red rules, {rehearsalCauses === 1 ? 'one cause reported' : `${rehearsalCauses} causes reported`}:
+        “<span data-field="rehearsal">{headline(rehearsal, reads)}</span>”
+      </p>
+      <a href="#airport-replay" data-airport-run="rehearsal">Replay it ↓</a>
+    </div>
+  )}
+  <div class="ah-facts">
+    <div><span>Type</span>{type}</div>
+    <div><span>Data</span>Real: OurAirports, Public Domain</div>
+    <div><span>Runs</span>Mondays, and after each change to the pipeline</div>
+    <div><span>Limit</span>It checks shape, ranges and links, not whether a name or a coordinate is right</div>
+  </div>
+</div>
+</div>
