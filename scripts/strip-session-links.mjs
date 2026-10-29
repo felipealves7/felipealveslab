@@ -10,7 +10,8 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 const SESSION_URL = String.raw`(?:https?:\/\/)?claude\.ai\/code\/session[^\s)\]>"'\x60]*`;
-const MARKDOWN_LINK = new RegExp(String.raw`\[([^\]\n]*)\]\(\s*${SESSION_URL}\s*\)`, 'gi');
+// Link labels are capped at 300 characters so a crafted comment cannot make the match slow.
+const MARKDOWN_LINK = new RegExp(String.raw`\[([^\]\n]{0,300})\]\(\s*${SESSION_URL}\s*\)`, 'gi');
 const BARE_URL = new RegExp(SESSION_URL, 'gi');
 const SESSION_ID = /\b(?:session|cse)_01[A-Za-z0-9]{8,}\b/g;
 const TRAILER = /^\s*Claude-Session:/i;
