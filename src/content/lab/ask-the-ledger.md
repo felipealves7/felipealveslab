@@ -11,7 +11,7 @@ dataFreshness: 2026-10-29
 synthetic: true
 limits: "Synthetic ledger, one author wrote both the test questions and the translator, and the translator is keyword rules, not a language model. The scorecard shows the method, not how any real system performs."
 runningCost: "US$0 a month. No live services."
-builtBy: "https://github.com/felipealves7/felipealveslab/pull/0"
+builtBy: "https://github.com/felipealves7/felipealveslab/pull/6"
 published: 2026-10-29
 ---
 
@@ -74,7 +74,7 @@ To rerun it: <code>node pipelines/ask-the-ledger/evaluate.mjs</code>. A test che
 
 ## How it was built
 
-- Pull request: https://github.com/felipealves7/felipealveslab/pull/0
+- Pull request: https://github.com/felipealves7/felipealveslab/pull/6
 - Agent session: https://claude.ai/code/session_01NMrhpjgbRcoSe4xeoZanLe
 - Code: `pipelines/ask-the-ledger/`. Saved output: `data/ask-the-ledger/`. Tests: `pipelines/ask-the-ledger/ledger.test.mjs`.
 
