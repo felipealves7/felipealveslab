@@ -1,0 +1,51 @@
+---
+import IllustrationFrame from './IllustrationFrame.astro';
+import { riskIllustration, SIGNALS } from '../lib/artifacts/risk-signals.mjs';
+
+const r = riskIllustration();
+---
+<IllustrationFrame
+  title="What changes when three warning lists become one ranking."
+  purpose="It combines three invented signal lists for invented market participants into one score."
+>
+  <table class="decision-table">
+    <thead>
+      <tr><th>List (each owned by a different team)</th><th>Top {r.topN} participants</th></tr>
+    </thead>
+    <tbody>
+      {SIGNALS.map((s) => (
+        <tr><td>{s.label}</td><td>{r.perList[s.key].join(', ')}</td></tr>
+      ))}
+    </tbody>
+  </table>
+  <p>
+    Across the three lists, {r.distinctOnLists} different participants appear, and only {r.onMoreThanOne} appear on more
+    than one. Each team sees its own slice.
+  </p>
+  <table class="decision-table">
+    <thead>
+      <tr><th>Combined rank</th><th>Participant</th><th>Score (0 to 1)</th><th>Top-{r.topN} lists it is on</th></tr>
+    </thead>
+    <tbody>
+      {r.integrated.map((p, i) => (
+        <tr><td>{i + 1}</td><td>{p.name}</td><td>{p.score.toFixed(2)}</td><td>{p.lists}</td></tr>
+      ))}
+    </tbody>
+  </table>
+  <p>
+    {r.surfacedByCombining.length} of the combined top {r.topN} ({r.surfacedByCombining.join(', ')}) are on at most one
+    single list. A participant can be a little worrying on every list and still never reach the top of any of them.
+  </p>
+  <p>
+    This does not reproduce the framework, its metrics or the 32% figure above. It only shows why a combined view finds
+    cases that separate lists miss.
+  </p>
+  <Fragment slot="method">
+    <p>
+      {r.participants} invented participants. Counts per list are random and independent. Within each list a participant
+      is ranked, ranks are scaled to 0 to 1 (ties share a rank), and the three scaled ranks are added with weights
+      {SIGNALS.map((s) => ` ${s.label.toLowerCase()} ${s.weight}`).join(',')}. The weights are invented. Code:
+      <code>src/lib/artifacts/risk-signals.mjs</code>.
+    </p>
+  </Fragment>
+</IllustrationFrame>

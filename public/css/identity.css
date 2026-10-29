@@ -1,0 +1,21 @@
+/* Canonical Felipe Alves identity mark — shared by every page. */
+.brand-mark{
+  width:56px!important;
+  height:50px!important;
+  flex:0 0 56px!important;
+  border:0!important;
+  border-radius:0!important;
+  font-size:0!important;
+  background-image:url("/assets/fa-signature-v2.svg")!important;
+  background-repeat:no-repeat!important;
+  background-position:center!important;
+  background-size:contain!important;
+  transition:transform .18s ease!important;
+}
+.brand:hover .brand-mark{transform:rotate(-1deg)!important}
+@media(max-width:720px){
+  .brand-mark{width:48px!important;height:44px!important;flex-basis:48px!important}
+}
+@media(max-width:420px){
+  .brand-mark{width:50px!important;height:46px!important;flex-basis:50px!important}
+}

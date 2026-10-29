@@ -1,0 +1,13 @@
+/* Illustration blocks on case-study pages. Built on the existing design tokens. */
+.illustration{border-top:1px solid var(--line);padding-top:48px}
+.illustration-label{border-left:3px solid var(--olive2);background:rgba(105,113,90,.09);padding:14px 18px;margin:18px 0 28px;font-size:15px;color:var(--soft)}
+.illustration h3{font-family:var(--serif);font-weight:400;font-size:28px;letter-spacing:-.03em;margin:36px 0 10px}
+.illustration .decision-table{margin:22px 0}
+.illustration .evidence-strip{margin:22px 0}
+.illustration-method{margin-top:30px;border:1px solid var(--line);border-radius:8px;padding:14px 18px;background:rgba(248,246,240,.6)}
+.illustration-method summary{cursor:pointer;font-weight:650;font-size:14px}
+.illustration-method[open] summary{margin-bottom:12px}
+.illustration-method p,.illustration-method code{font-size:14px}
+.illustration code{background:rgba(26,26,23,.06);padding:1px 5px;border-radius:3px}
+.case-cta{margin-top:56px;padding-top:36px;border-top:1px solid var(--line)}
+.case-cta h2{font-family:var(--serif);font-weight:400;font-size:clamp(32px,4vw,48px);letter-spacing:-.04em;margin:12px 0 18px}

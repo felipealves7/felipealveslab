@@ -1,0 +1,115 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base
+  title={'Behind the Scenes — Felipe Alves'}
+  description={'Behind the scenes with Felipe Alves — a concise introduction to the person and working style behind the product, data and transformation work.'}
+  ogDescription={'A concise introduction to the person and working style behind the product, data and transformation work.'}
+  ogType="website"
+  css={['styles', 'responsive', 'identity', 'about3', 'site-fixes']}
+  bodyClass="about3-page"
+  script="about3"
+  noise={false}
+  current="behind-the-scenes"
+>
+<main>
+    <section class="a3-hero section-shell a3-reveal">
+      <span class="eyebrow">Behind the scenes</span>
+      <h1>The finished version is usually the <em>least</em> interesting part.</h1>
+      <p class="a3-hero-copy">CVs and portfolios are edited objects. They compress systems, decisions, people, wrong turns and controlled chaos into something tidy. This is the short version of what sits behind mine.</p>
+    </section>
+
+    <section class="a3-video-section section-shell a3-reveal" aria-labelledby="outside-title">
+      <div class="a3-video-copy">
+        <span class="a3-index">01 / Outside the frame</span>
+        <h2 id="outside-title">The introduction, plus everything the final frame normally crops out.</h2>
+        <p>Lights, cables, crew and spare chairs — the things the final frame politely leaves out.</p>
+        <p class="a3-pull">The camera makes it look cleaner than the process. CVs do that too.</p>
+      </div>
+
+      <figure class="a3-video-figure">
+        <div class="a3-video-frame">
+          <video id="intro-video" class="a3-video" poster="/assets/about2/bts-poster.jpg" preload="metadata" playsinline>
+            <source src="/assets/about2/bts-process.mp4" type="video/mp4" />
+          </video>
+          <button class="a3-play" type="button" data-video-control="intro-video">Play</button>
+        </div>
+        <figcaption>
+          <span>Production floor. Cables included.</span>
+          <button class="a3-sound" type="button" data-sound-control="intro-video">Sound on</button>
+        </figcaption>
+      </figure>
+    </section>
+
+    <section class="a3-work section-shell a3-reveal" aria-labelledby="work-title">
+      <div class="a3-section-head">
+        <span class="a3-index">02 / The work</span>
+        <div>
+          <span class="a3-kicker">Product × Data × Transformation</span>
+          <h2 id="work-title">I started close to the system and moved closer to the decisions.</h2>
+        </div>
+      </div>
+
+      <div class="a3-story-list">
+        <article><span>01</span><div><h3>I started close to the system.</h3><p>SQL, Oracle, ETL, calculation logic and data models made the machinery visible.</p></div></article>
+        <article><span>02</span><div><h3>Then moved closer to the decisions.</h3><p>Analytics, product ownership, enterprise aviation platforms, and now Group Finance data and transformation.</p></div></article>
+        <article><span>03</span><div><h3>The common thread stayed the same.</h3><p>Understand the system. Make the logic explicit. Translate across boundaries. Build something useful.</p></div></article>
+      </div>
+
+      <blockquote>I would rather change my mind quickly than defend a bad idea beautifully.</blockquote>
+    </section>
+
+    <section class="a3-jeitinho a3-reveal" aria-labelledby="jeitinho-title">
+      <div class="a3-jeitinho-inner">
+        <div>
+          <span class="eyebrow">A Brazilian operating principle</span>
+          <h2 id="jeitinho-title"><em lang="pt-BR">Jeitinho brasileiro.</em><br>The useful version.</h2>
+        </div>
+        <div class="a3-jeitinho-copy">
+          <p><strong>Not:</strong> rules are optional.</p>
+          <p><strong>More like:</strong> the obvious path is blocked, the constraints are real, and an answer is still needed. Understand the system. Adapt responsibly. Find the workable route. Keep moving.</p>
+          <p class="a3-jeitinho-punch">Resourcefulness without recklessness.<br>Improvisation with receipts.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="a3-principles section-shell a3-reveal" aria-labelledby="principles-title">
+      <div class="a3-section-head a3-section-head--compact">
+        <span class="a3-index">03 / How I work</span>
+        <h2 id="principles-title">Three things worth knowing.</h2>
+      </div>
+      <div class="a3-principle-list">
+        <article><span>Structure</span><h3>Structure without worshipping the structure.</h3><p>Definitions and ownership matter. So does noticing when the process has become more important than the problem.</p></article>
+        <article><span>Depth</span><h3>Go deep, then come back up.</h3><p>Technical detail is useful when it returns as a clearer business decision, not a longer discussion about column names.</p></article>
+        <article><span>Humour</span><h3>Lower the temperature, not the standard.</h3><p>A well-timed joke can surface an absurdity or make a hard message easier to hear without lowering the bar.</p></article>
+      </div>
+    </section>
+
+    <section class="a3-after section-shell a3-reveal" aria-labelledby="after-title">
+      <div class="a3-after-copy">
+        <span class="a3-index">04 / After hours</span>
+        <h2 id="after-title">Fewer deliverables. Similar tendency to overthink.</h2>
+        <div class="a3-after-notes">
+          <p><strong>Piano.</strong> Adult beginner. Chopin, Bach and Satie remain considerably better at it.</p>
+          <p><strong>Old stories.</strong> Homer, the Eddas, mythology and history — mostly for what they say about ambition, fear and people making recognisably human decisions.</p>
+          <p><strong>Objects &amp; places.</strong> Cities, airports, infrastructure, furniture, design — and the occasional Casio whose main feature is successfully telling the time.</p>
+        </div>
+      </div>
+      <figure class="a3-after-photo">
+        <img src="/assets/about-helmet-shrug-final.webp" width="900" height="1200" alt="Felipe trying on medieval armour in a museum" loading="lazy" decoding="async" />
+        <figcaption><strong>Historical accuracy not guaranteed.</strong><span>The curiosity is real.</span></figcaption>
+      </figure>
+    </section>
+
+    <section class="a3-coda section-shell a3-reveal">
+      <span class="eyebrow">Enough context</span>
+      <h2>Back to the evidence.</h2>
+      <p>The selected work is probably the more useful next click.</p>
+      <div class="a3-actions">
+        <a class="button primary" href="/#work">Selected work</a>
+        <a class="button ghost" href="mailto:felipe.s.alves7@gmail.com">Email</a>
+        <a class="button ghost" href="https://www.linkedin.com/in/felipealves7" target="_blank" rel="noreferrer">LinkedIn ↗</a>
+      </div>
+    </section>
+  </main>
+</Base>

@@ -1,0 +1,21 @@
+---
+interface Props {
+  title: string;
+  /** One sentence on what the illustration is for. */
+  purpose: string;
+}
+const { title, purpose } = Astro.props;
+---
+<section class="case-section illustration" id="illustration">
+  <span class="eyebrow">Illustration · synthetic data</span>
+  <h2>{title}</h2>
+  <p class="illustration-label">
+    <strong>Not project data.</strong> {purpose} The numbers below are computed at build time from invented
+    data made with a fixed random seed. They show how the idea works, not what happened on the project.
+  </p>
+  <slot />
+  <details class="illustration-method">
+    <summary>How this was computed</summary>
+    <slot name="method" />
+  </details>
+</section>

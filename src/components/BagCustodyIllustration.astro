@@ -1,0 +1,66 @@
+---
+import IllustrationFrame from './IllustrationFrame.astro';
+import { custodyIllustration, scopeCut } from '../lib/artifacts/bag-custody.mjs';
+
+const c = custodyIllustration();
+const cut = scopeCut();
+const n = (x: number) => x.toLocaleString('en-GB');
+const pct = (x: number) => `${((x / c.bags) * 100).toFixed(1)}%`;
+---
+<IllustrationFrame
+  title="From “a bag is missing” to “the chain broke here”, on invented bags."
+  purpose="It checks a made-up custody chain and shows how a simple scoring rule can separate MVP from horizon."
+>
+  <table class="decision-table">
+    <thead>
+      <tr><th>Result of the chain check</th><th>Bags</th><th>Share</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Complete chain</td><td>{n(c.status.complete)}</td><td>{pct(c.status.complete)}</td></tr>
+      <tr><td>Gap between two scans</td><td>{n(c.status.gap)}</td><td>{pct(c.status.gap)}</td></tr>
+      <tr><td>First scan missing</td><td>{n(c.status.late_start)}</td><td>{pct(c.status.late_start)}</td></tr>
+      <tr><td>Last scan missing (may still be travelling)</td><td>{n(c.status.open_end)}</td><td>{pct(c.status.open_end)}</td></tr>
+    </tbody>
+  </table>
+  <p>
+    Of {n(c.bags)} invented bags, {n(c.needReview)} need a person to look. For the {n(c.status.gap)} with a gap, the
+    check says where the chain broke:
+  </p>
+  <table class="decision-table">
+    <thead>
+      <tr><th>Checkpoint with no scan</th><th>Bags</th></tr>
+    </thead>
+    <tbody>
+      {c.gapByCheckpoint.map((g) => (
+        <tr><td>{g.checkpoint}</td><td>{g.bags}</td></tr>
+      ))}
+    </tbody>
+  </table>
+  <p>
+    The first and last checkpoints show zero because a missing scan at either end cannot sit between two scans. Those
+    cases appear in the rows above instead.
+  </p>
+  <h3>A scoring rule for the MVP cut</h3>
+  <p>
+    The scores below are invented for this page. They are not the real feature list. The point is that the cut can be
+    argued from stated criteria instead of preference: score is criticality plus dependants, plus 2 when the
+    capability is hard to add later. At 7 or more it goes in the MVP.
+  </p>
+  <table class="decision-table">
+    <thead>
+      <tr><th>Capability (invented)</th><th>Score</th><th>Scope</th></tr>
+    </thead>
+    <tbody>
+      {cut.map((k) => (
+        <tr><td>{k.name}</td><td>{k.score}</td><td>{k.scope}</td></tr>
+      ))}
+    </tbody>
+  </table>
+  <Fragment slot="method">
+    <p>
+      Four generic checkpoints: check-in, loaded on aircraft, transfer area, arrival hall. They were chosen for this
+      illustration and are not taken from any standard or system. Each scan is missing with a small fixed probability.
+      Code: <code>src/lib/artifacts/bag-custody.mjs</code>.
+    </p>
+  </Fragment>
+</IllustrationFrame>
