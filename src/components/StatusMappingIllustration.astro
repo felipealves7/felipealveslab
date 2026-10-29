@@ -1,0 +1,62 @@
+---
+import IllustrationFrame from './IllustrationFrame.astro';
+import { statusIllustration, STATES, STATE_LABELS, MAPPINGS } from '../lib/artifacts/status-mapping.mjs';
+
+const s = statusIllustration();
+const sourceNames: Record<string, string> = {
+  testTool: 'Test tool',
+  tracker: 'Issue tracker',
+  spreadsheet: 'Hand-kept spreadsheet',
+};
+const mappingRows = Object.entries(MAPPINGS).flatMap(([source, table]) =>
+  Object.entries(table).map(([label, state]) => ({
+    source: sourceNames[source],
+    label,
+    state: STATE_LABELS[state],
+  }))
+);
+---
+<IllustrationFrame
+  title="What “status” looks like before and after a shared definition."
+  purpose="It maps three invented tools, each with its own words, onto one set of states."
+>
+  <div class="evidence-strip">
+    <div class="evidence-pill">{s.applications} invented applications</div>
+    <div class="evidence-pill">{s.rawLabelCount} different words in use</div>
+    <div class="evidence-pill">{s.sharedStateCount} shared states</div>
+    <div class="evidence-pill">{s.unclassified} left unclassified on purpose</div>
+  </div>
+  <table class="decision-table">
+    <thead>
+      <tr><th>Shared state</th><th>Applications</th></tr>
+    </thead>
+    <tbody>
+      {STATES.map((state) => (
+        <tr><td>{STATE_LABELS[state]}</td><td>{s.counts[state]}</td></tr>
+      ))}
+    </tbody>
+  </table>
+  <p>
+    Red, amber, green and “TBC” say how worried someone is, or that nobody knows. They do not say what the status is.
+    So they stay unclassified until an owner states one. A dashboard that turned them into “in progress” would look
+    tidier and say less.
+  </p>
+  <Fragment slot="method">
+    <p>
+      Labels are trimmed and lower-cased, then looked up in one table per source. A label with no entry is counted and
+      listed, never guessed ({s.unmapped.length} in this run). Applications whose shared state differs from the state the
+      generator started with, not counting unclassified ones: {s.misclassified}.
+    </p>
+    <table class="decision-table">
+      <thead>
+        <tr><th>Source</th><th>Label (after trimming, lower case)</th><th>Shared state</th></tr>
+      </thead>
+      <tbody>
+        {mappingRows.map((m) => (
+          <tr><td>{m.source}</td><td>{m.label}</td><td>{m.state}</td></tr>
+        ))}
+      </tbody>
+    </table>
+    <p>Code: <code>src/lib/artifacts/status-mapping.mjs</code>. The three vocabularies are generic examples, not any real system's settings.</p>
+  </Fragment>
+</IllustrationFrame>

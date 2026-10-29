@@ -1,0 +1,51 @@
+---
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  ogDescription?: string;
+  ogType?: 'website' | 'article';
+  /** Stylesheets in public/css, without extension. Order matters: later files override earlier ones. */
+  css: string[];
+  bodyClass?: string;
+  /** Script in public/js, without extension. */
+  script: string;
+  /** The grain texture overlay. Every page has it except Behind the Scenes. */
+  noise?: boolean;
+  current?: 'milestones' | 'behind-the-scenes';
+}
+
+const { title, description, ogDescription, ogType = 'website', css, bodyClass = '', script, noise = true, current } = Astro.props;
+
+const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '').replace(/\/$/, '');
+const canonical = new URL(path || '/', Astro.site).href;
+const ogImage = new URL('/assets/felipe.jpg', Astro.site).href;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#181814" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={ogDescription ?? description} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <script is:inline>document.documentElement.classList.add('js')</script>
+    {css.map((name) => <link rel="stylesheet" href={`/css/${name}.css`} />)}
+  </head>
+  <body class={bodyClass || undefined}>
+    {noise && <div class="noise" aria-hidden="true"></div>}
+    <SiteHeader current={current} />
+    <slot />
+    <SiteFooter onBehindTheScenes={current === 'behind-the-scenes'} />
+    <script is:inline src={`/js/${script}.js`}></script>
+  </body>
+</html>

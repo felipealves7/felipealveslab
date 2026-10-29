@@ -1,0 +1,15 @@
+---
+interface Props {
+  /** On the Behind the Scenes page the footer links to the work instead of to itself. */
+  onBehindTheScenes?: boolean;
+}
+const { onBehindTheScenes = false } = Astro.props;
+---
+<footer class="site-footer section-shell">
+  <span>Felipe Alves · Dubai</span>
+  <span class="footer-links">
+    <a href="mailto:felipe.s.alves7@gmail.com">Email</a>
+    {onBehindTheScenes ? <a href="/#work">Selected work</a> : <a href="/behind-the-scenes">Behind the Scenes</a>}
+    <a href="https://www.linkedin.com/in/felipealves7" target="_blank" rel="noreferrer">LinkedIn ↗</a>
+  </span>
+</footer>

@@ -1,0 +1,50 @@
+---
+import IllustrationFrame from './IllustrationFrame.astro';
+import { payrollIllustration } from '../lib/artifacts/payroll-rule.mjs';
+
+const r = payrollIllustration();
+const days = (n: number) => n.toFixed(1);
+const pct = (n: number) => `${Math.round(n * 100)}%`;
+const { earliest, frequent } = r.evaluation;
+---
+<IllustrationFrame
+  title="Why the date rule matters, shown on made-up payroll."
+  purpose="It compares the two payroll-date rules from the table above on invented payments."
+>
+  <table class="decision-table">
+    <thead>
+      <tr><th>Rule</th><th>Average miss (days)</th><th>Forecast exactly right</th><th>Months scored</th></tr>
+    </thead>
+    <tbody>
+      {[earliest, frequent].map((e) => (
+        <tr><td>{e.label}</td><td>{days(e.mae)}</td><td>{pct(e.exactShare)}</td><td>{e.n}</td></tr>
+      ))}
+    </tbody>
+  </table>
+  <p>
+    Each month is forecast using only the {r.window} months before it. The gap depends on how often a one-off early
+    payment happens, so here is the same test with different assumptions:
+  </p>
+  <table class="decision-table">
+    <thead>
+      <tr><th>One-off early payments</th><th>Earliest rule (days)</th><th>Most frequent rule (days)</th></tr>
+    </thead>
+    <tbody>
+      {r.sensitivity.map((s) => (
+        <tr><td>{pct(s.probability)} of months</td><td>{days(s.earliestMae)}</td><td>{days(s.frequentMae)}</td></tr>
+      ))}
+    </tbody>
+  </table>
+  <p>
+    The most frequent rule is not perfect either. When the payday falls on a weekend the payment moves earlier, and a
+    rule that only looks at past dates cannot see the calendar.
+  </p>
+  <Fragment slot="method">
+    <p>
+      {r.history.length} invented entities, {r.months} months each. Every entity has a contract payday between the 14th
+      and 28th. If it falls on a weekend, payment moves to the Friday before. In {pct(r.oneOffEarlyProbability)} of
+      months a one-off run pays 3 to 6 days early. Code: <code>src/lib/artifacts/payroll-rule.mjs</code>, tests in
+      <code>scripts/artifacts.test.mjs</code>.
+    </p>
+  </Fragment>
+</IllustrationFrame>

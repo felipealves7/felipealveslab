@@ -1,29 +1,105 @@
 ---
-const title = 'Felipe Alves';
+import Base from '../layouts/Base.astro';
 ---
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
-    <meta name="description" content="Felipe Alves: data, product and transformation. The portfolio is being rebuilt." />
-    <style>
-      body { font-family: Georgia, 'Times New Roman', serif; margin: 0; background: #faf7f2; color: #1d1b18; }
-      main { max-width: 36rem; margin: 18vh auto 0; padding: 0 1.5rem; }
-      h1 { font-size: 2.2rem; margin: 0 0 0.5rem; }
-      p { line-height: 1.6; }
-      a { color: inherit; }
-    </style>
-  </head>
-  <body>
-    <main>
-      <h1>{title}</h1>
-      <p>Data, product and transformation. This site is being rebuilt.</p>
-      <p>
-        The current portfolio is at
-        <a href="https://portfolio-six-sigma-52.vercel.app">portfolio-six-sigma-52.vercel.app</a>.
-      </p>
-    </main>
-  </body>
-</html>
+<Base
+  title={'Felipe Alves — Product · Data · Transformation'}
+  description={'Felipe Alves — data, product and transformation professional working across Group Finance, aviation and regulated markets.'}
+  ogDescription={'Turning complex business processes into data products, analytical systems and decision-ready information.'}
+  ogType="website"
+  css={['styles', 'responsive', 'enhancements', 'home', 'site-fixes']}
+  bodyClass=""
+  script="script"
+>
+<main id="top">
+    <section class="hero section-shell">
+      <div class="hero-copy reveal">
+        <div class="eyebrow">Dubai · working globally</div>
+        <div class="hero-role">Data products for Group Finance, aviation operations and regulated markets</div>
+        <h1>Product.<br><span>Data.</span><br>Transformation.</h1>
+        <p class="hero-lede">I turn complex business processes into data products, analytical systems and decision-ready information — across aviation, Group Finance and regulated markets.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#work">See selected work</a>
+          <a class="button ghost" href="mailto:felipe.s.alves7@gmail.com">Email</a>
+          <a class="button ghost" href="https://www.linkedin.com/in/felipealves7" target="_blank" rel="noreferrer">LinkedIn</a>
+        </div>
+        <p class="microcopy">Finance Data Analytics Specialist at Emirates · 10 years spanning systems, analytics, product delivery and business transformation.</p>
+      </div>
+      <div class="hero-visual reveal delay-1" aria-label="Portrait of Felipe Alves">
+        <div class="portrait-panel">
+          <div class="portrait-overlay"></div>
+          <div class="portrait-copy"><span class="portrait-kicker">Currently</span><strong>Group Finance data products.</strong><span>Cash-flow forecasting · transformation reporting · analytical definitions.</span></div>
+          <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div><div class="orbit-dot dot-a"></div><div class="orbit-dot dot-b"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="metrics section-shell" aria-label="Career scale, scope and outcomes">
+      <div class="metric reveal"><span class="metric-type">Experience</span><span class="metric-value">10</span><span class="metric-label">years spanning systems, analytics, product delivery and business transformation</span></div>
+      <div class="metric reveal delay-1"><span class="metric-type">Product scope</span><span class="metric-value">75</span><span class="metric-label">features authored during BRS discovery and MVP scoping, alongside a 5-year roadmap</span></div>
+      <div class="metric reveal delay-2"><span class="metric-type">Transformation scope</span><span class="metric-value">40+</span><span class="metric-label">applications across a current Group Finance eInvoicing transformation</span></div>
+      <div class="metric reveal delay-3"><span class="metric-type">Outcome</span><span class="metric-value">−32%</span><span class="metric-label">compliance-risk measure after delivery of an integrated risk-analysis framework · <a href="/case-studies/risk-analysis#outcome">how it is defined</a></span></div>
+    </section>
+
+    <section class="lens section-shell" id="work">
+      <div class="section-heading reveal"><span class="eyebrow">Selected work</span><h2>One career. Three useful lenses.</h2><p>The same work reads differently depending on what you are hiring for. Choose a lens and the evidence below reprioritises.</p></div>
+      <div class="lens-controls reveal delay-1" role="tablist" aria-label="Choose portfolio lens">
+        <button class="lens-button active" data-lens="all" role="tab" aria-selected="true" aria-controls="case-grid">All</button>
+        <button class="lens-button" data-lens="data" role="tab" aria-selected="false" aria-controls="case-grid">Data & analytics</button>
+        <button class="lens-button" data-lens="product" role="tab" aria-selected="false" aria-controls="case-grid">Product</button>
+        <button class="lens-button" data-lens="transformation" role="tab" aria-selected="false" aria-controls="case-grid">Transformation</button>
+      </div>
+      <div class="lens-summary reveal delay-2" id="lens-summary" aria-live="polite"><span class="summary-label">Currently showing</span><strong>Four pieces of work. Same person.</strong></div>
+      <div class="case-grid" id="case-grid">
+        <a class="case-card reveal" data-tags="product transformation" href="/case-studies/aviation-platform"><div class="case-topline"><span>01</span><span>Aviation · Product</span></div><div class="case-visual aviation-visual" aria-hidden="true"><div class="belt-line line-1"></div><div class="belt-line line-2"></div><div class="belt-line line-3"></div><div class="bag bag-1"></div><div class="bag bag-2"></div><div class="bag bag-3"></div></div><h3>Reframing a mission-critical aviation platform</h3><p>Discovery, MVP scoping and roadmap definition for a Baggage Reconciliation System operating at DXB scale.</p><div class="case-proof"><strong>MVP scoped</strong><span>·</span><strong>5-year roadmap</strong><span>·</span><strong>2 Scrum teams</strong></div><span class="case-link">Read case study →</span></a>
+        <a class="case-card reveal delay-1" data-tags="data product" href="/case-studies/finance-forecasting"><div class="case-topline"><span>02</span><span>Finance · Data Product</span></div><div class="case-visual finance-visual" aria-hidden="true"><div class="spark spark-1"></div><div class="spark spark-2"></div><div class="spark spark-3"></div><div class="spark spark-4"></div><div class="spark spark-5"></div><div class="baseline"></div></div><h3>Improving a global cash-flow forecasting product</h3><p>Finance-domain co-ownership with Data Science across multi-country, multi-currency liquidity planning.</p><div class="case-proof"><strong>Production rule changed</strong><span>·</span><strong>Dataiku</strong><span>·</span><strong>Treasury</strong></div><span class="case-link">Read case study →</span></a>
+        <a class="case-card reveal delay-2" data-tags="data transformation" href="/case-studies/risk-analysis"><div class="case-topline"><span>03</span><span>Energy · Risk Analytics</span></div><div class="case-visual risk-visual" aria-hidden="true"><div class="risk-ring ring-1"></div><div class="risk-ring ring-2"></div><div class="risk-ring ring-3"></div><div class="risk-core">−32%</div></div><h3>Turning fragmented compliance signals into integrated risk analysis</h3><p>End-to-end delivery spanning requirements, data modelling, ETL design and analytics in a regulated energy market.</p><div class="case-proof"><strong>−32% compliance-risk measure</strong><span>·</span><strong>SQL + SAS</strong></div><span class="case-link">Read case study →</span></a>
+        <a class="case-card reveal delay-3" data-tags="transformation" href="/case-studies/einvoicing"><div class="case-topline"><span>04</span><span>Finance · Transformation</span></div><div class="case-visual einvoice-visual" aria-hidden="true"><div class="einvoice-line l1"></div><div class="einvoice-line l2"></div><div class="einvoice-line l3"></div><div class="einvoice-line l4"></div><div class="einvoice-node n1">SIT</div><div class="einvoice-node n2">UAT</div><div class="einvoice-node n3">Jira</div><div class="einvoice-node n4">QMetry</div><div class="einvoice-core">40+</div></div><h3>Making a 40+ application transformation visible</h3><p>Reporting, data integration and status standardisation for a current Finance eInvoicing transformation.</p><div class="case-proof"><strong>40+ apps</strong><span>·</span><strong>status definitions</strong><span>·</span><strong>in progress</strong></div><span class="case-link">Read limited case study →</span></a>
+      </div>
+    </section>
+
+    <section class="experience home-milestones section-shell" id="experience">
+      <div class="milestone-section-head reveal">
+        <div><span class="eyebrow">Selected milestones</span><h2>The career makes more sense as a progression than a list of titles.</h2></div>
+        <a class="text-link" href="/milestones">Full timeline →</a>
+      </div>
+      <div class="home-milestone-controls reveal" role="tablist" aria-label="Filter selected milestones">
+        <button class="home-milestone-filter active" data-home-lens="all" role="tab" aria-selected="true">All</button>
+        <button class="home-milestone-filter" data-home-lens="data" role="tab" aria-selected="false">Data & analytics</button>
+        <button class="home-milestone-filter" data-home-lens="product" role="tab" aria-selected="false">Product</button>
+        <button class="home-milestone-filter" data-home-lens="transformation" role="tab" aria-selected="false">Transformation</button>
+      </div>
+      <div class="milestone-card-grid">
+        <button class="milestone-card reveal" type="button" data-home-tags="data" aria-expanded="false"><span class="milestone-card-year">2016</span><span class="milestone-card-tag">Data foundation</span><strong>Business logic became data.</strong><span class="milestone-card-detail">Oracle, SQL/PLSQL, ETL and production systems inside Brazil's regulated electricity market.</span><span class="milestone-card-cue">Explore +</span></button>
+        <button class="milestone-card reveal delay-1" type="button" data-home-tags="data transformation" aria-expanded="false"><span class="milestone-card-year">2020</span><span class="milestone-card-tag">Analytics & risk</span><strong>Moved upstream from systems to decisions.</strong><span class="milestone-card-detail">Risk questions became definitions, analytical rules, SQL, ETL and executive decision support.</span><span class="milestone-card-cue">Explore +</span></button>
+        <button class="milestone-card reveal delay-2" type="button" data-home-tags="product transformation" aria-expanded="false"><span class="milestone-card-year">2022</span><span class="milestone-card-tag">Product</span><strong>Brazil → Dubai. Data → product ownership.</strong><span class="milestone-card-detail">Joined Emirates / dnata and shifted into orchestration across operations, engineering and two Scrum teams.</span><span class="milestone-card-cue">Explore +</span></button>
+        <button class="milestone-card reveal delay-3" type="button" data-home-tags="product transformation" aria-expanded="false"><span class="milestone-card-year">2024–25</span><span class="milestone-card-tag">Product transformation</span><strong>Turned a legacy rewrite into product choices.</strong><span class="milestone-card-detail">BRS discovery, 75 features, MVP definition and a five-year roadmap for a mission-critical aviation platform.</span><span class="milestone-card-cue">Explore +</span></button>
+        <button class="milestone-card reveal" type="button" data-home-tags="product transformation" aria-expanded="false"><span class="milestone-card-year">2025</span><span class="milestone-card-tag">Leadership</span><strong>Started scaling through other people.</strong><span class="milestone-card-detail">Mentoring junior Product Owners, leading delivery rituals and coordinating engineering and QA without pretending it was line management.</span><span class="milestone-card-cue">Explore +</span></button>
+        <button class="milestone-card reveal delay-1" type="button" data-home-tags="data product transformation" aria-expanded="false"><span class="milestone-card-year">2026</span><span class="milestone-card-tag">Finance data</span><strong>Moved into Group Finance data products.</strong><span class="milestone-card-detail">Forecasting, Finance transformation reporting and analytical work across multi-country enterprise data.</span><span class="milestone-card-cue">Explore +</span></button>
+      </div>
+    </section>
+
+    <section class="principles operating-black" id="thinking">
+      <div class="operating-inner">
+        <div class="section-heading reveal"><span class="eyebrow">How I operate</span><h2>Proof over theatre.</h2><p>I am useful when the problem is messy, ownership is split, and “done” means three different things. Make the rule explicit, then build something that improves a real decision.</p></div>
+        <div class="operating-map reveal" aria-label="Business to technical continuum">
+          <div class="operating-node"><span>Business</span><small>Finance · operations · risk</small></div><div class="operating-arrow">→</div>
+          <div class="operating-node accent"><span>Translation</span><small>Requirements · KPIs · logic</small></div><div class="operating-arrow">→</div>
+          <div class="operating-node accent"><span>Product / Analytics</span><small>Roadmaps · models · BI</small></div><div class="operating-arrow">→</div>
+          <div class="operating-node"><span>Technical</span><small>SQL · ETL · data models</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="credentials credentials-compact section-shell reveal">
+      <div><span class="eyebrow">Foundation</span><h2>Enough technical depth to challenge the work.</h2></div>
+      <div class="foundation-chips"><span>Advanced SQL</span><span>Power BI</span><span>Tableau</span><span>Dataiku</span><span>Oracle</span><span>Python</span><span>SAFe POPM</span><span>PSPO I</span><span>MBA · AI, Data Science & Big Data</span></div>
+    </section>
+
+    <section class="closing closing-compact section-shell reveal">
+      <span class="eyebrow">Currently</span>
+      <h2>Emirates Group Finance. Open to the next hard problem.</h2>
+      <p>Data product, analytics leadership or technical product work where business context is complex and technical depth matters.</p>
+      <div class="closing-actions"><a class="button primary" href="mailto:felipe.s.alves7@gmail.com">Email Felipe</a><a class="button ghost" href="https://www.linkedin.com/in/felipealves7" target="_blank" rel="noreferrer">LinkedIn ↗</a></div>
+    </section>
+  </main>
+</Base>
