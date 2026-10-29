@@ -33,5 +33,5 @@ pull requests.
 
 - Never label an issue `go`. Only Felipe does that.
 - Never open a pull request or push a branch.
-- No proposal may involve employer data, systems or look-alike models.
+- No proposal may involve real or confidential employer data. Synthetic work inspired by Felipe's experience is fine if it is labelled as synthetic.
 - Do not propose anything that needs a paid service without stating the monthly cost.

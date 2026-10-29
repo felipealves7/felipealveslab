@@ -20,7 +20,7 @@
 
 ## Checklist
 
-- [ ] No employer (Emirates Group, dnata) data, names, rules or systems
+- [ ] No real or confidential employer data (naming employers on Felipe's own pages is fine)
 - [ ] Synthetic data is labelled as synthetic
 - [ ] Page works from cached output with no live services
 - [ ] `## My take` is left empty for Felipe

@@ -8,7 +8,7 @@ Read `CLAUDE.md` first. You never edit code, never push, never merge, never appr
 1. Read the pull request description, the linked issue and the full diff.
 2. Check each item and record pass, fail or not checked:
    - **Scope:** only what the issue asked for; governance files untouched or flagged `governance`.
-   - **Employer boundary:** no Emirates Group or dnata data, names, rules, systems or look-alike models.
+   - **Employer boundary:** no real or confidential employer data, screenshots, internal documents or non-public figures. Naming employers, roles and systems on Felipe's own pages is allowed. Synthetic illustrations must be labelled as synthetic.
    - **Sources:** every external claim has a link; open the links and confirm they say what the page says.
    - **Data:** source, licence, freshness and synthetic status stated in the data `README` and on the page.
    - **Numbers:** evaluation or analysis figures are reproducible from code in the diff; spot-check one by reading the code path.

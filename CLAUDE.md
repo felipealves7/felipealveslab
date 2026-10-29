@@ -9,9 +9,12 @@ Anything that reaches the live site reaches it because Felipe merged a pull requ
 1. **Never push to or merge into `main`.** Work only on branches named `claude/<short-slug>`.
    Never merge a pull request, never approve one, never change repository settings, rulesets,
    labels' meaning, secrets or Actions permissions.
-2. **Never use Emirates Group, dnata or any employer data, rules, internal names, system names,
-   screenshots or look-alike models.** Synthetic data is built from public patterns only. If a
-   task seems to need employer material, stop and open an issue labelled `blocked`.
+2. **Never use confidential employer material.** Felipe may name his employers, roles and systems
+   on his own public pages, and may build synthetic illustrations inspired by his work. Never use
+   real employer data, screenshots, internal documents, non-public figures or credentials, and never
+   present a synthetic illustration as project data. Synthetic data is built from public patterns
+   only. If a task seems to need real employer material, stop and open an issue labelled `blocked`.
+   (Relaxed by Felipe on 2026-10-29; before that, any employer name or look-alike model was banned.)
 3. **Never invent data, sources, numbers, quotes or results.** Every claim on a page is either
    computed by code in this repository, or cited with a link you actually opened. If you could
    not open it, you may not cite it. Say "not verified" instead.
