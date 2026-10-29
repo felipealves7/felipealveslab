@@ -11,7 +11,7 @@ dataFreshness: 2026-10-29
 synthetic: false
 limits: "One real run and one rehearsed break. No history of weekly runs yet, no scheduled job in this version, and the tools differ from the plan: plain Node, not dlt, dbt and DuckDB."
 runningCost: "US$0 a month. The page reads one saved file; the weekly download is one small HTTP fetch."
-builtBy: "https://github.com/felipealves7/felipealveslab/pull/9"
+builtBy: "https://github.com/felipealves7/felipealveslab/pull/11"
 published: 2026-10-29
 ---
 
@@ -59,7 +59,7 @@ The saved runs are below. The badge is worked out in your browser from the date 
 
 ## How it was built
 
-- Pull request: https://github.com/felipealves7/felipealveslab/pull/9
+- Pull request: https://github.com/felipealves7/felipealveslab/pull/11
 - Code: `pipelines/airport-contract/`. Saved output: `data/airport-contract/`. Tests: `pipelines/airport-contract/contract.test.mjs`.
 
 ## My take
