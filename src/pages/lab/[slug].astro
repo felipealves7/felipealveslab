@@ -1,0 +1,44 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('lab');
+  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+const fmt = (date: Date) => date.toISOString().slice(0, 10);
+const hasDemo = entry.id === 'ask-the-ledger';
+---
+<Base
+  title={`${d.title} — Data & AI Lab`}
+  description={d.question}
+  ogType="article"
+  css={['styles', 'responsive', 'enhancements', 'site-fixes', 'illustrations', 'lab']}
+  bodyClass="case-page"
+  script="script"
+  current="lab"
+>
+  <main>
+    <section class="case-hero section-shell reveal">
+      <div>
+        <span class="eyebrow">Data &amp; AI Lab · {d.lane}</span>
+        <h1>{d.title}</h1>
+        <p>{d.question}</p>
+      </div>
+      <div class="case-facts">
+        <div><span>Type</span><strong>{d.type}</strong></div>
+        <div><span>Data</span><strong>{d.synthetic ? 'Synthetic' : 'Real'} · {fmt(d.dataFreshness)}</strong></div>
+        <div><span>Licence</span><strong>{d.dataLicence}</strong></div>
+        <div><span>Running cost</span><strong>{d.runningCost}</strong></div>
+      </div>
+    </section>
+    <section class="section-shell lab-body">
+      <div class="lab-prose"><Content /></div>
+    </section>
+  </main>
+  {hasDemo && <script is:inline src="/js/ledger-demo.js"></script>}
+</Base>

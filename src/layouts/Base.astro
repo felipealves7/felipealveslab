@@ -14,7 +14,7 @@ interface Props {
   script: string;
   /** The grain texture overlay. Every page has it except Behind the Scenes. */
   noise?: boolean;
-  current?: 'milestones' | 'behind-the-scenes';
+  current?: 'milestones' | 'behind-the-scenes' | 'lab';
 }
 
 const { title, description, ogDescription, ogType = 'website', css, bodyClass = '', script, noise = true, current } = Astro.props;

@@ -1,7 +1,7 @@
 ---
 interface Props {
   /** Marks the matching nav link as the current page. */
-  current?: 'milestones' | 'behind-the-scenes';
+  current?: 'milestones' | 'behind-the-scenes' | 'lab';
 }
 const { current } = Astro.props;
 const here = (name: string) => (current === name ? 'page' : undefined);
@@ -12,6 +12,7 @@ const here = (name: string) => (current === name ? 'page' : undefined);
     <a href="/#work">Work</a>
     <a href="/milestones" aria-current={here('milestones')}>Milestones</a>
     <a href="/#thinking">Approach</a>
+    <a href="/lab" aria-current={here('lab')}>Lab</a>
     <a href="/behind-the-scenes" aria-current={here('behind-the-scenes')}>Behind the Scenes</a>
     <a href="mailto:felipe.s.alves7@gmail.com">Email</a>
     <a href="https://www.linkedin.com/in/felipealves7" target="_blank" rel="noreferrer">LinkedIn ↗</a>
