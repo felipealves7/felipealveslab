@@ -1,0 +1,23 @@
+# ledger-api: a separate Worker from the old felipealveslab Worker. No secrets in this file.
+# Before deploying, Felipe replaces the two ids below with the ones shown in the Cloudflare dashboard.
+name = "ledger-api"
+main = "src/index.mjs"
+compatibility_date = "2026-10-01"
+
+[ai]
+binding = "AI"
+
+[[d1_databases]]
+binding = "LEDGER"
+database_name = "ledger"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"
+
+[[kv_namespaces]]
+binding = "COUNTERS"
+id = "REPLACE_WITH_KV_NAMESPACE_ID"
+
+[vars]
+MODEL_PROVIDER = "workers-ai"
+# Not verified against Cloudflare's current model list. Change here if it has moved.
+WORKERS_AI_MODEL = "@cf/meta/llama-3.1-8b-instruct"
+# For Haiku later: set MODEL_PROVIDER = "anthropic" and add the secret ANTHROPIC_API_KEY in Cloudflare (never here).

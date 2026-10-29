@@ -23,3 +23,6 @@
 .ledger-demo .small{font-size:13px;color:var(--soft)}
 .ledger-demo table{width:100%;border-collapse:collapse;font-size:14px;margin-top:10px}
 .ledger-demo td,.ledger-demo th{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left}
+.ledger-demo textarea{width:100%;padding:10px;font:inherit;border:1px solid var(--line);border-radius:6px;background:#fff;box-sizing:border-box}
+.ledger-demo button{margin-top:8px;padding:8px 16px;font:inherit;font-weight:650;border:1px solid var(--line);border-radius:6px;background:#fff;cursor:pointer}
+.ledger-demo .turn{margin:14px 0}

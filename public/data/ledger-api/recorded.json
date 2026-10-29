@@ -1,0 +1,34 @@
+{
+  "note": "Illustrative session. These are the hand-written reference queries from the scorecard, run on the synthetic ledger. This is not output from the live model.",
+  "synthetic": true,
+  "turns": [
+    {
+      "question": "Which cost centre has the largest overdue amount?",
+      "sql": "SELECT c.name, SUM(i.amount_aed) AS overdue FROM invoices i JOIN cost_centres c ON c.cost_centre_id = i.cost_centre_id WHERE i.status = 'overdue' GROUP BY c.cost_centre_id ORDER BY overdue DESC LIMIT 1",
+      "columns": [
+        "name",
+        "overdue"
+      ],
+      "rows": [
+        {
+          "name": "Facilities",
+          "overdue": 101071
+        }
+      ],
+      "explanation": "Adds up the amounts of invoices marked overdue for each cost centre and keeps the largest."
+    },
+    {
+      "question": "How many invoices are overdue?",
+      "sql": "SELECT COUNT(*) AS n FROM invoices WHERE status = 'overdue'",
+      "columns": [
+        "n"
+      ],
+      "rows": [
+        {
+          "n": 65
+        }
+      ],
+      "explanation": "Counts the invoices whose status is overdue."
+    }
+  ]
+}

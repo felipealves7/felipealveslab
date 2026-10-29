@@ -11,8 +11,8 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 const d = entry.data;
 const fmt = (date: Date) => date.toISOString().slice(0, 10);
-const DEMOS: Record<string, string> = { 'ask-the-ledger': '/js/ledger-demo.js', 'airport-data-contract': '/js/airport-contract-demo.js' };
-const demoScript = DEMOS[entry.id];
+const DEMOS: Record<string, string[]> = { 'ask-the-ledger': ['/js/ledger-demo.js', '/js/ledger-live.js'], 'airport-data-contract': ['/js/airport-contract-demo.js'] };
+const demoScripts = DEMOS[entry.id] ?? [];
 ---
 <Base
   title={`${d.title} — Data & AI Lab`}
@@ -41,5 +41,5 @@ const demoScript = DEMOS[entry.id];
       <div class="lab-prose"><Content /></div>
     </section>
   </main>
-  {demoScript && <script is:inline src={demoScript}></script>}
+  {demoScripts.map((src) => <script is:inline src={src}></script>)}
 </Base>

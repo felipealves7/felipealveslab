@@ -1,0 +1,204 @@
+{
+  "total": 12,
+  "ran": 0,
+  "right": 0,
+  "accuracy": null,
+  "questions": [
+    {
+      "id": 1,
+      "text": "What was the total invoiced amount in the first quarter of 2026?",
+      "referenceSql": "SELECT SUM(amount_aed) AS total FROM invoices WHERE invoice_date >= '2026-01-01' AND invoice_date < '2026-04-01'",
+      "expected": [
+        {
+          "total": 1116679
+        }
+      ],
+      "expectedRows": 1,
+      "verdict": "not_run",
+      "generatedSql": null
+    },
+    {
+      "id": 2,
+      "text": "Which vendor has the highest total invoiced amount?",
+      "referenceSql": "SELECT v.name, SUM(i.amount_aed) AS total FROM invoices i JOIN vendors v ON v.vendor_id = i.vendor_id GROUP BY v.vendor_id ORDER BY total DESC LIMIT 1",
+      "expected": [
+        {
+          "name": "Fairlight Media",
+          "total": 250863
+        }
+      ],
+      "expectedRows": 1,
+      "verdict": "not_run",
+      "generatedSql": null
+    },
+    {
+      "id": 3,
+      "text": "How many invoices are overdue?",
+      "referenceSql": "SELECT COUNT(*) AS n FROM invoices WHERE status = 'overdue'",
+      "expected": [
+        {
+          "n": 65
+        }
+      ],
+      "expectedRows": 1,
+      "verdict": "not_run",
+      "generatedSql": null
+    },
+    {
+      "id": 4,
+      "text": "What is the total amount of unpaid invoices, open and overdue together?",
+      "referenceSql": "SELECT SUM(amount_aed) AS total FROM invoices WHERE status IN ('open', 'overdue')",
+      "expected": [
+        {
+          "total": 767780
+        }
+      ],
+      "expectedRows": 1,
+      "verdict": "not_run",
+      "generatedSql": null
+    },
+    {
+      "id": 5,
+      "text": "Total invoiced amount by cost centre, highest first.",
+      "referenceSql": "SELECT c.name, SUM(i.amount_aed) AS total FROM invoices i JOIN cost_centres c ON c.cost_centre_id = i.cost_centre_id GROUP BY c.cost_centre_id ORDER BY total DESC",
+      "expected": [
+        {
+          "name": "Facilities",
+          "total": 509675
+        },
+        {
+          "name": "Marketing",
+          "total": 459541
+        },
+        {
+          "name": "Operations",
+          "total": 451633
+        },
+        {
+          "name": "Procurement",
+          "total": 432174
+        },
+        {
+          "name": "Customer Support",
+          "total": 408557
+        }
+      ],
+      "expectedRows": 8,
+      "verdict": "not_run",
+      "generatedSql": null
+    },
+    {
+      "id": 6,
+      "text": "What is the average invoice amount on the Software account?",
+      "referenceSql": "SELECT AVG(i.amount_aed) AS average FROM invoices i JOIN accounts a ON a.account_id = i.account_id WHERE a.name = 'Software'",
+      "expected": [
+        {
+          "average": 5913.036363636364
+        }
+      ],
+      "expectedRows": 1,
+      "verdict": "not_run",
+      "generatedSql": null
+    },
+    {
+      "id": 7,
+      "text": "How many vendors have no invoices at all?",
+      "referenceSql": "SELECT COUNT(*) AS n FROM vendors WHERE vendor_id NOT IN (SELECT vendor_id FROM invoices)",
+      "expected": [
+        {
+          "n": 0
+        }
+      ],
+      "expectedRows": 1,
+      "verdict": "not_run",
+      "generatedSql": null
+    },
+    {
+      "id": 8,
+      "text": "Who sent the single largest invoice, and for how much?",
+      "referenceSql": "SELECT v.name, i.amount_aed FROM invoices i JOIN vendors v ON v.vendor_id = i.vendor_id ORDER BY i.amount_aed DESC LIMIT 1",
+      "expected": [
+        {
+          "name": "Ironbridge IT",
+          "amount_aed": 24955
+        }
+      ],
+      "expectedRows": 1,
+      "verdict": "not_run",
+      "generatedSql": null
+    },
+    {
+      "id": 9,
+      "text": "Total Travel spend for each month of 2026.",
+      "referenceSql": "SELECT substr(i.invoice_date, 1, 7) AS month, SUM(i.amount_aed) AS total FROM invoices i JOIN accounts a ON a.account_id = i.account_id WHERE a.name = 'Travel' GROUP BY month ORDER BY month",
+      "expected": [
+        {
+          "month": "2026-01",
+          "total": 58726
+        },
+        {
+          "month": "2026-02",
+          "total": 68603
+        },
+        {
+          "month": "2026-03",
+          "total": 42271
+        },
+        {
+          "month": "2026-04",
+          "total": 42963
+        },
+        {
+          "month": "2026-05",
+          "total": 48732
+        }
+      ],
+      "expectedRows": 9,
+      "verdict": "not_run",
+      "generatedSql": null
+    },
+    {
+      "id": 10,
+      "text": "How many paid invoices does the IT cost centre have?",
+      "referenceSql": "SELECT COUNT(*) AS n FROM invoices i JOIN cost_centres c ON c.cost_centre_id = i.cost_centre_id WHERE c.name = 'IT' AND i.status = 'paid'",
+      "expected": [
+        {
+          "n": 35
+        }
+      ],
+      "expectedRows": 1,
+      "verdict": "not_run",
+      "generatedSql": null
+    },
+    {
+      "id": 11,
+      "text": "Which cost centre has the largest overdue amount?",
+      "referenceSql": "SELECT c.name, SUM(i.amount_aed) AS overdue FROM invoices i JOIN cost_centres c ON c.cost_centre_id = i.cost_centre_id WHERE i.status = 'overdue' GROUP BY c.cost_centre_id ORDER BY overdue DESC LIMIT 1",
+      "expected": [
+        {
+          "name": "Facilities",
+          "overdue": 101071
+        }
+      ],
+      "expectedRows": 1,
+      "verdict": "not_run",
+      "generatedSql": null
+    },
+    {
+      "id": 12,
+      "text": "How much did we spend with vendors in the Software category?",
+      "referenceSql": "SELECT SUM(i.amount_aed) AS total FROM invoices i JOIN vendors v ON v.vendor_id = i.vendor_id WHERE v.category = 'Software'",
+      "expected": [
+        {
+          "total": 649596
+        }
+      ],
+      "expectedRows": 1,
+      "verdict": "not_run",
+      "generatedSql": null
+    }
+  ],
+  "synthetic": true,
+  "seed": 2028,
+  "model": null
+}
