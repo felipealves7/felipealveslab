@@ -37,9 +37,10 @@ Anything that reaches the live site reaches it because Felipe merged a pull requ
    those links from issues, pull requests and comments within a minute, so a link added that way is
    not a rule break: nobody blocks for it and nobody strips it by hand. Commit messages are not
    cleaned automatically, so leave `Claude-Session` lines out of every commit.
-9. **One issue, one pull request.** Before building, list open and closed pull requests whose
-   branch starts with `claude/<issue-number>-`. If one exists, comment on the issue with its number
-   and stop. Never open a second pull request for the same issue; push to the existing branch.
+9. **One open pull request per issue.** Never open a pull request for an issue while another one
+   for it is still open; push to the existing branch instead. The Builder builds an issue once:
+   if any pull request for the issue exists, open, closed or merged, it stops (see `builder.md`).
+   Follow-up pull requests that Felipe asks for after the earlier one is merged or closed are fine.
 
 ## How the work flows
 
