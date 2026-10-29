@@ -75,7 +75,7 @@
     }).catch(function () { rec.textContent = 'The recorded session could not be loaded. It is in data/ledger-api/recorded-session.json in the repository.'; });
   }
 
-  var card = document.getElementById('model-scorecard');
+  var card = document.getElementById('model-scorecard-box');
   if (card) {
     getJson(card.getAttribute('data-src')).then(function (c) {
       card.textContent = '';

@@ -39,7 +39,7 @@ A small Worker, `ledger-api`, takes one question, asks a model for one read-only
 
 The same 47 questions, but each is sent to the model, which must write SQL. The query goes through the Worker's validator, runs on the ledger, and the result is compared with the hand-checked answer.
 
-<div id="model-scorecard" class="ledger-demo" data-src="/data/ledger-api/scorecard.json"><p>Loading the scorecard.</p></div>
+<div id="model-scorecard-box" class="ledger-demo" data-src="/data/ledger-api/scorecard.json"><p>Loading the scorecard.</p></div>
 
 ## Method and results
 
