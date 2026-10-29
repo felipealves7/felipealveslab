@@ -1,0 +1,75 @@
+name: Lab proposal
+description: A ranked project proposal for the Data & AI Lab (normally opened by the Scout)
+labels: ["proposal"]
+body:
+  - type: input
+    id: question
+    attributes:
+      label: The question
+      description: One sentence.
+    validations:
+      required: true
+  - type: input
+    id: payer
+    attributes:
+      label: Who would pay to have it answered
+    validations:
+      required: true
+  - type: dropdown
+    id: lane
+    attributes:
+      label: Lane
+      options:
+        - data engineering
+        - conversational BI and evaluation
+        - wildcard
+    validations:
+      required: true
+  - type: dropdown
+    id: type
+    attributes:
+      label: Project type
+      options:
+        - production-like demo
+        - research study
+        - experiment
+    validations:
+      required: true
+  - type: textarea
+    id: data
+    attributes:
+      label: Data source, licence, update cadence, access method, date checked
+      description: Include the URL of the licence or terms page you opened. Say "synthetic" if applicable.
+    validations:
+      required: true
+  - type: textarea
+    id: learns
+    attributes:
+      label: What Felipe learns (the gap it closes)
+    validations:
+      required: true
+  - type: textarea
+    id: smallest
+    attributes:
+      label: Smallest version worth publishing
+    validations:
+      required: true
+  - type: input
+    id: effort
+    attributes:
+      label: Effort in working sessions
+    validations:
+      required: true
+  - type: textarea
+    id: risk
+    attributes:
+      label: Main risk, and what would make you stop
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Sources opened
+      description: Links you opened in this session.
+    validations:
+      required: true

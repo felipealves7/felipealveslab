@@ -1,0 +1,60 @@
+# interests.yml: steers the Scout. Edit via pull request; changes take effect next Monday.
+owner: Felipe Alves
+purpose: >
+  A public Data & AI Lab that shows data, product and transformation judgement, and closes
+  gaps in data engineering and newer tooling. Credibility over volume.
+
+lanes:               # target mix of accepted projects over time
+  data_engineering: 50
+  conversational_bi_and_evaluation: 25
+  wildcard: 25
+
+cadence:
+  max_new_projects_per_month: 1
+  max_open_proposals: 5     # Scout stays quiet above this
+
+domains_i_know:          # use these as the lens for choosing data and questions
+  - finance data analytics at a large airline and travel group
+  - business analysis, product ownership, vendor selection (RFI/RFP)
+  - Brazilian power market data (public CCEE material only)
+  - KPI design, reconciliation, forecasting, risk analytics
+
+gaps_to_close:           # prefer proposals that teach one of these with real data
+  - data pipelines: ingestion, modelling, testing, scheduling (dlt, DuckDB or DuckLake, dbt-core, GitHub Actions)
+  - data contracts and freshness checks
+  - evaluating text-to-SQL and conversational BI (accuracy, clarification behaviour, cost per correct answer)
+  - semantic layers and metric definitions
+  - newer tooling worth a hands-on look, judged by what it changes for a finance or operations team
+
+wildcard_subjects:       # curiosity topics from the Behind the Scenes page
+  - history
+  - mythology
+  - cities and airports
+  - design
+
+data_rules:
+  prefer: public, openly licensed, refreshed on a schedule, small enough to cache in the repo or R2
+  must_state: source URL, licence, update cadence, freshness date
+  avoid:
+    - anything from or resembling employer systems
+    - personal data of any kind
+    - sources whose licence you could not open and read
+  first_choice_pipeline: Dubai Land Department property transactions (Dubai Pulse), if the licence and access check out
+  fallback_pipeline: US Bureau of Transportation Statistics on-time performance data
+
+flagships:
+  - id: ask-the-ledger
+    summary: conversational finance BI on synthetic multi-currency cash-flow data, with a public accuracy scorecard
+  - id: public-data-pipeline
+    summary: weekly-refreshed public-data pipeline with tests, freshness checks and failure triage
+
+seed_backlog:
+  - Brazil's power market from CCEE open data (wildcard)
+  - Text-to-SQL shoot-out on public Spider 2.0 and BIRD subsets (conversational BI)
+  - Git-scraped tracker, for example UAE monthly fuel prices (data engineering)
+  - Lab operations dashboard from the GitHub API (wildcard)
+  - Cities and airports network analysis (wildcard)
+
+never:
+  - claims about Emirates Group, dnata or their systems
+  - anything that reads as selling a service before Felipe has employer approval
