@@ -262,3 +262,14 @@ test('a LIMIT above 100 is lowered to 100; a smaller one is kept', () => {
 test('a table after a subquery in the FROM list is still checked', () => {
   assert.equal(validateSql('SELECT * FROM (SELECT 1), secrets').ok, false);
 });
+
+test('parseModelReply accepts an already-parsed object', () => {
+  assert.deepEqual(parseModelReply({ sql: 'SELECT 1', explanation: 'one' }), { sql: 'SELECT 1', explanation: 'one' });
+  assert.deepEqual(parseModelReply({ sql: null, explanation: 'no' }), { sql: null, explanation: 'no' });
+  assert.equal(parseModelReply({ sql: 5 }), null);
+  assert.equal(parseModelReply(undefined), null);
+});
+
+test('parseModelReply reads JSON inside a code fence', () => {
+  assert.deepEqual(parseModelReply('```json\n{"sql": "SELECT 1", "explanation": "x"}\n```'), { sql: 'SELECT 1', explanation: 'x' });
+});

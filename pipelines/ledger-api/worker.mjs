@@ -38,17 +38,18 @@ const readCount = async (kv, key) => Number((await kv.get(key)) ?? 0);
 const bump = async (kv, key) => kv.put(key, String((await readCount(kv, key)) + 1), { expirationTtl: 172800 });
 
 /** Pulls {sql, explanation} out of the model's text. Returns null when it is not usable JSON. */
-export function parseModelReply(text) {
-  if (typeof text !== 'string') return null;
-  const m = text.match(/\{[\s\S]*\}/);
-  if (!m) return null;
-  try {
-    const o = JSON.parse(m[0]);
-    if (o.sql !== null && typeof o.sql !== 'string') return null;
-    return { sql: o.sql, explanation: typeof o.explanation === 'string' ? o.explanation : '' };
-  } catch {
-    return null;
+export function parseModelReply(reply) {
+  let o = null;
+  if (reply && typeof reply === 'object') {
+    o = reply;
+  } else if (typeof reply === 'string') {
+    const m = reply.match(/\{[\s\S]*\}/);
+    if (!m) return null;
+    try { o = JSON.parse(m[0]); } catch { return null; }
   }
+  if (!o || typeof o !== 'object') return null;
+  if (o.sql !== null && typeof o.sql !== 'string') return null;
+  return { sql: o.sql, explanation: typeof o.explanation === 'string' ? o.explanation : '' };
 }
 
 /** The only place a model is called. */
@@ -68,7 +69,10 @@ export async function generate(env, question, fetchFn = fetch) {
     max_tokens: LIMITS.maxTokens,
     messages: [{ role: 'system', content: SYSTEM_PROMPT }, { role: 'user', content: question }],
   });
-  return parseModelReply(out?.response ?? out?.choices?.[0]?.message?.content);
+  const raw = out?.response ?? out?.choices?.[0]?.message?.content;
+  const parsed = parseModelReply(raw);
+  if (!parsed) console.error('unreadable model reply:', typeof raw, JSON.stringify(raw ?? null).slice(0, 200));
+  return parsed;
 }
 
 export async function handle(request, env, deps = {}) {
