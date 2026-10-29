@@ -23,3 +23,8 @@
 .ledger-demo .small{font-size:13px;color:var(--soft)}
 .ledger-demo table{width:100%;border-collapse:collapse;font-size:14px;margin-top:10px}
 .ledger-demo td,.ledger-demo th{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left}
+.ledger-demo input[type=text]{width:100%;padding:10px;font:inherit;border:1px solid var(--line);border-radius:6px;background:#fff;box-sizing:border-box}
+.ledger-demo button{margin-top:10px;padding:9px 18px;font:inherit;font-weight:650;border:1px solid var(--line);border-radius:6px;background:#fff;cursor:pointer}
+.ledger-demo button:disabled{opacity:.5;cursor:default}
+.ledger-demo .q{font-weight:650;margin:14px 0 6px}
+.ledger-demo code{word-break:break-word;font-size:12.5px}

@@ -1,0 +1,49 @@
+{
+  "kind": "recorded example session",
+  "illustrative": true,
+  "note": "The SQL below was written by hand to show the format. It is not model output. The rows are computed by running it on the synthetic ledger.",
+  "synthetic": true,
+  "steps": [
+    {
+      "question": "Revenue by entity in 2025",
+      "sql": "SELECT entity, SUM(amount) AS revenue FROM ledger WHERE grp = 'Revenue' AND month BETWEEN '2025-01' AND '2025-12' GROUP BY entity ORDER BY entity LIMIT 100",
+      "rows": [
+        {
+          "entity": "Delta Services",
+          "revenue": 32384
+        },
+        {
+          "entity": "Harbour Retail",
+          "revenue": 26167
+        },
+        {
+          "entity": "Lakeside Energy",
+          "revenue": 19074
+        },
+        {
+          "entity": "North Hub",
+          "revenue": 39742
+        },
+        {
+          "entity": "Orchard Foods",
+          "revenue": 25223
+        },
+        {
+          "entity": "Summit Logistics",
+          "revenue": 38551
+        }
+      ],
+      "explanation": "Adds up every Revenue-group account for each company over calendar 2025. Amounts are in AED thousand."
+    },
+    {
+      "question": "What was the gross margin in 2025?",
+      "sql": "SELECT ROUND((SUM(CASE WHEN grp = 'Revenue' THEN amount ELSE 0 END) - SUM(CASE WHEN grp = 'Cost of sales' THEN amount ELSE 0 END)) * 100.0 / SUM(CASE WHEN grp = 'Revenue' THEN amount ELSE 0 END), 1) AS gross_margin_pct FROM ledger WHERE month BETWEEN '2025-01' AND '2025-12' LIMIT 100",
+      "rows": [
+        {
+          "gross_margin_pct": 48.2
+        }
+      ],
+      "explanation": "Gross margin is revenue minus cost of sales, divided by revenue, as a percentage. This covers all six companies together for 2025."
+    }
+  ]
+}

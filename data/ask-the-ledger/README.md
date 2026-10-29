@@ -5,3 +5,11 @@
 - **Date generated:** 2026-10-29.
 - **Synthetic:** yes. 1,008 rows, six invented companies, eight invented accounts, 2025-01 to 2026-09, thousands of AED.
 - **Files:** `results.json` is the saved output of the test run, read by the page. An identical copy sits in `public/data/ask-the-ledger/` so the browser can load it. Regenerate both with `node pipelines/ask-the-ledger/evaluate.mjs`; a test fails if they drift.
+
+## Live Q&A files (issue #12)
+
+All synthetic, same seed (2027), same licence (this repository's MIT code). Generated 2026-10-29 by `node pipelines/ledger-api/build-data.mjs`.
+
+- `schema.sql`, `seed.sql`: paste into the D1 console, schema first. One table, `ledger`, 1,008 rows. A test fails if they drift from the generator.
+- `recorded-session.json`: two example questions. The SQL is hand-written, not model output; the rows are computed. Copy in `public/data/ask-the-ledger/`.
+- `scorecard.json`: fixed 15-question set scored against model-written SQL. It says "not run yet" until `pipelines/ledger-api/collect.mjs` is run against a deployed Worker. Copy in `public/data/ask-the-ledger/`.

@@ -1,0 +1,261 @@
+{
+  "synthetic": true,
+  "total": 15,
+  "run": 0,
+  "correct": 0,
+  "accuracy": null,
+  "entries": [
+    {
+      "id": 1,
+      "text": "What was total revenue in 2025?",
+      "expected": {
+        "outcome": "answer",
+        "result": {
+          "kind": "scalar",
+          "value": 181141
+        }
+      },
+      "status": "not_run"
+    },
+    {
+      "id": 2,
+      "text": "Revenue in Q1 2026",
+      "expected": {
+        "outcome": "answer",
+        "result": {
+          "kind": "scalar",
+          "value": 51147
+        }
+      },
+      "status": "not_run"
+    },
+    {
+      "id": 3,
+      "text": "What was gross profit in Q4 2025?",
+      "expected": {
+        "outcome": "answer",
+        "result": {
+          "kind": "scalar",
+          "value": 22400
+        }
+      },
+      "status": "not_run"
+    },
+    {
+      "id": 4,
+      "text": "What was the gross margin in 2025?",
+      "expected": {
+        "outcome": "answer",
+        "result": {
+          "kind": "scalar",
+          "value": 48.2
+        }
+      },
+      "status": "not_run"
+    },
+    {
+      "id": 5,
+      "text": "Operating expenses in March 2026",
+      "expected": {
+        "outcome": "answer",
+        "result": {
+          "kind": "scalar",
+          "value": 6863
+        }
+      },
+      "status": "not_run"
+    },
+    {
+      "id": 6,
+      "text": "Revenue by entity in 2025",
+      "expected": {
+        "outcome": "answer",
+        "result": {
+          "kind": "table",
+          "rows": [
+            {
+              "label": "Delta Services",
+              "value": 32384
+            },
+            {
+              "label": "Harbour Retail",
+              "value": 26167
+            },
+            {
+              "label": "Lakeside Energy",
+              "value": 19074
+            },
+            {
+              "label": "North Hub",
+              "value": 39742
+            },
+            {
+              "label": "Orchard Foods",
+              "value": 25223
+            },
+            {
+              "label": "Summit Logistics",
+              "value": 38551
+            }
+          ]
+        }
+      },
+      "status": "not_run"
+    },
+    {
+      "id": 7,
+      "text": "Operating profit by entity in Q3 2026",
+      "expected": {
+        "outcome": "answer",
+        "result": {
+          "kind": "table",
+          "rows": [
+            {
+              "label": "Delta Services",
+              "value": 962
+            },
+            {
+              "label": "Harbour Retail",
+              "value": 870
+            },
+            {
+              "label": "Lakeside Energy",
+              "value": 520
+            },
+            {
+              "label": "North Hub",
+              "value": 1215
+            },
+            {
+              "label": "Orchard Foods",
+              "value": 989
+            },
+            {
+              "label": "Summit Logistics",
+              "value": 1133
+            }
+          ]
+        }
+      },
+      "status": "not_run"
+    },
+    {
+      "id": 8,
+      "text": "Which entity had the highest revenue in 2025?",
+      "expected": {
+        "outcome": "answer",
+        "result": {
+          "kind": "table",
+          "rows": [
+            {
+              "label": "North Hub",
+              "value": 39742
+            }
+          ]
+        }
+      },
+      "status": "not_run"
+    },
+    {
+      "id": 9,
+      "text": "Top 3 entities by operating expenses in Q2 2026",
+      "expected": {
+        "outcome": "answer",
+        "result": {
+          "kind": "table",
+          "rows": [
+            {
+              "label": "Summit Logistics",
+              "value": 4514
+            },
+            {
+              "label": "North Hub",
+              "value": 4391
+            },
+            {
+              "label": "Delta Services",
+              "value": 3378
+            }
+          ]
+        }
+      },
+      "status": "not_run"
+    },
+    {
+      "id": 10,
+      "text": "Operating profit for Delta Services in Q1 2026",
+      "expected": {
+        "outcome": "answer",
+        "result": {
+          "kind": "scalar",
+          "value": 686
+        }
+      },
+      "status": "not_run"
+    },
+    {
+      "id": 11,
+      "text": "What was revenue last quarter?",
+      "expected": {
+        "outcome": "answer",
+        "result": {
+          "kind": "scalar",
+          "value": 51379
+        }
+      },
+      "status": "not_run"
+    },
+    {
+      "id": 12,
+      "text": "Quarterly operating profit in 2026",
+      "expected": {
+        "outcome": "answer",
+        "result": {
+          "kind": "table",
+          "rows": [
+            {
+              "label": "2026-Q1",
+              "value": 5084
+            },
+            {
+              "label": "2026-Q2",
+              "value": 5758
+            },
+            {
+              "label": "2026-Q3",
+              "value": 5689
+            }
+          ]
+        }
+      },
+      "status": "not_run"
+    },
+    {
+      "id": 13,
+      "text": "What was the profit in 2025?",
+      "expected": {
+        "outcome": "decline"
+      },
+      "status": "not_run"
+    },
+    {
+      "id": 14,
+      "text": "What was EBITDA in 2025?",
+      "expected": {
+        "outcome": "decline"
+      },
+      "status": "not_run"
+    },
+    {
+      "id": 15,
+      "text": "Headcount by entity",
+      "expected": {
+        "outcome": "decline"
+      },
+      "status": "not_run"
+    }
+  ],
+  "collectedAt": null,
+  "model": null,
+  "note": "Not run yet. No model has been scored. Run pipelines/ledger-api/collect.mjs against a deployed Worker to fill this in."
+}

@@ -1,0 +1,23 @@
+# ledger-api: separate from the felipealveslab Worker. No secrets live in this file.
+# Deploy from this folder: npx wrangler deploy
+# Fill in the two ids from the Cloudflare dashboard (they are identifiers, not secrets).
+# To switch to Claude Haiku later: set MODEL_PROVIDER = "anthropic" and run
+#   npx wrangler secret put ANTHROPIC_API_KEY
+name = "ledger-api"
+main = "worker.mjs"
+compatibility_date = "2026-10-01"
+
+[ai]
+binding = "AI"
+
+[[d1_databases]]
+binding = "LEDGER"
+database_name = "ledger"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"
+
+[[kv_namespaces]]
+binding = "COUNTERS"
+id = "REPLACE_WITH_KV_NAMESPACE_ID"
+
+[vars]
+MODEL_PROVIDER = "workers-ai"
