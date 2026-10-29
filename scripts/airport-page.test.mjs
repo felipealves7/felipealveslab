@@ -129,3 +129,8 @@ test('the highlighter keeps every character and tells a regex from a division', 
     'keyword:const', 'regex:/^-?\\d+$/', 'comment:// whole numbers', 'keyword:const', 'number:2', "string:'x'",
   ]);
 });
+
+test('a rule with too many bad rows is described in plain words', () => {
+  const c = { kind: 'rows', table: 'airports', says: 'latitude is -90 to 90 and longitude is -180 to 180', failed: 200, checked: 86301 };
+  assert.equal(causeSentence(c), '200 of 86,301 rows in airports break the rule “latitude is -90 to 90 and longitude is -180 to 180”.');
+});

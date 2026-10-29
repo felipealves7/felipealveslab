@@ -118,7 +118,7 @@ export function causeSentence(c) {
     return `The ${c.table} file has no ${cols} column.${follow}`;
   }
   if (c.kind === 'table') return `${capital(c.says)}: failed (${c.samples.join('; ')}).`;
-  if (c.kind === 'rows') return `${fmtInt(c.failed)} of ${fmtInt(c.checked)} ${c.table} rows break the rule “${c.says}”.`;
+  if (c.kind === 'rows') return `${fmtInt(c.failed)} of ${fmtInt(c.checked)} rows in ${c.table} break the rule “${c.says}”.`;
   return `The files last changed ${fmtDays(c.ageDays)} before the run. The contract allows ${MAX_AGE_DAYS}.`;
 }
 
