@@ -1,0 +1,41 @@
+name: chat-privacy
+
+# Removes chat session links (CLAUDE.md rule 8) that Claude Code adds to issues, pull requests
+# and comments. It runs scripts/strip-session-links.mjs, which edits only the item that triggered
+# it and never runs its text. "Run workflow" on the Actions tab sweeps every item once.
+
+on:
+  issues:
+    types: [opened, edited]
+  issue_comment:
+    types: [created, edited]
+  pull_request:
+    types: [opened, edited, reopened]
+  pull_request_review:
+    types: [submitted, edited]
+  pull_request_review_comment:
+    types: [created, edited]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: chat-privacy-${{ github.event.issue.number || github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: false
+
+jobs:
+  strip:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Remove session links
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/strip-session-links.mjs
