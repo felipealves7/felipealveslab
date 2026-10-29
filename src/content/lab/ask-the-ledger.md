@@ -29,7 +29,7 @@ Pick a question from the test set below. The page shows what the translator did 
 
 A small Worker, `ledger-api`, takes one question, asks a model for one read-only SQL query, checks the query itself, runs it on a copy of the same synthetic ledger and shows the query, the rows and a short explanation. Limits: 2 questions per visitor per day, 50 a day for everyone, 300 characters, 100 rows. When a limit is hit or the Worker cannot be reached, the recorded session below stays on the page.
 
-<div id="ledger-live" class="ledger-demo" data-api=""><p>This piece needs JavaScript. The recorded session is in <code>data/ledger-api/recorded-session.json</code>.</p></div>
+<div id="ledger-live" class="ledger-demo" data-api="https://ledger-api.felipe-s-alves7.workers.dev"><p>This piece needs JavaScript. The recorded session is in <code>data/ledger-api/recorded-session.json</code>.</p></div>
 
 <h3 id="recorded-session">Recorded session</h3>
 
