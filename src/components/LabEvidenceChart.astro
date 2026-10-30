@@ -1,0 +1,54 @@
+---
+// Evidence is compiled from checked-in JSON. No hardcoded metrics and no request at runtime.
+import ledgerData from '../../data/ask-the-ledger/results.json';
+import airportData from '../../data/airport-contract/results.json';
+import { ledgerEvidence, airportEvidence } from '../lib/lab/evidence.mjs';
+
+interface Props { exhibit: 'ledger' | 'airport'; compact?: boolean; }
+// One explicit shape for both exhibits: the ledger fills `bars`, the airport fills `cells`.
+interface Evidence {
+  title: string; subtitle: string; source: string; provenance: string; unit: string; summary: string;
+  bars: { key: string; label: string; value: number; percent: number; tone: string }[];
+  cells?: { id: string; says: string; status: 'pass' | 'tolerated' | 'fail' }[];
+  tally?: { pass: number; tolerated: number; fail: number };
+  rowsLine?: string;
+}
+const { exhibit, compact = false } = Astro.props;
+const evidence = (exhibit === 'ledger' ? ledgerEvidence(ledgerData) : airportEvidence(airportData)) as unknown as Evidence;
+const fmt = (value: number) => new Intl.NumberFormat('en-GB').format(value);
+---
+<figure class:list={['lab-evidence-chart', compact && 'lab-evidence-chart--compact']}>
+  <figcaption class="lab-evidence-top">
+    <span>
+      <strong>{evidence.title}</strong>
+      <small>{evidence.subtitle}</small>
+    </span>
+    <span class="lab-provenance">{evidence.provenance}</span>
+  </figcaption>
+  {evidence.cells && evidence.tally ? (
+    <div class="lab-check-strip" role="img" aria-label={`${evidence.title}. ${evidence.tally.pass} passed, ${evidence.tally.tolerated} within tolerance, ${evidence.tally.fail} failed.`}>
+      <div class="lab-check-cells" aria-hidden="true">
+        {evidence.cells.map((cell) => <span class={`lab-check-cell lab-check-cell--${cell.status}`} title={`${cell.says} — ${cell.status}`}></span>)}
+      </div>
+      <ul class="lab-check-legend" aria-hidden="true">
+        <li><i class="lab-check-cell lab-check-cell--pass"></i>{evidence.tally.pass} passed</li>
+        <li><i class="lab-check-cell lab-check-cell--tolerated"></i>{evidence.tally.tolerated} within tolerance</li>
+        <li><i class="lab-check-cell lab-check-cell--fail"></i>{evidence.tally.fail} failed</li>
+      </ul>
+      <span class="lab-chart-axis">{evidence.rowsLine}</span>
+    </div>
+  ) : (
+  <div class="lab-chart-plot" role="img" aria-label={`${evidence.title}. ${evidence.bars.map((bar) => `${bar.label}: ${fmt(bar.value)} ${evidence.unit}`).join('; ')}.`}>
+    {evidence.bars.map((bar) => (
+      <div class="lab-chart-row" aria-hidden="true">
+        <span class="lab-chart-label">{bar.label}</span>
+        <div class="lab-chart-track"><span class:list={['lab-chart-fill', `lab-chart-fill--${bar.tone}`]} style={`width: ${bar.percent}%;`}></span></div>
+        <span class="lab-chart-value">{fmt(bar.value)}</span>
+      </div>
+    ))}
+    <span class="lab-chart-axis">Scale: share of all questions · exact values at right</span>
+  </div>
+  )}
+  {!compact && <p class="lab-chart-interpretation">{evidence.summary}</p>}
+  <p class="lab-chart-source">Source: <code>{evidence.source}</code> · derived at build time · not a live API read.</p>
+</figure>

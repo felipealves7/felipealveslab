@@ -2,16 +2,19 @@
 interface Props {
   /** Marks the matching nav link as the current page. */
   current?: 'milestones' | 'behind-the-scenes' | 'lab';
+  /** Homepage path. Only a preview homepage sets this. */
+  home?: string;
 }
-const { current } = Astro.props;
+const { current, home = '/' } = Astro.props;
+const anchor = (hash: string) => (home === '/' ? `/${hash}` : `${home}${hash}`);
 const here = (name: string) => (current === name ? 'page' : undefined);
 ---
 <header class="site-header">
-  <a class="brand" href="/" aria-label="Felipe Alves home"><span class="brand-mark">FA</span><span class="brand-name">Felipe Alves</span></a>
+  <a class="brand" href={home} aria-label="Felipe Alves home"><span class="brand-mark">FA</span><span class="brand-name">Felipe Alves</span></a>
   <nav aria-label="Primary navigation">
-    <a href="/#work">Work</a>
+    <a href={anchor('#work')}>Work</a>
     <a href="/milestones" aria-current={here('milestones')}>Milestones</a>
-    <a href="/#thinking">Approach</a>
+    <a href={anchor('#thinking')}>Approach</a>
     <a href="/lab" aria-current={here('lab')}>Lab</a>
     <a href="/behind-the-scenes" aria-current={here('behind-the-scenes')}>Behind the Scenes</a>
     <a href="mailto:felipe.s.alves7@gmail.com">Email</a>
