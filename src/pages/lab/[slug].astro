@@ -3,6 +3,8 @@ import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import AirportHero from '../../components/AirportHero.astro';
 import AirportReplay from '../../components/AirportReplay.astro';
+import LabEvidenceChart from '../../components/LabEvidenceChart.astro';
+import AirportNotebook from '../../components/AirportNotebook.astro';
 
 export async function getStaticPaths() {
   const entries = await getCollection('lab');
@@ -16,12 +18,12 @@ const fmt = (date: Date) => date.toISOString().slice(0, 10);
 const DEMOS: Record<string, string> = { 'ask-the-ledger': '/js/ledger-demo.js' };
 const demoScript = DEMOS[entry.id];
 const extraScript = entry.id === 'ask-the-ledger' ? '/js/ledger-live.js' : undefined;
-// Pages rebuilt in the result-first layout get their own hero and live piece.
 const isAirport = entry.id === 'airport-data-contract';
-const css = ['styles', 'responsive', 'enhancements', 'site-fixes', 'illustrations', 'lab', ...(isAirport ? ['lab-airport'] : [])];
+const isLedger = entry.id === 'ask-the-ledger';
+const css = ['styles', 'responsive', 'enhancements', 'site-fixes', 'illustrations', 'lab', ...(isAirport ? ['lab-airport'] : []), 'lab-proof'];
 ---
 <Base
-  title={`${d.title} — Data & AI Lab`}
+  title={`${d.title} — Felipe Alves Lab`}
   description={d.question}
   ogType="article"
   css={css}
@@ -30,23 +32,32 @@ const css = ['styles', 'responsive', 'enhancements', 'site-fixes', 'illustration
   current="lab"
 >
   <main>
+    <nav class="section-shell lab-breadcrumb" aria-label="Breadcrumb"><a href="/">Felipe Alves</a><span aria-hidden="true">/</span><a href="/lab">Lab</a><span aria-hidden="true">/</span><span aria-current="page">{d.title}</span></nav>
     {isAirport ? (
       <AirportHero type={d.type} />
     ) : (
       <section class="case-hero section-shell reveal">
         <div>
-          <span class="eyebrow">Data &amp; AI Lab · {d.lane}</span>
+          <span class="eyebrow">Lab exhibit · {d.lane}</span>
           <h1>{d.title}</h1>
           <p>{d.question}</p>
+          <span class="lab-provenance">In source · recorded evidence</span>
         </div>
         <div class="case-facts">
           <div><span>Type</span><strong>{d.type}</strong></div>
-          <div><span>Data</span><strong>{d.synthetic ? 'Synthetic' : 'Real'} · {fmt(d.dataFreshness)}</strong></div>
+          <div><span>Dataset</span><strong>{d.synthetic ? 'Synthetic' : 'Public'} · as recorded {fmt(d.dataFreshness)}</strong></div>
           <div><span>Licence</span><strong>{d.dataLicence}</strong></div>
           <div><span>Running cost</span><strong>{d.runningCost}</strong></div>
         </div>
       </section>
     )}
+    {(isAirport || isLedger) && (
+      <section class="section-shell lab-evidence-detail" aria-label="Recorded evidence chart">
+        <div class="lab-evidence-intro"><span class="eyebrow">Evidence / chart</span><h2>Read the result before the explanation.</h2></div>
+        <LabEvidenceChart exhibit={isAirport ? 'airport' : 'ledger'} />
+      </section>
+    )}
+    {isAirport && <div class="section-shell"><AirportNotebook /></div>}
     <section class="section-shell lab-body">
       <div class="lab-prose"><Content /></div>
     </section>

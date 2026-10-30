@@ -1,0 +1,59 @@
+---
+// Read real source regions at build time. There is no copied or simulated pipeline logic here.
+import loadSrc from '../../pipelines/airport-contract/load.mjs?raw';
+import csvSrc from '../../pipelines/airport-contract/csv.mjs?raw';
+import contractSrc from '../../pipelines/airport-contract/contract.mjs?raw';
+import recordSrc from '../../pipelines/airport-contract/record.mjs?raw';
+import runSrc from '../../pipelines/airport-contract/run.mjs?raw';
+import { regions } from '../lib/airport/regions.mjs';
+
+const sourceFiles: Record<string, string> = {
+  'load.mjs': loadSrc, 'csv.mjs': csvSrc, 'contract.mjs': contractSrc,
+  'record.mjs': recordSrc, 'run.mjs': runSrc,
+};
+function codeCell(file: string, region: string) {
+  const result = regions(sourceFiles[file])?.[region];
+  if (!result?.code) throw new Error(`Missing real pipeline code region: ${file}#${region}`);
+  return {
+    file,
+    code: result.code,
+    lines: `L${result.from}–L${result.to}`,
+    url: `https://github.com/felipealves7/felipealveslab/blob/main/pipelines/airport-contract/${file}#L${result.from}-L${result.to}`,
+  };
+}
+const stages = [
+  { no: '01', title: 'Define the inputs', description: 'The three public source tables and their download location.', cells: [codeCell('load.mjs', 'source')] },
+  { no: '02', title: 'Fetch and parse', description: 'Fetch bytes, capture the upstream Last-Modified header, then parse CSV.', cells: [codeCell('load.mjs', 'request'), codeCell('load.mjs', 'parse')] },
+  { no: '03', title: 'Express the contract', description: 'Check that country references resolve; preserve the tolerated-row threshold in code.', cells: [codeCell('contract.mjs', 'rule-country'), codeCell('contract.mjs', 'tolerance')] },
+  { no: '04', title: 'Gate the run', description: 'Fail the run if a contract check fails or the input is stale.', cells: [codeCell('record.mjs', 'gate')] },
+  { no: '05', title: 'Record and signal', description: 'Save bounded run history and return a failing exit code when validation fails.', cells: [codeCell('run.mjs', 'record'), codeCell('run.mjs', 'exit')] },
+];
+---
+<section class="lab-notebook" aria-labelledby="airport-notebook-heading">
+  <div class="lab-notebook-heading">
+    <div>
+      <span class="eyebrow">Pipeline notebook · in source</span>
+      <h2 id="airport-notebook-heading">From external CSV to an explicit pass/fail gate.</h2>
+      <p>Five checkpoints. Each cell below is extracted from the existing pipeline file when Astro builds the site—not rewritten example code. Expand the steps to inspect the implementation.</p>
+    </div>
+    <span class="lab-provenance">In source</span>
+  </div>
+  <ol class="lab-notebook-steps">
+    {stages.map((stage, index) => (
+      <li>
+        <details open={index === 0}>
+          <summary><span class="lab-notebook-index">{stage.no}</span><span><strong>{stage.title}</strong><small>{stage.description}</small></span><span class="lab-notebook-cue" aria-hidden="true">+</span></summary>
+          <div class="lab-notebook-cells">
+            {stage.cells.map((cell) => (
+              <div class="lab-notebook-cell">
+                <div class="lab-notebook-file"><code>{cell.file}</code><span>{cell.lines}</span><a href={cell.url} target="_blank" rel="noreferrer">View source ↗</a></div>
+                <pre><code>{cell.code}</code></pre>
+              </div>
+            ))}
+          </div>
+        </details>
+      </li>
+    ))}
+  </ol>
+  <p class="lab-notebook-note"><strong>Limit:</strong> saved tests demonstrate schema/range/link checks, not factual correctness of airport names or coordinates. The interactive replay below is the existing live-piece implementation, not a new backend.</p>
+</section>

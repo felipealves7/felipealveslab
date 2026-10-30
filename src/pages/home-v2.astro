@@ -1,0 +1,128 @@
+---
+import Base from '../layouts/Base.astro';
+import LabEvidenceChart from '../components/LabEvidenceChart.astro';
+
+// PREVIEW homepage (career-first). Not indexed and not in the sitemap. Promote by moving this file to index.astro.
+// Single place to change the CV action: swap for '/assets/Felipe-Alves-CV.pdf' once a current CV PDF is added to public/assets.
+const CV_HREF = 'mailto:felipe.s.alves7@gmail.com?subject=CV%20request';
+const CV_LABEL = 'Request CV';
+---
+<Base
+  title={'Felipe Alves — Finance Data Analytics · Product · Transformation'}
+  description={'Felipe Alves is a Finance Data Analytics Specialist working across analytics, data products and transformation in aviation and regulated markets. Career work and checkable Lab evidence.'}
+  ogDescription={'Data products, analytical systems and business decisions — with recorded technical evidence in the Lab.'}
+  ogType="website"
+  css={['styles', 'responsive', 'enhancements', 'home', 'site-fixes', 'lab-proof']}
+  bodyClass=""
+  script="script"
+  noindex
+  home="/home-v2"
+>
+<main id="top">
+  <section class="hero section-shell career-hero" aria-labelledby="career-title">
+    <div class="hero-copy reveal">
+      <div class="eyebrow">Dubai · working globally</div>
+      <div class="hero-role">Finance Data Analytics Specialist · Emirates Group Finance</div>
+      <h1 id="career-title">From complex data to <span>decisions</span> people can use.</h1>
+      <p class="hero-lede">I work across analytics, data products and transformation — translating business problems into clearer definitions, better systems and usable evidence.</p>
+      <div class="hero-actions career-actions">
+        <a class="button primary" href="https://www.linkedin.com/in/felipealves7" target="_blank" rel="noreferrer">View LinkedIn ↗</a>
+        <a class="button primary" href={CV_HREF}>{CV_LABEL}</a>
+        <a class="button ghost" href="#lab-proof">See the Lab evidence</a>
+      </div>
+      <p class="microcopy">Employer work is private. The Lab uses public or synthetic data to demonstrate the methods.</p>
+    </div>
+    <div class="hero-visual reveal delay-1" aria-label="Portrait of Felipe Alves">
+      <div class="portrait-panel">
+        <div class="portrait-overlay"></div>
+        <div class="portrait-copy"><span class="portrait-kicker">Current focus · private professional work</span><strong>Finance data products.</strong><span>Forecasting, transformation reporting and analytical definitions.</span></div>
+        <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div><div class="orbit-dot dot-a"></div><div class="orbit-dot dot-b"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lab proof moves directly below the hero, before the career metrics or case studies. -->
+  <section class="section-shell career-lab" id="lab-proof" aria-labelledby="lab-proof-title">
+    <div class="career-lab-header">
+      <div><span class="eyebrow">The Lab</span><h2 id="lab-proof-title">The methods, with results you can inspect.</h2><p>The career explains what problems I have worked on. The Lab shows small, reproducible implementations. Charts are built from saved public or synthetic data in the repository, not from live systems.</p></div>
+      <a class="text-link" href="/lab">Enter the Lab →</a>
+    </div>
+    <div class="career-lab-grid">
+      <article class="career-lab-card">
+        <div class="lab-card-overline"><span>Conversational BI evaluation</span></div>
+        <h3>Ask the Ledger</h3>
+        <p>How often does a rule-based finance question translator answer correctly—or refuse correctly?</p>
+        <LabEvidenceChart exhibit="ledger" compact />
+        <a class="text-link" href="/lab/ask-the-ledger">Inspect evaluation →</a>
+      </article>
+      <article class="career-lab-card">
+        <div class="lab-card-overline"><span>Data engineering / validation</span></div>
+        <h3>Airport Data Contract</h3>
+        <p>A public-data pipeline with explicit checks, recorded runs and reproducible failure rehearsals.</p>
+        <LabEvidenceChart exhibit="airport" compact />
+        <a class="text-link" href="/lab/airport-data-contract">Explore pipeline notebook →</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="metrics section-shell" aria-label="Professional background and outcomes">
+    <div class="metric reveal"><span class="metric-type">Experience</span><span class="metric-value">10</span><span class="metric-label">years spanning systems, analytics, product delivery and transformation, as described on the existing site</span></div>
+    <div class="metric reveal delay-1"><span class="metric-type">Product scope</span><span class="metric-value">75</span><span class="metric-label">features authored during BRS discovery and MVP scoping, alongside a five-year roadmap</span></div>
+    <div class="metric reveal delay-2"><span class="metric-type">Transformation scope</span><span class="metric-value">40+</span><span class="metric-label">applications across the Group Finance eInvoicing transformation described in the case study</span></div>
+    <div class="metric reveal delay-3"><span class="metric-type">Reported outcome</span><span class="metric-value">−32%</span><span class="metric-label">reported compliance-risk measure after delivery of an integrated risk-analysis framework · <a href="/case-studies/risk-analysis#outcome">definition and limits</a></span></div>
+  </section>
+
+  <section class="lens section-shell" id="work" aria-labelledby="work-title">
+    <div class="section-heading reveal"><span class="eyebrow">Selected work</span><h2 id="work-title">One career. Three useful lenses.</h2><p>Explore work in aviation, finance and regulated energy. The cases describe roles and decisions, not public recreations of employer systems.</p></div>
+    <div class="lens-controls reveal delay-1" role="tablist" aria-label="Choose portfolio lens">
+      <button class="lens-button active" data-lens="all" role="tab" aria-selected="true" aria-controls="case-grid">All</button>
+      <button class="lens-button" data-lens="data" role="tab" aria-selected="false" aria-controls="case-grid">Data &amp; analytics</button>
+      <button class="lens-button" data-lens="product" role="tab" aria-selected="false" aria-controls="case-grid">Product</button>
+      <button class="lens-button" data-lens="transformation" role="tab" aria-selected="false" aria-controls="case-grid">Transformation</button>
+    </div>
+    <div class="lens-summary reveal delay-2" id="lens-summary" aria-live="polite"><span class="summary-label">Currently showing</span><strong>Four pieces of work. Same person.</strong></div>
+    <div class="case-grid" id="case-grid">
+      <a class="case-card reveal" data-tags="product transformation" href="/case-studies/aviation-platform"><div class="case-topline"><span>01</span><span>Aviation · Product</span></div><div class="case-visual aviation-visual" aria-hidden="true"><div class="belt-line line-1"></div><div class="belt-line line-2"></div><div class="belt-line line-3"></div><div class="bag bag-1"></div><div class="bag bag-2"></div><div class="bag bag-3"></div></div><h3>Reframing a mission-critical aviation platform</h3><p>Discovery, MVP scoping and roadmap definition for a Baggage Reconciliation System operating at DXB scale.</p><div class="case-proof"><strong>MVP scoped</strong><span>·</span><strong>5-year roadmap</strong><span>·</span><strong>2 Scrum teams</strong></div><span class="case-link">Read case study →</span></a>
+      <a class="case-card reveal delay-1" data-tags="data product" href="/case-studies/finance-forecasting"><div class="case-topline"><span>02</span><span>Finance · Data product</span></div><div class="case-visual finance-visual" aria-hidden="true"><div class="spark spark-1"></div><div class="spark spark-2"></div><div class="spark spark-3"></div><div class="spark spark-4"></div><div class="spark spark-5"></div><div class="baseline"></div></div><h3>Improving a global cash-flow forecasting product</h3><p>Finance-domain co-ownership with Data Science across multi-country, multi-currency liquidity planning.</p><div class="case-proof"><strong>Business rule changed</strong><span>·</span><strong>Dataiku</strong><span>·</span><strong>Treasury</strong></div><span class="case-link">Read case study →</span></a>
+      <a class="case-card reveal delay-2" data-tags="data transformation" href="/case-studies/risk-analysis"><div class="case-topline"><span>03</span><span>Energy · Risk analytics</span></div><div class="case-visual risk-visual" aria-hidden="true"><div class="risk-ring ring-1"></div><div class="risk-ring ring-2"></div><div class="risk-ring ring-3"></div><div class="risk-core">−32%</div></div><h3>Turning fragmented compliance signals into integrated risk analysis</h3><p>End-to-end delivery spanning requirements, data modelling, ETL design and analytics in a regulated energy market.</p><div class="case-proof"><strong>Reported compliance-risk measure</strong><span>·</span><strong>SQL + SAS</strong></div><span class="case-link">Read case study →</span></a>
+      <a class="case-card reveal delay-3" data-tags="transformation" href="/case-studies/einvoicing"><div class="case-topline"><span>04</span><span>Finance · Transformation</span></div><div class="case-visual einvoice-visual" aria-hidden="true"><div class="einvoice-line l1"></div><div class="einvoice-line l2"></div><div class="einvoice-line l3"></div><div class="einvoice-line l4"></div><div class="einvoice-node n1">SIT</div><div class="einvoice-node n2">UAT</div><div class="einvoice-node n3">Jira</div><div class="einvoice-node n4">QMetry</div><div class="einvoice-core">40+</div></div><h3>Making a 40+ application transformation visible</h3><p>Reporting, data integration and status standardisation for a Group Finance eInvoicing transformation.</p><div class="case-proof"><strong>Status definitions</strong><span>·</span><strong>In progress</strong></div><span class="case-link">Read limited case study →</span></a>
+    </div>
+  </section>
+
+  <section class="experience home-milestones section-shell" id="experience">
+    <div class="milestone-section-head reveal"><div><span class="eyebrow">Selected milestones</span><h2>The progression matters more than the list of titles.</h2></div><a class="text-link" href="/milestones">Full timeline →</a></div>
+    <div class="home-milestone-controls reveal" role="tablist" aria-label="Filter selected milestones">
+      <button class="home-milestone-filter active" data-home-lens="all" role="tab" aria-selected="true">All</button>
+      <button class="home-milestone-filter" data-home-lens="data" role="tab" aria-selected="false">Data &amp; analytics</button>
+      <button class="home-milestone-filter" data-home-lens="product" role="tab" aria-selected="false">Product</button>
+      <button class="home-milestone-filter" data-home-lens="transformation" role="tab" aria-selected="false">Transformation</button>
+    </div>
+    <div class="milestone-card-grid">
+      <button class="milestone-card reveal" type="button" data-home-tags="data" aria-expanded="false"><span class="milestone-card-year">2016</span><span class="milestone-card-tag">Data foundation</span><strong>Business logic became data.</strong><span class="milestone-card-detail">Oracle, SQL/PLSQL, ETL and data models in regulated energy systems.</span><span class="milestone-card-cue">Explore +</span></button>
+      <button class="milestone-card reveal delay-1" type="button" data-home-tags="data transformation" aria-expanded="false"><span class="milestone-card-year">2020</span><span class="milestone-card-tag">Analytics &amp; risk</span><strong>Closer to the decisions.</strong><span class="milestone-card-detail">Risk definitions, analytical rules, ETL and executive decision support.</span><span class="milestone-card-cue">Explore +</span></button>
+      <button class="milestone-card reveal delay-2" type="button" data-home-tags="product transformation" aria-expanded="false"><span class="milestone-card-year">2022</span><span class="milestone-card-tag">Product</span><strong>Brazil → Dubai.</strong><span class="milestone-card-detail">Product ownership across operations, engineering and delivery teams.</span><span class="milestone-card-cue">Explore +</span></button>
+      <button class="milestone-card reveal delay-3" type="button" data-home-tags="product transformation" aria-expanded="false"><span class="milestone-card-year">2024–25</span><span class="milestone-card-tag">Platform transformation</span><strong>Turned a rewrite into choices.</strong><span class="milestone-card-detail">BRS discovery, 75 features, MVP and five-year roadmap.</span><span class="milestone-card-cue">Explore +</span></button>
+      <button class="milestone-card reveal" type="button" data-home-tags="product transformation" aria-expanded="false"><span class="milestone-card-year">2025</span><span class="milestone-card-tag">Collaboration</span><strong>Scaling through others.</strong><span class="milestone-card-detail">Mentoring Product Owners, coordinating engineering and QA.</span><span class="milestone-card-cue">Explore +</span></button>
+      <button class="milestone-card reveal delay-1" type="button" data-home-tags="data product transformation" aria-expanded="false"><span class="milestone-card-year">2026</span><span class="milestone-card-tag">Finance data</span><strong>Finance data products.</strong><span class="milestone-card-detail">Forecasting, reporting and analytical work across enterprise Finance.</span><span class="milestone-card-cue">Explore +</span></button>
+    </div>
+  </section>
+
+  <section class="principles operating-black" id="thinking">
+    <div class="operating-inner">
+      <div class="section-heading reveal"><span class="eyebrow">How I operate</span><h2>Proof over theatre.</h2><p>Translate a messy requirement into a business rule, test it against evidence, then make the result usable. The Lab makes parts of that reasoning inspectable.</p></div>
+      <div class="operating-map reveal" aria-label="Business to technical continuum"><div class="operating-node"><span>Business</span><small>Finance · operations · risk</small></div><div class="operating-arrow">→</div><div class="operating-node accent"><span>Translation</span><small>Requirements · KPIs · logic</small></div><div class="operating-arrow">→</div><div class="operating-node accent"><span>Product / Analytics</span><small>Roadmaps · models · BI</small></div><div class="operating-arrow">→</div><div class="operating-node"><span>Technical</span><small>SQL · ETL · data models</small></div></div>
+    </div>
+  </section>
+
+  <section class="credentials credentials-compact section-shell reveal">
+    <div><span class="eyebrow">Foundation</span><h2>Technical depth in service of decisions.</h2></div>
+    <div class="foundation-chips"><span>Advanced SQL</span><span>Power BI</span><span>Tableau</span><span>Dataiku</span><span>Oracle</span><span>Python</span><span>SAFe POPM</span><span>PSPO I</span><span>MBA · AI, Data Science &amp; Big Data</span></div>
+  </section>
+  <section class="closing closing-compact section-shell reveal">
+    <span class="eyebrow">Professional contact</span>
+    <h2>Finance data and analytical products. Ready for a broader challenge.</h2>
+    <p>Data product, analytics leadership or technical product roles where business context and technical depth both matter.</p>
+    <div class="closing-actions"><a class="button primary" href="https://www.linkedin.com/in/felipealves7" target="_blank" rel="noreferrer">LinkedIn ↗</a><a class="button ghost" href={CV_HREF}>{CV_LABEL}</a><a class="button ghost" href="/lab">Browse Lab evidence</a></div>
+  </section>
+</main>
+</Base>
