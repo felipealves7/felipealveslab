@@ -12,7 +12,8 @@ const sourceFiles: Record<string, string> = {
   'record.mjs': recordSrc, 'run.mjs': runSrc,
 };
 function codeCell(file: string, region: string) {
-  const result = regions(sourceFiles[file])?.[region];
+  const found = regions(sourceFiles[file]) as Record<string, { code: string; from: number; to: number } | undefined>;
+  const result = found[region];
   if (!result?.code) throw new Error(`Missing real pipeline code region: ${file}#${region}`);
   return {
     file,
