@@ -1,0 +1,51 @@
+{
+  "checked": "2026-11-01",
+  "how": "Opened signed out in a browser. Tableau dates and revision from Tableau Public's workbook metadata; dashboard figures read from the rendered public view, with filters applied through Tableau's URL parameters, not by clicking the dashboard's own controls.",
+  "tableau": {
+    "title": "BTS Flight Reliability",
+    "account": "felipealves7",
+    "url": "https://public.tableau.com/app/profile/felipealves7/viz/BTSFlightReliability/Flightreliability",
+    "view": "BTSFlightReliability/Flightreliability",
+    "firstPublished": "2026-10-30T10:05:12Z",
+    "lastPublished": "2026-11-01T15:28:24Z",
+    "revision": "1.4",
+    "defaultView": "Flight reliability",
+    "embed": {
+      "source": "Tableau Public Share dialog, Embed Code, copied 2026-11-01",
+      "script": "https://public.tableau.com/javascripts/api/viz_v1.js",
+      "hostUrl": "https%3A%2F%2Fpublic.tableau.com%2F",
+      "staticImage": "https://public.tableau.com/static/images/BT/BTSFlightReliability/Flightreliability/1.png",
+      "wide": { "minWidth": 501, "width": "1100px", "height": "1177px" },
+      "narrow": { "width": "100%", "height": "1727px" }
+    },
+    "checks": [
+      { "state": "2026, January to August (the default view)", "year": 2026, "months": [1, 2, 3, 4, 5, 6, 7, 8], "shown": { "arrival_otp": "76.44%", "cancellation_rate": "2.20%", "mean_positive_delay": "18.46", "mean_signed_delay": "9.33 min", "scheduled": "4,728,732", "scheduled_on_time_success": "74.50%" } },
+      { "state": "2025, all twelve months", "year": 2025, "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], "shown": { "arrival_otp": "77.69%", "cancellation_rate": "1.47%", "mean_positive_delay": "17.27", "mean_signed_delay": "8.50 min", "scheduled": "7,001,619", "scheduled_on_time_success": "76.34%" } },
+      { "state": "2026, January to July", "year": 2026, "months": [1, 2, 3, 4, 5, 6, 7], "shown": { "arrival_otp": "76.93%", "cancellation_rate": "2.25%", "mean_positive_delay": "17.94", "mean_signed_delay": "8.67 min", "scheduled": "4,120,343", "scheduled_on_time_success": "74.96%" } },
+      { "state": "Origin ORD, 2026, January to August", "origin": "ORD", "note": "Checked against the package's route-month file; that file is not in this repository.", "shown": { "arrival_otp": "70.06%", "cancellation_rate": "3.11%", "mean_positive_delay": "24.84", "mean_signed_delay": "16.47 min", "scheduled": "246,552", "scheduled_on_time_success": "67.65%" } },
+      { "state": "2026, September (after the last month of data)", "year": 2026, "months": [9], "shown": "empty in all four views, no figures" }
+    ],
+    "notRetested": [
+      "Clicking an origin on the dashboard and clicking again to clear it",
+      "The dashboard's own year and month controls"
+    ],
+    "phoneLayout": "Tableau serves a separate phone layout at 500 px wide or less. At 375 px in a phone-sized browser test its sections overlapped and the summary figures did not show; requested with :device=phone at about 800 px wide it rendered correctly. Not confirmed on a real phone."
+  },
+  "kaggle": {
+    "notebook": {
+      "title": "Aviation Reliability — What Average Delay Hides",
+      "url": "https://www.kaggle.com/code/felipealves7/aviation-reliability-what-average-delay-hides",
+      "version": "Version 1 of 1",
+      "run": "42.8 second run, successful",
+      "licence": "Apache 2.0",
+      "input": "Aviation Reliability BTS Foundation v1"
+    },
+    "dataset": {
+      "title": "Aviation Reliability BTS Foundation v1",
+      "url": "https://www.kaggle.com/datasets/felipealves7/aviation-reliability-bts-foundation-v1",
+      "version": "Version 1 (155.1 MB)",
+      "licence": "U.S. Government Works"
+    },
+    "note": "Both were private (not found when signed out) on 2026-11-01 morning, Dubai time, and public when checked again the same evening."
+  }
+}

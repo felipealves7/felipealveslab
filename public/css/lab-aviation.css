@@ -128,3 +128,23 @@
   .av-facts div + div { padding-left: 0; border-left: 0; }
   .av-switch label { padding: 7px 11px; font-size: 12px; }
 }
+
+/* Also on Tableau Public and Kaggle */
+.av-elsewhere { padding: 64px 0 20px; border-top: 1px solid var(--line); margin-top: 40px; }
+.av-elsewhere-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.av-ext-card { display: flex; flex-direction: column; min-width: 0; border: 1px solid var(--line); border-radius: 8px; padding: 22px; background: var(--cream); }
+.av-ext-kicker { font-size: 10px; text-transform: uppercase; letter-spacing: .12em; font-weight: 700; color: var(--olive2); }
+.av-ext-card h3 { font: 400 26px/1.08 var(--serif); letter-spacing: -.03em; margin: 12px 0 8px; }
+.av-ext-meta { font-size: 11px; color: var(--av-muted); margin: 0 0 12px; }
+.av-ext-card > p:not(.av-ext-meta) { font-size: 14px; line-height: 1.5; color: var(--soft); margin: 0 0 18px; }
+.av-ext-actions { margin-top: auto; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.av-tableau-load, .av-tableau-note { display: none; }
+.av-tableau-load[disabled] { opacity: .7; cursor: default; }
+.av-tableau-slot { margin-top: 22px; overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
+@media (min-width: 1000px) {
+  .js .av-tableau-load { display: inline-flex; }
+  .js .av-tableau-note { display: block; }
+}
+@media (max-width: 980px) {
+  .av-elsewhere-grid { grid-template-columns: 1fr; }
+}

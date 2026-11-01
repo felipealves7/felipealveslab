@@ -2,9 +2,14 @@
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import LabEvidenceChart from '../../components/LabEvidenceChart.astro';
+import ext from '../../../data/aviation-reliability/external.json';
 
 const entries = (await getCollection('lab')).sort((a, b) => (b.data.published?.getTime() ?? 0) - (a.data.published?.getTime() ?? 0));
 const fmt = (d: Date) => d.toISOString().slice(0, 10);
+// External platforms: dates and links come from the exhibit's dated check record.
+const onDay = (iso: string) => new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
+const checkedOn = onDay(ext.checked);
+const republishedOn = onDay(ext.tableau.lastPublished);
 // Which recorded chart each exhibit's card shows.
 const CHARTS: Record<string, 'ledger' | 'airport' | 'aviation'> = {
   'ask-the-ledger': 'ledger',
@@ -48,11 +53,11 @@ const CHARTS: Record<string, 'ledger' | 'airport' | 'aviation'> = {
       {entries.length === 0 && <p>There are no published experiments in the checked-in content collection.</p>}
     </section>
     <section class="section-shell lab-next-section">
-      <span class="eyebrow">Outside this site · checked 1 Nov 2026</span>
+      <span class="eyebrow">Outside this site · checked {checkedOn}</span>
       <h2>Work that also lives on other platforms.</h2>
       <ul class="lab-elsewhere">
-        <li><strong>Tableau Public, draft.</strong> <a href="https://public.tableau.com/app/profile/felipealves7/viz/BTSFlightReliability/Flightreliability" target="_blank" rel="noreferrer">BTS Flight Reliability ↗</a>, published 30 Oct 2026 for the flight-reliability exhibit. Its figures match the exhibit. Title, explanatory text and a phone layout are not done yet.</li>
-        <li><strong>Kaggle, private.</strong> The flight-reliability notebook runs end to end on Kaggle, but it is not public yet, so it is not linked.</li>
+        <li><strong>Tableau Public.</strong> <a href={ext.tableau.url} target="_blank" rel="noreferrer">{ext.tableau.title} ↗</a>, the flight-reliability dashboard, republished {republishedOn}. Its figures matched the exhibit's data in the checks recorded with the exhibit.</li>
+        <li><strong>Kaggle.</strong> The flight-reliability <a href={ext.kaggle.notebook.url} target="_blank" rel="noreferrer">notebook ↗</a> and its <a href={ext.kaggle.dataset.url} target="_blank" rel="noreferrer">dataset ↗</a>, public since 1 Nov 2026.</li>
       </ul>
       <p>Hosted work is linked here once its address has been opened and its figures checked against the files in this repository. Case-study demonstrations use public or clearly synthetic data, never employer data.</p>
       <a class="text-link" href="/#work">Review professional case studies →</a>

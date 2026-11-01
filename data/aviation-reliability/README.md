@@ -33,6 +33,13 @@ package `aviation-reliability-v1` (30 October 2026, SHA-256 of the ZIP
 | `metric-contract.json` | Definitions: numerator and denominator of every measure | `4c23d6e38b0e` |
 | `source-code-checksums.json` | SHA-256 of every source file in the package | `f652b88cc6e9` |
 | `code/` | Seven code files shown on the page, unchanged; their SHA-256 match `source-code-checksums.json` | |
+| `external.json` | Written here, not from the package: a dated, signed-out check of the Tableau dashboard and the Kaggle notebook and dataset, with the figures read off the dashboard | |
+
+## The package in public
+
+The whole package, code included, is public as the Kaggle dataset
+https://www.kaggle.com/datasets/felipealves7/aviation-reliability-bts-foundation-v1 (Version 1, opened
+signed out on 1 November 2026). `external.json` records that check and the Tableau one.
 
 ## Columns and units
 
