@@ -1,0 +1,65 @@
+---
+// Arrival delay distribution on /lab/aviation-reliability: every observed arrival in the 20 months,
+// in 15-minute bands, from the pipeline's saved histogram. The build stops if the bands do not add up
+// to the observed arrivals in the monthly table. Percentiles come from the saved analysis output.
+import histCsv from '../../data/aviation-reliability/delay_histogram.csv?raw';
+import monthsCsv from '../../data/aviation-reliability/mart_month.csv?raw';
+import analysis from '../../data/aviation-reliability/analysis-results.json';
+import { parseHistogram, histogramChart, parseMonths, overview, fmtInt } from '../lib/aviation/metrics.mjs';
+
+interface Bar { start: number; flights: number; share: number; label: string; late: boolean; x: number; width: number; y: number; height: number; cx: number; slotX: number; slotWidth: number; text: string }
+interface Chart { width: number; height: number; plot: { left: number; right: number; top: number; bottom: number }; yTicks: { y: number; label: string }[]; bars: Bar[]; boundaryX: number }
+const bins = parseHistogram(histCsv);
+const o = overview(parseMonths(monthsCsv));
+const total = (bins as unknown as Bar[]).reduce((n, b) => n + b.flights, 0);
+if (total !== o.observed) throw new Error('The delay histogram does not add up to the observed arrivals');
+const c = histogramChart(bins) as unknown as Chart;
+const dist = analysis.delay_distribution;
+const tick = (b: Bar) => (b.start === -60 ? '< −30' : b.start === 180 ? '180+' : b.start < 0 ? `−${-b.start}` : `${b.start}`);
+const early = (bins as unknown as Bar[]).filter((b) => b.start < 0).reduce((n, b) => n + b.flights, 0);
+---
+<section class="av-dist section-shell" aria-labelledby="av-dist-title">
+  <div class="av-section-head">
+    <span class="eyebrow">Distribution · {fmtInt(total)} arrivals, {o.from} to {o.to}</span>
+    <h2 id="av-dist-title">Most flights land early. The late tail is long.</h2>
+    <p>
+      {Math.round((early / total) * 100)}% of arrivals were early. The middle arrival was {Math.abs(dist.median)} minutes early.
+      One in ten was {dist.p90} minutes or more late, and one in a hundred {dist.p99} minutes or more.
+      An average folds all of that into one number.
+    </p>
+  </div>
+  <figure class="av-dist-figure">
+    <svg viewBox={`0 0 ${c.width} ${c.height}`} class="av-chart" role="img"
+      aria-label={`Arrival delay in 15-minute bands. ${c.bars.map((b) => b.text).join('; ')}.`}>
+      <text class="av-axis-title" x={c.plot.left} y="10">Flights</text>
+      {c.yTicks.map((t) => (
+        <g class="av-grid">
+          <line x1={c.plot.left} x2={c.plot.right} y1={t.y} y2={t.y} />
+          <text x={c.plot.left - 8} y={t.y + 4} text-anchor="end">{t.label}</text>
+        </g>
+      ))}
+      <line class="av-boundary" x1={c.boundaryX} x2={c.boundaryX} y1={c.plot.top - 4} y2={c.plot.bottom} />
+      <text class="av-boundary-label" x={c.boundaryX + 6} y={c.plot.top + 10}>Late from 15 minutes</text>
+      {c.bars.map((b) => (
+        <g class="av-bar" tabindex="0" aria-label={b.text}>
+          <title>{b.text}</title>
+          <rect class="av-hit" x={b.slotX} y={c.plot.top} width={b.slotWidth} height={c.plot.bottom - c.plot.top} />
+          <path class="av-bar-fill" d={`M${b.x},${c.plot.bottom}V${b.y + Math.min(4, b.height)}Q${b.x},${b.y} ${b.x + Math.min(4, b.height)},${b.y}H${b.x + b.width - Math.min(4, b.height)}Q${b.x + b.width},${b.y} ${b.x + b.width},${b.y + Math.min(4, b.height)}V${c.plot.bottom}Z`} />
+          <text class="av-xlabel" x={b.cx} y={c.plot.bottom + 18} text-anchor="middle">{tick(b)}</text>
+        </g>
+      ))}
+      <text class="av-axis-caption" x={c.plot.left + (c.plot.right - c.plot.left) / 2} y={c.height - 6} text-anchor="middle">Minutes late on arrival, by the start of each 15-minute band (negative = early)</text>
+    </svg>
+    <p class="av-swipe" aria-hidden="true">Swipe the chart sideways for every band.</p>
+    <details class="av-table">
+      <summary>Show the numbers</summary>
+      <table>
+        <thead><tr><th scope="col">Arrival</th><th scope="col">Flights</th><th scope="col">Share</th></tr></thead>
+        <tbody>
+          {c.bars.map((b) => <tr><th scope="row">{b.label}</th><td>{fmtInt(b.flights)}</td><td>{(b.share * 100).toFixed(1)}%</td></tr>)}
+        </tbody>
+      </table>
+    </details>
+  </figure>
+  <p class="av-note">Bands: <code>data/aviation-reliability/delay_histogram.csv</code>. Percentiles: <code>analysis-results.json</code>, worked out on every observed flight, so they are exact rather than read off the bands.</p>
+</section>

@@ -1,21 +1,31 @@
 ---
-// Evidence is compiled from checked-in JSON. No hardcoded metrics and no request at runtime.
+// Evidence is compiled from checked-in files. No hardcoded metrics and no request at runtime.
 import ledgerData from '../../data/ask-the-ledger/results.json';
 import airportData from '../../data/airport-contract/results.json';
-import { ledgerEvidence, airportEvidence } from '../lib/lab/evidence.mjs';
+import aviationMonths from '../../data/aviation-reliability/mart_month.csv?raw';
+import { ledgerEvidence, airportEvidence, aviationEvidence } from '../lib/lab/evidence.mjs';
 
-interface Props { exhibit: 'ledger' | 'airport'; compact?: boolean; }
-// One explicit shape for both exhibits: the ledger fills `bars`, the airport fills `cells`.
+interface Props { exhibit: 'ledger' | 'airport' | 'aviation'; compact?: boolean; }
+interface Bar { key: string; label: string; value: number; percent: number; tone: string; text?: string }
+// One explicit shape for every exhibit: the ledger and aviation fill `bars`, the airport fills `cells`.
+// Aviation bars are signed (`diverging`): percent runs from -100 to 100 around a centre line.
 interface Evidence {
   title: string; subtitle: string; source: string; provenance: string; unit: string; summary: string;
-  bars: { key: string; label: string; value: number; percent: number; tone: string }[];
+  bars: Bar[];
+  diverging?: boolean;
+  axis?: string;
   cells?: { id: string; says: string; status: 'pass' | 'tolerated' | 'fail' }[];
   tally?: { pass: number; tolerated: number; fail: number };
   rowsLine?: string;
 }
 const { exhibit, compact = false } = Astro.props;
-const evidence = (exhibit === 'ledger' ? ledgerEvidence(ledgerData) : airportEvidence(airportData)) as unknown as Evidence;
+const raw = exhibit === 'ledger' ? ledgerEvidence(ledgerData) : exhibit === 'airport' ? airportEvidence(airportData) : aviationEvidence(aviationMonths);
+const evidence = raw as unknown as Evidence;
 const fmt = (value: number) => new Intl.NumberFormat('en-GB').format(value);
+const valueText = (bar: Bar) => bar.text ?? fmt(bar.value);
+const fillStyle = (bar: Bar) => (evidence.diverging
+  ? `left: ${bar.percent < 0 ? 50 + bar.percent / 2 : 50}%; width: ${Math.abs(bar.percent) / 2}%;`
+  : `width: ${bar.percent}%;`);
 ---
 <figure class:list={['lab-evidence-chart', compact && 'lab-evidence-chart--compact']}>
   <figcaption class="lab-evidence-top">
@@ -38,15 +48,17 @@ const fmt = (value: number) => new Intl.NumberFormat('en-GB').format(value);
       <span class="lab-chart-axis">{evidence.rowsLine}</span>
     </div>
   ) : (
-  <div class="lab-chart-plot" role="img" aria-label={`${evidence.title}. ${evidence.bars.map((bar) => `${bar.label}: ${fmt(bar.value)} ${evidence.unit}`).join('; ')}.`}>
-    {evidence.bars.map((bar) => (
+  <div class="lab-chart-plot" role="img" aria-label={`${evidence.title}. ${evidence.bars.map((bar: Bar) => `${bar.label}: ${bar.text ?? `${fmt(bar.value)} ${evidence.unit}`}`).join('; ')}.`}>
+    {evidence.bars.map((bar: Bar) => (
       <div class="lab-chart-row" aria-hidden="true">
         <span class="lab-chart-label">{bar.label}</span>
-        <div class="lab-chart-track"><span class:list={['lab-chart-fill', `lab-chart-fill--${bar.tone}`]} style={`width: ${bar.percent}%;`}></span></div>
-        <span class="lab-chart-value">{fmt(bar.value)}</span>
+        <div class:list={['lab-chart-track', evidence.diverging && 'lab-chart-track--diverging']}>
+          <span class:list={['lab-chart-fill', `lab-chart-fill--${bar.tone}`, evidence.diverging && (bar.percent < 0 ? 'is-neg' : 'is-pos')]} style={fillStyle(bar)}></span>
+        </div>
+        <span class="lab-chart-value">{valueText(bar)}</span>
       </div>
     ))}
-    <span class="lab-chart-axis">Scale: share of all questions · exact values at right</span>
+    <span class="lab-chart-axis">{evidence.axis ?? 'Scale: share of all questions · exact values at right'}</span>
   </div>
   )}
   {!compact && <p class="lab-chart-interpretation">{evidence.summary}</p>}

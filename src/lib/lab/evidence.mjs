@@ -1,5 +1,7 @@
 // Build-time summaries of checked-in Lab evidence. No synthetic display values and no network.
 // This module intentionally receives parsed JSON so tests and Astro use the same functions.
+import { parseMonths, matched, monthSpan, overview, changeBars } from '../aviation/metrics.mjs';
+
 const fmt = (value) => new Intl.NumberFormat('en-GB').format(value);
 const count = (n, one, many = `${one}s`) => `${fmt(n)} ${n === 1 ? one : many}`;
 
@@ -68,5 +70,28 @@ export function airportEvidence(data) {
     rows,
     rowsLine: `${rows.map((r) => `${fmt(r.value)} ${r.key}`).join(' · ')} checked`,
     summary: `${count(rules, 'check')}: ${fmt(pass)} passed, ${fmt(tolerated)} within a documented tolerance, ${fmt(fail)} failed, across ${fmt(total)} rows in three source tables. This is not a claim about upstream accuracy or current live status.`,
+  };
+}
+
+// Flight reliability: each measure in the latest year as a % change from the year before.
+// The figures come from src/lib/aviation/metrics.mjs, which also guards the inputs.
+export function aviationEvidence(martMonthCsv) {
+  const rows = parseMonths(martMonthCsv);
+  const m = matched(rows);
+  const span = monthSpan(m.months);
+  const o = overview(rows);
+  const bars = changeBars(m);
+  const canc = bars.find((b) => b.key === 'cancellation_rate');
+  const delay = bars.find((b) => b.key === 'mean_signed_delay');
+  return {
+    title: 'Flight reliability: change from the year before',
+    subtitle: `${span} ${m.years[1]} against ${span} ${m.years[0]} · ${fmt(o.flights)} US flights, ${o.from} to ${o.to}`,
+    source: 'data/aviation-reliability/mart_month.csv',
+    provenance: 'In source',
+    unit: '%',
+    diverging: true,
+    axis: `% change from ${span} ${m.years[0]} · bars scaled to the largest change`,
+    bars: bars.map((b) => ({ key: b.key, label: b.label, value: b.change, percent: b.percent, tone: 'neutral', text: b.text })),
+    summary: `Cancellations ${canc.text}, while the average arrival delay moved ${delay.text}. Each bar is the ${m.years[1]} value as a change from ${m.years[0]}.`,
   };
 }

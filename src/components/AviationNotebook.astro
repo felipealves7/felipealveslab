@@ -1,0 +1,71 @@
+---
+// Pipeline walkthrough for /lab/aviation-reliability. Each cell shows lines from a byte-for-byte copy of
+// the code that ran (data/aviation-reliability/code/, checked against the package's checksums in
+// scripts/aviation-page.test.mjs). The gate line is recomputed here from the saved files.
+import downloadSrc from '../../data/aviation-reliability/code/download.py?raw';
+import ingestSrc from '../../data/aviation-reliability/code/ingest.py?raw';
+import stgSrc from '../../data/aviation-reliability/code/stg_flights.sql?raw';
+import fctSrc from '../../data/aviation-reliability/code/fct_flights.sql?raw';
+import martSrc from '../../data/aviation-reliability/code/mart_month.sql?raw';
+import partitionSrc from '../../data/aviation-reliability/code/status_partition.sql?raw';
+import reconSrc from '../../data/aviation-reliability/code/mart_reconciliation.sql?raw';
+import monthsCsv from '../../data/aviation-reliability/mart_month.csv?raw';
+import independent from '../../data/aviation-reliability/independent-raw-totals.json';
+import manifest from '../../data/aviation-reliability/source-manifest.json';
+import validation from '../../data/aviation-reliability/validation-summary.json';
+import { STAGES, excerpt, sourceSummary } from '../lib/aviation/notebook.mjs';
+import { parseMonths, reconcile } from '../lib/aviation/metrics.mjs';
+
+interface Cell { file: string; from: number; to: number; anchor: string }
+interface Stage { no: string; title: string; description: string; cells: Cell[] }
+interface Shown { file: string; code: string; lines: string; url: string }
+const sources: Record<string, string> = {
+  'download.py': downloadSrc, 'ingest.py': ingestSrc, 'stg_flights.sql': stgSrc, 'fct_flights.sql': fctSrc,
+  'mart_month.sql': martSrc, 'status_partition.sql': partitionSrc, 'mart_reconciliation.sql': reconSrc,
+};
+const stages = (STAGES as unknown as Stage[]).map((s) => ({
+  ...s,
+  shown: s.cells.map((cell) => {
+    const src = sources[cell.file];
+    if (src === undefined) throw new Error(`No copy of ${cell.file} in data/aviation-reliability/code/`);
+    return excerpt(src, cell) as Shown;
+  }),
+}));
+const src = sourceSummary(manifest);
+const rec = reconcile(parseMonths(monthsCsv), independent);
+if (rec.mismatches.length) throw new Error(`Monthly totals disagree with the independent counts: ${rec.mismatches.join(', ')}`);
+const inc = validation.incremental;
+const rebuildProved = inc.passed === true && inc.update_delete_insert_verified === true && inc.matches_full_refresh === true;
+---
+<section class="lab-notebook" aria-labelledby="av-notebook-heading">
+  <div class="lab-notebook-heading">
+    <div>
+      <span class="eyebrow">Pipeline notebook · in source</span>
+      <h2 id="av-notebook-heading">From {src.archives} government files to one tested monthly table.</h2>
+      <p>{src.archives} monthly archives, {src.first} to {src.last}, about {src.megabytes} MB. Five steps, each with the code that ran. The cells are copies of the standalone project's files, kept byte for byte.</p>
+    </div>
+    <span class="lab-provenance">In source</span>
+  </div>
+  <ol class="lab-notebook-steps">
+    {stages.map((stage, index) => (
+      <li>
+        <details open={index === 0}>
+          <summary><span class="lab-notebook-index">{stage.no}</span><span><strong>{stage.title}</strong><small>{stage.description}</small></span><span class="lab-notebook-cue" aria-hidden="true">+</span></summary>
+          <div class="lab-notebook-cells">
+            {stage.shown.map((cell) => (
+              <div class="lab-notebook-cell">
+                <div class="lab-notebook-file"><code>{cell.file}</code><span>{cell.lines}</span><a href={cell.url} target="_blank" rel="noreferrer">View file ↗</a></div>
+                <pre><code>{cell.code}</code></pre>
+              </div>
+            ))}
+          </div>
+        </details>
+      </li>
+    ))}
+  </ol>
+  <div class="av-gate" role="group" aria-label="Checks">
+    <div><strong>{validation.dbt_data_tests}</strong><span>dbt tests passed on {validation.dbt_models} models, in the project's own build on 30 Oct 2026</span></div>
+    <div><strong>{validation.python_tests}</strong><span>Python tests passed.{rebuildProved && ' A separate run showed that reloading a month replaces changed, deleted and new rows, and matches a clean rebuild.'}</span></div>
+    <div><strong>{rec.matched} of {rec.comparisons}</strong><span>monthly totals match the counts taken straight from the original files: 9 measures for {rec.comparisons / 9} months, checked again whenever this site is built</span></div>
+  </div>
+</section>

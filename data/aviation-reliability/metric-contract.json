@@ -1,0 +1,38 @@
+{
+  "version": "1.0.0",
+  "on_time_boundary": "arrival delay < 15 minutes",
+  "observed_arrival": "not cancelled, not diverted, nonmissing signed arrival delay",
+  "aggregation": "sum additive values before division",
+  "metrics": {
+    "arrival_otp": {
+      "numerator": "on_time",
+      "denominator": "observed_arrivals",
+      "zero_denominator": "null"
+    },
+    "scheduled_on_time_success": {
+      "numerator": "on_time",
+      "denominator": "scheduled",
+      "zero_denominator": "null"
+    },
+    "cancellation_rate": {
+      "numerator": "cancelled",
+      "denominator": "scheduled",
+      "zero_denominator": "null"
+    },
+    "diversion_rate": {
+      "numerator": "diverted",
+      "denominator": "scheduled",
+      "zero_denominator": "null"
+    },
+    "mean_signed_delay": {
+      "numerator": "arrival_delay_sum",
+      "denominator": "observed_arrivals",
+      "zero_denominator": "null"
+    },
+    "mean_positive_delay": {
+      "numerator": "positive_delay_sum",
+      "denominator": "observed_arrivals",
+      "zero_denominator": "null"
+    }
+  }
+}

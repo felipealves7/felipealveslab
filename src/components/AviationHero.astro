@@ -1,0 +1,51 @@
+---
+// Result-first hero for /lab/aviation-reliability. Every figure is recomputed at build time from
+// data/aviation-reliability/mart_month.csv by src/lib/aviation/metrics.mjs, and the build stops if it
+// disagrees with the saved analysis (cached-results.json).
+import monthsCsv from '../../data/aviation-reliability/mart_month.csv?raw';
+import saved from '../../data/aviation-reliability/cached-results.json';
+import { parseMonths, matched, checkAgainstSaved, overview, headline, fmtInt, fmtValue, fmtChange, METRICS } from '../lib/aviation/metrics.mjs';
+
+interface Props { type: string; }
+interface Metric { key: keyof typeof METRICS; label: string; short: string; definition: string; before: number; after: number }
+const { type } = Astro.props;
+const rows = parseMonths(monthsCsv);
+const m = matched(rows);
+checkAgainstSaved(m, saved);
+const o = overview(rows);
+const h = headline(m);
+const [y0, y1] = m.years as [number, number];
+const tiles = (m.metrics as unknown as Metric[]).filter((x) => x.key !== 'mean_positive_delay');
+---
+<section class="av-hero section-shell">
+  <div>
+    <span class="eyebrow">Data &amp; AI Lab · data engineering</span>
+    <h1>Flight reliability: what an average delay hides</h1>
+    <p class="av-lede">
+      US domestic flights, {h.span} {y1} against {h.span} {y0}. The average arrival delay did not move:
+      {h.delayBefore}, then {h.delayAfter}. Over the same months, cancellations went from {h.cancBefore}
+      to {h.cancAfter} of scheduled flights, {h.cancRelative}.
+    </p>
+    <div class="av-verdict">
+      <span class="av-verdict-kicker">What the data says, and what it does not</span>
+      <p>The average stayed flat while more flights were cancelled and fewer of all scheduled flights arrived on time. The data shows the change. It does not show why.</p>
+    </div>
+  </div>
+  <div class="av-tiles">
+    {tiles.map((t) => (
+      <div class="av-tile">
+        <span class="av-tile-label">{t.label}</span>
+        <span class="av-tile-value">{fmtValue(t.key, t.after)}</span>
+        <span class="av-tile-delta">{fmtChange(t.key, t.before, t.after)} from {fmtValue(t.key, t.before)} in {y0}</span>
+      </div>
+    ))}
+  </div>
+</section>
+<div class="section-shell">
+  <div class="av-facts">
+    <div><span>Type</span>{type}</div>
+    <div><span>Data</span>Real: US Bureau of Transportation Statistics, reported on-time records</div>
+    <div><span>Flights</span>{fmtInt(o.flights)} scheduled, {o.from} to {o.to}</div>
+    <div><span>Limit</span>Observational: no claim about why, and no airport or airline is blamed</div>
+  </div>
+</div>

@@ -1,0 +1,109 @@
+---
+// The live piece on /lab/aviation-reliability: one measure at a time, by month, the latest year against
+// the year before. Built at build time as SVG from the saved monthly totals; no JavaScript and no
+// network. The switch is a plain radio group, so it works with a keyboard and without scripts. Hover or
+// focus a month for both years' values; "Show the numbers" lists every value without hovering.
+import monthsCsv from '../../data/aviation-reliability/mart_month.csv?raw';
+import { parseMonths, lineChart, METRICS, METRIC_ORDER, MONTHS } from '../lib/aviation/metrics.mjs';
+
+interface Point { month: number; value: number; text: string; cx: number; cy: number }
+interface Series { year: number; d: string; points: Point[]; label: { text: string; x: number; y: number; anchor: string } }
+interface Column { month: number; name: string; x: number; x0: number; width: number; values: { year: number; text: string }[] }
+interface Chart {
+  width: number; height: number;
+  plot: { left: number; right: number; top: number; bottom: number };
+  yTicks: { y: number; label: string }[];
+  xTicks: { x: number; label: string }[];
+  series: Series[];
+  columns: Column[];
+}
+const rows = parseMonths(monthsCsv);
+const keys = METRIC_ORDER as (keyof typeof METRICS)[];
+const panels = keys.map((key) => ({ key, meta: METRICS[key], chart: lineChart(rows, key) as unknown as Chart }));
+const years = [...new Set((rows as unknown as { year: number }[]).map((r) => r.year))].sort((a, b) => a - b);
+const [y0, y1] = [years[0], years[years.length - 1]];
+const tipW = 136;
+const tipH = 58;
+const last = (s: Series) => s.points[s.points.length - 1];
+---
+<section class="av-explorer section-shell" aria-labelledby="av-explorer-title">
+  <div class="av-section-head">
+    <span class="eyebrow">The live piece · from the saved monthly totals</span>
+    <h2 id="av-explorer-title">Pick a measure. Compare the months.</h2>
+    <p>{y0} in gray, as context. {y1} in olive, from January to August, the latest month published. Hover or tab through the months for both years' values.</p>
+  </div>
+  <div class="av-switcher">
+    {panels.map((p, i) => <input class="av-radio" type="radio" name="av-metric" id={`av-m-${p.key}`} value={p.key} checked={i === 0} />)}
+    <div class="av-switch" role="presentation">
+      <span class="av-switch-label">Measure</span>
+      {panels.map((p) => <label for={`av-m-${p.key}`}>{p.meta.short}</label>)}
+    </div>
+    <div class="av-legend" aria-hidden="true">
+      <span><i class="av-key av-key--before"></i>{y0}</span>
+      <span><i class="av-key av-key--after"></i>{y1}</span>
+    </div>
+    <div class="av-panels">
+      {panels.map((p) => (
+        <figure class="av-panel" data-metric={p.key}>
+          <figcaption><strong>{p.meta.label}.</strong> {p.meta.definition}</figcaption>
+          <svg viewBox={`0 0 ${p.chart.width} ${p.chart.height}`} class="av-chart" role="img"
+            aria-label={`${p.meta.label} by month. ${p.chart.series.map((s) => `${s.year}: ${s.points.map((pt) => `${MONTHS[pt.month - 1]} ${pt.text}`).join(', ')}`).join('. ')}.`}>
+            <text class="av-axis-title" x={p.chart.plot.left} y="10">{p.meta.unit === '%' ? '% of flights' : 'Minutes'}</text>
+            {p.chart.yTicks.map((t) => (
+              <g class="av-grid">
+                <line x1={p.chart.plot.left} x2={p.chart.plot.right} y1={t.y} y2={t.y} />
+                <text x={p.chart.plot.left - 8} y={t.y + 4} text-anchor="end">{t.label}</text>
+              </g>
+            ))}
+            {p.chart.xTicks.map((t) => <text class="av-xlabel" x={t.x} y={p.chart.plot.bottom + 20} text-anchor="middle">{t.label}</text>)}
+            {p.chart.series.map((s, i) => <path class={i === 0 ? 'av-line av-line--before' : 'av-line av-line--after'} d={s.d} />)}
+            {p.chart.series.map((s, i) => (
+              <g class={i === 0 ? 'av-end av-end--before' : 'av-end av-end--after'}>
+                <circle cx={last(s).cx} cy={last(s).cy} r="4" />
+                <text x={s.label.x} y={s.label.y} text-anchor={s.label.anchor}>{s.label.text}</text>
+              </g>
+            ))}
+            {p.chart.columns.map((c) => {
+              const flip = c.x + 12 + tipW > p.chart.width;
+              const tx = flip ? c.x - 12 - tipW : c.x + 12;
+              return (
+                <g class="av-col" tabindex="0" aria-label={`${c.name}: ${c.values.map((v) => `${v.year} ${v.text}`).join(', ')}`}>
+                  <rect class="av-hit" x={c.x0} y={p.chart.plot.top} width={c.width} height={p.chart.plot.bottom - p.chart.plot.top} />
+                  <line class="av-cross" x1={c.x} x2={c.x} y1={p.chart.plot.top} y2={p.chart.plot.bottom} />
+                  {p.chart.series.map((s, i) => {
+                    const pt = s.points.find((q) => q.month === c.month);
+                    return pt && <circle class={i === 0 ? 'av-dot av-dot--before' : 'av-dot av-dot--after'} cx={pt.cx} cy={pt.cy} r="4" />;
+                  })}
+                  <g class="av-tip" transform={`translate(${tx},${p.chart.plot.top})`}>
+                    <rect width={tipW} height={tipH} rx="5" />
+                    <text class="av-tip-month" x="10" y="17">{c.name}</text>
+                    {[...c.values].reverse().map((v, j) => (
+                      <g transform={`translate(10,${33 + j * 16})`}>
+                        <line class={v.year === y1 ? 'av-tip-key av-tip-key--after' : 'av-tip-key av-tip-key--before'} x1="0" x2="12" y1="-4" y2="-4" />
+                        <text class="av-tip-value" x="18" y="0">{v.text}</text>
+                        <text class="av-tip-year" x={tipW - 20} y="0" text-anchor="end">{v.year}</text>
+                      </g>
+                    ))}
+                  </g>
+                </g>
+              );
+            })}
+          </svg>
+          <p class="av-swipe" aria-hidden="true">Swipe the chart sideways for every month.</p>
+          <details class="av-table">
+            <summary>Show the numbers</summary>
+            <table>
+              <thead><tr><th scope="col">Month</th>{p.chart.series.map((s) => <th scope="col">{s.year}</th>)}</tr></thead>
+              <tbody>
+                {p.chart.columns.map((c) => (
+                  <tr><th scope="row">{c.name}</th>{c.values.map((v) => <td>{v.text}</td>)}</tr>
+                ))}
+              </tbody>
+            </table>
+          </details>
+        </figure>
+      ))}
+    </div>
+  </div>
+  <p class="av-note">Rates are worked out from monthly sums, never by averaging other rates. Source: <code>data/aviation-reliability/mart_month.csv</code>, the pipeline's monthly table.</p>
+</section>
