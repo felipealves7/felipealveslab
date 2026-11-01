@@ -1,0 +1,138 @@
+[
+  {
+    "path": "scripts/analysis_core.py",
+    "sha256": "c9aa0bdecab51a4cd22b799e79840a4017f0ee350777005ace09ac07d8fa5f49"
+  },
+  {
+    "path": "scripts/create_notebook.py",
+    "sha256": "6431818e7eef10f228d5f416bf83f62f98bfc7e7af585be34a41b53704cd295b"
+  },
+  {
+    "path": "scripts/create_reports.py",
+    "sha256": "bc0249b90bde6ffe6bbd5bf27f05d3d34cf8c057b4b1fca99fa5378d477faddb"
+  },
+  {
+    "path": "scripts/dbt_run.py",
+    "sha256": "a3688f2d4b777c74b58d479030298836b196c2cc6f5907382b7ff1475ca323f2"
+  },
+  {
+    "path": "scripts/download.py",
+    "sha256": "36db12dbac9510571cce48867e5177775666046fd1e4e24a77aa04f48d63f64a"
+  },
+  {
+    "path": "scripts/execute_notebook.py",
+    "sha256": "acc3b9da36810c93809e8670961dd715bea755b932d8a540929dc2d3dc306445"
+  },
+  {
+    "path": "scripts/export_analyze.py",
+    "sha256": "2df924139786dea8b8f8629293c9b1b41530416a2ce91d4db152cf5f4b13bef6"
+  },
+  {
+    "path": "scripts/ingest.py",
+    "sha256": "d35f6b7cde278e908550b9fc5f98b606230c69c17edc79714b4bce0c871faf56"
+  },
+  {
+    "path": "scripts/package.py",
+    "sha256": "7b5f98d300056b5f8b2377a00e954edd951f5d24f651173a684c95e7e7dffa6a"
+  },
+  {
+    "path": "scripts/reproduce.py",
+    "sha256": "1733614dde38fbae250a382b0f24c336ad271a9b1f998c1f49216e470971980a"
+  },
+  {
+    "path": "scripts/scaffold.py",
+    "sha256": "f461bd32724124dfbd75b75daa02e49fee9a272e4c5883e9e99751fb3e431c18"
+  },
+  {
+    "path": "scripts/test_incremental.py",
+    "sha256": "67f981fc860de8c4c67302caa5406be1459fddca544403a699a6d1c62ebf3a1c"
+  },
+  {
+    "path": "tests/test_analysis.py",
+    "sha256": "efe476f1b08b7786778488d7fc5532df4c74edb98464ba9d217e9960cfb73132"
+  },
+  {
+    "path": "tests/test_compiled_sql.py",
+    "sha256": "bd39dc598a3afb9431e1528a9f1ae061db204700981dd74e7d81d04aaf93b143"
+  },
+  {
+    "path": "dbt/models/exposures.yml",
+    "sha256": "95514b3d12540ebf4442fc27618ef48755b5ed720af8f4af80b32f15ec4c7142"
+  },
+  {
+    "path": "dbt/models/marts/dim_airports.sql",
+    "sha256": "5ff7fb260584bf15048cb107489cc23a1699b131b029659b74bf91753383d1b4"
+  },
+  {
+    "path": "dbt/models/marts/fct_flights.sql",
+    "sha256": "30d2820bef430bf12d12edcb486ced5d62c4705cade4f1bb2c0e22ea39accc50"
+  },
+  {
+    "path": "dbt/models/marts/mart_airport_day.sql",
+    "sha256": "3670783109b1c860526dfcaf866c9e5089e623affd72d917877d119dd668058c"
+  },
+  {
+    "path": "dbt/models/marts/mart_airport_month.sql",
+    "sha256": "d14fe59bc773d1a46f2fcd893e16b30cc4b94dcec2daf5b32ab80ac49307015b"
+  },
+  {
+    "path": "dbt/models/marts/mart_month.sql",
+    "sha256": "f96ae6337e4dfc53fe102fb570b25924b417f4df732bb760262a90bf2e48e8e6"
+  },
+  {
+    "path": "dbt/models/marts/mart_network_day.sql",
+    "sha256": "7a8031e45ceda3f82f48ff291421389d771bf3556ca98a809c725c6156d18ef4"
+  },
+  {
+    "path": "dbt/models/marts/mart_route_month.sql",
+    "sha256": "75476ae550afc09f7bc32aa1105000fc51f95cb0070279b6b19085125004160b"
+  },
+  {
+    "path": "dbt/models/raw/raw_flights.sql",
+    "sha256": "9d6009f63a71b4a1cac0eacaa45af93c74bb2349d1462c40fd78bd16dc05ab16"
+  },
+  {
+    "path": "dbt/models/schema.yml",
+    "sha256": "a4ea709ecb3b41cd2045e987b368248984f594bb1755b7e81ba6497b98ec245c"
+  },
+  {
+    "path": "dbt/models/staging/stg_flights.sql",
+    "sha256": "08c3e72502555f8c9d8006396816e09f4cf4035020b78a223917379ec92c8637"
+  },
+  {
+    "path": "dbt/macros/replace_partitions.sql",
+    "sha256": "38077973aa18c9bc27ac595b05dc50cab8a14c1d8f17a71accca961b9b4e3fb2"
+  },
+  {
+    "path": "dbt/tests/airport_id_coverage.sql",
+    "sha256": "cab3d3e3e5cde8369b903ec53a9d81045ff9cd88159810fdec7c794761989ae0"
+  },
+  {
+    "path": "dbt/tests/calendar_coverage.sql",
+    "sha256": "a47bb91888d083431549351435001479d6e28c871487d6aa31d48dafdf99ea70"
+  },
+  {
+    "path": "dbt/tests/mart_reconciliation.sql",
+    "sha256": "ced95c94232a7fb40c1e10c5f9b887fbba460dd34cd26c039c8088a1e32a809e"
+  },
+  {
+    "path": "dbt/tests/raw_flags.sql",
+    "sha256": "789f2ae282ba2992c5b104022da97ce840492216f5c098e69d938507065547d6"
+  },
+  {
+    "path": "dbt/tests/raw_periods.sql",
+    "sha256": "965ce5593e9cf0c436cd5e13d00f77b7f64ba6aba380e16ce6a506e40753ac24"
+  },
+  {
+    "path": "dbt/tests/source_delay_agreement.sql",
+    "sha256": "171c39bba1d08b4ac149d60898b66f7852def8a20fbd7b71ed32043b602fff37"
+  },
+  {
+    "path": "dbt/tests/status_partition.sql",
+    "sha256": "1a14bb69fb7effa99869e6599dcfd0b36e41111a8d457dadd7bf63b8e63485df"
+  },
+  {
+    "path": "tableau/prepare_upload.py",
+    "sha256": "6174773f92a29d4aba49b55e2d17a63090eae7935914da2b8e55b0483ce936a2"
+  }
+]

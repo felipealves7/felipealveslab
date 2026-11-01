@@ -1,0 +1,96 @@
+{
+  "passed": true,
+  "dbt_data_tests": 92,
+  "python_tests": 8,
+  "dbt_models": 9,
+  "independent_monthly_kpi_checks": 180,
+  "incremental": {
+    "passed": true,
+    "fixture_rows": 40,
+    "production_data_modified": false,
+    "deliberately_modified_fixture": true,
+    "update_delete_insert_verified": true,
+    "repeat_idempotent": true,
+    "matches_full_refresh": true,
+    "steps": [
+      {
+        "step": "initial",
+        "exit_code": 0,
+        "passed": true
+      },
+      {
+        "step": "replace",
+        "exit_code": 0,
+        "passed": true
+      },
+      {
+        "step": "repeat",
+        "exit_code": 0,
+        "passed": true
+      },
+      {
+        "step": "rebuild",
+        "exit_code": 0,
+        "passed": true
+      },
+      {
+        "step": "missing-partition-guard",
+        "exit_code": 1,
+        "passed": true
+      }
+    ]
+  },
+  "notebook": {
+    "passed": true,
+    "execution": "local_python_cell_executor",
+    "native_kaggle_execution": false,
+    "code_cells": 9,
+    "executed_cells": 9,
+    "errors": 0,
+    "seconds": 3.982
+  },
+  "native_kaggle": {
+    "native_execution_verified": true,
+    "status": "native_validated_private",
+    "platform": "Kaggle",
+    "account": "felipealves7",
+    "verified_date": "2026-10-30",
+    "publicly_released": false,
+    "public_reachability_verified": false,
+    "private_dataset_url": "https://www.kaggle.com/datasets/felipealves7/aviation-reliability-bts-foundation-v1",
+    "private_version_url": "https://www.kaggle.com/code/felipealves7/aviation-reliability-what-average-delay-hides?scriptVersionId=363684941",
+    "editor_url": "https://www.kaggle.com/code/felipealves7/aviation-reliability-what-average-delay-hides/edit",
+    "script_version_id": 363684941,
+    "input_dataset_version_id": 21423797,
+    "runtime_seconds_reported": 42.8,
+    "code_cells": 9,
+    "execution_counts": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "errors": 0,
+    "image_outputs": 4,
+    "source_matches_local": true,
+    "source_file_checksums_verified": 20,
+    "independent_monthly_kpi_reconciliation_passed": true,
+    "accelerator": "none",
+    "dataset_license_classification": "U.S. Government Works",
+    "native_environment": {
+      "python_metadata": "3.13.15",
+      "duckdb": "1.3.2",
+      "pandas": "2.3.3",
+      "numpy": "2.1.3"
+    },
+    "export": "kaggle/aviation-reliability.kaggle-executed.ipynb",
+    "export_sha256": "72f08933001145974a76e04a552a8f74b38dbecf03e1a438e6b019ef8ed1dd84",
+    "readable_html": "kaggle/aviation-reliability.kaggle.html",
+    "official_embed": null
+  }
+}

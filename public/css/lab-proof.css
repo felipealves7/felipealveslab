@@ -145,3 +145,27 @@
 .lab-check-legend .lab-check-cell { width: 14px; height: 14px; }
 .lab-evidence-chart--compact .lab-check-cell { height: 18px; }
 @media (max-width: 640px) { .lab-check-cells { grid-template-columns: repeat(auto-fill, minmax(22px, 1fr)); } }
+
+/* Signed bars (aviation): a centre line, bars grow left or right from it. */
+.lab-chart-track--diverging { position: relative; }
+.lab-chart-track--diverging::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: rgba(26,26,23,.45); z-index: 1; }
+.lab-chart-track--diverging .lab-chart-fill { position: absolute; top: 0; bottom: 0; height: auto; }
+.lab-chart-track--diverging .lab-chart-fill.is-pos { border-radius: 0 4px 4px 0; }
+.lab-chart-track--diverging .lab-chart-fill.is-neg { border-radius: 4px 0 0 4px; }
+
+/* With an odd number of Lab cards, the first (newest) spans the row, copy beside its chart. */
+.lab-directory-grid > .lab-directory-card:first-child:nth-last-child(odd),
+.career-lab-card--wide { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 0 40px; align-items: start; }
+.lab-directory-grid > .lab-directory-card:first-child:nth-last-child(odd) .lab-evidence-chart,
+.career-lab-card--wide .lab-evidence-chart { margin-top: 0; }
+.career-lab-card--wide .career-lab-copy > p { font-size: 14px; color: var(--soft); margin: 0 0 18px; }
+.career-lab-card--wide .career-lab-copy > .text-link { display: inline-block; margin-top: 8px; }
+@media (max-width: 900px) {
+  .lab-directory-grid > .lab-directory-card:first-child:nth-last-child(odd),
+  .career-lab-card--wide { grid-template-columns: 1fr; }
+  .lab-directory-grid > .lab-directory-card:first-child:nth-last-child(odd) .lab-evidence-chart,
+  .career-lab-card--wide .lab-evidence-chart { margin-top: 18px; }
+}
+.lab-elsewhere { list-style: none; padding: 0; margin: 18px 0 22px; max-width: 820px; border-top: 1px solid var(--line); }
+.lab-elsewhere li { padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 15px; line-height: 1.55; color: var(--soft); }
+.lab-elsewhere strong { color: var(--ink); font-weight: 700; }

@@ -1,11 +1,17 @@
 ---
 import Base from '../layouts/Base.astro';
 import LabEvidenceChart from '../components/LabEvidenceChart.astro';
+import aviationMonths from '../../data/aviation-reliability/mart_month.csv?raw';
+import { parseMonths, matched, headline, overview } from '../lib/aviation/metrics.mjs';
 
 // PREVIEW homepage (career-first). Not indexed and not in the sitemap. Promote by moving this file to index.astro.
 // Single place to change the CV action: swap for '/assets/Felipe-Alves-CV.pdf' once a current CV PDF is added to public/assets.
 const CV_HREF = 'mailto:felipe.s.alves7@gmail.com?subject=CV%20request';
 const CV_LABEL = 'Request CV';
+// The flight-reliability card's sentence is computed from the saved monthly totals, like the exhibit.
+const aviationRows = parseMonths(aviationMonths);
+const av = headline(matched(aviationRows));
+const avFlights = (overview(aviationRows).flights / 1e6).toFixed(1);
 ---
 <Base
   title={'Felipe Alves — Finance Data Analytics · Product · Transformation'}
@@ -48,6 +54,15 @@ const CV_LABEL = 'Request CV';
       <a class="text-link" href="/lab">Enter the Lab →</a>
     </div>
     <div class="career-lab-grid">
+      <article class="career-lab-card career-lab-card--wide">
+        <div class="career-lab-copy">
+          <div class="lab-card-overline"><span>Data engineering · public data</span></div>
+          <h3>Flight reliability</h3>
+          <p>{avFlights} million US flights, one tested pipeline. The average arrival delay stayed at {av.delayAfter}, while cancellations went from {av.cancBefore} to {av.cancAfter} of scheduled flights.</p>
+          <a class="text-link" href="/lab/aviation-reliability">See what the average hides →</a>
+        </div>
+        <LabEvidenceChart exhibit="aviation" compact />
+      </article>
       <article class="career-lab-card">
         <div class="lab-card-overline"><span>Conversational BI evaluation</span></div>
         <h3>Ask the Ledger</h3>

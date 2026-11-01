@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { ledgerEvidence, airportEvidence } from './evidence.mjs';
+import { ledgerEvidence, airportEvidence } from '../src/lib/lab/evidence.mjs';
 
 const savedLedger = {
   synthetic: true, translator: 'keyword rules (not an LLM)',
@@ -42,4 +42,16 @@ test('Singular wording is correct', () => {
 });
 test('Airport requires non-rehearsal run', () => {
   assert.throws(() => airportEvidence({ ...savedAirport, runs: [savedAirport.runs[1]] }), /No saved non-rehearsal/);
+});
+
+test('Aviation chart: one diverging bar per measure, cancellations the largest', async () => {
+  const { readFileSync } = await import('node:fs');
+  const { aviationEvidence } = await import('../src/lib/lab/evidence.mjs');
+  const csv = readFileSync(new URL('../data/aviation-reliability/mart_month.csv', import.meta.url), 'utf8');
+  const e = aviationEvidence(csv);
+  assert.equal(e.diverging, true);
+  assert.equal(e.bars.length, 5);
+  assert.equal(e.bars.find((b) => b.key === 'cancellation_rate').percent, 100);
+  assert.match(e.subtitle, /11,730,351 US flights, 2025-01 to 2026-08/);
+  assert.match(e.summary, /^Cancellations \+39\.8%, while the average arrival delay moved −0\.1%/);
 });

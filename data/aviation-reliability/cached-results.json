@@ -1,0 +1,91 @@
+{
+  "handoff_version": "aviation-reliability-v1",
+  "data_max_date": "2026-08-31",
+  "retrieval_date": "2026-10-30",
+  "synthetic": false,
+  "jan_aug_2025": {
+    "scheduled": 4680482.0,
+    "cancelled": 73590.0,
+    "diverted": 14526.0,
+    "observed_arrivals": 4592366.0,
+    "on_time": 3540121.0,
+    "delayed": 1052245.0,
+    "unclassified": 0.0,
+    "arrival_delay_sum": 42855492.0,
+    "positive_delay_sum": 82576716.0,
+    "arrival_otp": 0.7708708321592834,
+    "scheduled_on_time_success": 0.7563582126798052,
+    "cancellation_rate": 0.01572273966655571,
+    "diversion_rate": 0.003103526517140756,
+    "mean_signed_delay": 9.33189819800948,
+    "mean_positive_delay": 17.9813011419386
+  },
+  "jan_aug_2026": {
+    "scheduled": 4728732.0,
+    "cancelled": 103925.0,
+    "diverted": 15941.0,
+    "observed_arrivals": 4608866.0,
+    "on_time": 3523047.0,
+    "delayed": 1085819.0,
+    "unclassified": 0.0,
+    "arrival_delay_sum": 42982738.0,
+    "positive_delay_sum": 85094657.0,
+    "arrival_otp": 0.7644064722211494,
+    "scheduled_on_time_success": 0.7450299572908763,
+    "cancellation_rate": 0.02197735037637997,
+    "diversion_rate": 0.0033710939846030605,
+    "mean_signed_delay": 9.326098437229462,
+    "mean_positive_delay": 18.463252565815537
+  },
+  "fixed_mix": {
+    "strata": 77646,
+    "minimum_observed_each_year": 20,
+    "standardized_2025": 0.7725880005771566,
+    "standardized_2026": 0.7690328037139352,
+    "difference_pp": -0.3555196863221366,
+    "coverage_2025": 0.7330672250426034,
+    "coverage_2026": 0.7334548238113237,
+    "common_unadjusted_2025": 0.7727019025323829,
+    "common_unadjusted_2026": 0.7689660527837723,
+    "common_unadjusted_difference_pp": -0.3735849748610631
+  },
+  "repeat_period_interval": {
+    "repetitions": 2000,
+    "block_days": 7,
+    "seed": 20261029,
+    "low_pp": -3.1452768932132824,
+    "high_pp": 1.7382916477947885
+  },
+  "metrics": {
+    "arrival_otp": {
+      "numerator": "on_time",
+      "denominator": "observed_arrivals",
+      "zero_denominator": "null"
+    },
+    "scheduled_on_time_success": {
+      "numerator": "on_time",
+      "denominator": "scheduled",
+      "zero_denominator": "null"
+    },
+    "cancellation_rate": {
+      "numerator": "cancelled",
+      "denominator": "scheduled",
+      "zero_denominator": "null"
+    },
+    "diversion_rate": {
+      "numerator": "diverted",
+      "denominator": "scheduled",
+      "zero_denominator": "null"
+    },
+    "mean_signed_delay": {
+      "numerator": "arrival_delay_sum",
+      "denominator": "observed_arrivals",
+      "zero_denominator": "null"
+    },
+    "mean_positive_delay": {
+      "numerator": "positive_delay_sum",
+      "denominator": "observed_arrivals",
+      "zero_denominator": "null"
+    }
+  }
+}
