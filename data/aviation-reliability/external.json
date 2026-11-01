@@ -35,17 +35,17 @@
     "notebook": {
       "title": "Aviation Reliability — What Average Delay Hides",
       "url": "https://www.kaggle.com/code/felipealves7/aviation-reliability-what-average-delay-hides",
-      "version": "Version 1 of 1",
-      "run": "42.8 second run, successful",
+      "version": "Version 2 of 2",
+      "run": "31.4 second run, successful",
       "licence": "Apache 2.0",
-      "input": "Aviation Reliability BTS Foundation v1"
+      "input": "Aviation Reliability BTS Foundation v1, Version 3"
     },
     "dataset": {
       "title": "Aviation Reliability BTS Foundation v1",
       "url": "https://www.kaggle.com/datasets/felipealves7/aviation-reliability-bts-foundation-v1",
-      "version": "Version 1 (155.1 MB)",
+      "version": "Version 3 (163.98 MB)",
       "licence": "U.S. Government Works"
     },
-    "note": "Both were private (not found when signed out) on 2026-11-01 morning, Dubai time, and public when checked again the same evening."
+    "note": "Both were private (not found when signed out) on 2026-11-01 morning, Dubai time, and public when checked again the same evening. Later that evening the dataset was replaced by a clean Version 3, with internal working files removed, and the notebook was re-run on it as Version 2; those two were checked signed in as the owner."
   }
 }
