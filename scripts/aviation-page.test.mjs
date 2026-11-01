@@ -206,3 +206,16 @@ test('the page keeps My take empty and its claims about the average', () => {
   const rise = get('cancellation_rate').after / get('cancellation_rate').before - 1;
   assert.ok(Math.abs(rise - 0.4) < 0.01, 'the page says cancellations rose by two fifths');
 });
+
+test('end labels stay inside the chart, clear of both lines and of each other', async () => {
+  const { linesHit, boxesOverlap } = await import('../src/lib/aviation/metrics.mjs');
+  for (const key of METRIC_ORDER) {
+    const c = lineChart(rows, key);
+    const [a, b] = c.series.map((s) => s.label);
+    for (const [s, l] of c.series.map((s) => [s, s.label])) {
+      assert.ok(l.box.x0 >= 0 && l.box.x1 <= c.width, `${key} ${s.year} label is cut off`);
+      assert.ok(!linesHit(l.box, c.series, s.points[s.points.length - 1]), `${key} ${s.year} label sits on a line`);
+    }
+    assert.ok(!boxesOverlap(a.box, b.box), `${key} labels overlap`);
+  }
+});

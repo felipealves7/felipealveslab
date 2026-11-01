@@ -232,9 +232,35 @@ export function niceTicks(lo, hi, count = 4) {
   return { ticks, step };
 }
 
+// Approximate width of one character of a 12px semibold label, in chart units. Generous on purpose.
+export const LABEL_CHAR_WIDTH = 7.4;
+
+export function boxesOverlap(a, b) {
+  return a.x0 < b.x1 && b.x0 < a.x1 && a.y0 < b.y1 && b.y0 < a.y1;
+}
+
+// Does any line pass through the box (with 2 units to spare)? Points within 9 units of `skip`, the
+// labelled point itself, do not count.
+export function linesHit(box, series, skip) {
+  for (const s of series) {
+    for (let i = 1; i < s.points.length; i++) {
+      const a = s.points[i - 1];
+      const b = s.points[i];
+      const n = Math.max(1, Math.ceil(Math.hypot(b.cx - a.cx, b.cy - a.cy) / 2));
+      for (let k = 0; k <= n; k++) {
+        const px = a.cx + ((b.cx - a.cx) * k) / n;
+        const py = a.cy + ((b.cy - a.cy) * k) / n;
+        if (skip && Math.hypot(px - skip.cx, py - skip.cy) < 9) continue;
+        if (px >= box.x0 - 2 && px <= box.x1 + 2 && py >= box.y0 - 2 && py <= box.y1 + 2) return true;
+      }
+    }
+  }
+  return false;
+}
+
 // One metric by month: the earlier year as context, the latest year as the point.
 export function lineChart(rows, key, opts = {}) {
-  const { width = 720, height = 300, margin = { top: 18, right: 92, bottom: 30, left: 52 } } = opts;
+  const { width = 720, height = 300, margin = { top: 18, right: 132, bottom: 30, left: 52 } } = opts;
   const years = [...new Set(rows.map((r) => r.year))].sort();
   const series = years.map((year) => ({
     year,
@@ -260,6 +286,25 @@ export function lineChart(rows, key, opts = {}) {
     d: s.points.map((p, i) => `${i ? 'L' : 'M'}${r2(x(p.month))},${r2(y(p.value))}`).join(''),
     points: s.points.map((p) => ({ month: p.month, value: p.value, text: fmtValue(key, p.value), cx: r2(x(p.month)), cy: r2(y(p.value)) })),
   }));
+  // End labels ("2026 · 13.77 min"): right of the last point, else above, below or left of it, taking
+  // the first spot that stays inside the chart and clear of both lines and of the other label.
+  const placed = [];
+  for (const s of out) {
+    const p = s.points[s.points.length - 1];
+    const text = `${s.year} · ${p.text}`;
+    const w = text.length * LABEL_CHAR_WIDTH;
+    const options = [
+      { x: p.cx + 10, y: p.cy + 4, anchor: 'start', box: { x0: p.cx + 10, x1: p.cx + 10 + w, y0: p.cy - 9, y1: p.cy + 5 } },
+      { x: p.cx, y: p.cy - 12, anchor: 'middle', box: { x0: p.cx - w / 2, x1: p.cx + w / 2, y0: p.cy - 25, y1: p.cy - 9 } },
+      { x: p.cx, y: p.cy + 22, anchor: 'middle', box: { x0: p.cx - w / 2, x1: p.cx + w / 2, y0: p.cy + 9, y1: p.cy + 25 } },
+      { x: p.cx - 10, y: p.cy + 4, anchor: 'end', box: { x0: p.cx - 10 - w, x1: p.cx - 10, y0: p.cy - 9, y1: p.cy + 5 } },
+    ];
+    const fits = (o) => o.box.x0 >= 0 && o.box.x1 <= width && o.box.y0 >= 0 && o.box.y1 <= height - margin.bottom;
+    const free = (o) => !linesHit(o.box, out, p) && !placed.some((b) => boxesOverlap(b, o.box));
+    const pick = options.find((o) => fits(o) && free(o)) ?? options.find(fits) ?? options[0];
+    placed.push(pick.box);
+    s.label = { text, x: r2(pick.x), y: r2(pick.y), anchor: pick.anchor, box: pick.box };
+  }
   const step2 = pw / 11;
   const columns = MONTHS.map((name, i) => ({
     month: i + 1,

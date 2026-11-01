@@ -98,6 +98,10 @@
 .av-chart .av-boundary-label { fill: var(--ink); font-size: 11px; font-weight: 650; }
 .av-chart .av-xlabel { font-size: 11px; }
 
+/* Phones: the charts keep a 600px minimum and scroll inside their box; say so. */
+.av-swipe { display: none; font-size: 11px; color: var(--av-muted); margin: 6px 0 0; }
+@media (max-width: 640px) { .av-swipe { display: block; } }
+
 /* Table views */
 .av-table { margin: 12px 0 0; max-width: 900px; }
 .av-table summary { cursor: pointer; font-size: 12px; font-weight: 700; color: var(--olive2); }

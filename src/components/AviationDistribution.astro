@@ -50,6 +50,7 @@ const early = (bins as unknown as Bar[]).filter((b) => b.start < 0).reduce((n, b
       ))}
       <text class="av-axis-caption" x={c.plot.left + (c.plot.right - c.plot.left) / 2} y={c.height - 6} text-anchor="middle">Minutes late on arrival, by the start of each 15-minute band (negative = early)</text>
     </svg>
+    <p class="av-swipe" aria-hidden="true">Swipe the chart sideways for every band.</p>
     <details class="av-table">
       <summary>Show the numbers</summary>
       <table>

@@ -7,7 +7,7 @@ import monthsCsv from '../../data/aviation-reliability/mart_month.csv?raw';
 import { parseMonths, lineChart, METRICS, METRIC_ORDER, MONTHS } from '../lib/aviation/metrics.mjs';
 
 interface Point { month: number; value: number; text: string; cx: number; cy: number }
-interface Series { year: number; d: string; points: Point[] }
+interface Series { year: number; d: string; points: Point[]; label: { text: string; x: number; y: number; anchor: string } }
 interface Column { month: number; name: string; x: number; x0: number; width: number; values: { year: number; text: string }[] }
 interface Chart {
   width: number; height: number;
@@ -25,15 +25,6 @@ const [y0, y1] = [years[0], years[years.length - 1]];
 const tipW = 136;
 const tipH = 58;
 const last = (s: Series) => s.points[s.points.length - 1];
-// End label for the latest year: above its last point when that point sits above the earlier year's line
-// at the same month, below otherwise, so it does not sit on the other line.
-function latestLabelY(c: Chart): number {
-  const a = c.series[0];
-  const b = c.series[c.series.length - 1];
-  const p = last(b);
-  const q = a.points.find((x) => x.month === p.month);
-  return q && p.cy > q.cy ? p.cy + 20 : p.cy - 12;
-}
 ---
 <section class="av-explorer section-shell" aria-labelledby="av-explorer-title">
   <div class="av-section-head">
@@ -69,11 +60,7 @@ function latestLabelY(c: Chart): number {
             {p.chart.series.map((s, i) => (
               <g class={i === 0 ? 'av-end av-end--before' : 'av-end av-end--after'}>
                 <circle cx={last(s).cx} cy={last(s).cy} r="4" />
-                {i === 0 ? (
-                  <text x={last(s).cx + 10} y={last(s).cy + 4}>{s.year} · {last(s).text}</text>
-                ) : (
-                  <text x={last(s).cx} y={latestLabelY(p.chart)} text-anchor="middle">{s.year} · {last(s).text}</text>
-                )}
+                <text x={s.label.x} y={s.label.y} text-anchor={s.label.anchor}>{s.label.text}</text>
               </g>
             ))}
             {p.chart.columns.map((c) => {
@@ -102,6 +89,7 @@ function latestLabelY(c: Chart): number {
               );
             })}
           </svg>
+          <p class="av-swipe" aria-hidden="true">Swipe the chart sideways for every month.</p>
           <details class="av-table">
             <summary>Show the numbers</summary>
             <table>
