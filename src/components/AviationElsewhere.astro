@@ -1,0 +1,97 @@
+---
+// "Also on Tableau Public and Kaggle" on /lab/aviation-reliability. Every URL, date and status comes from
+// data/aviation-reliability/external.json, a dated record of a signed-out check. The page works without
+// any of this: nothing is requested from Tableau until a visitor clicks "Load the dashboard here", and
+// that button only appears on wide screens with scripts on. The embed is Tableau's own Share-dialog code
+// (viz_v1.js), built with DOM methods from the recorded values.
+import external from '../../data/aviation-reliability/external.json';
+
+interface Check { state: string; shown: Record<string, string> | string }
+const t = external.tableau;
+const k = external.kaggle;
+const day = (iso: string) => new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
+const checks = t.checks as unknown as Check[];
+const figureChecks = checks.filter((c) => typeof c.shown === 'object').length;
+const emptyCheck = checks.some((c) => typeof c.shown === 'string');
+---
+<section class="av-elsewhere section-shell" aria-labelledby="av-elsewhere-title">
+  <div class="av-section-head">
+    <span class="eyebrow">Also on Tableau Public and Kaggle · checked {day(external.checked)}</span>
+    <h2 id="av-elsewhere-title">Explore it in Tableau. Rerun it on Kaggle.</h2>
+    <p>The same data lives on two public platforms. They are extras: everything on this page works without them.</p>
+  </div>
+  <div class="av-elsewhere-grid">
+    <article class="av-ext-card av-ext-card--tableau">
+      <span class="av-ext-kicker">Tableau Public · dashboard</span>
+      <h3>{t.title}</h3>
+      <p class="av-ext-meta">Republished {day(t.lastPublished)} · revision {t.revision}</p>
+      <p>Pick a year and months, then click an origin to filter the routes. In {figureChecks} checks, one of them a single airport, its figures matched the project's data{emptyCheck && '; September 2026, after the last month, shows no data'}.</p>
+      <div class="av-ext-actions">
+        <button type="button" class="button primary av-tableau-load" data-av-tableau-load aria-controls="av-tableau-slot">Load the dashboard here</button>
+        <a class="button ghost" href={t.url} target="_blank" rel="noreferrer">Open on Tableau Public ↗</a>
+      </div>
+    </article>
+    <article class="av-ext-card">
+      <span class="av-ext-kicker">Kaggle · notebook</span>
+      <h3>{k.notebook.title}</h3>
+      <p class="av-ext-meta">{k.notebook.version} · {k.notebook.run} · {k.notebook.licence}</p>
+      <p>The analysis as a notebook, run on Kaggle from the public dataset below.</p>
+      <div class="av-ext-actions"><a class="text-link" href={k.notebook.url} target="_blank" rel="noreferrer">Open the notebook ↗</a></div>
+    </article>
+    <article class="av-ext-card">
+      <span class="av-ext-kicker">Kaggle · dataset</span>
+      <h3>{k.dataset.title}</h3>
+      <p class="av-ext-meta">{k.dataset.version} · {k.dataset.licence}</p>
+      <p>The project's files: selected BTS fields in Parquet for all 20 months, the tested monthly and route tables, the dbt project and its tests.</p>
+      <div class="av-ext-actions"><a class="text-link" href={k.dataset.url} target="_blank" rel="noreferrer">Open the dataset ↗</a></div>
+    </article>
+  </div>
+  <div class="av-tableau-slot" id="av-tableau-slot" hidden
+    data-name={t.view} data-host={t.embed.hostUrl} data-static={t.embed.staticImage} data-script={t.embed.script}
+    data-min={t.embed.wide.minWidth} data-wide-w={t.embed.wide.width} data-wide-h={t.embed.wide.height}
+    data-narrow-w={t.embed.narrow.width} data-narrow-h={t.embed.narrow.height}></div>
+  <p class="av-note av-tableau-note">Loading the dashboard here fetches it and Tableau's script from public.tableau.com, which sets its own cookies. Nothing is requested until you click.</p>
+</section>
+<script is:inline>
+(() => {
+  const button = document.querySelector('[data-av-tableau-load]');
+  const slot = document.getElementById('av-tableau-slot');
+  if (!button || !slot) return;
+  button.addEventListener('click', () => {
+    if (slot.dataset.loaded) return;
+    slot.dataset.loaded = 'yes';
+    button.disabled = true;
+    button.textContent = 'Loading…';
+    slot.hidden = false;
+    const holder = document.createElement('div');
+    holder.className = 'tableauPlaceholder';
+    holder.id = 'av-tableau-viz';
+    holder.style.position = 'relative';
+    const viz = document.createElement('object');
+    viz.className = 'tableauViz';
+    viz.style.display = 'none';
+    const params = {
+      host_url: slot.dataset.host, embed_code_version: '3', site_root: '', name: slot.dataset.name,
+      tabs: 'no', toolbar: 'yes', static_image: slot.dataset.static, animate_transition: 'yes',
+      display_static_image: 'yes', display_spinner: 'yes', display_overlay: 'yes', display_count: 'yes', language: 'en-US',
+    };
+    for (const [name, value] of Object.entries(params)) {
+      const p = document.createElement('param');
+      p.setAttribute('name', name);
+      p.setAttribute('value', value);
+      viz.appendChild(p);
+    }
+    holder.appendChild(viz);
+    slot.appendChild(holder);
+    const wide = holder.offsetWidth >= Number(slot.dataset.min);
+    viz.style.width = wide ? slot.dataset.wideW : slot.dataset.narrowW;
+    viz.style.height = wide ? slot.dataset.wideH : slot.dataset.narrowH;
+    const script = document.createElement('script');
+    script.src = slot.dataset.script;
+    script.addEventListener('load', () => { button.textContent = 'Loaded below'; });
+    script.addEventListener('error', () => { button.textContent = 'Could not load: use the link'; });
+    viz.parentNode.insertBefore(script, viz);
+    slot.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+})();
+</script>

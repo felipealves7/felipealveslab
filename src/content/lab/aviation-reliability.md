@@ -21,7 +21,7 @@ Did US domestic flights get more reliable in 2026? The usual answer is the avera
 
 ## The live piece
 
-The month-by-month chart above. Pick a measure, compare January to August 2026 with 2025, and hover or tab through the months for both years' values. "Show the numbers" under each chart lists the same values as a table. Every value is worked out from the saved monthly totals when this site is built. No service runs behind it.
+The month-by-month chart above. Pick a measure, compare January to August 2026 with 2025, and hover or tab through the months for both years' values. "Show the numbers" under each chart lists the same values as a table. Every value is worked out from the saved monthly totals when this site is built. No service runs behind it. Further down, the same data can also be loaded as a Tableau dashboard, if you choose.
 
 ## Method and results
 
@@ -64,14 +64,14 @@ The average delay stayed flat because early arrivals count as negative minutes a
 - **The fall in on-time arrivals is within normal variation.** See the uncertainty range above.
 - **A fixed snapshot.** BTS can revise past months. The SHA-256 of every archive is in `data/aviation-reliability/source-manifest.json`; a refresh would replace whole months.
 - **Not rebuilt here.** This site does not rerun the pipeline. It recomputes every figure from the saved monthly table and checks that table against the independent counts.
-- **Elsewhere, not finished.** The Tableau Public dashboard was published on 30 October 2026 as a draft. Its figures match this page, but it has no title or explanatory text yet, its month filter is not on the dashboard, and its phone layout is not done. The Kaggle notebook runs end to end but is private, so it is not linked.
+- **Tableau and Kaggle are extras.** This page does not depend on them. When checked signed out on 1 November 2026, the Tableau dashboard (revision 1.4, republished that day) and the Kaggle notebook and dataset were public. In that check, four of the dashboard's states matched the project's data and September 2026 showed no data; its own year, month and airport controls were not clicked. Loading the dashboard on this page asks public.tableau.com for it, so it happens only when you click.
 - **Cost:** US$0 a month. Saved files, no scheduled job, no paid service.
 
 ## How it was built
 
-- Analysis and pipeline: a standalone project outside this repository, package `aviation-reliability-v1` of 30 October 2026. Python download and ingest, dbt models on DuckDB, a Python notebook and a Tableau Public draft. Its code is not public yet; the cells above are exact copies of its files.
+- Analysis and pipeline: a standalone project outside this repository, package `aviation-reliability-v1` of 30 October 2026. Python download and ingest, dbt models on DuckDB, a Python notebook and a Tableau Public draft. Its files, code included, are public as a Kaggle dataset; the cells above are exact copies of them.
 - This page: pull request https://github.com/felipealves7/felipealveslab/pull/27
 - Saved files: `data/aviation-reliability/`, copied byte for byte from the package, with SHA-256 in its README. Code: `src/lib/aviation/` and `src/components/Aviation*.astro`. Tests: `scripts/aviation-page.test.mjs`, which pins every figure on this page to the saved files.
-- Dashboard draft on Tableau Public: [BTS Flight Reliability](https://public.tableau.com/app/profile/felipealves7/viz/BTSFlightReliability/Flightreliability).
+- On other platforms, checked signed out on 1 November 2026: the [dashboard on Tableau Public](https://public.tableau.com/app/profile/felipealves7/viz/BTSFlightReliability/Flightreliability), the [notebook on Kaggle](https://www.kaggle.com/code/felipealves7/aviation-reliability-what-average-delay-hides) and the [dataset on Kaggle](https://www.kaggle.com/datasets/felipealves7/aviation-reliability-bts-foundation-v1). The record of that check, with the figures read off the dashboard, is `data/aviation-reliability/external.json`.
 
 ## My take

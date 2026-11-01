@@ -219,3 +219,43 @@ test('end labels stay inside the chart, clear of both lines and of each other', 
     assert.ok(!boxesOverlap(a.box, b.box), `${key} labels overlap`);
   }
 });
+
+// External platforms: data/aviation-reliability/external.json is a dated record of a signed-out check.
+const ext = json('external.json');
+
+test('the external record points only at the expected public hosts', () => {
+  assert.match(ext.checked, /^\d{4}-\d{2}-\d{2}$/);
+  assert.match(ext.tableau.url, /^https:\/\/public\.tableau\.com\/app\/profile\/felipealves7\/viz\/BTSFlightReliability\//);
+  assert.match(ext.tableau.embed.script, /^https:\/\/public\.tableau\.com\/javascripts\/api\/viz_v1\.js$/);
+  assert.match(ext.tableau.embed.staticImage, /^https:\/\/public\.tableau\.com\/static\/images\//);
+  assert.equal(ext.tableau.view, 'BTSFlightReliability/Flightreliability');
+  assert.match(ext.kaggle.notebook.url, /^https:\/\/www\.kaggle\.com\/code\/felipealves7\//);
+  assert.match(ext.kaggle.dataset.url, /^https:\/\/www\.kaggle\.com\/datasets\/felipealves7\//);
+  assert.ok(Date.parse(ext.tableau.lastPublished) > Date.parse(ext.tableau.firstPublished));
+});
+
+test('the dashboard figures recorded in the check match what this repository computes', () => {
+  const shown = (t) => ({
+    arrival_otp: `${(value(t, 'arrival_otp') * 100).toFixed(2)}%`,
+    cancellation_rate: `${(value(t, 'cancellation_rate') * 100).toFixed(2)}%`,
+    mean_positive_delay: value(t, 'mean_positive_delay').toFixed(2),
+    mean_signed_delay: `${value(t, 'mean_signed_delay').toFixed(2)} min`,
+    scheduled: t.scheduled.toLocaleString('en-GB'),
+    scheduled_on_time_success: `${(value(t, 'scheduled_on_time_success') * 100).toFixed(2)}%`,
+  });
+  const byMonths = ext.tableau.checks.filter((c) => c.year && typeof c.shown === 'object');
+  assert.equal(byMonths.length, 3);
+  for (const c of byMonths) {
+    const t = sum(rows.filter((r) => r.year === c.year && c.months.includes(r.month)));
+    assert.deepEqual(c.shown, shown(t), c.state);
+  }
+  const empty = ext.tableau.checks.find((c) => typeof c.shown === 'string');
+  assert.equal(rows.filter((r) => r.year === empty.year && empty.months.includes(r.month)).length, 0, 'the empty state is a month with no data');
+});
+
+test('the page text links the checked platforms and drops the stale draft and private wording', () => {
+  for (const url of [ext.tableau.url, ext.kaggle.notebook.url, ext.kaggle.dataset.url]) assert.ok(md.includes(url), url);
+  assert.ok(!/runs end to end but is private|Dashboard draft|published on 30 October 2026 as a draft/.test(md));
+  const index = readFileSync(fileURLToPath(new URL('../src/pages/lab/index.astro', import.meta.url)), 'utf8');
+  assert.ok(!/Tableau Public, draft|Kaggle, private/.test(index));
+});
