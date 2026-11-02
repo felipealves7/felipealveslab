@@ -28,9 +28,67 @@ test('keeps an existing top-level LIMIT, and adds one when only a subquery has i
   assert.match(validateSql('SELECT * FROM (SELECT * FROM ledger LIMIT 5)').sql, /LIMIT 100$/);
 });
 
-test('accepts WITH, joins on the ledger and a CTE name', () => {
+test('accepts WITH and a CTE name', () => {
   assert.equal(validateSql('WITH t AS (SELECT entity, amount FROM ledger) SELECT entity FROM t').ok, true);
-  assert.equal(validateSql('SELECT a.entity FROM ledger a JOIN ledger b ON a.entity = b.entity').ok, true);
+});
+
+test('accepts the shapes a correct answer takes: one pass, scalar subqueries, joined summary CTEs', () => {
+  const ok = (sql) => assert.equal(validateSql(sql).ok, true, sql);
+  ok("SELECT entity, SUM(CASE WHEN account_group = 'Revenue' THEN amount ELSE 0 END) AS value FROM ledger WHERE month BETWEEN '2025-01' AND '2025-12' GROUP BY entity ORDER BY value DESC LIMIT 3");
+  ok("SELECT (SELECT SUM(amount) FROM ledger WHERE account_group = 'Revenue') - (SELECT SUM(amount) FROM ledger WHERE account_group = 'Cost of sales') AS value");
+  ok("WITH r AS (SELECT SUM(amount) AS v FROM ledger WHERE account_group = 'Revenue'), c AS (SELECT SUM(amount) AS v FROM ledger WHERE account_group = 'Cost of sales') SELECT ROUND(100.0 * (r.v - c.v) / r.v, 1) AS value FROM r, c");
+  ok("WITH r AS (SELECT entity, SUM(amount) AS v FROM ledger WHERE account_group = 'Revenue' GROUP BY entity), c AS (SELECT entity, SUM(amount) AS v FROM ledger WHERE account_group = 'Cost of sales' GROUP BY entity) SELECT r.entity, r.v - c.v AS value FROM r JOIN c ON r.entity = c.entity");
+  ok('SELECT entity FROM (SELECT entity, SUM(amount) AS v FROM ledger GROUP BY entity ORDER BY v DESC LIMIT 2) LIMIT 1');
+});
+
+test('rejects joining the ledger, even with itself, and naming a table twice in one FROM list', () => {
+  for (const sql of [
+    'SELECT a.entity FROM ledger a JOIN ledger b ON a.entity = b.entity',
+    'SELECT COUNT(*) FROM ledger a, ledger b, ledger c',
+    'SELECT SUM(a.amount) FROM ledger a JOIN ledger b ON 1=1 JOIN ledger c ON 1=1',
+    'WITH t AS (SELECT entity FROM ledger) SELECT COUNT(*) FROM ledger JOIN t ON 1=1',
+    'WITH x AS (SELECT * FROM ledger) SELECT COUNT(*) FROM x a, x b, x c',
+    'SELECT * FROM (SELECT COUNT(*) FROM ledger a, ledger b)',
+  ]) assert.equal(validateSql(sql).ok, false, sql);
+});
+
+for (const [name, sql] of [
+  ['negative LIMIT (returned all 1,008 rows before)', 'SELECT amount FROM ledger LIMIT -1'],
+  ['LIMIT expression', 'SELECT amount FROM ledger LIMIT 50 + 1000'],
+  ['LIMIT with a comma', 'SELECT amount FROM ledger LIMIT 1, 1000'],
+  ['LIMIT placeholder', 'SELECT amount FROM ledger LIMIT ?'],
+  ['LIMIT in scientific notation', 'SELECT amount FROM ledger LIMIT 1e3'],
+  ['LIMIT in hex', 'SELECT amount FROM ledger LIMIT 0xFF'],
+  ['decimal LIMIT', 'SELECT amount FROM ledger LIMIT 1.5'],
+  ['LIMIT subquery', 'SELECT amount FROM ledger LIMIT (SELECT 1000)'],
+  ['negative OFFSET', 'SELECT amount FROM ledger LIMIT 5 OFFSET -1'],
+  ['negative LIMIT in a subquery', 'SELECT COUNT(*) FROM (SELECT amount FROM ledger LIMIT -1)'],
+  ['recursive CTE', 'WITH RECURSIVE r AS (SELECT 1 AS n UNION ALL SELECT n + 1 FROM r) SELECT COUNT(*) FROM r'],
+  ['set operation', 'SELECT amount FROM ledger UNION ALL SELECT amount FROM ledger'],
+  ['blob allocation', 'SELECT randomblob(1000000000) FROM ledger'],
+  ['string padding', "SELECT printf('%.*c', 1000000000, 'x') FROM ledger"],
+  ['a query that never reads the ledger', 'SELECT 181141 AS value'],
+  ['a query over 4,000 characters', `SELECT amount FROM ledger WHERE entity = '${'x'.repeat(4000)}'`],
+]) {
+  test(`rejects: ${name}`, () => assert.equal(validateSql(sql).ok, false));
+}
+
+test('a whole-number LIMIT keeps working at every depth, and the result is never above 100 rows', () => {
+  const db = openLedger();
+  try {
+    for (const [sql, rows] of [
+      ['SELECT amount FROM ledger', 100],
+      ['SELECT amount FROM ledger LIMIT 300', 100],
+      ['SELECT amount FROM ledger LIMIT 5 OFFSET 2', 5],
+      ['SELECT * FROM (SELECT amount FROM ledger LIMIT 5)', 5],
+    ]) {
+      const v = validateSql(sql);
+      assert.equal(v.ok, true, sql);
+      assert.equal(db.prepare(v.sql).all().length, rows, sql);
+    }
+  } finally {
+    db.close();
+  }
 });
 
 for (const [name, sql] of [
