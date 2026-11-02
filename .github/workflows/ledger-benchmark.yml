@@ -1,0 +1,90 @@
+name: ledger-benchmark
+
+# Manual only, from the Actions tab. Asks a Workers AI model to write SQL for the Ask the Ledger
+# questions (pipelines/ledger-eval/run.mjs), then scores that SQL offline on four synthetic ledgers
+# (score-run.mjs). It never deploys, commits or schedules anything. Runs queue one at a time because
+# they share the account's free daily allowance with the live box. The run files are kept as an
+# artifact for 90 days and summarised on the run page; publishing results is a separate pull request.
+#
+# Needs two repository secrets, added by Felipe: CF_ACCOUNT_ID, and CF_AI_TOKEN (a Workers AI token
+# with no other permission). The account is on Workers Free, so calls fail once the day's 10,000
+# neurons are used and nothing is billed.
+#
+# run.mjs exit codes: 0 finished or stopped at its cap or budget, 2 stopped on an HTTP, provider or
+# missing-usage error (the calls made so far are still scored and kept), 1 nothing was sent.
+
+on:
+  workflow_dispatch:
+    inputs:
+      prompt:
+        description: "System prompt: baseline is the live Worker's, candidate is pipelines/ledger-eval/candidate-prompt.txt"
+        type: choice
+        options: [baseline, candidate]
+        default: baseline
+      model:
+        description: Workers AI model
+        type: choice
+        options:
+          - '@cf/qwen/qwen2.5-coder-32b-instruct'
+          - '@cf/meta/llama-3.2-3b-instruct'
+        default: '@cf/qwen/qwen2.5-coder-32b-instruct'
+      suite:
+        description: Question set
+        type: choice
+        options: [legacy47, validation20]
+        default: legacy47
+      max_requests:
+        description: Most model calls in this run (5 for a pilot)
+        type: number
+        default: 5
+      budget_neurons:
+        description: Most neurons this run may use, up to 4,500 (the free 10,000 a day are shared with the live box)
+        type: number
+        default: 500
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ledger-benchmark
+  cancel-in-progress: false
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      RUN_FILE: ledger-eval-runs/run.json
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Ask the model (Workers AI REST API)
+        env:
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          CF_API_TOKEN: ${{ secrets.CF_AI_TOKEN }}
+          LEDGER_ACCOUNT_PLAN: free
+          PROMPT: ${{ inputs.prompt }}
+          MODEL: ${{ inputs.model }}
+          SUITE: ${{ inputs.suite }}
+          MAX_REQUESTS: ${{ inputs.max_requests }}
+          BUDGET: ${{ inputs.budget_neurons }}
+        run: |
+          # A typo must not use up the live box's share of the day's free allowance.
+          if ! [[ "$BUDGET" =~ ^[0-9]+$ ]] || (( BUDGET < 1 || BUDGET > 4500 )); then
+            echo "budget_neurons must be a whole number from 1 to 4500; nothing was sent." >&2
+            exit 1
+          fi
+          node pipelines/ledger-eval/run.mjs --prompt "$PROMPT" --model "$MODEL" --suite "$SUITE" \
+            --max-requests "$MAX_REQUESTS" --free-budget-neurons "$BUDGET" --out "$RUN_FILE"
+      - name: Score the SQL offline on four ledgers
+        if: ${{ !cancelled() && hashFiles('ledger-eval-runs/run.json') != '' }}
+        run: node pipelines/ledger-eval/score-run.mjs "$RUN_FILE" >> "$GITHUB_STEP_SUMMARY"
+      - name: Keep the run files
+        if: ${{ !cancelled() && hashFiles('ledger-eval-runs/run.json') != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ledger-eval-run-${{ github.run_number }}
+          path: ledger-eval-runs/
+          retention-days: 90
