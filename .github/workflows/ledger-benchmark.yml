@@ -38,7 +38,7 @@ on:
         type: number
         default: 5
       budget_neurons:
-        description: Most neurons this run may use (the free 10,000 a day are shared with the live box)
+        description: Most neurons this run may use, up to 4,500 (the free 10,000 a day are shared with the live box)
         type: number
         default: 500
 
@@ -70,9 +70,14 @@ jobs:
           SUITE: ${{ inputs.suite }}
           MAX_REQUESTS: ${{ inputs.max_requests }}
           BUDGET: ${{ inputs.budget_neurons }}
-        run: >-
-          node pipelines/ledger-eval/run.mjs --prompt "$PROMPT" --model "$MODEL" --suite "$SUITE"
-          --max-requests "$MAX_REQUESTS" --free-budget-neurons "$BUDGET" --out "$RUN_FILE"
+        run: |
+          # A typo must not use up the live box's share of the day's free allowance.
+          if ! [[ "$BUDGET" =~ ^[0-9]+$ ]] || (( BUDGET < 1 || BUDGET > 4500 )); then
+            echo "budget_neurons must be a whole number from 1 to 4500; nothing was sent." >&2
+            exit 1
+          fi
+          node pipelines/ledger-eval/run.mjs --prompt "$PROMPT" --model "$MODEL" --suite "$SUITE" \
+            --max-requests "$MAX_REQUESTS" --free-budget-neurons "$BUDGET" --out "$RUN_FILE"
       - name: Score the SQL offline on four ledgers
         if: ${{ !cancelled() && hashFiles('ledger-eval-runs/run.json') != '' }}
         run: node pipelines/ledger-eval/score-run.mjs "$RUN_FILE" >> "$GITHUB_STEP_SUMMARY"

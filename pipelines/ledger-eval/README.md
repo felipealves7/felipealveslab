@@ -56,4 +56,4 @@ node pipelines/ledger-eval/score-run.mjs ledger-eval-runs/pilot.json
 
 ## Provenance
 
-Adapted from an external evaluation package (2 Nov 2026, pinned to commit 206ccfd): the question sets, independent answers, reference SQL, strict scorer, isolated scoring and the guarded runner. Changes here: it imports the live Worker's prompt and validator instead of a frozen copy; it flags "right figures, wrong shape"; a resumed run no longer keeps the previous run's stop reason; `--out` is required.
+Adapted from an evaluation package built outside this repository on 2 Nov 2026 and reviewed before porting; it was written against this repository's commit 206ccfd. Taken from it: the question sets, independent answers, reference SQL, strict scorer, isolated scoring and the guarded runner. Changes here: it imports the live Worker's prompt and validator instead of a frozen copy; it flags "right figures, wrong shape"; a resumed run no longer keeps the previous run's stop reason; `--out` is required.
