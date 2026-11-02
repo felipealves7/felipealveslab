@@ -1,0 +1,195 @@
+---
+import Base from '../../layouts/Base.astro';
+import airport from '../../../data/airport-contract/results.json';
+import ledger from '../../../data/ask-the-ledger/results.json';
+
+// This page is not an experiment, so it sits outside the src/content/lab schema.
+// Numbers that come from files in this repository are read from those files. Everything taken from
+// GitHub (pull requests, runs, comments, the ruleset) cannot be computed here, so each of those facts
+// is dated by CHECKED and links to the item that shows it. Re-read them when CHECKED gets old.
+const CHECKED = '2 November 2026';
+const REPO = 'https://github.com/felipealves7/felipealveslab';
+const pr = (n: number) => `${REPO}/pull/${n}`;
+const issue = (n: number) => `${REPO}/issues/${n}`;
+
+const contractRules = airport.runs[airport.runs.length - 1].checks.length;
+const baselineRight = ledger.summary.correct_answer + ledger.summary.correct_refusal;
+const baselineTotal = ledger.summary.total;
+---
+<Base
+  title="How the Lab is built — Felipe Alves Lab"
+  description="Human-directed, agent-built: who decides, what AI agents build, what the public record shows and what has not worked."
+  ogType="article"
+  css={['styles', 'responsive', 'enhancements', 'site-fixes', 'lab', 'lab-proof', 'lab-methodology']}
+  bodyClass="case-page method-page"
+  script="script"
+  current="lab"
+>
+  <main id="method">
+    <nav class="section-shell lab-breadcrumb" aria-label="Breadcrumb"><a href="/">Felipe Alves</a><span aria-hidden="true">/</span><a href="/lab">Lab</a><span aria-hidden="true">/</span><span aria-current="page">How it's built</span></nav>
+
+    <section class="section-shell method-hero" aria-labelledby="method-title">
+      <span class="eyebrow">Behind the Lab / Method</span>
+      <h1 id="method-title">Human-directed.<br /><em>Agent-built.</em></h1>
+      <div class="method-hero-bottom">
+        <p class="method-hero-lede">This Lab is also an experiment in how work gets done. I choose the questions, set the limits and decide what is published. AI agents do the building: code, tests, pull requests and first-pass reviews. This page shows what the public record proves about that, and where it proves nothing.</p>
+        <div class="method-margin-note"><span>Working rule</span><strong>Output is not evidence until someone checks it.</strong><small>Record checked {CHECKED}</small></div>
+      </div>
+    </section>
+
+    <section class="method-dark-band" aria-labelledby="roles-heading">
+      <div class="section-shell method-band-inner">
+        <span class="eyebrow">01 / Who does what</span>
+        <h2 id="roles-heading">The agents build.<br />I decide what ships.</h2>
+        <p>The aim is not a website that claims to run itself. It is a repeatable way to specify a problem, hand the building to agents, inspect the evidence and decide whether the result deserves to be shown.</p>
+        <div class="method-roles">
+          <article><span>Me / Direction</span><h3>Question, limits, acceptance</h3><p>I pick the problem, the data and the limits, approve a proposal with the <code>go</code> label, and decide whether a pull request is merged. The rules the agents follow are in <code>CLAUDE.md</code>.</p></article>
+          <article><span>Claude / This website</span><h3>Build and integrate</h3><p>Claude Code works in this repository on <code>claude/</code> branches: Astro pages, pipelines, tests, fixes and the pull request. It reviews work handed in from outside before porting it.</p></article>
+          <article><span>Other AI tools / Outside the repo</span><h3>Analysis packages</h3><p>Separate tools build analyses and evaluations elsewhere and hand over a package. The flight-reliability study and the Ask the Ledger evaluation arrived this way. The repository holds only what was ported.</p></article>
+          <article><span>Automation / Scripts</span><h3>Checks without a person</h3><p>GitHub Actions build the site, run the tests and repository checks, run a weekly data check and remove chat links. They are scripts, not agents.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-shell method-section" aria-labelledby="controls-heading">
+      <div class="method-section-top"><span class="eyebrow">02 / Written down versus observed</span><h2 id="controls-heading">What is enforced, and what only exists as a prompt.</h2></div>
+      <p class="method-intro">A prompt that describes a role is not a record that the role ran. Each row below separates what is written down from what the repository and GitHub show, checked {CHECKED}.</p>
+      <table class="decision-table method-table">
+        <caption class="method-table-caption">Controls in this repository, with the evidence for each. “Status” says how much the evidence supports.</caption>
+        <thead>
+          <tr><th scope="col">Control</th><th scope="col">Written in</th><th scope="col">What the record shows</th><th scope="col">Status</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row" data-label="Control">No direct push to <code>main</code></th>
+            <td data-label="Written in"><a href={`${REPO}/rules/26100353`} target="_blank" rel="noreferrer">Ruleset <code>main-protected</code> ↗</a></td>
+            <td data-label="What the record shows">Active, with no bypass actors. It requires a pull request, squash merges and passing <code>build</code> and <code>test</code> checks. It requires no approving review.</td>
+            <td data-label="Status"><span class="method-status is-enforced">Enforced</span></td>
+          </tr>
+          <tr>
+            <th scope="row" data-label="Control">A person approves each merge</th>
+            <td data-label="Written in"><a href={`${REPO}/blob/main/CLAUDE.md`} target="_blank" rel="noreferrer"><code>CLAUDE.md</code> ↗</a>, rule 1</td>
+            <td data-label="What the record shows">GitHub does not enforce it. All 20 merged pull requests show my account as the merger. Agents open pull requests and post comments from the same account, so the history cannot show who pressed the button.</td>
+            <td data-label="Status"><span class="method-status is-policy">Policy only</span></td>
+          </tr>
+          <tr>
+            <th scope="row" data-label="Control">Build, tests and repository checks</th>
+            <td data-label="Written in"><a href={`${REPO}/blob/main/.github/workflows/ci.yml`} target="_blank" rel="noreferrer"><code>ci.yml</code> ↗</a>, <code>scripts/check-content.mjs</code></td>
+            <td data-label="What the record shows">62 runs: 53 passed, 4 failed (29 and 30 October) and 5 were cancelled. The checks look for employer names, secret-like strings and required page headings. They do not check how a page looks on a phone.</td>
+            <td data-label="Status"><span class="method-status is-enforced">Enforced</span></td>
+          </tr>
+          <tr>
+            <th scope="row" data-label="Control">Chat links removed from issues and pull requests</th>
+            <td data-label="Written in"><a href={`${REPO}/blob/main/.github/workflows/chat-privacy.yml`} target="_blank" rel="noreferrer"><code>chat-privacy.yml</code> ↗</a>, rule 8</td>
+            <td data-label="What the record shows">44 runs, none failed. It edits text after it is posted, so a link can be visible for a short time.</td>
+            <td data-label="Status"><span class="method-status is-auto">Automated</span></td>
+          </tr>
+          <tr>
+            <th scope="row" data-label="Control">Weekly data check</th>
+            <td data-label="Written in"><a href={`${REPO}/blob/main/.github/workflows/airport-contract.yml`} target="_blank" rel="noreferrer"><code>airport-contract.yml</code> ↗</a>, Mondays 03:17 UTC</td>
+            <td data-label="What the record shows">4 runs. One came from the schedule (<a href={`${REPO}/actions/runs/41436558349`} target="_blank" rel="noreferrer">2 November, passed ↗</a>, started 11:24 UTC). One followed a merge and two ran on pull requests.</td>
+            <td data-label="Status"><span class="method-status is-auto">Automated</span><span class="method-status-note">1 scheduled run</span></td>
+          </tr>
+          <tr>
+            <th scope="row" data-label="Control">Scout proposes projects</th>
+            <td data-label="Written in"><a href={`${REPO}/blob/main/.claude/prompts/scout.md`} target="_blank" rel="noreferrer"><code>scout.md</code> ↗</a>, weekly on Monday</td>
+            <td data-label="What the record shows">Two reports: <a href={`${issue(10)}#issuecomment-6491403967`} target="_blank" rel="noreferrer">Thursday 29 October ↗</a> and <a href={`${issue(29)}#issuecomment-6570113360`} target="_blank" rel="noreferrer">Monday 2 November ↗</a>. Four proposals (#8, #9, #10, #29). The roles run outside this repository; <a href={pr(19)} target="_blank" rel="noreferrer">PR #19 ↗</a> calls them scheduled tasks. The repository cannot show their schedules.</td>
+            <td data-label="Status"><span class="method-status is-seen">Observed</span></td>
+          </tr>
+          <tr>
+            <th scope="row" data-label="Control">Builder builds approved proposals</th>
+            <td data-label="Written in"><a href={`${REPO}/blob/main/.claude/prompts/builder.md`} target="_blank" rel="noreferrer"><code>builder.md</code> ↗</a>, starts on the <code>go</code> label</td>
+            <td data-label="What the record shows">Built issue #8 into <a href={pr(11)} target="_blank" rel="noreferrer">PR #11 ↗</a>. Issue #12 took eight pull requests, two of them duplicates. It stopped on issue #3 (a test) and on issue #10, where its own stop rule applied.</td>
+            <td data-label="Status"><span class="method-status is-seen">Observed</span></td>
+          </tr>
+          <tr>
+            <th scope="row" data-label="Control">Critic reviews each pull request</th>
+            <td data-label="Written in"><a href={`${REPO}/blob/main/.claude/prompts/critic.md`} target="_blank" rel="noreferrer"><code>critic.md</code> ↗</a></td>
+            <td data-label="What the record shows">A review comment on 24 of 25 pull requests; the exception is the seed pull request. The first verdict was <code>blocked</code> 9 times and <code>pass with notes</code> 15 times. The reviews appear under my account. The ruleset does not require one.</td>
+            <td data-label="Status"><span class="method-status is-seen">Observed</span></td>
+          </tr>
+          <tr>
+            <th scope="row" data-label="Control">Keeper maintains what is published</th>
+            <td data-label="Written in"><a href={`${REPO}/blob/main/.claude/prompts/keeper.md`} target="_blank" rel="noreferrer"><code>keeper.md</code> ↗</a>, weekly on Thursday</td>
+            <td data-label="What the record shows">No <code>claude/keeper-*</code> branch, pull request or issue exists. By design it posts nothing when there is nothing to do, so this shows neither a run nor a missed one.</td>
+            <td data-label="Status"><span class="method-status is-none">Not observed</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="method-fineprint"><strong>Enforced:</strong> GitHub blocks the action. <strong>Automated:</strong> a workflow runs on an event or a schedule. <strong>Policy only:</strong> written down, not technically enforced. <strong>Observed:</strong> the agent's output exists in the repository. <strong>Not observed:</strong> none found. Counts come from GitHub as of {CHECKED}. Open the linked items to check them.</p>
+    </section>
+
+    <section class="section-shell method-section" aria-labelledby="exhibits-heading">
+      <div class="method-section-top"><span class="eyebrow">03 / Three exhibits</span><h2 id="exhibits-heading">Three experiments. Three different states.</h2></div>
+      <div class="method-evidence-grid">
+        <article class="method-evidence-card">
+          <div class="method-card-top"><span>Data engineering</span><span>Recorded runs</span></div>
+          <h3>Airport data with a written contract</h3>
+          <p>A pipeline checks public airport, runway and country files against <strong>{contractRules} written rules</strong>. The weekly job has run on its schedule once, on 2 November 2026. Four results are saved on the <code>airport-runs</code> branch: three passes and one failure I staged on purpose to see the gate turn red.</p>
+          <p class="method-card-limit"><strong>Not shown:</strong> months of operation. The tolerances were set after looking at the first real run. The checks test shape and ranges, not whether a name is right.</p>
+          <div class="method-card-links"><a href="/lab/airport-data-contract" aria-label="Open the airport data contract exhibit">Open exhibit</a><a href={`${REPO}/actions/runs/41436558349`} target="_blank" rel="noreferrer">Scheduled run ↗</a><a href={`${REPO}/tree/airport-runs`} target="_blank" rel="noreferrer">Saved results ↗</a></div>
+        </article>
+        <article class="method-evidence-card">
+          <div class="method-card-top"><span>Analytics handover</span><span>Merged</span></div>
+          <h3>Flight reliability</h3>
+          <p>The analysis was built as a standalone project outside this repository. <a href={pr(27)} target="_blank" rel="noreferrer">PR #27 ↗</a> ported its saved outputs and code on 1 November 2026. The site recomputes every figure, and the build stops if one disagrees. <a href={pr(28)} target="_blank" rel="noreferrer">PR #28 ↗</a> then linked the Tableau Public dashboard and the Kaggle notebook after a signed-out check.</p>
+          <p class="method-card-limit"><strong>Not shown:</strong> that the dashboard's own controls work. The check read the dashboard through URL filters. The data is a fixed snapshot, not refreshed.</p>
+          <div class="method-card-links"><a href="/lab/aviation-reliability" aria-label="Open the flight reliability exhibit">Open exhibit</a><a href={pr(27)} target="_blank" rel="noreferrer">Integration PR ↗</a><a href={`${REPO}/blob/main/data/aviation-reliability/external.json`} target="_blank" rel="noreferrer">Dated check ↗</a></div>
+        </article>
+        <article class="method-evidence-card">
+          <div class="method-card-top"><span>Conversational BI</span><span>Benchmark not run</span></div>
+          <h3>Ask the Ledger</h3>
+          <p>The <strong>{baselineRight} of {baselineTotal}</strong> result belongs to a keyword-rule translator on a synthetic ledger. It is not a language model, and no model has been scored. An evaluation package built outside the repository arrived on 2 November. The package showed that the live box's SQL check accepted a query that returns every row. Checking further, Claude found it also accepted one that never stops. The fix is <a href={pr(30)} target="_blank" rel="noreferrer">PR #30 ↗</a>. <a href={pr(31)} target="_blank" rel="noreferrer">PR #31 ↗</a> adds a manual benchmark run. Both were open on {CHECKED}.</p>
+          <p class="method-card-limit"><strong>Not shown:</strong> any model accuracy. Until #30 is merged and the Worker is redeployed by hand, the live box keeps the old check.</p>
+          <div class="method-card-links"><a href="/lab/ask-the-ledger" aria-label="Open the Ask the Ledger exhibit">Open exhibit</a><a href={pr(30)} target="_blank" rel="noreferrer">Validator fix ↗</a><a href={pr(31)} target="_blank" rel="noreferrer">Benchmark run ↗</a></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="method-lessons" aria-labelledby="limits-heading">
+      <div class="section-shell method-lessons-inner">
+        <div><span class="eyebrow">04 / Friction is part of the method</span><h2 id="limits-heading">What has not worked.</h2></div>
+        <div class="method-lessons-copy">
+          <div>
+            <h3>The same mistake, until the rules changed.</h3>
+            <p>On 29 October, 8 of the 10 <code>blocked</code> labels had one cause: Claude Code adds a session link to each pull request it opens, and rule 8 forbids it. Issue #12 also got three pull requests for the same work (#13 to #15), because the Builder wakes on every event on an issue. I had the rules changed instead of fixing each pull request by hand: <a href={pr(19)} target="_blank" rel="noreferrer">PR #19 ↗</a> added the clean-up workflow and a one-pull-request-per-issue rule.</p>
+          </div>
+          <div>
+            <h3>An agent stopped, and nothing was published.</h3>
+            <p>Issue #10 asked for a tagger that separates airports named after people from those named after places, with a 70% accuracy floor. The Builder's second version scored 62.5% on its own hand-labelled sample, said both of its numbers leaned optimistic, opened no pull request and <a href={`${issue(10)}#issuecomment-6491583207`} target="_blank" rel="noreferrer">handed the decision back to me ↗</a>. Nothing from it is on the site.</p>
+          </div>
+          <div>
+            <h3>The model benchmark is unfinished.</h3>
+            <p>The external evaluation package reported the run as blocked for lack of Cloudflare inference access. That package is not in the repository, so this is its claim, not a record you can open here. The route now is a manual GitHub Actions run, so a token never sits in a chat or a file. It needs two repository secrets, and no run exists yet.</p>
+          </div>
+          <div>
+            <h3>Green checks are not acceptance.</h3>
+            <p>Merging requires the build and test checks to pass. <a href={pr(27)} target="_blank" rel="noreferrer">PR #27 ↗</a> still listed phone readability of its charts as unchecked and said no browser review had happened. Checks do not replace looking at the page.</p>
+          </div>
+          <div>
+            <h3>The reviewer is not independent.</h3>
+            <p>The Critic's prompt lives in this repository and its reviews appear under my account. I treat them as a second pass by the same toolchain, not as independent validation.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-shell method-section method-source-section" aria-labelledby="sources-heading">
+      <div class="method-section-top"><span class="eyebrow">05 / Inspect it yourself</span><h2 id="sources-heading">Claims with a trail.</h2></div>
+      <p>Everything above links to a file, a pull request, a comment or a workflow run. The counts are from {CHECKED} and will age. Nothing here claims that the system runs without me, that it is ready for production, or that anyone else has validated its results.</p>
+      <div class="method-source-links">
+        <a href={`${REPO}/blob/main/CLAUDE.md`} target="_blank" rel="noreferrer"><span>Rules</span><strong>CLAUDE.md: what agents may and may not do</strong><span aria-hidden="true">↗</span></a>
+        <a href={`${REPO}/tree/main/.claude/prompts`} target="_blank" rel="noreferrer"><span>Roles</span><strong>Scout, Builder, Critic, Keeper prompts</strong><span aria-hidden="true">↗</span></a>
+        <a href={`${REPO}/tree/main/.github/workflows`} target="_blank" rel="noreferrer"><span>Automation</span><strong>The three workflows</strong><span aria-hidden="true">↗</span></a>
+        <a href={`${REPO}/pulls?q=is%3Apr+label%3Aagent-built`} target="_blank" rel="noreferrer"><span>History</span><strong>Every pull request, with its review</strong><span aria-hidden="true">↗</span></a>
+        <a href={`${REPO}/rules/26100353`} target="_blank" rel="noreferrer"><span>Gate</span><strong>The ruleset on main</strong><span aria-hidden="true">↗</span></a>
+        <a href={`${REPO}/actions`} target="_blank" rel="noreferrer"><span>Runs</span><strong>Recorded workflow runs</strong><span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="method-takeaway">
+        <h3>What this shows, and what it does not.</h3>
+        <p>It shows how I frame a problem, set limits, read evidence and decide what to publish while several tools do the building. It does not show that I wrote this code by hand, and it does not show that these experiments would hold up in production.</p>
+      </div>
+      <div class="method-next"><div><span class="eyebrow">Back to the work</span><h3>The method matters only if the output is worth opening.</h3></div><a class="button primary" href="/lab">Explore the Lab</a></div>
+    </section>
+  </main>
+</Base>
