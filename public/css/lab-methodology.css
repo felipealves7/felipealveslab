@@ -1,0 +1,114 @@
+/* How the Lab is built (/lab/how-its-built). Page-local rules on the existing design tokens; no new fonts. */
+.method-hero{padding-top:80px;padding-bottom:88px}
+.method-hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(46px,7.6vw,96px);line-height:.94;letter-spacing:-.055em;margin:22px 0 48px}
+.method-hero h1 em{color:var(--olive2);font-weight:400}
+.method-hero-bottom{display:grid;grid-template-columns:1.6fr .5fr;gap:72px;align-items:end}
+.method-hero-lede{font-size:clamp(19px,2vw,26px);line-height:1.4;letter-spacing:-.02em;max-width:790px;margin:0;color:var(--soft)}
+.method-margin-note{border-top:1px solid var(--line);padding-top:15px;display:grid;gap:10px}
+.method-margin-note span,.method-margin-note small{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--olive2)}
+.method-margin-note strong{font-family:var(--serif);font-size:22px;font-weight:400;line-height:1.14}
+
+.method-dark-band{background:var(--ink);color:var(--cream);padding:88px 0 96px}
+.method-dark-band .eyebrow{color:#b8c19f}
+.method-band-inner>h2{font-family:var(--serif);font-size:clamp(40px,5.4vw,72px);font-weight:400;line-height:1;letter-spacing:-.045em;margin:20px 0}
+.method-band-inner>p{max-width:710px;color:rgba(248,246,240,.78);font-size:17px}
+.method-roles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid rgba(248,246,240,.22);margin-top:52px}
+.method-roles article{padding:22px 26px 0 0;border-right:1px solid rgba(248,246,240,.22)}
+.method-roles article+article{padding-left:26px}
+.method-roles article:last-child{border-right:0}
+.method-roles article>span{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:#b8c19f}
+.method-roles h3{font-family:var(--serif);font-size:25px;font-weight:400;line-height:1.1;margin:20px 0 11px}
+.method-roles p{font-size:14px;color:rgba(248,246,240,.78);margin:0}
+.method-roles code{font-size:.92em;color:var(--cream)}
+
+.method-section{padding-top:96px;padding-bottom:88px}
+.method-section-top{display:grid;grid-template-columns:.54fr 1fr;gap:24px;align-items:start;margin-bottom:34px}
+.method-section h2,.method-lessons h2{font-family:var(--serif);font-size:clamp(36px,4.6vw,60px);font-weight:400;letter-spacing:-.045em;line-height:1;margin:0}
+.method-intro{max-width:760px;font-size:16px;color:var(--soft);margin:0 0 26px}
+.method-fineprint{font-size:12px;line-height:1.6;color:var(--soft);max-width:860px;margin-top:22px}
+
+.method-table{margin:0;font-size:14px;line-height:1.5}
+.method-table-caption{caption-side:top;text-align:left;font-size:12px;color:var(--soft);padding:0 0 12px}
+.method-table thead th{border-bottom:1px solid var(--ink)}
+.method-table th[scope="row"]{font:600 14px/1.4 var(--sans);letter-spacing:0;text-transform:none;color:var(--ink);width:19%}
+.method-table td{color:var(--soft)}
+.method-table td:nth-child(2){width:20%}
+.method-table td:nth-child(3){width:46%}
+.method-table td:nth-child(4){width:15%;white-space:nowrap}
+.method-table a{text-decoration:underline;text-decoration-color:rgba(79,87,68,.45);text-underline-offset:3px}
+.method-table a:hover{text-decoration-color:currentColor}
+.method-table td:nth-child(2) a{display:inline-block;padding:4px 0}
+.method-table code,.method-card-limit code,.method-lessons code,.method-roles code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em}
+.method-status{display:inline-block;padding:3px 9px;border:1px solid var(--olive2);border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--olive2);line-height:1.3}
+.method-status.is-enforced{background:var(--olive2);color:var(--cream)}
+.method-status.is-policy{border-style:dashed}
+.method-status.is-none{border-style:dotted;color:var(--soft);border-color:var(--soft)}
+.method-status-note{display:block;margin-top:6px;font-size:11px;color:var(--soft)}
+
+.method-evidence-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.method-evidence-card{background:var(--cream);padding:25px;border:1px solid var(--line);border-radius:6px;display:flex;flex-direction:column}
+.method-card-top{display:flex;justify-content:space-between;gap:10px;color:var(--olive2);font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;border-bottom:1px solid var(--line);padding-bottom:12px}
+.method-evidence-card h3{font:400 30px/1.06 var(--serif);letter-spacing:-.035em;margin:26px 0 16px}
+.method-evidence-card p{font-size:14px;line-height:1.62;color:var(--soft);margin:0 0 16px}
+.method-evidence-card p a{text-decoration:underline;text-underline-offset:3px}
+.method-card-limit{padding-top:14px;border-top:1px solid var(--line);margin-bottom:26px!important}
+.method-card-links{margin-top:auto;display:flex;flex-wrap:wrap;gap:4px 18px;font-size:12px;font-weight:650}
+.method-card-links a{display:inline-block;padding:6px 0;text-decoration:none;border-bottom:1px solid var(--olive)}
+
+.method-lessons{background:rgba(105,113,90,.11);padding:84px 0}
+.method-lessons-inner{display:grid;grid-template-columns:1fr 1.25fr;gap:72px}
+.method-lessons h2{margin-top:15px}
+.method-lessons-copy{display:grid;gap:0}
+.method-lessons-copy>div{padding:0 0 22px;margin:0 0 22px;border-bottom:1px solid var(--line)}
+.method-lessons-copy>div:last-child{border-bottom:0;margin-bottom:0;padding-bottom:0}
+.method-lessons-copy h3{font:400 25px/1.15 var(--serif);letter-spacing:-.02em;margin:0 0 8px;color:var(--olive2)}
+.method-lessons-copy p{font-size:15px;line-height:1.62;margin:0;color:var(--ink)}
+.method-lessons-copy a{text-decoration:underline;text-underline-offset:3px}
+
+.method-source-section>p{max-width:790px;font-size:16px;line-height:1.6;color:var(--soft)}
+.method-source-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:28px}
+.method-source-links a{border:1px solid var(--line);padding:20px;text-decoration:none;display:grid;gap:12px;border-radius:5px;align-content:start}
+.method-source-links a:hover{background:var(--cream)}
+.method-source-links a span:first-child{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--olive2)}
+.method-source-links a strong{font:400 21px/1.13 var(--serif)}
+.method-source-links a span:last-child{justify-self:end}
+.method-takeaway{margin-top:56px;max-width:790px}
+.method-takeaway h3{font:400 28px/1.15 var(--serif);margin:0 0 10px}
+.method-takeaway p{font-size:16px;line-height:1.6;color:var(--soft);margin:0}
+.method-next{margin-top:64px;border-top:1px solid var(--line);padding:32px 0 0;display:flex;align-items:end;justify-content:space-between;gap:25px}
+.method-next h3{font:400 29px/1.13 var(--serif);max-width:610px;margin:8px 0 0}
+
+@media(max-width:1000px){
+  .method-roles{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:25px}
+  .method-roles article:nth-child(2){border-right:0}
+  .method-roles article:nth-child(3){padding-left:0}
+  .method-evidence-grid{grid-template-columns:1fr}
+  .method-hero-bottom{grid-template-columns:1fr;gap:36px}
+  .method-lessons-inner{grid-template-columns:1fr;gap:34px}
+  .method-source-links{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+/* The table becomes a stack of labelled rows on narrow screens. The header row stays for screen readers. */
+@media(max-width:820px){
+  .method-table thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+  .method-table,.method-table tbody,.method-table tr,.method-table th,.method-table td{display:block;width:auto!important}
+  .method-table tr{padding:16px 0;border-bottom:1px solid var(--line)}
+  .method-table th[scope="row"],.method-table td{padding:4px 0;border-bottom:0}
+  .method-table th[scope="row"]{font-size:16px}
+  .method-table td::before{content:attr(data-label);display:block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--olive2);margin-top:6px}
+  .method-table td:nth-child(4){white-space:normal}
+}
+
+@media(max-width:700px){
+  .method-hero{padding:56px 0 64px}
+  .method-hero h1{margin:18px 0 32px}
+  .method-section-top{grid-template-columns:1fr;gap:16px}
+  .method-roles{grid-template-columns:1fr}
+  .method-roles article,.method-roles article+article,.method-roles article:nth-child(3){padding:22px 0;border-right:0;border-bottom:1px solid rgba(248,246,240,.22)}
+  .method-roles article:last-child{border-bottom:0}
+  .method-section{padding:64px 0}
+  .method-source-links{grid-template-columns:1fr}
+  .method-next{flex-direction:column;align-items:start}
+  .method-dark-band,.method-lessons{padding:64px 0}
+  .method-evidence-card h3{font-size:28px}
+}
