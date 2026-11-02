@@ -1,0 +1,9 @@
+{
+  "checked": "2026-11-02",
+  "source": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+  "ratesAre": "Published neurons per million tokens; calculations are not an account billing meter.",
+  "models": {
+    "@cf/qwen/qwen2.5-coder-32b-instruct": { "inputNeuronsPerMillion": 60000, "outputNeuronsPerMillion": 90909 },
+    "@cf/meta/llama-3.2-3b-instruct": { "inputNeuronsPerMillion": 4625, "outputNeuronsPerMillion": 30475 }
+  }
+}

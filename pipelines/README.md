@@ -21,3 +21,7 @@ Cloudflare Worker for the live box on Ask the Ledger: origin check, daily caps, 
 2. Put the D1 and KV ids in `wrangler.toml` (ids, not secrets), then `npx wrangler deploy --config pipelines/ledger-api/wrangler.toml`. Not tested from this repository.
 3. Set `data-api` on the `ledger-live` element in `src/content/lab/ask-the-ledger.md` to the Worker address.
 4. Optional scoring: `node pipelines/ledger-api/generate-queries.mjs queries.json`, then `node pipelines/ledger-api/score-sql.mjs queries.json`.
+
+## ledger-eval
+
+Model benchmark for Ask the Ledger: a guarded Workers AI runner, started by hand with the `ledger-benchmark` workflow, and strict offline scoring on four synthetic ledgers. See `pipelines/ledger-eval/README.md`. Tests: `node --test pipelines/ledger-eval/ledger-eval.test.mjs`.
