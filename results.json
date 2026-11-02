@@ -754,6 +754,275 @@
     }
    ],
    "checkMs": 293
+  },
+  {
+   "runDate": "2026-11-02T11:24:24.381Z",
+   "status": "pass",
+   "deliberate": false,
+   "note": "",
+   "freshness": {
+    "upstreamLastModified": "2026-11-02T02:54:09.000Z",
+    "ageDays": 0.4,
+    "ok": true
+   },
+   "rows": {
+    "airports": 86330,
+    "runways": 48405,
+    "countries": 249
+   },
+   "columns": {
+    "airports": 19,
+    "runways": 20,
+    "countries": 6
+   },
+   "checks": [
+    {
+     "id": "airports.columns",
+     "table": "airports",
+     "level": "table",
+     "says": "airports has the 12 columns the pipeline reads",
+     "tolerance": 0,
+     "failed": 0,
+     "checked": 1,
+     "passed": true,
+     "samples": []
+    },
+    {
+     "id": "airports.row_count",
+     "table": "airports",
+     "level": "table",
+     "says": "airports has between 70,000 and 120,000 rows",
+     "tolerance": 0,
+     "failed": 0,
+     "checked": 1,
+     "passed": true,
+     "samples": []
+    },
+    {
+     "id": "runways.columns",
+     "table": "runways",
+     "level": "table",
+     "says": "runways has the 7 columns the pipeline reads",
+     "tolerance": 0,
+     "failed": 0,
+     "checked": 1,
+     "passed": true,
+     "samples": []
+    },
+    {
+     "id": "runways.row_count",
+     "table": "runways",
+     "level": "table",
+     "says": "runways has between 35,000 and 70,000 rows",
+     "tolerance": 0,
+     "failed": 0,
+     "checked": 1,
+     "passed": true,
+     "samples": []
+    },
+    {
+     "id": "countries.columns",
+     "table": "countries",
+     "level": "table",
+     "says": "countries has the 4 columns the pipeline reads",
+     "tolerance": 0,
+     "failed": 0,
+     "checked": 1,
+     "passed": true,
+     "samples": []
+    },
+    {
+     "id": "countries.row_count",
+     "table": "countries",
+     "level": "table",
+     "says": "countries has between 200 and 300 rows",
+     "tolerance": 0,
+     "failed": 0,
+     "checked": 1,
+     "passed": true,
+     "samples": []
+    },
+    {
+     "id": "airports.id_unique_integer",
+     "table": "airports",
+     "level": "row",
+     "says": "id is an integer and appears once",
+     "tolerance": 0,
+     "failed": 0,
+     "checked": 86330,
+     "passed": true,
+     "samples": []
+    },
+    {
+     "id": "airports.ident_unique",
+     "table": "airports",
+     "level": "row",
+     "says": "ident is not empty and appears once",
+     "tolerance": 0,
+     "failed": 0,
+     "checked": 86330,
+     "passed": true,
+     "samples": []
+    },
+    {
+     "id": "airports.type_allowed",
+     "table": "airports",
+     "level": "row",
+     "says": "type is one of 7 listed values",
+     "tolerance": 0,
+     "failed": 0,
+     "checked": 86330,
+     "passed": true,
+     "samples": []
+    },
+    {
+     "id": "airports.coordinates",
+     "table": "airports",
+     "level": "row",
+     "says": "latitude is -90 to 90 and longitude is -180 to 180",
+     "tolerance": 0,
+     "failed": 0,
+     "checked": 86330,
+     "passed": true,
+     "samples": []
+    },
+    {
+     "id": "airports.country_known",
+     "table": "airports",
+     "level": "row",
+     "says": "iso_country exists in the countries table",
+     "tolerance": 0,
+     "failed": 0,
+     "checked": 86330,
+     "passed": true,
+     "samples": []
+    },
+    {
+     "id": "airports.region_matches_country",
+     "table": "airports",
+     "level": "row",
+     "says": "iso_region starts with the iso_country code",
+     "tolerance": 0.001,
+     "failed": 0,
+     "checked": 86330,
+     "passed": true,
+     "samples": []
+    },
+    {
+     "id": "airports.scheduled_service_yes_no",
+     "table": "airports",
+     "level": "row",
+     "says": "scheduled_service is yes or no",
+     "tolerance": 0,
+     "failed": 0,
+     "checked": 86330,
+     "passed": true,
+     "samples": []
+    },
+    {
+     "id": "airports.iata_format",
+     "table": "airports",
+     "level": "row",
+     "says": "iata_code, when present, is three letters or digits",
+     "tolerance": 0,
+     "failed": 0,
+     "checked": 86330,
+     "passed": true,
+     "samples": []
+    },
+    {
+     "id": "airports.elevation_integer",
+     "table": "airports",
+     "level": "row",
+     "says": "elevation_ft, when present, is a whole number",
+     "tolerance": 0,
+     "failed": 0,
+     "checked": 86330,
+     "passed": true,
+     "samples": []
+    },
+    {
+     "id": "runways.airport_known",
+     "table": "runways",
+     "level": "row",
+     "says": "airport_ref points to an airport id",
+     "tolerance": 0,
+     "failed": 0,
+     "checked": 48405,
+     "passed": true,
+     "samples": []
+    },
+    {
+     "id": "runways.length_positive",
+     "table": "runways",
+     "level": "row",
+     "says": "length_ft, when present, is a whole number above 0",
+     "tolerance": 0.001,
+     "failed": 6,
+     "checked": 48405,
+     "passed": true,
+     "samples": [
+      "length_ft=0",
+      "length_ft=0",
+      "length_ft=0"
+     ]
+    },
+    {
+     "id": "runways.closed_flag",
+     "table": "runways",
+     "level": "row",
+     "says": "closed is 0 or 1",
+     "tolerance": 0,
+     "failed": 0,
+     "checked": 48405,
+     "passed": true,
+     "samples": []
+    },
+    {
+     "id": "countries.code_unique_two_letters",
+     "table": "countries",
+     "level": "row",
+     "says": "code is two capital letters and appears once",
+     "tolerance": 0,
+     "failed": 0,
+     "checked": 249,
+     "passed": true,
+     "samples": []
+    }
+   ],
+   "files": [
+    {
+     "table": "airports",
+     "httpStatus": 200,
+     "lastModified": "2026-11-02T02:54:09.000Z",
+     "bytes": 12755750,
+     "rows": 86330,
+     "columns": 19,
+     "fetchMs": 265,
+     "parseMs": 694
+    },
+    {
+     "table": "runways",
+     "httpStatus": 200,
+     "lastModified": "2026-11-02T02:54:09.000Z",
+     "bytes": 3973691,
+     "rows": 48405,
+     "columns": 20,
+     "fetchMs": 141,
+     "parseMs": 248
+    },
+    {
+     "table": "countries",
+     "httpStatus": 200,
+     "lastModified": "2026-11-02T02:54:09.000Z",
+     "bytes": 24583,
+     "rows": 249,
+     "columns": 6,
+     "fetchMs": 111,
+     "parseMs": 1
+    }
+   ],
+   "checkMs": 243
   }
  ]
 }
