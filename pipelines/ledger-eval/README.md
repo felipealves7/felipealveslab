@@ -1,6 +1,6 @@
 # ledger-eval
 
-Model benchmark for Ask the Ledger: does a Workers AI model turn the page's finance questions into the right SQL, and does it decline when it should? **No model has been run yet.**
+Model benchmark for Ask the Ledger: does a Workers AI model turn the page's finance questions into the right SQL, and does it decline when it should? Six runs were made on 2026-11-03. The stored runs and their scores are in `data/ledger-eval/` (see its README) and summarised on the Ask the Ledger page.
 
 ## What it measures
 
@@ -24,7 +24,7 @@ Suggested order, started after 00:00 UTC (04:00 in Dubai) so the day's allowance
 | 1 | 3 | candidate | llama-3.2-3b | legacy47 | 47 | 1,000 |
 | 2 | 4–6 | as runs 1–3 | | validation20 | 20 | 1,200 / 1,800 / 500 |
 
-Estimated use, from published rates and an assumed 250 output tokens a reply (not measured; the pilot measures it): about 1,800, 3,400 and 540 neurons for runs 1–3, and 2,500 for runs 4–6 together.
+Estimated use, from published rates and an assumed 250 output tokens a reply: about 1,800, 3,400 and 540 neurons for runs 1–3, and 2,500 for runs 4–6 together. Measured on 2026-11-03 (token counts at list rates): 1,104, 2,255 and 321 neurons for the three `legacy47` runs, and 451, 932 and 134 for the three `validation20` runs. All six fitted in one day's free allowance.
 
 Each run saves `run.json` (raw replies, SQL, token counts, times) and `run.scored.json` as an artifact, and writes a summary table on the run page. Locally, with `CF_ACCOUNT_ID`, `CF_API_TOKEN` and `LEDGER_ACCOUNT_PLAN=free` set in your shell (never in a file here):
 
@@ -33,6 +33,8 @@ node pipelines/ledger-eval/run.mjs --dry-run
 node pipelines/ledger-eval/run.mjs --prompt baseline --suite legacy47 --max-requests 5 --free-budget-neurons 500 --out ledger-eval-runs/pilot.json
 node pipelines/ledger-eval/score-run.mjs ledger-eval-runs/pilot.json
 ```
+
+`build-results.mjs` scores the stored runs again and writes `data/ledger-eval/results.json`; `ledger-benchmark-results.test.mjs` checks that file and the page against each other.
 
 ## Files
 

@@ -1,0 +1,958 @@
+{
+  "kind": "actual_cloudflare_rest_inference",
+  "plan": {
+    "mode": "inference",
+    "model": "@cf/meta/llama-3.2-3b-instruct",
+    "prompt": "candidate",
+    "promptSha256": "d99715b44563e8db3df4e0006da45f53ef73963923b65d5e443dfd6869f0cf64",
+    "suite": "legacy47",
+    "suiteSha256": "95d18e254ddbda0e15c72d73d6ec6e9a0b20dd2a94409ad52e884654dcbcf5a2",
+    "availableCases": 47,
+    "maxRequests": 47,
+    "maxOutputTokens": 400,
+    "temperature": 0,
+    "networkCalls": "not yet started",
+    "requiredEnvironment": [
+      "CF_ACCOUNT_ID",
+      "CF_API_TOKEN",
+      "LEDGER_ACCOUNT_PLAN=free"
+    ],
+    "note": "Free-plan confirmation and an explicit neuron budget are required. No automatic retries or recurring jobs."
+  },
+  "startedAt": "2026-11-03T03:25:44.206Z",
+  "records": [
+    {
+      "id": "L01",
+      "question": "What was total revenue in 2025?",
+      "requestedAt": "2026-11-03T03:25:45.181Z",
+      "httpStatus": 200,
+      "elapsedMs": 973.584719,
+      "raw": {
+        "sql": "SELECT SUM(amount) AS total_revenue FROM ledger WHERE entity IN ('North Hub', 'Harbour Retail', 'Delta Services', 'Summit Logistics', 'Orchard Foods', 'Lakeside Energy') AND month LIKE '2025-%' AND account = 'Product sales'",
+        "explanation": "Total revenue in 2025 refers to the available year-to-date January-September 2025."
+      },
+      "sql": "SELECT SUM(amount) AS total_revenue FROM ledger WHERE entity IN ('North Hub', 'Harbour Retail', 'Delta Services', 'Summit Logistics', 'Orchard Foods', 'Lakeside Energy') AND month LIKE '2025-%' AND account = 'Product sales'",
+      "explanation": "Total revenue in 2025 refers to the available year-to-date January-September 2025.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 652,
+        "outputTokens": 89,
+        "pricingDerivedNeurons": 5.727775
+      },
+      "error": null
+    },
+    {
+      "id": "L02",
+      "question": "What was revenue in 2026?",
+      "requestedAt": "2026-11-03T03:25:45.893Z",
+      "httpStatus": 200,
+      "elapsedMs": 711.736131,
+      "raw": {
+        "sql": "SELECT SUM(CASE WHEN entity = 'North Hub' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Harbour Retail' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Delta Services' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Summit Logistics' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Orchard Foods' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Lakeside Energy' THEN amount ELSE 0 END) AS revenue FROM ledger WHERE month = '2026-10'",
+        "explanation": "Revenue in 2026 is the sum of revenue from all entities in October 2026."
+      },
+      "sql": "SELECT SUM(CASE WHEN entity = 'North Hub' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Harbour Retail' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Delta Services' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Summit Logistics' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Orchard Foods' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Lakeside Energy' THEN amount ELSE 0 END) AS revenue FROM ledger WHERE month = '2026-10'",
+      "explanation": "Revenue in 2026 is the sum of revenue from all entities in October 2026.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 651,
+        "outputTokens": 157,
+        "pricingDerivedNeurons": 7.79545
+      },
+      "error": null
+    },
+    {
+      "id": "L03",
+      "question": "Revenue in Q1 2026",
+      "requestedAt": "2026-11-03T03:25:46.446Z",
+      "httpStatus": 200,
+      "elapsedMs": 552.5050040000001,
+      "raw": {
+        "sql": "SELECT SUM(CASE WHEN entity = 'North Hub' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Harbour Retail' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Delta Services' THEN amount ELSE 0 END) AS revenue FROM ledger WHERE month = '2026-01' AND account = 'Product sales'",
+        "explanation": "Revenue in Q1 2026 refers to the period from January 2026. Since the requested period is a specific month, the query will only return data for that month."
+      },
+      "sql": "SELECT SUM(CASE WHEN entity = 'North Hub' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Harbour Retail' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Delta Services' THEN amount ELSE 0 END) AS revenue FROM ledger WHERE month = '2026-01' AND account = 'Product sales'",
+      "explanation": "Revenue in Q1 2026 refers to the period from January 2026. Since the requested period is a specific month, the query will only return data for that month.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 650,
+        "outputTokens": 122,
+        "pricingDerivedNeurons": 6.7242
+      },
+      "error": null
+    },
+    {
+      "id": "L04",
+      "question": "What was gross profit in Q4 2025?",
+      "requestedAt": "2026-11-03T03:25:47.906Z",
+      "httpStatus": 200,
+      "elapsedMs": 1459.378405,
+      "raw": "{\"sql\": \"SELECT ROUND(100 * SUM(CASE WHEN entity = 'North Hub' THEN SUM(CASE WHEN month = '2025-10' THEN amount ELSE 0 END) ELSE 0 END) + SUM(CASE WHEN entity = 'Harbour Retail' THEN SUM(CASE WHEN month = '2025-10' THEN amount ELSE 0 END) ELSE 0 END) - SUM(CASE WHEN entity = 'Delta Services' THEN SUM(CASE WHEN month = '2025-10' THEN amount ELSE 0 END) ELSE 0 END) + SUM(CASE WHEN entity = 'Summit Logistics' THEN SUM(CASE WHEN month = '2025-10' THEN amount ELSE 0 END) ELSE 0 END) + SUM(CASE WHEN entity = 'Orchard Foods' THEN SUM(CASE WHEN month = '2025-10' THEN amount ELSE 0 END) ELSE 0 END) + SUM(CASE WHEN entity = 'Lakeside Energy' THEN SUM(CASE WHEN month = '2025-10' THEN amount ELSE 0 END) ELSE 0 END) FROM ledger) / (SUM(CASE WHEN entity = 'North Hub' THEN SUM(CASE WHEN month = '2025-10' THEN amount ELSE 0 END) ELSE 0 END) + SUM(CASE WHEN entity = 'Harbour Retail' THEN SUM(CASE WHEN month = '2025-10' THEN amount ELSE 0 END) ELSE 0 END) + SUM(CASE WHEN entity = 'Delta Services' THEN SUM(CASE WHEN month = '2025-10' THEN amount ELSE 0 END) ELSE 0 END) + SUM(CASE WHEN entity = 'Summit Logistics' THEN SUM(CASE WHEN month = '2025-10' THEN amount ELSE 0 END) ELSE 0 END) + SUM(CASE WHEN entity = 'Orchard Foods' THEN SUM(CASE WHEN month =",
+      "sql": null,
+      "explanation": null,
+      "modelError": true,
+      "usage": {
+        "inputTokens": 654,
+        "outputTokens": 400,
+        "pricingDerivedNeurons": 15.21475
+      },
+      "error": null
+    },
+    {
+      "id": "L05",
+      "question": "What was the gross margin in 2025?",
+      "requestedAt": "2026-11-03T03:25:48.499Z",
+      "httpStatus": 200,
+      "elapsedMs": 592.0010749999997,
+      "raw": {
+        "sql": "SELECT ROUND(100 * SUM(CASE WHEN year = 2025 THEN amount ELSE 0 END) / SUM(amount), 1) AS gross_margin FROM ledger WHERE month IN (\"2025-01\", \"2025-02\", \"2025-03\", \"2025-04\", \"2025-05\", \"2025-06\", \"2025-07\", \"2025-08\", \"2025-09\")",
+        "explanation": "Gross margin in 2025 is calculated by summing the amounts in the ledger for the months of 2025 and dividing by the total revenue for those months."
+      },
+      "sql": "SELECT ROUND(100 * SUM(CASE WHEN year = 2025 THEN amount ELSE 0 END) / SUM(amount), 1) AS gross_margin FROM ledger WHERE month IN (\"2025-01\", \"2025-02\", \"2025-03\", \"2025-04\", \"2025-05\", \"2025-06\", \"2025-07\", \"2025-08\", \"2025-09\")",
+      "explanation": "Gross margin in 2025 is calculated by summing the amounts in the ledger for the months of 2025 and dividing by the total revenue for those months.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 653,
+        "outputTokens": 137,
+        "pricingDerivedNeurons": 7.1952
+      },
+      "error": null
+    },
+    {
+      "id": "L06",
+      "question": "What was operating profit in 2026?",
+      "requestedAt": "2026-11-03T03:25:49.061Z",
+      "httpStatus": 200,
+      "elapsedMs": 561.1833560000005,
+      "raw": {
+        "sql": "SELECT SUM(CASE WHEN account = 'Operating expense' THEN amount ELSE 0 END) AS operating_profit FROM ledger WHERE entity IN ('North Hub', 'Harbour Retail', 'Delta Services', 'Summit Logistics', 'Orchard Foods', 'Lakeside Energy') AND month = '2026-10'",
+        "explanation": "This query calculates the operating profit for the month of October 2026, which is the only month available for the year 2026. The result is the sum of the amounts in the Operating expense account for the specified entities and month."
+      },
+      "sql": "SELECT SUM(CASE WHEN account = 'Operating expense' THEN amount ELSE 0 END) AS operating_profit FROM ledger WHERE entity IN ('North Hub', 'Harbour Retail', 'Delta Services', 'Summit Logistics', 'Orchard Foods', 'Lakeside Energy') AND month = '2026-10'",
+      "explanation": "This query calculates the operating profit for the month of October 2026, which is the only month available for the year 2026. The result is the sum of the amounts in the Operating expense account for the specified entities and month.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 652,
+        "outputTokens": 124,
+        "pricingDerivedNeurons": 6.7944
+      },
+      "error": null
+    },
+    {
+      "id": "L07",
+      "question": "Operating expenses in March 2026",
+      "requestedAt": "2026-11-03T03:25:49.486Z",
+      "httpStatus": 200,
+      "elapsedMs": 424.89148599999953,
+      "raw": {
+        "sql": "SELECT SUM(CASE WHEN account_group = 'Operating expense' THEN amount END) AS operating_expenses FROM ledger WHERE month = '2026-03'",
+        "explanation": "Operating expenses in March 2026 refer to the total expenses incurred by the entities during this month, within the fixed historical demonstration period of January 2025 through September 2026."
+      },
+      "sql": "SELECT SUM(CASE WHEN account_group = 'Operating expense' THEN amount END) AS operating_expenses FROM ledger WHERE month = '2026-03'",
+      "explanation": "Operating expenses in March 2026 refer to the total expenses incurred by the entities during this month, within the fixed historical demonstration period of January 2025 through September 2026.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 650,
+        "outputTokens": 79,
+        "pricingDerivedNeurons": 5.413775
+      },
+      "error": null
+    },
+    {
+      "id": "L08",
+      "question": "Cost of sales in 2025",
+      "requestedAt": "2026-11-03T03:25:50.138Z",
+      "httpStatus": 200,
+      "elapsedMs": 564.482814,
+      "raw": {
+        "sql": "SELECT SUM(CASE WHEN STRFTIME('%Y', month) = '2025' THEN amount ELSE 0 END) AS cost_of_sales_2025 FROM ledger WHERE account_group = 'Cost of sales' AND entity IN ('North Hub', 'Harbour Retail', 'Delta Services', 'Summit Logistics', 'Orchard Foods', 'Lakeside Energy')",
+        "explanation": "Cost of sales in 2025 refers to the available year-to-date January-September 2025. Since the request is for a specific year, the query will only include amounts from that year."
+      },
+      "sql": "SELECT SUM(CASE WHEN STRFTIME('%Y', month) = '2025' THEN amount ELSE 0 END) AS cost_of_sales_2025 FROM ledger WHERE account_group = 'Cost of sales' AND entity IN ('North Hub', 'Harbour Retail', 'Delta Services', 'Summit Logistics', 'Orchard Foods', 'Lakeside Energy')",
+      "explanation": "Cost of sales in 2025 refers to the available year-to-date January-September 2025. Since the request is for a specific year, the query will only include amounts from that year.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 650,
+        "outputTokens": 128,
+        "pricingDerivedNeurons": 6.90705
+      },
+      "error": null
+    },
+    {
+      "id": "L09",
+      "question": "Revenue by entity in 2025",
+      "requestedAt": "2026-11-03T03:25:50.626Z",
+      "httpStatus": 200,
+      "elapsedMs": 486.68352700000014,
+      "raw": {
+        "sql": "SELECT entity, SUM(CASE WHEN STRFTIME('%Y', month) = '2025' THEN amount ELSE 0 END) AS revenue_2025 FROM ledger WHERE STRFTIME('%Y', month) = '2025' GROUP BY entity",
+        "explanation": "Revenue by entity in 2025, using a single query with a CASE statement to filter by year, and grouping by entity."
+      },
+      "sql": "SELECT entity, SUM(CASE WHEN STRFTIME('%Y', month) = '2025' THEN amount ELSE 0 END) AS revenue_2025 FROM ledger WHERE STRFTIME('%Y', month) = '2025' GROUP BY entity",
+      "explanation": "Revenue by entity in 2025, using a single query with a CASE statement to filter by year, and grouping by entity.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 650,
+        "outputTokens": 89,
+        "pricingDerivedNeurons": 5.718525
+      },
+      "error": null
+    },
+    {
+      "id": "L10",
+      "question": "Operating profit by entity in Q3 2026",
+      "requestedAt": "2026-11-03T03:25:51.073Z",
+      "httpStatus": 200,
+      "elapsedMs": 446.4629010000008,
+      "raw": {
+        "sql": "SELECT entity, month, SUM(amount) AS operating_profit FROM ledger WHERE month = '2026-09' AND account_group = 'Operating expense' GROUP BY entity, month ORDER BY entity, month",
+        "explanation": "This query calculates the operating profit by entity in Q3 2026, which is the month of September 2026. The result is grouped by entity and month, and ordered by entity and month."
+      },
+      "sql": "SELECT entity, month, SUM(amount) AS operating_profit FROM ledger WHERE month = '2026-09' AND account_group = 'Operating expense' GROUP BY entity, month ORDER BY entity, month",
+      "explanation": "This query calculates the operating profit by entity in Q3 2026, which is the month of September 2026. The result is grouped by entity and month, and ordered by entity and month.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 653,
+        "outputTokens": 93,
+        "pricingDerivedNeurons": 5.8543
+      },
+      "error": null
+    },
+    {
+      "id": "L11",
+      "question": "Revenue by month in 2025",
+      "requestedAt": "2026-11-03T03:25:51.632Z",
+      "httpStatus": 200,
+      "elapsedMs": 558.7546060000004,
+      "raw": {
+        "sql": "SELECT month, SUM(amount) AS revenue FROM ledger WHERE entity IN ('North Hub', 'Harbour Retail', 'Delta Services', 'Summit Logistics', 'Orchard Foods', 'Lakeside Energy') AND account = 'Product sales' AND amount > 0 AND year = 2025 GROUP BY month",
+        "explanation": "Revenue by month in 2025, using the ledger table with the specified conditions and grouping by month."
+      },
+      "sql": "SELECT month, SUM(amount) AS revenue FROM ledger WHERE entity IN ('North Hub', 'Harbour Retail', 'Delta Services', 'Summit Logistics', 'Orchard Foods', 'Lakeside Energy') AND account = 'Product sales' AND amount > 0 AND year = 2025 GROUP BY month",
+      "explanation": "Revenue by month in 2025, using the ledger table with the specified conditions and grouping by month.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 650,
+        "outputTokens": 97,
+        "pricingDerivedNeurons": 5.962325
+      },
+      "error": null
+    },
+    {
+      "id": "L12",
+      "question": "Revenue by quarter in 2025",
+      "requestedAt": "2026-11-03T03:25:52.407Z",
+      "httpStatus": 200,
+      "elapsedMs": 774.2008380000007,
+      "raw": {
+        "sql": "SELECT entity, month, SUM(amount) AS revenue FROM ledger WHERE year = 2025 AND month IN ('2025-01', '2025-02', '2025-03', '2025-04', '2025-05', '2025-06', '2025-07', '2025-08', '2025-09') GROUP BY entity, month",
+        "explanation": "Revenue by quarter in 2025, using the fixed historical demonstration period of January 2025 through September 2025."
+      },
+      "sql": "SELECT entity, month, SUM(amount) AS revenue FROM ledger WHERE year = 2025 AND month IN ('2025-01', '2025-02', '2025-03', '2025-04', '2025-05', '2025-06', '2025-07', '2025-08', '2025-09') GROUP BY entity, month",
+      "explanation": "Revenue by quarter in 2025, using the fixed historical demonstration period of January 2025 through September 2025.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 650,
+        "outputTokens": 117,
+        "pricingDerivedNeurons": 6.571825
+      },
+      "error": null
+    },
+    {
+      "id": "L13",
+      "question": "Which entity had the highest revenue in 2025?",
+      "requestedAt": "2026-11-03T03:25:52.968Z",
+      "httpStatus": 200,
+      "elapsedMs": 560.6726119999985,
+      "raw": "```\n{\n  \"sql\": \"SELECT entity, SUM(CASE WHEN year = 2025 THEN amount ELSE 0 END) AS revenue\n  FROM ledger\n  WHERE month = '2025-10'\n  GROUP BY entity\n  ORDER BY revenue DESC\n  LIMIT 1\",\n  \"explanation\": \"This query calculates the revenue for each entity in October 2025 and returns the entity with the highest revenue. Note that since the request is for 2025, the query only considers the available year-to-date January-September 2025.\"\n}\n```",
+      "sql": "SELECT entity, SUM(CASE WHEN year = 2025 THEN amount ELSE 0 END) AS revenue\n  FROM ledger\n  WHERE month = '2025-10'\n  GROUP BY entity\n  ORDER BY revenue DESC\n  LIMIT 1",
+      "explanation": "This query calculates the revenue for each entity in October 2025 and returns the entity with the highest revenue. Note that since the request is for 2025, the query only considers the available year-to-date January-September 2025.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 654,
+        "outputTokens": 118,
+        "pricingDerivedNeurons": 6.6208
+      },
+      "error": null
+    },
+    {
+      "id": "L14",
+      "question": "Which entity had the lowest gross margin in 2026?",
+      "requestedAt": "2026-11-03T03:25:53.479Z",
+      "httpStatus": 200,
+      "elapsedMs": 509.81791499999963,
+      "raw": {
+        "sql": "SELECT entity, ROUND(100 * SUM(CASE WHEN account = 'Revenue' THEN amount ELSE 0 END) - SUM(CASE WHEN account = 'Cost of sales' THEN amount ELSE 0 END), 1) AS \"Gross Margin\" FROM ledger WHERE month = '2026-10' GROUP BY entity ORDER BY Gross Margin ASC LIMIT 1",
+        "explanation": "This query calculates the gross margin for each entity in October 2026, and returns the entity with the lowest gross margin."
+      },
+      "sql": "SELECT entity, ROUND(100 * SUM(CASE WHEN account = 'Revenue' THEN amount ELSE 0 END) - SUM(CASE WHEN account = 'Cost of sales' THEN amount ELSE 0 END), 1) AS \"Gross Margin\" FROM ledger WHERE month = '2026-10' GROUP BY entity ORDER BY Gross Margin ASC LIMIT 1",
+      "explanation": "This query calculates the gross margin for each entity in October 2026, and returns the entity with the lowest gross margin.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 655,
+        "outputTokens": 110,
+        "pricingDerivedNeurons": 6.381625
+      },
+      "error": null
+    },
+    {
+      "id": "L15",
+      "question": "Top 3 entities by operating expenses in Q2 2026",
+      "requestedAt": "2026-11-03T03:25:54.544Z",
+      "httpStatus": 200,
+      "elapsedMs": 1065.434217,
+      "raw": {
+        "sql": "SELECT entity, SUM(CASE WHEN account_group = 'Operating expense' THEN amount ELSE 0 END) AS opex FROM ledger WHERE month = '2026-04' AND month = '2026-05' GROUP BY entity ORDER BY SUM(CASE WHEN account_group = 'Operating expense' THEN amount ELSE 0 END) DESC LIMIT 3",
+        "explanation": "Top 3 entities by operating expenses in Q2 2026, as requested, with explicit conditions for the period and entity."
+      },
+      "sql": "SELECT entity, SUM(CASE WHEN account_group = 'Operating expense' THEN amount ELSE 0 END) AS opex FROM ledger WHERE month = '2026-04' AND month = '2026-05' GROUP BY entity ORDER BY SUM(CASE WHEN account_group = 'Operating expense' THEN amount ELSE 0 END) DESC LIMIT 3",
+      "explanation": "Top 3 entities by operating expenses in Q2 2026, as requested, with explicit conditions for the period and entity.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 656,
+        "outputTokens": 109,
+        "pricingDerivedNeurons": 6.355775
+      },
+      "error": null
+    },
+    {
+      "id": "L16",
+      "question": "Revenue of North Hub in 2025",
+      "requestedAt": "2026-11-03T03:25:54.956Z",
+      "httpStatus": 200,
+      "elapsedMs": 411.408746000001,
+      "raw": {
+        "sql": "SELECT SUM(CASE WHEN entity = 'North Hub' AND month LIKE '2025-%' THEN amount END) AS revenue FROM ledger",
+        "explanation": "Revenue of North Hub in 2025 refers to the total revenue generated by North Hub in the year 2025, which is the available year-to-date January-September."
+      },
+      "sql": "SELECT SUM(CASE WHEN entity = 'North Hub' AND month LIKE '2025-%' THEN amount END) AS revenue FROM ledger",
+      "explanation": "Revenue of North Hub in 2025 refers to the total revenue generated by North Hub in the year 2025, which is the available year-to-date January-September.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 651,
+        "outputTokens": 74,
+        "pricingDerivedNeurons": 5.266025
+      },
+      "error": null
+    },
+    {
+      "id": "L17",
+      "question": "Operating profit for Delta Services in Q1 2026",
+      "requestedAt": "2026-11-03T03:25:55.502Z",
+      "httpStatus": 200,
+      "elapsedMs": 544.6426919999994,
+      "raw": {
+        "sql": "SELECT SUM(CASE WHEN entity = 'Delta Services' AND month = '2026-01' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Delta Services' AND month = '2026-02' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Delta Services' AND month = '2026-03' THEN amount ELSE 0 END) AS value FROM ledger",
+        "explanation": "For Q1 2026, Delta Services operating profit is the sum of amounts in the ledger for Delta Services in January, February, and March 2026."
+      },
+      "sql": "SELECT SUM(CASE WHEN entity = 'Delta Services' AND month = '2026-01' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Delta Services' AND month = '2026-02' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Delta Services' AND month = '2026-03' THEN amount ELSE 0 END) AS value FROM ledger",
+      "explanation": "For Q1 2026, Delta Services operating profit is the sum of amounts in the ledger for Delta Services in January, February, and March 2026.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 654,
+        "outputTokens": 130,
+        "pricingDerivedNeurons": 6.9865
+      },
+      "error": null
+    },
+    {
+      "id": "L18",
+      "question": "What was revenue last quarter?",
+      "requestedAt": "2026-11-03T03:25:56.196Z",
+      "httpStatus": 200,
+      "elapsedMs": 693.5651300000009,
+      "raw": {
+        "sql": "SELECT SUM(amount) AS revenue FROM ledger WHERE entity IN ('North Hub', 'Harbour Retail', 'Delta Services', 'Summit Logistics', 'Orchard Foods', 'Lakeside Energy') AND month = '2026-07' AND account = 'Product sales'",
+        "explanation": "This query calculates the revenue for the last quarter (July-September 2026) for all entities. Since the requested period is a quarter, the query only includes data from July 2026."
+      },
+      "sql": "SELECT SUM(amount) AS revenue FROM ledger WHERE entity IN ('North Hub', 'Harbour Retail', 'Delta Services', 'Summit Logistics', 'Orchard Foods', 'Lakeside Energy') AND month = '2026-07' AND account = 'Product sales'",
+      "explanation": "This query calculates the revenue for the last quarter (July-September 2026) for all entities. Since the requested period is a quarter, the query only includes data from July 2026.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 649,
+        "outputTokens": 108,
+        "pricingDerivedNeurons": 6.292925
+      },
+      "error": null
+    },
+    {
+      "id": "L19",
+      "question": "Gross profit last month",
+      "requestedAt": "2026-11-03T03:25:56.641Z",
+      "httpStatus": 200,
+      "elapsedMs": 445.076771,
+      "raw": {
+        "sql": "SELECT SUM(CASE WHEN month = '2026-10' THEN amount ELSE 0 END) AS gross_profit FROM ledger WHERE account = 'Revenue' AND entity IN ('North Hub', 'Harbour Retail', 'Delta Services', 'Summit Logistics', 'Orchard Foods', 'Lakeside Energy')",
+        "explanation": "Gross profit for October 2026 is not available since this is a historical demonstration. The query returns 0 as there are no sales in October 2026."
+      },
+      "sql": "SELECT SUM(CASE WHEN month = '2026-10' THEN amount ELSE 0 END) AS gross_profit FROM ledger WHERE account = 'Revenue' AND entity IN ('North Hub', 'Harbour Retail', 'Delta Services', 'Summit Logistics', 'Orchard Foods', 'Lakeside Energy')",
+      "explanation": "Gross profit for October 2026 is not available since this is a historical demonstration. The query returns 0 as there are no sales in October 2026.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 648,
+        "outputTokens": 110,
+        "pricingDerivedNeurons": 6.34925
+      },
+      "error": null
+    },
+    {
+      "id": "L20",
+      "question": "Operating expenses this year",
+      "requestedAt": "2026-11-03T03:25:57.396Z",
+      "httpStatus": 200,
+      "elapsedMs": 754.4995990000007,
+      "raw": {
+        "sql": "SELECT SUM(CASE WHEN T1.year = 2026 THEN T2.amount ELSE 0 END) AS operating_expenses FROM (SELECT DISTINCT T1.entity, T1.month, T1.account, T1.account_group, T1.amount, T1.year FROM ledger AS T1 INNER JOIN (SELECT entity, month, account_group, amount FROM ledger WHERE year = 2026) AS T2 ON T1.entity = T2.entity AND T1.month = T2.month AND T1.account_group = T2.account_group AND T1.amount = T2.amount) WHERE T1.account_group = 'Operating expense' AND T1.year = 2026",
+        "explanation": "This query calculates the total operating expenses for the year 2026 by summing the amounts in the 'Operating expense' account group for the entities in the ledger table for the month of October 2026."
+      },
+      "sql": "SELECT SUM(CASE WHEN T1.year = 2026 THEN T2.amount ELSE 0 END) AS operating_expenses FROM (SELECT DISTINCT T1.entity, T1.month, T1.account, T1.account_group, T1.amount, T1.year FROM ledger AS T1 INNER JOIN (SELECT entity, month, account_group, amount FROM ledger WHERE year = 2026) AS T2 ON T1.entity = T2.entity AND T1.month = T2.month AND T1.account_group = T2.account_group AND T1.amount = T2.amount) WHERE T1.account_group = 'Operating expense' AND T1.year = 2026",
+      "explanation": "This query calculates the total operating expenses for the year 2026 by summing the amounts in the 'Operating expense' account group for the entities in the ledger table for the month of October 2026.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 647,
+        "outputTokens": 189,
+        "pricingDerivedNeurons": 8.75215
+      },
+      "error": null
+    },
+    {
+      "id": "L21",
+      "question": "Sales in 2026",
+      "requestedAt": "2026-11-03T03:25:58.091Z",
+      "httpStatus": 200,
+      "elapsedMs": 693.4539249999998,
+      "raw": {
+        "sql": "SELECT SUM(CASE WHEN entity = 'North Hub' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Harbour Retail' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Delta Services' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Summit Logistics' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Orchard Foods' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Lakeside Energy' THEN amount ELSE 0 END) AS total_sales FROM ledger WHERE month = '2026-10'",
+        "explanation": "Total sales in October 2026, as this is a fixed historical demonstration, the answer is only available for this month."
+      },
+      "sql": "SELECT SUM(CASE WHEN entity = 'North Hub' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Harbour Retail' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Delta Services' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Summit Logistics' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Orchard Foods' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Lakeside Energy' THEN amount ELSE 0 END) AS total_sales FROM ledger WHERE month = '2026-10'",
+      "explanation": "Total sales in October 2026, as this is a fixed historical demonstration, the answer is only available for this month.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 648,
+        "outputTokens": 164,
+        "pricingDerivedNeurons": 7.9949
+      },
+      "error": null
+    },
+    {
+      "id": "L22",
+      "question": "Turnover for Harbour Retail in 2025",
+      "requestedAt": "2026-11-03T03:25:58.525Z",
+      "httpStatus": 200,
+      "elapsedMs": 433.76092099999914,
+      "raw": {
+        "sql": "SELECT SUM(CASE WHEN entity = 'Harbour Retail' AND year(month) = 2025 THEN amount END) AS turnover FROM ledger",
+        "explanation": "Turnover for Harbour Retail in 2025 refers to the total revenue generated by Harbour Retail in the year 2025, as per the historical ledger data. Since the ledger data only goes up to September 2026, the query will return null for 2025."
+      },
+      "sql": "SELECT SUM(CASE WHEN entity = 'Harbour Retail' AND year(month) = 2025 THEN amount END) AS turnover FROM ledger",
+      "explanation": "Turnover for Harbour Retail in 2025 refers to the total revenue generated by Harbour Retail in the year 2025, as per the historical ledger data. Since the ledger data only goes up to September 2026, the query will return null for 2025.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 652,
+        "outputTokens": 95,
+        "pricingDerivedNeurons": 5.910625
+      },
+      "error": null
+    },
+    {
+      "id": "L23",
+      "question": "COGS in Q2 2025",
+      "requestedAt": "2026-11-03T03:25:59.295Z",
+      "httpStatus": 200,
+      "elapsedMs": 769.8175249999986,
+      "raw": {
+        "sql": "SELECT SUM(CASE WHEN entity = 'Harbour Retail' THEN amount ELSE 0 END) AS Harbour_Retail_COGS, SUM(CASE WHEN entity = 'Delta Services' THEN amount ELSE 0 END) AS Delta_Services_COGS, SUM(CASE WHEN entity = 'Summit Logistics' THEN amount ELSE 0 END) AS Summit_Logistics_COGS, SUM(CASE WHEN entity = 'Orchard Foods' THEN amount ELSE 0 END) AS Orchard_Foods_COGS FROM ledger WHERE month = '2025-04' AND account = 'Cost of sales'",
+        "explanation": "COGS in Q2 2025 refers to the total cost of goods sold for the entities Harbour Retail, Delta Services, Summit Logistics, and Orchard Foods in the month of April 2025. This query calculates the sum of amounts in the 'Cost of sales' account for these entities in April 2025."
+      },
+      "sql": "SELECT SUM(CASE WHEN entity = 'Harbour Retail' THEN amount ELSE 0 END) AS Harbour_Retail_COGS, SUM(CASE WHEN entity = 'Delta Services' THEN amount ELSE 0 END) AS Delta_Services_COGS, SUM(CASE WHEN entity = 'Summit Logistics' THEN amount ELSE 0 END) AS Summit_Logistics_COGS, SUM(CASE WHEN entity = 'Orchard Foods' THEN amount ELSE 0 END) AS Orchard_Foods_COGS FROM ledger WHERE month = '2025-04' AND account = 'Cost of sales'",
+      "explanation": "COGS in Q2 2025 refers to the total cost of goods sold for the entities Harbour Retail, Delta Services, Summit Logistics, and Orchard Foods in the month of April 2025. This query calculates the sum of amounts in the 'Cost of sales' account for these entities in April 2025.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 651,
+        "outputTokens": 198,
+        "pricingDerivedNeurons": 9.044925
+      },
+      "error": null
+    },
+    {
+      "id": "L24",
+      "question": "Gross margin by entity in 2025",
+      "requestedAt": "2026-11-03T03:25:59.599Z",
+      "httpStatus": 200,
+      "elapsedMs": 302.827025999999,
+      "raw": {
+        "sql": "SELECT ROUND(100 * SUM(CASE WHEN year = 2025 THEN amount ELSE 0 END) / SUM(amount), 1) AS Gross_margin FROM ledger WHERE year = 2025 GROUP BY entity",
+        "explanation": "Gross margin by entity in 2025, using available year-to-date January-September data."
+      },
+      "sql": "SELECT ROUND(100 * SUM(CASE WHEN year = 2025 THEN amount ELSE 0 END) / SUM(amount), 1) AS Gross_margin FROM ledger WHERE year = 2025 GROUP BY entity",
+      "explanation": "Gross margin by entity in 2025, using available year-to-date January-September data.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 652,
+        "outputTokens": 74,
+        "pricingDerivedNeurons": 5.27065
+      },
+      "error": null
+    },
+    {
+      "id": "L25",
+      "question": "What is total revenue?",
+      "requestedAt": "2026-11-03T03:25:59.931Z",
+      "httpStatus": 200,
+      "elapsedMs": 331.44567599999937,
+      "raw": {
+        "sql": "SELECT SUM(amount) AS total_revenue FROM ledger WHERE account = 'Product sales' AND month = '2026-10'",
+        "explanation": "Total revenue for October 2026, as this is a fixed historical demonstration, the answer is only available for this month."
+      },
+      "sql": "SELECT SUM(amount) AS total_revenue FROM ledger WHERE account = 'Product sales' AND month = '2026-10'",
+      "explanation": "Total revenue for October 2026, as this is a fixed historical demonstration, the answer is only available for this month.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 648,
+        "outputTokens": 62,
+        "pricingDerivedNeurons": 4.88645
+      },
+      "error": null
+    },
+    {
+      "id": "L26",
+      "question": "Bottom 2 entities by revenue in 2026",
+      "requestedAt": "2026-11-03T03:26:00.491Z",
+      "httpStatus": 200,
+      "elapsedMs": 559.4503749999985,
+      "raw": "```json\n{\n  \"sql\": \"SELECT entity, SUM(CASE WHEN EXTRACT(YEAR FROM month) = 2026 THEN amount ELSE 0 END) AS revenue_2026\n  FROM ledger\n  WHERE month LIKE '2026-%'\n  GROUP BY entity\n  ORDER BY revenue_2026 DESC\n  LIMIT 2\",\n  \"explanation\": \"Returns the bottom 2 entities by revenue in 2026. Since this is a fixed historical demonstration, the request is for the year-to-date January-September 2026.\"\n}\n```",
+      "sql": "SELECT entity, SUM(CASE WHEN EXTRACT(YEAR FROM month) = 2026 THEN amount ELSE 0 END) AS revenue_2026\n  FROM ledger\n  WHERE month LIKE '2026-%'\n  GROUP BY entity\n  ORDER BY revenue_2026 DESC\n  LIMIT 2",
+      "explanation": "Returns the bottom 2 entities by revenue in 2026. Since this is a fixed historical demonstration, the request is for the year-to-date January-September 2026.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 653,
+        "outputTokens": 117,
+        "pricingDerivedNeurons": 6.5857
+      },
+      "error": null
+    },
+    {
+      "id": "L27",
+      "question": "Monthly revenue for Summit Logistics in 2026",
+      "requestedAt": "2026-11-03T03:26:00.976Z",
+      "httpStatus": 200,
+      "elapsedMs": 484.87402400000065,
+      "raw": {
+        "sql": "SELECT SUM(CASE WHEN entity = 'Summit Logistics' AND month = '2026-10' THEN amount ELSE 0 END) AS revenue FROM ledger",
+        "explanation": "This query returns the total revenue for Summit Logistics in October 2026. Since the requested period is October 2026, which is within the coverage of January 2025 through September 2026, the query will return the available year-to-date revenue for Summit Logistics in October 2026."
+      },
+      "sql": "SELECT SUM(CASE WHEN entity = 'Summit Logistics' AND month = '2026-10' THEN amount ELSE 0 END) AS revenue FROM ledger",
+      "explanation": "This query returns the total revenue for Summit Logistics in October 2026. Since the requested period is October 2026, which is within the coverage of January 2025 through September 2026, the query will return the available year-to-date revenue for Summit Logistics in October 2026.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 652,
+        "outputTokens": 104,
+        "pricingDerivedNeurons": 6.1849
+      },
+      "error": null
+    },
+    {
+      "id": "L28",
+      "question": "Quarterly operating profit in 2026",
+      "requestedAt": "2026-11-03T03:26:01.679Z",
+      "httpStatus": 200,
+      "elapsedMs": 701.8194360000016,
+      "raw": {
+        "sql": "SELECT entity, month, SUM(CASE WHEN account_group = 'Operating expense' THEN amount ELSE 0 END) AS opex FROM ledger WHERE entity IN ('North Hub', 'Harbour Retail', 'Delta Services', 'Summit Logistics', 'Orchard Foods', 'Lakeside Energy') AND month IN ('2026-01', '2026-02', '2026-03', '2026-04', '2026-05', '2026-06', '2026-07', '2026-08', '2026-09') GROUP BY entity, month ORDER BY entity, month",
+        "explanation": "2026 operating profit by entity and quarter, with no year-to-date data for 2026, and no data for periods after September 2026."
+      },
+      "sql": "SELECT entity, month, SUM(CASE WHEN account_group = 'Operating expense' THEN amount ELSE 0 END) AS opex FROM ledger WHERE entity IN ('North Hub', 'Harbour Retail', 'Delta Services', 'Summit Logistics', 'Orchard Foods', 'Lakeside Energy') AND month IN ('2026-01', '2026-02', '2026-03', '2026-04', '2026-05', '2026-06', '2026-07', '2026-08', '2026-09') GROUP BY entity, month ORDER BY entity, month",
+      "explanation": "2026 operating profit by entity and quarter, with no year-to-date data for 2026, and no data for periods after September 2026.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 651,
+        "outputTokens": 171,
+        "pricingDerivedNeurons": 8.2221
+      },
+      "error": null
+    },
+    {
+      "id": "L29",
+      "question": "Gross profit by entity last year",
+      "requestedAt": "2026-11-03T03:26:02.125Z",
+      "httpStatus": 200,
+      "elapsedMs": 446.2696419999993,
+      "raw": {
+        "sql": "SELECT entity, SUM(CASE WHEN year = 2025 THEN amount ELSE 0 END) AS gross_profit FROM ledger WHERE month = '2025-10' AND account = 'Revenue' GROUP BY entity ORDER BY gross_profit DESC",
+        "explanation": "Gross profit by entity last year (October 2025) for entities with available data."
+      },
+      "sql": "SELECT entity, SUM(CASE WHEN year = 2025 THEN amount ELSE 0 END) AS gross_profit FROM ledger WHERE month = '2025-10' AND account = 'Revenue' GROUP BY entity ORDER BY gross_profit DESC",
+      "explanation": "Gross profit by entity last year (October 2025) for entities with available data.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 650,
+        "outputTokens": 78,
+        "pricingDerivedNeurons": 5.3833
+      },
+      "error": null
+    },
+    {
+      "id": "L30",
+      "question": "Which entity had the highest operating profit last quarter?",
+      "requestedAt": "2026-11-03T03:26:02.624Z",
+      "httpStatus": 200,
+      "elapsedMs": 498.25034900000173,
+      "raw": "```\n{\n  \"sql\": \"SELECT entity, SUM(amount) AS operating_profit\n          FROM ledger\n          WHERE month = '2026-07' AND account_group = 'Operating expense'\n          GROUP BY entity\n          ORDER BY operating_profit DESC\n          LIMIT 1\",\n  \"explanation\": \"This query returns the entity with the highest operating profit for the last quarter (July-September 2026), which is the same as the current reporting period.\"\n}\n```",
+      "sql": "SELECT entity, SUM(amount) AS operating_profit\n          FROM ledger\n          WHERE month = '2026-07' AND account_group = 'Operating expense'\n          GROUP BY entity\n          ORDER BY operating_profit DESC\n          LIMIT 1",
+      "explanation": "This query returns the entity with the highest operating profit for the last quarter (July-September 2026), which is the same as the current reporting period.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 653,
+        "outputTokens": 98,
+        "pricingDerivedNeurons": 6.006675
+      },
+      "error": null
+    },
+    {
+      "id": "L31",
+      "question": "How much did we sell in 2025?",
+      "requestedAt": "2026-11-03T03:26:03.543Z",
+      "httpStatus": 200,
+      "elapsedMs": 918.282314,
+      "raw": {
+        "sql": "SELECT SUM(CASE WHEN entity = 'North Hub' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Harbour Retail' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Delta Services' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Summit Logistics' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Orchard Foods' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Lakeside Energy' THEN amount ELSE 0 END) AS revenue_2025 FROM ledger WHERE month = '2025-10'",
+        "explanation": "We sold a total of AED 0 in 2025, as the query only considers the month of October 2025."
+      },
+      "sql": "SELECT SUM(CASE WHEN entity = 'North Hub' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Harbour Retail' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Delta Services' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Summit Logistics' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Orchard Foods' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Lakeside Energy' THEN amount ELSE 0 END) AS revenue_2025 FROM ledger WHERE month = '2025-10'",
+      "explanation": "We sold a total of AED 0 in 2025, as the query only considers the month of October 2025.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 653,
+        "outputTokens": 168,
+        "pricingDerivedNeurons": 8.139925
+      },
+      "error": null
+    },
+    {
+      "id": "L32",
+      "question": "What did Orchard Foods bring in during 2025?",
+      "requestedAt": "2026-11-03T03:26:04.022Z",
+      "httpStatus": 200,
+      "elapsedMs": 478.4983400000019,
+      "raw": {
+        "sql": "SELECT SUM(CASE WHEN entity = 'Orchard Foods' AND month = '2025-01' THEN amount END) AS revenue_2025 FROM ledger",
+        "explanation": "This query calculates the revenue brought in by Orchard Foods in 2025. The ledger table contains historical financial data for various entities, including Orchard Foods. The query uses a CASE statement to sum up the amounts for Orchard Foods in the year 2025."
+      },
+      "sql": "SELECT SUM(CASE WHEN entity = 'Orchard Foods' AND month = '2025-01' THEN amount END) AS revenue_2025 FROM ledger",
+      "explanation": "This query calculates the revenue brought in by Orchard Foods in 2025. The ledger table contains historical financial data for various entities, including Orchard Foods. The query uses a CASE statement to sum up the amounts for Orchard Foods in the year 2025.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 654,
+        "outputTokens": 96,
+        "pricingDerivedNeurons": 5.95035
+      },
+      "error": null
+    },
+    {
+      "id": "L33",
+      "question": "Revenue for the first half of 2026",
+      "requestedAt": "2026-11-03T03:26:04.650Z",
+      "httpStatus": 200,
+      "elapsedMs": 627.5842540000012,
+      "raw": {
+        "sql": "SELECT SUM(CASE WHEN STRFTIME('%Y', month) = '2026' THEN amount ELSE 0 END) AS revenue FROM ledger WHERE STRFTIME('%Y', month) = '2026' AND STRFTIME('%m', month) <= '06'",
+        "explanation": "This query calculates the total revenue for the first half of 2026, which includes January to June. The STRFTIME function is used to extract the year and month from the ledger entries, and the CASE statement is used to sum up the amounts for the specified period."
+      },
+      "sql": "SELECT SUM(CASE WHEN STRFTIME('%Y', month) = '2026' THEN amount ELSE 0 END) AS revenue FROM ledger WHERE STRFTIME('%Y', month) = '2026' AND STRFTIME('%m', month) <= '06'",
+      "explanation": "This query calculates the total revenue for the first half of 2026, which includes January to June. The STRFTIME function is used to extract the year and month from the ledger entries, and the CASE statement is used to sum up the amounts for the specified period.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 652,
+        "outputTokens": 122,
+        "pricingDerivedNeurons": 6.73345
+      },
+      "error": null
+    },
+    {
+      "id": "L34",
+      "question": "Revenue in 2025 excluding Delta Services",
+      "requestedAt": "2026-11-03T03:26:05.200Z",
+      "httpStatus": 200,
+      "elapsedMs": 549.4878949999984,
+      "raw": {
+        "sql": "SELECT SUM(CASE WHEN entity = 'Delta Services' THEN 0 ELSE amount END) AS revenue_2025_delta_excluded FROM ledger WHERE EXTRACT(YEAR FROM month) = 2025 AND account = 'Revenue'",
+        "explanation": "This query calculates the total revenue in 2025, excluding Delta Services. The EXTRACT function is used to extract the year from the month column, and the CASE statement is used to sum up the amounts in the Revenue account, excluding the amounts from Delta Services."
+      },
+      "sql": "SELECT SUM(CASE WHEN entity = 'Delta Services' THEN 0 ELSE amount END) AS revenue_2025_delta_excluded FROM ledger WHERE EXTRACT(YEAR FROM month) = 2025 AND account = 'Revenue'",
+      "explanation": "This query calculates the total revenue in 2025, excluding Delta Services. The EXTRACT function is used to extract the year from the month column, and the CASE statement is used to sum up the amounts in the Revenue account, excluding the amounts from Delta Services.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 651,
+        "outputTokens": 110,
+        "pricingDerivedNeurons": 6.363125
+      },
+      "error": null
+    },
+    {
+      "id": "L35",
+      "question": "What was the profit in 2025?",
+      "requestedAt": "2026-11-03T03:26:05.926Z",
+      "httpStatus": 200,
+      "elapsedMs": 725.2350579999984,
+      "raw": {
+        "sql": "SELECT SUM(CASE WHEN entity = 'North Hub' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Harbour Retail' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Delta Services' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Summit Logistics' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Orchard Foods' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Lakeside Energy' THEN amount ELSE 0 END) AS profit FROM ledger WHERE month = '2025-09' AND amount > 0",
+        "explanation": "The profit in 2025 refers to the year-to-date profit from January to September 2025. Since the question does not specify a particular month, the query only considers the September 2025 data."
+      },
+      "sql": "SELECT SUM(CASE WHEN entity = 'North Hub' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Harbour Retail' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Delta Services' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Summit Logistics' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Orchard Foods' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Lakeside Energy' THEN amount ELSE 0 END) AS profit FROM ledger WHERE month = '2025-09' AND amount > 0",
+      "explanation": "The profit in 2025 refers to the year-to-date profit from January to September 2025. Since the question does not specify a particular month, the query only considers the September 2025 data.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 652,
+        "outputTokens": 186,
+        "pricingDerivedNeurons": 8.68385
+      },
+      "error": null
+    },
+    {
+      "id": "L36",
+      "question": "What were our costs in 2026?",
+      "requestedAt": "2026-11-03T03:26:06.548Z",
+      "httpStatus": 200,
+      "elapsedMs": 621.3486169999996,
+      "raw": {
+        "sql": "SELECT SUM(CASE WHEN account_group = 'Cost of sales' THEN amount ELSE 0 END) AS cost FROM ledger WHERE entity IN ('North Hub', 'Harbour Retail', 'Delta Services', 'Summit Logistics', 'Orchard Foods', 'Lakeside Energy') AND month IN ('2026-01', '2026-02', '2026-03', '2026-04', '2026-05', '2026-06', '2026-07', '2026-08', '2026-09')",
+        "explanation": "Costs for 2026, as the year is specified, refer to the year-to-date period from January to September."
+      },
+      "sql": "SELECT SUM(CASE WHEN account_group = 'Cost of sales' THEN amount ELSE 0 END) AS cost FROM ledger WHERE entity IN ('North Hub', 'Harbour Retail', 'Delta Services', 'Summit Logistics', 'Orchard Foods', 'Lakeside Energy') AND month IN ('2026-01', '2026-02', '2026-03', '2026-04', '2026-05', '2026-06', '2026-07', '2026-08', '2026-09')",
+      "explanation": "Costs for 2026, as the year is specified, refer to the year-to-date period from January to September.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 652,
+        "outputTokens": 151,
+        "pricingDerivedNeurons": 7.617225
+      },
+      "error": null
+    },
+    {
+      "id": "L37",
+      "question": "Revenue in Q2",
+      "requestedAt": "2026-11-03T03:26:06.892Z",
+      "httpStatus": 200,
+      "elapsedMs": 342.8566720000017,
+      "raw": {
+        "sql": "SELECT SUM(CASE WHEN month = '2026-04' THEN amount ELSE 0 END) AS revenue FROM ledger",
+        "explanation": "Revenue in Q2 2026, as requested, is available for the month of April 2026."
+      },
+      "sql": "SELECT SUM(CASE WHEN month = '2026-04' THEN amount ELSE 0 END) AS revenue FROM ledger",
+      "explanation": "Revenue in Q2 2026, as requested, is available for the month of April 2026.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 647,
+        "outputTokens": 58,
+        "pricingDerivedNeurons": 4.759925
+      },
+      "error": null
+    },
+    {
+      "id": "L38",
+      "question": "Revenue in March",
+      "requestedAt": "2026-11-03T03:26:07.595Z",
+      "httpStatus": 200,
+      "elapsedMs": 702.7988669999977,
+      "raw": {
+        "sql": "SELECT SUM(CASE WHEN entity = 'North Hub' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Harbour Retail' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Delta Services' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Summit Logistics' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Orchard Foods' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Lakeside Energy' THEN amount ELSE 0 END) AS revenue FROM ledger WHERE month = '2026-03'",
+        "explanation": "Revenue in March 2026, as per the historical ledger data available, which covers January 2025 through September 2026."
+      },
+      "sql": "SELECT SUM(CASE WHEN entity = 'North Hub' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Harbour Retail' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Delta Services' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Summit Logistics' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Orchard Foods' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Lakeside Energy' THEN amount ELSE 0 END) AS revenue FROM ledger WHERE month = '2026-03'",
+      "explanation": "Revenue in March 2026, as per the historical ledger data available, which covers January 2025 through September 2026.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 646,
+        "outputTokens": 165,
+        "pricingDerivedNeurons": 8.016125
+      },
+      "error": null
+    },
+    {
+      "id": "L39",
+      "question": "What was EBITDA in 2025?",
+      "requestedAt": "2026-11-03T03:26:08.431Z",
+      "httpStatus": 200,
+      "elapsedMs": 835.5261299999984,
+      "raw": {
+        "sql": "SELECT SUM(CASE WHEN entity = 'North Hub' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Harbour Retail' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Delta Services' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Summit Logistics' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Orchard Foods' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Lakeside Energy' THEN amount ELSE 0 END) AS EBITDA FROM ledger WHERE year = 2025 AND month IN ('01', '02', '03', '04', '05', '06', '07', '08', '09') AND account = 'Product sales' AND amount > 0",
+        "explanation": "This query calculates the EBITDA for 2025 by summing the amounts in the Product sales account for each entity in the ledger for the months of January to September 2025."
+      },
+      "sql": "SELECT SUM(CASE WHEN entity = 'North Hub' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Harbour Retail' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Delta Services' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Summit Logistics' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Orchard Foods' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Lakeside Energy' THEN amount ELSE 0 END) AS EBITDA FROM ledger WHERE year = 2025 AND month IN ('01', '02', '03', '04', '05', '06', '07', '08', '09') AND account = 'Product sales' AND amount > 0",
+      "explanation": "This query calculates the EBITDA for 2025 by summing the amounts in the Product sales account for each entity in the ledger for the months of January to September 2025.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 653,
+        "outputTokens": 218,
+        "pricingDerivedNeurons": 9.663675
+      },
+      "error": null
+    },
+    {
+      "id": "L40",
+      "question": "Forecast revenue for Q4 2026",
+      "requestedAt": "2026-11-03T03:26:08.849Z",
+      "httpStatus": 200,
+      "elapsedMs": 417.689746,
+      "raw": {
+        "sql": "SELECT SUM(CASE WHEN month = '2026-10' THEN amount ELSE 0 END) AS Q4_2026 FROM ledger",
+        "explanation": "Forecast revenue for Q4 2026 is not available since the data only goes up to September 2026. The requested period is outside the available data range (January 2025 through September 2026)."
+      },
+      "sql": "SELECT SUM(CASE WHEN month = '2026-10' THEN amount ELSE 0 END) AS Q4_2026 FROM ledger",
+      "explanation": "Forecast revenue for Q4 2026 is not available since the data only goes up to September 2026. The requested period is outside the available data range (January 2025 through September 2026).",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 651,
+        "outputTokens": 83,
+        "pricingDerivedNeurons": 5.5403
+      },
+      "error": null
+    },
+    {
+      "id": "L41",
+      "question": "Why did operating expenses rise in 2026?",
+      "requestedAt": "2026-11-03T03:26:09.418Z",
+      "httpStatus": 200,
+      "elapsedMs": 567.4669600000016,
+      "raw": {
+        "sql": "SELECT SUM(CASE WHEN account_group = 'Operating expense' THEN amount ELSE 0 END) AS opex FROM ledger WHERE entity IN ('North Hub', 'Harbour Retail', 'Delta Services', 'Summit Logistics', 'Orchard Foods', 'Lakeside Energy') AND month = '2026-10'",
+        "explanation": "This query calculates the total operating expenses for the entities in the ledger for the month of October 2026. The result is compared to the same period in previous years to determine the increase in operating expenses."
+      },
+      "sql": "SELECT SUM(CASE WHEN account_group = 'Operating expense' THEN amount ELSE 0 END) AS opex FROM ledger WHERE entity IN ('North Hub', 'Harbour Retail', 'Delta Services', 'Summit Logistics', 'Orchard Foods', 'Lakeside Energy') AND month = '2026-10'",
+      "explanation": "This query calculates the total operating expenses for the entities in the ledger for the month of October 2026. The result is compared to the same period in previous years to determine the increase in operating expenses.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 653,
+        "outputTokens": 118,
+        "pricingDerivedNeurons": 6.616175
+      },
+      "error": null
+    },
+    {
+      "id": "L42",
+      "question": "Revenue in Q4 2026",
+      "requestedAt": "2026-11-03T03:26:10.101Z",
+      "httpStatus": 200,
+      "elapsedMs": 682.9138910000001,
+      "raw": {
+        "sql": "SELECT SUM(CASE WHEN entity = 'North Hub' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Harbour Retail' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Delta Services' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Summit Logistics' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Orchard Foods' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Lakeside Energy' THEN amount ELSE 0 END) AS revenue FROM ledger WHERE month = '2026-10' AND account = 'Product sales'",
+        "explanation": "Revenue in Q4 2026 is the sum of revenue from all entities in October 2026."
+      },
+      "sql": "SELECT SUM(CASE WHEN entity = 'North Hub' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Harbour Retail' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Delta Services' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Summit Logistics' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Orchard Foods' THEN amount ELSE 0 END) + SUM(CASE WHEN entity = 'Lakeside Energy' THEN amount ELSE 0 END) AS revenue FROM ledger WHERE month = '2026-10' AND account = 'Product sales'",
+      "explanation": "Revenue in Q4 2026 is the sum of revenue from all entities in October 2026.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 650,
+        "outputTokens": 166,
+        "pricingDerivedNeurons": 8.0651
+      },
+      "error": null
+    },
+    {
+      "id": "L43",
+      "question": "Headcount by entity",
+      "requestedAt": "2026-11-03T03:26:10.467Z",
+      "httpStatus": 200,
+      "elapsedMs": 365.53248099999837,
+      "raw": "```\n{\n  \"sql\": \"SELECT entity, COUNT(*) AS headcount FROM ledger WHERE month = '2026-10' GROUP BY entity ORDER BY headcount ASC LIMIT 100\",\n  \"explanation\": \"Headcount by entity for October 2026, with ties ranked in ascending order.\"\n}\n```",
+      "sql": "SELECT entity, COUNT(*) AS headcount FROM ledger WHERE month = '2026-10' GROUP BY entity ORDER BY headcount ASC LIMIT 100",
+      "explanation": "Headcount by entity for October 2026, with ties ranked in ascending order.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 647,
+        "outputTokens": 65,
+        "pricingDerivedNeurons": 4.97325
+      },
+      "error": null
+    },
+    {
+      "id": "L44",
+      "question": "Revenue growth 2026 vs 2025",
+      "requestedAt": "2026-11-03T03:26:11.609Z",
+      "httpStatus": 200,
+      "elapsedMs": 1140.655838999999,
+      "raw": {
+        "sql": "SELECT ROUND(100 * (SUM(CASE WHEN STRFTIME('%Y', month) = '2026' THEN amount ELSE 0 END) - SUM(CASE WHEN STRFTIME('%Y', month) = '2025' THEN amount ELSE 0 END)) / SUM(CASE WHEN STRFTIME('%Y', month) = '2026' THEN amount ELSE 0 END) AS revenue_growth FROM ledger WHERE STRFTIME('%Y', month) IN ('2026', '2025') GROUP BY entity, STRFTIME('%Y', month), STRFTIME('%m', month) ORDER BY entity, STRFTIME('%Y', month), STRFTIME('%m', month)",
+        "explanation": "Revenue growth in 2026 compared to 2025, calculated as the percentage change in revenue, using the available historical data from January 2025 through September 2026."
+      },
+      "sql": "SELECT ROUND(100 * (SUM(CASE WHEN STRFTIME('%Y', month) = '2026' THEN amount ELSE 0 END) - SUM(CASE WHEN STRFTIME('%Y', month) = '2025' THEN amount ELSE 0 END)) / SUM(CASE WHEN STRFTIME('%Y', month) = '2026' THEN amount ELSE 0 END) AS revenue_growth FROM ledger WHERE STRFTIME('%Y', month) IN ('2026', '2025') GROUP BY entity, STRFTIME('%Y', month), STRFTIME('%m', month) ORDER BY entity, STRFTIME('%Y', month), STRFTIME('%m', month)",
+      "explanation": "Revenue growth in 2026 compared to 2025, calculated as the percentage change in revenue, using the available historical data from January 2025 through September 2026.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 652,
+        "outputTokens": 190,
+        "pricingDerivedNeurons": 8.80575
+      },
+      "error": null
+    },
+    {
+      "id": "L45",
+      "question": "What was net profit in 2025?",
+      "requestedAt": "2026-11-03T03:26:12.143Z",
+      "httpStatus": 200,
+      "elapsedMs": 533.7070860000022,
+      "raw": {
+        "sql": "SELECT SUM(CASE WHEN entity = 'Orchard Foods' THEN amount ELSE 0 END) AS net_profit FROM ledger WHERE entity = 'Orchard Foods' AND month LIKE '2025-%' AND account = 'Net profit'",
+        "explanation": "This query calculates the net profit for Orchard Foods in 2025 by summing the amounts in the 'Net profit' account for the months of 2025."
+      },
+      "sql": "SELECT SUM(CASE WHEN entity = 'Orchard Foods' THEN amount ELSE 0 END) AS net_profit FROM ledger WHERE entity = 'Orchard Foods' AND month LIKE '2025-%' AND account = 'Net profit'",
+      "explanation": "This query calculates the net profit for Orchard Foods in 2025 by summing the amounts in the 'Net profit' account for the months of 2025.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 652,
+        "outputTokens": 93,
+        "pricingDerivedNeurons": 5.849675
+      },
+      "error": null
+    },
+    {
+      "id": "L46",
+      "question": "How many entities are there?",
+      "requestedAt": "2026-11-03T03:26:12.470Z",
+      "httpStatus": 200,
+      "elapsedMs": 326.8783309999999,
+      "raw": {
+        "sql": "SELECT COUNT(DISTINCT entity) FROM ledger",
+        "explanation": "There are 6 entities in the ledger: North Hub, Harbour Retail, Delta Services, Summit Logistics, Orchard Foods, and Lakeside Energy."
+      },
+      "sql": "SELECT COUNT(DISTINCT entity) FROM ledger",
+      "explanation": "There are 6 entities in the ledger: North Hub, Harbour Retail, Delta Services, Summit Logistics, Orchard Foods, and Lakeside Energy.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 649,
+        "outputTokens": 50,
+        "pricingDerivedNeurons": 4.525375
+      },
+      "error": null
+    },
+    {
+      "id": "L47",
+      "question": "What was the operating profit margin in 2026?",
+      "requestedAt": "2026-11-03T03:26:12.986Z",
+      "httpStatus": 200,
+      "elapsedMs": 515.3769759999996,
+      "raw": {
+        "sql": "SELECT ROUND(100 * SUM(CASE WHEN account_group = 'Operating expense' THEN amount ELSE 0 END) / SUM(amount), 1) AS operating_profit_margin FROM ledger WHERE month = '2026-10' AND amount > 0",
+        "explanation": "This query calculates the operating profit margin for the month of October 2026, as the problem statement specifies a fixed historical demonstration. The result is rounded to one decimal place."
+      },
+      "sql": "SELECT ROUND(100 * SUM(CASE WHEN account_group = 'Operating expense' THEN amount ELSE 0 END) / SUM(amount), 1) AS operating_profit_margin FROM ledger WHERE month = '2026-10' AND amount > 0",
+      "explanation": "This query calculates the operating profit margin for the month of October 2026, as the problem statement specifies a fixed historical demonstration. The result is rounded to one decimal place.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 654,
+        "outputTokens": 97,
+        "pricingDerivedNeurons": 5.980825
+      },
+      "error": null
+    }
+  ],
+  "updatedAt": "2026-11-03T03:26:12.986Z",
+  "status": "complete",
+  "stopReason": "suite_complete",
+  "lastInvocation": {
+    "calls": 47,
+    "pricingDerivedNeurons": 320.65894999999995,
+    "budgetNeurons": 1000
+  }
+}
