@@ -1,0 +1,12 @@
+{
+  "note": "Where each stored run came from. Written by hand on 2026-11-03 from the GitHub Actions run list and the artifact digests shown on each run page. The digest is the sha256 of the artifact zip (run.json and run.scored.json); it is not the digest of the file stored here.",
+  "workflow": "ledger-benchmark",
+  "runs": [
+    { "file": "runs/run-3.json", "githubRunNumber": 3, "githubRunId": 41571494410, "artifact": "ledger-eval-run-3", "artifactSha256": "9c453d9438a76e1bfe4427e7e1604d3a4d1db570edc6026cde47c1c7b26c666d" },
+    { "file": "runs/run-4.json", "githubRunNumber": 4, "githubRunId": 41571831068, "artifact": "ledger-eval-run-4", "artifactSha256": "41215c01f3f71e697d3683b9dc1a80df6df8c41fa146be84b0f7a2b3bb52aa00" },
+    { "file": "runs/run-5.json", "githubRunNumber": 5, "githubRunId": 41572132100, "artifact": "ledger-eval-run-5", "artifactSha256": "fc043fe5c5ff252cf1fff06f4fd46066e30a346308fdafb88ecce9b0baf0c360" },
+    { "file": "runs/run-6.json", "githubRunNumber": 6, "githubRunId": 41572226357, "artifact": "ledger-eval-run-6", "artifactSha256": "411d8b7fb2b70eb3b83e5aaf5fb67d39c310bd0e705827128c153da87c0241c1" },
+    { "file": "runs/run-7.json", "githubRunNumber": 7, "githubRunId": 41572359113, "artifact": "ledger-eval-run-7", "artifactSha256": "02edd0a92e76179c2da78c253aa9ca2c55e89853cb778340c0ba343968b1d651" },
+    { "file": "runs/run-8.json", "githubRunNumber": 8, "githubRunId": 41572498157, "artifact": "ledger-eval-run-8", "artifactSha256": "e47a7bbbd60916332fef48c6fc050d0f46f406fac45f015337f7e4f8309ae028" }
+  ]
+}
