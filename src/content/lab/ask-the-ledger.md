@@ -131,7 +131,7 @@ To run a benchmark: GitHub Actions, workflow `ledger-benchmark`, which needs two
 - Pull request: https://github.com/felipealves7/felipealveslab/pull/6
 - Live box (issue #12), pull request: https://github.com/felipealves7/felipealveslab/pull/13
 - Validator hardening, pull request: https://github.com/felipealves7/felipealveslab/pull/30. Benchmark runner and workflow, pull request: https://github.com/felipealves7/felipealveslab/pull/31.
-- Benchmark results (this section), pull request: PR_NUMBER_PLACEHOLDER
+- Benchmark results (this section), pull request: https://github.com/felipealves7/felipealveslab/pull/33
 - Live box code: `pipelines/ledger-api/` (Worker, validator, D1 `schema.sql` and `seed.sql`, scorer). Saved output: `data/ledger-api/`. Tests: `pipelines/ledger-api/ledger-api.test.mjs`.
 - Code: `pipelines/ask-the-ledger/`. Saved output: `data/ask-the-ledger/`. Tests: `pipelines/ask-the-ledger/ledger.test.mjs`.
 - Benchmark code: `pipelines/ledger-eval/`. Saved runs and results: `data/ledger-eval/`. Tests: `pipelines/ledger-eval/ledger-eval.test.mjs` and `pipelines/ledger-eval/ledger-benchmark-results.test.mjs`.
