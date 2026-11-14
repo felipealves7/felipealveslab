@@ -38,8 +38,8 @@ package `aviation-reliability-v1` (30 October 2026, SHA-256 of the ZIP
 ## The package in public
 
 The whole package, code included, is public as the Kaggle dataset
-https://www.kaggle.com/datasets/felipealves7/aviation-reliability-bts-foundation-v1 (Version 1, opened
-signed out on 1 November 2026). `external.json` records that check and the Tableau one.
+https://www.kaggle.com/datasets/felipealves7/aviation-reliability-bts-foundation-v1 (Version 3, a cleaned
+release of 1 November 2026). `external.json` records the checks of it and of the Tableau dashboard.
 
 ## Columns and units
 
