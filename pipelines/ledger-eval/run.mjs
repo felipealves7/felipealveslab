@@ -48,6 +48,7 @@ const plan = {
   maxRequests,
   maxOutputTokens: 400,
   temperature: 0,
+  requestOptions: config.models[model].requestOptions ?? null,
   networkCalls: dry ? 0 : 'not yet started',
   requiredEnvironment: ['CF_ACCOUNT_ID', 'CF_API_TOKEN', 'LEDGER_ACCOUNT_PLAN=free'],
   note: 'Free-plan confirmation and an explicit neuron budget are required. No automatic retries or recurring jobs.',
@@ -96,7 +97,7 @@ for (const c of selected) {
   calls++;
   let response;
   try {
-    response = await infer({ account, token, model, messages });
+    response = await infer({ account, token, model, messages, options: rates.requestOptions ?? {} });
   } catch (e) {
     response = { ok: false, error: e.name === 'TimeoutError' ? 'timeout' : 'network_error' };
   }

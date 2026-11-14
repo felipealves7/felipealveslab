@@ -198,6 +198,33 @@ test('the REST client sends max_tokens 400 and temperature 0 (mocked; not a mode
   assert.equal(request.body.messages.length, 1);
 });
 
+test('model options from models.json are sent but cannot change the cap, the temperature or the messages (mocked)', async () => {
+  let body;
+  await infer({
+    account: 'test-account',
+    token: 'test-token-not-a-real-secret',
+    model: 'test-model',
+    messages: [{ role: 'user', content: 'test' }],
+    options: { chat_template_kwargs: { enable_thinking: false }, max_tokens: 9999, temperature: 1, messages: [] },
+    fetchFn: async (url, init) => {
+      body = JSON.parse(init.body);
+      return { ok: true, status: 200, json: async () => ({ success: true, result: { response: 'test' } }) };
+    },
+  });
+  assert.deepEqual(body.chat_template_kwargs, { enable_thinking: false });
+  assert.equal(body.max_tokens, 400);
+  assert.equal(body.temperature, 0);
+  assert.equal(body.messages.length, 1);
+});
+
+test('every model in models.json has rates, and paid-only models are not offered', () => {
+  const config = JSON.parse(readFileSync(new URL('./models.json', import.meta.url), 'utf8'));
+  for (const [id, m] of Object.entries(config.models)) {
+    assert.ok(m.inputNeuronsPerMillion > 0 && m.outputNeuronsPerMillion > 0, id);
+    assert.ok(!(id in config.notOffered), `${id} is listed as not offered`);
+  }
+});
+
 test('a dry run needs no credentials and makes no network calls', () => {
   const r = spawnSync(process.execPath, [runner, '--dry-run'], { cwd: here, encoding: 'utf8' });
   assert.equal(r.status, 0, r.stderr);

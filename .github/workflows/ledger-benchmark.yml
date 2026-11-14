@@ -26,6 +26,8 @@ on:
         type: choice
         options:
           - '@cf/qwen/qwen2.5-coder-32b-instruct'
+          - '@cf/google/gemma-4-26b-a4b-it'
+          - '@cf/qwen/qwen3.8-27b'
         default: '@cf/qwen/qwen2.5-coder-32b-instruct'
       suite:
         description: Question set
