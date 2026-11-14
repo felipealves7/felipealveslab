@@ -12,6 +12,8 @@ name: ledger-benchmark
 #
 # run.mjs exit codes: 0 finished or stopped at its cap or budget, 2 stopped on an HTTP, provider or
 # missing-usage error (the calls made so far are still scored and kept), 1 nothing was sent.
+# A stopped run can be continued: give its run ID as resume_run_id with the same prompt, model and
+# suite. run.mjs refuses a run file made for anything else, and skips the questions it already has.
 
 on:
   workflow_dispatch:
@@ -42,9 +44,14 @@ on:
         description: Most neurons this run may use, up to 4,500 (the free 10,000 a day are shared with the live box)
         type: number
         default: 500
+      resume_run_id:
+        description: Optional. The run ID of an earlier run with the same prompt, model and suite to continue; its answered questions are kept and skipped
+        type: string
+        default: ''
 
 permissions:
   contents: read
+  actions: read # only to fetch an earlier run's files when resume_run_id is set
 
 concurrency:
   group: ledger-benchmark
@@ -61,6 +68,24 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Fetch the earlier run to continue
+        if: ${{ inputs.resume_run_id != '' }}
+        uses: actions/download-artifact@v4
+        with:
+          pattern: ledger-eval-run-*
+          run-id: ${{ inputs.resume_run_id }}
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/earlier
+          merge-multiple: true
+      - name: Put the earlier run in place
+        if: ${{ inputs.resume_run_id != '' }}
+        env:
+          RESUME_RUN_ID: ${{ inputs.resume_run_id }}
+        run: |
+          if ! [[ "$RESUME_RUN_ID" =~ ^[0-9]+$ ]]; then echo "resume_run_id must be a run ID (digits only)." >&2; exit 1; fi
+          mkdir -p ledger-eval-runs
+          cp "$RUNNER_TEMP/earlier/run.json" "$RUN_FILE"
+          echo "Continuing run $RESUME_RUN_ID: $(jq '.records | length' "$RUN_FILE") questions already answered."
       - name: Ask the model (Workers AI REST API)
         env:
           CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
