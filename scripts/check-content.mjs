@@ -1,7 +1,7 @@
 // Repository checks run by CI (job "test"). Zero dependencies.
 // 1. Lab pages, data and pipelines must not mention employer names.
 // 2. No tracked file may contain something that looks like a secret.
-// 3. Every Lab page must contain the required headings, in order.
+// 3. Every Lab page must contain the required headings, in order, and none of the removed ones.
 // 4. No element id on a Lab page may repeat or equal a heading's anchor.
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
@@ -24,8 +24,10 @@ export const REQUIRED_HEADINGS = [
   '## Method and results',
   '## Known limits and running cost',
   '## How it was built',
-  '## My take',
 ];
+
+// Sections Lab pages no longer carry. A page that still has one fails the check.
+export const REMOVED_HEADINGS = ['## My take'];
 
 const SKIP_DIRS = new Set(['.git', 'node_modules', 'dist', '.astro']);
 
@@ -90,6 +92,11 @@ export function idClashes(markdown) {
   return clashes;
 }
 
+export function removedHeadings(markdown) {
+  const lines = proseLines(markdown).map((l) => l.trimEnd());
+  return REMOVED_HEADINGS.filter((h) => lines.includes(h));
+}
+
 export function missingHeadings(markdown) {
   const lines = markdown.split(/\r?\n/).map((l) => l.trimEnd());
   const missing = [];
@@ -129,6 +136,7 @@ export function run(root) {
     }
     if (rel.startsWith('src/content/lab/') && rel.endsWith('.md') && !rel.split('/').pop().startsWith('_')) {
       for (const h of missingHeadings(text)) problems.push(`${rel}: missing or out-of-order heading "${h}"`);
+      for (const h of removedHeadings(text)) problems.push(`${rel}: has a "${h}" section; Lab pages no longer carry one`);
       for (const c of idClashes(text)) problems.push(`${rel}: ${c}; rename the element's id`);
     }
   }

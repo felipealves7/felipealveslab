@@ -74,7 +74,9 @@ these exact headings in this order:
 3. `## Method and results`: method, tests and evaluation results, including what failed
 4. `## Known limits and running cost`
 5. `## How it was built`: the link to the pull request. Never link to the chat or agent session (see rule 8)
-6. `## My take`: **leave it empty.** Felipe writes it. A page with generated text under this heading is a defect.
+
+Pages have no `My take` section. Never add one, and never write opinions in Felipe's name; Felipe
+sends edits to a page himself when he wants them.
 
 Front matter must state `type` (`production-like demo`, `research study` or `experiment`), the data
 source, its licence, its freshness date, and whether the data is synthetic. Synthetic data is

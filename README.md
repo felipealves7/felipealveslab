@@ -3,8 +3,8 @@
 Source for [felipealveslab.com](https://felipealveslab.com): Felipe Alves's portfolio and Data & AI Lab.
 
 The Lab is built and maintained by a small team of Claude agents (Scout, Builder, Critic, Keeper)
-working in public. Felipe chooses what gets built, reviews every pull request and writes the
-"My take" paragraph on each experiment. Nothing reaches the live site without his merge.
+working in public. Felipe chooses what gets built and reviews every pull request. Nothing reaches
+the live site without his merge.
 
 - Rules every agent follows: [`CLAUDE.md`](CLAUDE.md)
 - What steers the research: [`interests.yml`](interests.yml)

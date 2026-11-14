@@ -33,6 +33,3 @@ Limits and what it costs to run.
 ## How it was built
 
 The link to the pull request. No chat or session links.
-
-## My take
-

@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { findEmployerTerms, findSecrets, missingHeadings, REQUIRED_HEADINGS, headingSlugs, idClashes } from './check-content.mjs';
+import { findEmployerTerms, findSecrets, missingHeadings, removedHeadings, REQUIRED_HEADINGS, headingSlugs, idClashes } from './check-content.mjs';
 
 test('flags employer names, case-insensitively', () => {
   assert.deepEqual(findEmployerTerms('built with Emirates data').length, 1);
@@ -12,14 +12,21 @@ test('flags secret-shaped strings', () => {
   assert.deepEqual(findSecrets('nothing to see here'), []);
 });
 
-test('accepts a page with every heading in order, even with an empty My take', () => {
+test('accepts a page with every heading in order', () => {
   const page = REQUIRED_HEADINGS.map((h) => `${h}\n\ntext`).join('\n\n');
   assert.deepEqual(missingHeadings(page), []);
+  assert.deepEqual(removedHeadings(page), []);
 });
 
 test('reports a missing heading', () => {
-  const page = REQUIRED_HEADINGS.filter((h) => h !== '## My take').join('\n\n');
-  assert.deepEqual(missingHeadings(page), ['## My take']);
+  const page = REQUIRED_HEADINGS.filter((h) => h !== '## How it was built').join('\n\n');
+  assert.deepEqual(missingHeadings(page), ['## How it was built']);
+});
+
+test('flags a My take section, which pages no longer carry, but not the words inside code', () => {
+  const page = REQUIRED_HEADINGS.join('\n\n');
+  assert.deepEqual(removedHeadings(`${page}\n\n## My take\n`), ['## My take']);
+  assert.deepEqual(removedHeadings(`${page}\n\n\`\`\`md\n## My take\n\`\`\`\n`), []);
 });
 
 test('reports headings out of order as missing', () => {

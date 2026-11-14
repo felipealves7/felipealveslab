@@ -167,7 +167,7 @@ test('the page no longer says that no model was scored, and My take is still emp
   assert.doesNotMatch(page, /has not been deployed or called/i);
   assert.doesNotMatch(page, /Neurons used per question have not been measured/i);
   assert.doesNotMatch(page, /model-scorecard-box/);
-  assert.equal(page.slice(page.indexOf('## My take') + '## My take'.length).trim(), '');
+  assert.doesNotMatch(page, /^## My take/m);
   assert.match(page, /^dataFreshness: 2026-11-03$/m);
 });
 

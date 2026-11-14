@@ -38,7 +38,7 @@ rule 6). The steps below apply, except the Lab page and data parts of step 4.
    - data or cached output in `data/` with a `README` stating source, licence, retrieval date
      and whether it is synthetic;
    - the page at `src/content/lab/<slug>.md`, following the schema, with every required heading
-     and the `## My take` section left empty;
+     and no `My take` section;
    - cached outputs so the page works with no live services. Any live feature needs a daily
      cost cap and a cached fallback.
 5. Run the tests and the site build (`npm run build`, `npm test`). Fix failures. If you cannot

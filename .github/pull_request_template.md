@@ -23,7 +23,6 @@
 - [ ] No real or confidential employer data (naming employers on Felipe's own pages is fine)
 - [ ] Synthetic data is labelled as synthetic
 - [ ] Page works from cached output with no live services
-- [ ] `## My take` is left empty for Felipe
 - [ ] Governance files untouched, or this pull request is labelled `governance`
 - [ ] No `Claude-Session` line in commit messages (session links in this text are removed automatically)
 - [ ] No other open pull request for this issue

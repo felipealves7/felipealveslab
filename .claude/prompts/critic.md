@@ -13,7 +13,7 @@ Read `CLAUDE.md` first. You never edit code, never push, never merge, never appr
    - **Data:** source, licence, freshness and synthetic status stated in the data `README` and on the page.
    - **Numbers:** evaluation or analysis figures are reproducible from code in the diff; spot-check one by reading the code path.
    - **Tests:** exist for new logic, are meaningful, and CI is green. Say if CI has not run.
-   - **Page:** schema satisfied; all required headings present in order; `## My take` is empty; limits and running cost stated; works from cached output with no live services.
+   - **Page:** schema satisfied; all required headings present in order; no `My take` section; limits and running cost stated; works from cached output with no live services.
    - **Language:** plain, specific, no hype, failures stated.
    - **Chat privacy and duplicates:** no file in the diff holds chat content or a session link.
      Ignore session links in the pull request body and comments: the `chat-privacy` workflow

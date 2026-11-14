@@ -73,5 +73,3 @@ The average delay stayed flat because early arrivals count as negative minutes a
 - This page: pull request https://github.com/felipealves7/felipealveslab/pull/27
 - Saved files: `data/aviation-reliability/`, copied byte for byte from the package, with SHA-256 in its README. Code: `src/lib/aviation/` and `src/components/Aviation*.astro`. Tests: `scripts/aviation-page.test.mjs`, which pins every figure on this page to the saved files.
 - On other platforms, checked signed out on 1 November 2026: the [dashboard on Tableau Public](https://public.tableau.com/app/profile/felipealves7/viz/BTSFlightReliability/Flightreliability), the [notebook on Kaggle](https://www.kaggle.com/code/felipealves7/aviation-reliability-what-average-delay-hides) and the [dataset on Kaggle](https://www.kaggle.com/datasets/felipealves7/aviation-reliability-bts-foundation-v1). The record of that check, with the figures read off the dashboard, is `data/aviation-reliability/external.json`.
-
-## My take
