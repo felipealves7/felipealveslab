@@ -143,6 +143,24 @@ test('Llama 3.2 3B numbers on the page', () => {
   assert.equal(runs.get(5).model, '@cf/meta/llama-3.2-3b-instruct');
 });
 
+// Models Cloudflare has retired. Their stored runs stay published; new runs cannot use them.
+const RETIRED = ['@cf/meta/llama-3.2-3b-instruct']; // retirement date 2026-11-20, Cloudflare changelog of 2026-11-05
+
+test('retired models keep their stored runs but are not offered for new runs', () => {
+  const workflow = read('.github/workflows/ledger-benchmark.yml');
+  const block = workflow.slice(workflow.indexOf('      model:'), workflow.indexOf('      suite:'));
+  const offered = [...block.matchAll(/- '(@cf\/[^']+)'/g)].map((m) => m[1]);
+  const rated = Object.keys(JSON.parse(read('pipelines/ledger-eval/models.json')).models);
+  assert.ok(offered.length > 0, 'the workflow offers at least one model');
+  for (const model of offered) assert.ok(rated.includes(model), `${model} is offered but has no neuron rates in models.json`);
+  for (const model of RETIRED) {
+    assert.ok(!offered.includes(model), `${model} is retired but still offered in the workflow`);
+    assert.ok(!rated.includes(model), `${model} is retired but still listed in models.json`);
+  }
+  assert.deepEqual([runs.get(5).model, runs.get(8).model], [RETIRED[0], RETIRED[0]]);
+  assert.match(page, /Cloudflare's retirement date for this model is 20 November 2026/);
+});
+
 test('the page no longer says that no model was scored, and My take is still empty', () => {
   assert.doesNotMatch(page, /No model has written SQL/i);
   assert.doesNotMatch(page, /No language model has been scored/i);

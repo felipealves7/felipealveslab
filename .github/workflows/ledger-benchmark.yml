@@ -26,7 +26,6 @@ on:
         type: choice
         options:
           - '@cf/qwen/qwen2.5-coder-32b-instruct'
-          - '@cf/meta/llama-3.2-3b-instruct'
         default: '@cf/qwen/qwen2.5-coder-32b-instruct'
       suite:
         description: Question set
