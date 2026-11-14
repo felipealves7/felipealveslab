@@ -24,6 +24,8 @@ Suggested order, started after 00:00 UTC (04:00 in Dubai) so the day's allowance
 | 1 | 3 | candidate | llama-3.2-3b | legacy47 | 47 | 1,000 |
 | 2 | 4–6 | as runs 1–3 | | validation20 | 20 | 1,200 / 1,800 / 500 |
 
+Llama 3.2 3B (`@cf/meta/llama-3.2-3b-instruct`, runs 3 and 6 above) is on Cloudflare's list of models retired on 20 November 2026 ([changelog](https://developers.cloudflare.com/changelog/post/2026-11-05-planned-model-deprecations/), opened 2026-11-14). It is no longer offered in the workflow or `models.json`; its two stored runs stay in `data/ledger-eval/` as a record.
+
 Estimated use, from published rates and an assumed 250 output tokens a reply: about 1,800, 3,400 and 540 neurons for runs 1–3, and 2,500 for runs 4–6 together. Measured on 2026-11-03 (token counts at list rates): 1,104, 2,255 and 321 neurons for the three `legacy47` runs, and 451, 932 and 134 for the three `validation20` runs. All six fitted in one day's free allowance.
 
 Each run saves `run.json` (raw replies, SQL, token counts, times) and `run.scored.json` as an artifact, and writes a summary table on the run page. Locally, with `CF_ACCOUNT_ID`, `CF_API_TOKEN` and `LEDGER_ACCOUNT_PLAN=free` set in your shell (never in a file here):
@@ -44,7 +46,7 @@ node pipelines/ledger-eval/score-run.mjs ledger-eval-runs/pilot.json
 - `safe-scoring.mjs`, `sql-worker.mjs`: scoring in a separate process that is killed after 2 seconds.
 - `cloudflare.mjs`, `measurement.mjs`: the REST call (max_tokens 400, temperature 0, no retries) and usage accounting.
 - `run.mjs`, `score-run.mjs`: the runner and the scorer.
-- `candidate-prompt.txt`; `models.json`: neuron rates, read on 2026-11-02.
+- `candidate-prompt.txt`; `models.json`: neuron rates of the models the workflow offers, read on 2026-11-14.
 - `ledger-eval.test.mjs`: 26 tests, none of which call a model.
 
 ## Limits
