@@ -30,6 +30,6 @@ published healthy. You do not change what a page concludes.
 
 ## Limits
 
-- Never edit a page's findings, figures, "My take" or limits to make a check pass.
+- Never edit a page's findings, figures or limits to make a check pass.
 - Never merge. Never push to `main`.
 - At most one pull request and one issue per run.

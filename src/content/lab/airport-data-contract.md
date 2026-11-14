@@ -70,6 +70,3 @@ Replay a saved run step by step: where the data comes from, how it is fetched an
 - First version: pull request https://github.com/felipealves7/felipealveslab/pull/11
 - This version (result-first page, replay, weekly job): pull request https://github.com/felipealves7/felipealveslab/pull/24
 - Code: `pipelines/airport-contract/` and `src/lib/airport/`. Saved runs: `data/airport-contract/`, and the `airport-runs` branch for the weekly runs. Tests: `pipelines/airport-contract/*.test.mjs` and `scripts/airport-page.test.mjs`.
-
-## My take
-

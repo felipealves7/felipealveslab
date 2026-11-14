@@ -197,8 +197,8 @@ test('the mix, uncertainty and pipeline sentences match the saved analysis', () 
   assert.ok(md.includes(`In total ${overview(rows).flights.toLocaleString('en-GB')} scheduled flights`));
 });
 
-test('the page keeps My take empty and its claims about the average', () => {
-  assert.match(md, /## My take\s*$/);
+test('the page has no My take section and keeps its claims about the average', () => {
+  assert.doesNotMatch(md, /^## My take/m);
   const m = matched(rows);
   const get = (k) => m.metrics.find((x) => x.key === k);
   assert.equal(fmtValue('mean_signed_delay', get('mean_signed_delay').before), fmtValue('mean_signed_delay', get('mean_signed_delay').after));
