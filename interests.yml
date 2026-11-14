@@ -11,7 +11,7 @@ lanes:               # target mix of accepted projects over time
 
 cadence:
   max_new_projects_per_month: 1
-  max_open_proposals: 5     # Scout stays quiet above this
+  max_open_proposals: 5     # Scout stays quiet while this many wait for a decision (open, no go label)
 
 domains_i_know:          # use these as the lens for choosing data and questions
   - finance data analytics at a large airline and travel group

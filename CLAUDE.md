@@ -47,9 +47,9 @@ Anything that reaches the live site reaches it because Felipe merged a pull requ
 | Agent | Starts when | Output | Never |
 | --- | --- | --- | --- |
 | Scout | Weekly, Monday | Up to three proposal issues, ranked | Writes code |
-| Builder | Felipe labels a proposal `go` | One pull request on a `claude/` branch | Merges |
+| Builder | Felipe labels a proposal or a `maintenance` issue `go` | One pull request on a `claude/` branch | Merges |
 | Critic | A pull request opens from a `claude/` branch | One review comment; label `blocked` only for a problem a person must fix (see `critic.md`) | Edits code |
-| Keeper | Weekly, Thursday | Small fix pull requests, or one issue | Changes published conclusions |
+| Keeper | Weekly, Thursday | Small fix pull requests, or one `maintenance` issue | Changes published conclusions |
 
 The prompt for each agent is in `.claude/prompts/<agent>.md`. Follow it exactly.
 Everything an agent opens carries the label `agent-built`.
@@ -95,5 +95,6 @@ British or American spelling is fine; be consistent within a page.
 
 ## Budget and cadence
 
-At most one new Lab project a month. The Scout adds nothing new while five proposals are open.
+At most one new Lab project a month. The Scout adds nothing new while five proposals wait for
+Felipe's decision (open, labelled `proposal`, without `go`).
 Prefer boring, well-documented tools over new ones unless the new one is the point of the experiment.
