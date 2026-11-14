@@ -9,6 +9,8 @@
 // LEDGER_ACCOUNT_PLAN=free in the environment. "baseline" is the live Worker's prompt.
 // It stops at the request cap, before a call that could go over the budget, on any HTTP or provider
 // error, and when a reply has no token counts. The same --out resumes; finished questions are skipped.
+// A call that gets no answer within 30 seconds is tried once more (at most MAX_TIMEOUT_RETRIES times a
+// run); the lost call's full reservation is counted as spent, because it may still have used neurons.
 
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
@@ -81,8 +83,10 @@ const save = () => {
   writeFileSync(out, JSON.stringify(run, null, 2) + '\n');
 };
 
+const MAX_TIMEOUT_RETRIES = 3;
 let spentThisInvocation = 0;
 let calls = 0;
+let timeoutRetries = 0;
 for (const c of selected) {
   if (run.records.some((r) => r.id === c.id)) continue;
   if (calls >= maxRequests) {
@@ -94,12 +98,20 @@ for (const c of selected) {
     run.stopReason = 'budget_reservation';
     break;
   }
-  calls++;
   let response;
-  try {
-    response = await infer({ account, token, model, messages, options: rates.requestOptions ?? {} });
-  } catch (e) {
-    response = { ok: false, error: e.name === 'TimeoutError' ? 'timeout' : 'network_error' };
+  let attempts = 0;
+  for (;;) {
+    calls++;
+    attempts++;
+    try {
+      response = await infer({ account, token, model, messages, options: rates.requestOptions ?? {} });
+    } catch (e) {
+      response = { ok: false, error: e.name === 'TimeoutError' ? 'timeout' : 'network_error' };
+    }
+    if (response.error !== 'timeout' || attempts > 1 || timeoutRetries >= MAX_TIMEOUT_RETRIES) break;
+    spentThisInvocation += reserveNeurons(messages, rates);
+    if (reserveNeurons(messages, rates) > budget - spentThisInvocation) break;
+    timeoutRetries++;
   }
   const raw = response.result?.response ?? response.result?.choices?.[0]?.message?.content;
   const parsed = parseModelReply(raw);
@@ -116,6 +128,7 @@ for (const c of selected) {
     modelError: !response.ok || !parsed,
     usage,
     error: response.error ?? null,
+    attempts,
   };
   run.records.push(record);
   run.updatedAt = new Date().toISOString();
@@ -133,7 +146,7 @@ for (const c of selected) {
 }
 run.status = run.records.length === selected.length ? 'complete' : 'partial';
 run.stopReason ??= 'suite_complete';
-run.lastInvocation = { calls, pricingDerivedNeurons: spentThisInvocation, budgetNeurons: budget };
+run.lastInvocation = { calls, timeoutRetries, pricingDerivedNeurons: spentThisInvocation, budgetNeurons: budget };
 save();
 console.log(JSON.stringify({ output: out, status: run.status, records: run.records.length, stopReason: run.stopReason }));
 if (['provider_or_transport_error', 'usage_missing_requires_manual_budget_check'].includes(run.stopReason)) process.exit(2);
