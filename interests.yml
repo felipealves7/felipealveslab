@@ -1,8 +1,8 @@
 # interests.yml: steers the Scout. Edit via pull request; changes take effect next Monday.
 owner: Felipe Alves
 purpose: >
-  A public Data & AI Lab that shows data, product and transformation judgement, and closes
-  gaps in data engineering and newer tooling. Credibility over volume.
+  A public Data & AI Lab that shows data, product and transformation judgement through working
+  data engineering, evaluation and newer tooling. Credibility over volume.
 
 lanes:               # target mix of accepted projects over time
   data_engineering: 50
@@ -19,12 +19,12 @@ domains_i_know:          # use these as the lens for choosing data and questions
   - Brazilian power market data (public CCEE material only)
   - KPI design, reconciliation, forecasting, risk analytics
 
-gaps_to_close:           # prefer proposals that teach one of these with real data
+focus_areas:             # prefer proposals that show one of these with real data
   - data pipelines: ingestion, modelling, testing, scheduling (dlt, DuckDB or DuckLake, dbt-core, GitHub Actions)
   - data contracts and freshness checks
   - evaluating text-to-SQL and conversational BI (accuracy, clarification behaviour, cost per correct answer)
   - semantic layers and metric definitions
-  - newer tooling worth a hands-on look, judged by what it changes for a finance or operations team
+  - newer tooling, judged by what it changes for a finance or operations team
 
 wildcard_subjects:       # curiosity topics from the Behind the Scenes page
   - history

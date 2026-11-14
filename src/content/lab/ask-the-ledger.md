@@ -54,7 +54,7 @@ Six model runs were scored on 3 November 2026. The table, what failed and the li
 | Operating expenses | Sum of all accounts in the Operating expense group. | operating expenses, operating costs, opex, overheads |
 | Operating profit | Revenue minus cost of sales minus operating expenses. | operating profit, operating income, operating result |
 
-**The translator is keyword rules.** It turns a question into a query: metric, period, entity, grouping, ranking. It is not a language model. That is deliberate. The test set and the scoring work on any translator, so a language model can be plugged in later and scored the same way. I have not done that.
+**The translator is keyword rules.** It turns a question into a query: metric, period, entity, grouping, ranking. It is not a language model. That is deliberate. The test set and the scoring work on any translator, so a language model can be plugged in and scored the same way; the model benchmark below does that.
 
 **The test set has 47 questions in four kinds**, each with the right outcome decided by hand. The true figure for each answer is computed from the raw rows by separate code that does not use the semantic layer, so the two cannot share a bug.
 

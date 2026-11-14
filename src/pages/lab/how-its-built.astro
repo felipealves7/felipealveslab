@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import airport from '../../../data/airport-contract/results.json';
 import ledger from '../../../data/ask-the-ledger/results.json';
+import benchmark from '../../../data/ledger-eval/results.json';
 
 // This page is not an experiment, so it sits outside the src/content/lab schema.
 // Numbers that come from files in this repository are read from those files. Everything taken from
@@ -15,6 +16,10 @@ const issue = (n: number) => `${REPO}/issues/${n}`;
 const contractRules = airport.runs[airport.runs.length - 1].checks.length;
 const baselineRight = ledger.summary.correct_answer + ledger.summary.correct_refusal;
 const baselineTotal = ledger.summary.total;
+const pageRuns = benchmark.runs.filter((r) => r.suite === 'legacy47');
+const bestRight = Math.max(...pageRuns.map((r) => r.rightOnAllFour));
+const bestTotal = pageRuns[0].questions;
+const scoredRuns = benchmark.runs.length;
 ---
 <Base
   title="How the Lab is built — Felipe Alves Lab"
@@ -137,10 +142,10 @@ const baselineTotal = ledger.summary.total;
           <div class="method-card-links"><a href="/lab/aviation-reliability" aria-label="Open the flight reliability exhibit">Open exhibit</a><a href={pr(27)} target="_blank" rel="noreferrer">Integration PR ↗</a><a href={`${REPO}/blob/main/data/aviation-reliability/external.json`} target="_blank" rel="noreferrer">Dated check ↗</a></div>
         </article>
         <article class="method-evidence-card">
-          <div class="method-card-top"><span>Conversational BI</span><span>Benchmark not run</span></div>
+          <div class="method-card-top"><span>Conversational BI</span><span>Benchmark run</span></div>
           <h3>Ask the Ledger</h3>
-          <p>The <strong>{baselineRight} of {baselineTotal}</strong> result belongs to a keyword-rule translator on a synthetic ledger. It is not a language model, and no model has been scored. An evaluation package built outside the repository arrived on 2 November. The package showed that the live box's SQL check accepted a query that returns every row. Checking further, Claude found it also accepted one that never stops. The fix is <a href={pr(30)} target="_blank" rel="noreferrer">PR #30 ↗</a>. <a href={pr(31)} target="_blank" rel="noreferrer">PR #31 ↗</a> adds a manual benchmark run. Both were open on {CHECKED}.</p>
-          <p class="method-card-limit"><strong>Not shown:</strong> any model accuracy. Until #30 is merged and the Worker is redeployed by hand, the live box keeps the old check.</p>
+          <p>The best of {scoredRuns} scored model runs answered <strong>{bestRight} of {bestTotal}</strong> page questions right on all four synthetic ledgers (<a href={pr(33)} target="_blank" rel="noreferrer">PR #33 ↗</a> and later runs). The keyword-rule translator's {baselineRight} of {baselineTotal} used an older, looser check. An evaluation package built outside the repository showed on 2 November that the live box's SQL check accepted a query that returns every row; Claude found it also accepted one that never stops. <a href={pr(30)} target="_blank" rel="noreferrer">PR #30 ↗</a> fixed both, and <a href={pr(31)} target="_blank" rel="noreferrer">PR #31 ↗</a> added the manual benchmark run.</p>
+          <p class="method-card-limit"><strong>Not shown:</strong> how much answers vary from run to run, and how a paid model would score.</p>
           <div class="method-card-links"><a href="/lab/ask-the-ledger" aria-label="Open the Ask the Ledger exhibit">Open exhibit</a><a href={pr(30)} target="_blank" rel="noreferrer">Validator fix ↗</a><a href={pr(31)} target="_blank" rel="noreferrer">Benchmark run ↗</a></div>
         </article>
       </div>
@@ -159,8 +164,8 @@ const baselineTotal = ledger.summary.total;
             <p>Issue #10 asked for a tagger that separates airports named after people from those named after places, with a 70% accuracy floor. The Builder's second version scored 62.5% on its own hand-labelled sample, said both of its numbers leaned optimistic, opened no pull request and <a href={`${issue(10)}#issuecomment-6491583207`} target="_blank" rel="noreferrer">handed the decision back to me ↗</a>. Nothing from it is on the site.</p>
           </div>
           <div>
-            <h3>The model benchmark is unfinished.</h3>
-            <p>The external evaluation package reported the run as blocked for lack of Cloudflare inference access. That package is not in the repository, so this is its claim, not a record you can open here. The route now is a manual GitHub Actions run, so a token never sits in a chat or a file. It needs two repository secrets, and no run exists yet.</p>
+            <h3>The first model benchmark took a manual route.</h3>
+            <p>The external evaluation package reported its run as blocked for lack of Cloudflare inference access. That package is not in the repository, so this is its claim, not a record you can open here. The route became a manual GitHub Actions run, so a token never sits in a chat or a file; the first six runs were scored on 3 November 2026 (<a href={pr(33)} target="_blank" rel="noreferrer">PR #33 ↗</a>).</p>
           </div>
           <div>
             <h3>Green checks are not acceptance.</h3>
@@ -187,7 +192,7 @@ const baselineTotal = ledger.summary.total;
       </div>
       <div class="method-takeaway">
         <h3>What this shows, and what it does not.</h3>
-        <p>It shows how I frame a problem, set limits, read evidence and decide what to publish while several tools do the building. It does not show that I wrote this code by hand, and it does not show that these experiments would hold up in production.</p>
+        <p>It shows how I frame a problem, set limits, read evidence and decide what to publish while several tools do the building. It does not show that these experiments would hold up in production.</p>
       </div>
       <div class="method-next"><div><span class="eyebrow">Back to the work</span><h3>The method matters only if the output is worth opening.</h3></div><a class="button primary" href="/lab">Explore the Lab</a></div>
     </section>
