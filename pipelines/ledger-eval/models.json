@@ -2,7 +2,14 @@
   "checked": "2026-11-14",
   "source": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
   "ratesAre": "Published neurons per million tokens; calculations are not an account billing meter.",
+  "requestOptionsAre": "Extra fields sent with every call to that model. They cannot change messages, max_tokens or temperature. Both new models have a thinking mode; it is switched off so the 400-token cap is spent on the answer.",
+  "notOffered": {
+    "@cf/deepseek-ai/deepseek-v4.1-flash-1017": "Needs the Workers Paid plan or prepaid AI Gateway credits; this account is on Workers Free.",
+    "@cf/zai-org/glm-5.3": "Needs the Workers Paid plan or prepaid AI Gateway credits; this account is on Workers Free."
+  },
   "models": {
-    "@cf/qwen/qwen2.5-coder-32b-instruct": { "inputNeuronsPerMillion": 60000, "outputNeuronsPerMillion": 90909 }
+    "@cf/qwen/qwen2.5-coder-32b-instruct": { "inputNeuronsPerMillion": 60000, "outputNeuronsPerMillion": 90909 },
+    "@cf/google/gemma-4-26b-a4b-it": { "inputNeuronsPerMillion": 9091, "outputNeuronsPerMillion": 27273, "requestOptions": { "chat_template_kwargs": { "enable_thinking": false } } },
+    "@cf/qwen/qwen3.8-27b": { "inputNeuronsPerMillion": 40909, "outputNeuronsPerMillion": 290909, "requestOptions": { "chat_template_kwargs": { "enable_thinking": false } } }
   }
 }

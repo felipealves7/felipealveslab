@@ -17,13 +17,17 @@ export function reserveNeurons(messages, rates, maxTokens = 400) {
   return ((bytes + 1024) * rates.inputNeuronsPerMillion + maxTokens * rates.outputNeuronsPerMillion) / 1e6;
 }
 
-/** One call: fixed max_tokens 400 and temperature 0, a 30-second deadline, no retries. */
-export async function infer({ account, token, model, messages, fetchFn = fetch }) {
+/**
+ * One call: fixed max_tokens 400 and temperature 0, a 30-second deadline, no retries.
+ * `options` are the model's extra fields from models.json (for example, thinking switched off); they
+ * are sent first, so they can never change the messages, the token cap or the temperature.
+ */
+export async function infer({ account, token, model, messages, options = {}, fetchFn = fetch }) {
   const start = performance.now();
   const res = await fetchFn(`https://api.cloudflare.com/client/v4/accounts/${account}/ai/run/${model}`, {
     method: 'POST',
     headers: { authorization: `Bearer ${token}`, 'content-type': 'application/json' },
-    body: JSON.stringify({ messages, max_tokens: 400, temperature: 0 }),
+    body: JSON.stringify({ ...options, messages, max_tokens: 400, temperature: 0 }),
     signal: AbortSignal.timeout(30000),
   });
   if (!res.ok) return { ok: false, httpStatus: res.status, elapsedMs: performance.now() - start };
