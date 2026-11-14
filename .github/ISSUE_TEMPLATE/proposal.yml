@@ -43,9 +43,9 @@ body:
     validations:
       required: true
   - type: textarea
-    id: learns
+    id: demonstrates
     attributes:
-      label: What Felipe learns (the gap it closes)
+      label: What it demonstrates
     validations:
       required: true
   - type: textarea

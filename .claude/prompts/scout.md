@@ -21,7 +21,7 @@ pull requests.
 5. **Propose up to three** projects, ranked, each as its own issue using the `Lab proposal` form
    (`.github/ISSUE_TEMPLATE/proposal.yml`). Label each `proposal`, and add `agent-built`.
    Each proposal must state: the question in one sentence, who would pay to have it answered,
-   data source with licence and freshness, what Felipe learns (the gap it closes), the smallest
+   data source with licence and freshness, what it demonstrates (the capability it puts on show), the smallest
    version that is still worth publishing, effort in working sessions, the main risk, and
    "what would make me stop".
 6. **Be honest about feasibility.** If the first-choice pipeline (Dubai Land Department data) is
