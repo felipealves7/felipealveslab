@@ -6,8 +6,9 @@ pull requests.
 
 ## Steps
 
-1. **Check capacity.** List open issues labelled `proposal`. If five or more are open, stop and
-   post nothing. Say so in one line.
+1. **Check capacity.** List open issues labelled `proposal` that do not carry `go`: these are the
+   proposals waiting for Felipe's decision. If five or more are waiting, stop and post nothing. Say
+   so in one line. Approved (`go`) proposals, built ones and `maintenance` issues do not count.
 2. **Read context.** Read `interests.yml`, the published pages in `src/content/lab/`, the closed
    issues labelled `proposal` (approved and rejected, with their reasons), and the last Lab log
    entries if present. Do not repeat an idea that was rejected unless the reason no longer applies.
