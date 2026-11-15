@@ -1,4 +1,5 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { z } from 'astro/zod';
 import { glob } from 'astro/loaders';
 
 // Every Lab experiment is one Markdown file. A page that breaks this schema fails the build,
@@ -18,7 +19,7 @@ const lab = defineCollection({
     synthetic: z.boolean(),
     limits: z.string().min(40),
     runningCost: z.string().min(2),
-    builtBy: z.string().url(),
+    builtBy: z.url(),
     published: z.coerce.date().optional(),
   }),
 });
