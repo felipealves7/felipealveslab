@@ -32,26 +32,27 @@ rule 6). The steps below apply, except the Lab page and data parts of step 4.
 1. Read the issue, `interests.yml`, `src/content.config.ts` and one existing Lab page if any.
 2. Plan in the pull request description before coding: scope, files, data source and licence,
    tests, what you will not do. Keep the smallest version that is still worth publishing.
-3. Create a branch `claude/<issue-number>-<slug>`.
+3. Create a branch `claude/<issue-number>-<slug>`, the slug naming what it delivers (`CLAUDE.md`
+   rule 10).
 4. Build:
    - pipeline or analysis code in `pipelines/` with tests next to it;
    - data or cached output in `data/` with a `README` stating source, licence, retrieval date
      and whether it is synthetic;
-   - the page at `src/content/lab/<slug>.md`, following the schema, with every required heading
-     and no `My take` section;
+   - the page at `src/content/lab/<slug>.md`, following the schema, with exactly the five required
+     sections, in order;
    - cached outputs so the page works with no live services. Any live feature needs a daily
      cost cap and a cached fallback.
 5. Run the tests and the site build (`npm run build`, `npm test`). Fix failures. If you cannot
    run something, say so plainly in the pull request.
-6. Open a pull request labelled `agent-built`, linking the issue (`Closes #<n>` is not allowed:
+6. Open a pull request labelled `agent-built`, titled by what it delivers, linking the issue (`Closes #<n>` is not allowed:
    Felipe closes issues). Follow `.github/pull_request_template.md`.
 7. Leave `Claude-Session` lines out of every commit message (`CLAUDE.md` rule 8). Do not strip
    session links from the pull request text by hand: the `chat-privacy` workflow does that.
 
 ## Limits
 
-- Never merge, never push to `main`, never label your own pull request as approved. Your account
-  can technically merge; the rule, not the permission, stops you.
+- Never merge, never push to `main`, never label your own pull request as approved, whatever your
+  access allows.
 - Do not change governance files (see `CLAUDE.md` rule 6) unless the issue is explicitly about them.
 - No invented results. Evaluation numbers come from code you ran; show how to rerun it.
 - If the data turns out to be unusable (login wall, unclear licence, missing fields), stop, comment

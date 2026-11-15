@@ -33,21 +33,19 @@ test('the footer keeps its existing links', () => {
 
 test('the numbers it quotes come from the saved results, and those still say what the page says', () => {
   assert.match(page, /import airport from '\.\.\/\.\.\/\.\.\/data\/airport-contract\/results\.json'/);
-  assert.match(page, /import ledger from '\.\.\/\.\.\/\.\.\/data\/ask-the-ledger\/results\.json'/);
+  assert.match(page, /import benchmark from '\.\.\/\.\.\/\.\.\/data\/ledger-eval\/results\.json'/);
   const airport = JSON.parse(read('data/airport-contract/results.json'));
-  const ledger = JSON.parse(read('data/ask-the-ledger/results.json'));
+  const benchmark = JSON.parse(read('data/ledger-eval/results.json'));
   assert.equal(airport.runs.at(-1).checks.length, 19);
-  assert.equal(ledger.summary.correct_answer + ledger.summary.correct_refusal, 40);
-  assert.equal(ledger.summary.total, 47);
-  assert.equal(ledger.translator.includes('no language model'), true);
+  assert.ok(benchmark.runs.some((r) => r.suite === 'legacy47'), 'the page quotes the 47-question runs');
   // The prose must not hard-code what the data supplies.
   assert.doesNotMatch(body, /\b19 written rules\b/);
-  assert.doesNotMatch(body, /\b40 of 47\b/);
+  assert.doesNotMatch(body, /\b\d+ of 47\b/);
 });
 
 test('every claim from GitHub is dated, and the date is stated once', () => {
   assert.equal(page.match(/const CHECKED = '[^']+';/g)?.length, 1);
-  assert.match(page, /const CHECKED = '2 November 2026';/);
+  assert.match(page, /const CHECKED = '15 November 2026';/);
   assert.ok((body.match(/\{CHECKED\}/g) ?? []).length >= 3);
 });
 
@@ -90,21 +88,23 @@ test('the controls table has a caption, column headers, row headers and a label 
   for (const row of rows) {
     assert.equal((row.match(/<th scope="row" data-label="Control">/g) ?? []).length, 1);
     assert.equal((row.match(/<td data-label="[^"]+">/g) ?? []).length, 3);
-    assert.match(row, /class="method-status is-(?:enforced|policy|auto|seen|none)"/);
+    assert.match(row, /class="method-status is-(?:enforced|owner|auto|evidenced)"/);
   }
 });
 
 test('each status word means one thing and is explained under the table', () => {
   const words = [...body.matchAll(/class="method-status is-[a-z]+">([^<]+)</g)].map((m) => m[1]);
-  assert.deepEqual([...new Set(words)].sort(), ['Automated', 'Enforced', 'Not observed', 'Observed', 'Policy only']);
-  for (const w of ['Enforced', 'Automated', 'Policy only', 'Observed', 'Not observed']) {
+  assert.deepEqual([...new Set(words)].sort(), ['Automated', 'Enforced', 'Evidenced', 'Owner review']);
+  for (const w of ['Enforced', 'Automated', 'Owner review', 'Evidenced']) {
     assert.match(body, new RegExp(`<strong>${w}:</strong>`));
   }
 });
 
-test('the human gate is described as policy, not as something GitHub enforces', () => {
-  assert.match(body, /GitHub does not enforce it/);
-  assert.match(body, /It requires no approving review/);
+test('the merge approval is shown as the owner\'s review, not as something GitHub enforces', () => {
+  const row = body.split('<tr>').find((r) => r.includes('I approve each merge'));
+  assert.ok(row, 'the controls table has the merge-approval row');
+  assert.match(row, /class="method-status is-owner">Owner review</);
+  assert.doesNotMatch(body, /GitHub (?:requires|enforces) (?:an? )?(?:approv|review)/i);
 });
 
 test('the stylesheet adds no fonts, imports or remote assets and respects the existing tokens', () => {

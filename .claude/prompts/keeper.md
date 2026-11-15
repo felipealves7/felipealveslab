@@ -22,8 +22,8 @@ published healthy. You do not change what a page concludes.
      a freshness date refreshed by rerunning the pipeline): open one pull request on a
      `claude/keeper-<date>` branch labelled `agent-built`, with test results.
    - Anything larger, anything touching governance files, or anything that would change a
-     published number or conclusion: open one issue labelled `maintenance` describing it. Do not
-     fix. Never label it `proposal`: that would take one of the Scout's five slots. Felipe labels it
+     published number or conclusion: open one issue labelled `maintenance` describing it, titled by
+     the work ("Maintenance: upgrade Astro to 7"). Do not fix. Never label it `proposal`: that would take one of the Scout's five slots. Felipe labels it
      `go` if he wants the Builder to do it.
 7. **Report.** If nothing needed doing, post nothing except a single closing line in the run:
    "Keeper: nothing to do on <date>".
