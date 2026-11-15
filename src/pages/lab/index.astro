@@ -11,6 +11,10 @@ const onDay = (iso: string) => new Date(iso).toLocaleDateString('en-GB', { day: 
 const checkedOn = onDay(ext.checked);
 const republishedOn = onDay(ext.tableau.lastPublished);
 // Which recorded chart each exhibit's card shows.
+// Exhibits with a live piece get a second link straight to it.
+const LIVE: Record<string, string> = {
+  'ask-the-ledger': '/lab/ask-the-ledger#ask-your-own-question-live-box',
+};
 const CHARTS: Record<string, 'ledger' | 'airport' | 'aviation'> = {
   'ask-the-ledger': 'ledger',
   'airport-data-contract': 'airport',
@@ -29,12 +33,12 @@ const CHARTS: Record<string, 'ledger' | 'airport' | 'aviation'> = {
     <section class="section-shell lab-directory-hero">
       <span class="eyebrow">Felipe Alves / Data &amp; AI Lab</span>
       <h1>Working evidence, not another list of tools.</h1>
-      <p>The portfolio describes professional decisions. This section shows code, recorded results, and failure modes. Numbers below are drawn from files in the public repository. They are not claims of live-service verification.</p>
+      <p>The portfolio describes professional decisions. This section shows the working evidence: code, recorded results and error analysis. Every number below is drawn from files in the public repository.</p>
       <div class="hero-actions"><a class="button primary" href="https://www.linkedin.com/in/felipealves7" target="_blank" rel="noreferrer">LinkedIn ↗</a><a class="button ghost" href="/#work">Professional work</a></div>
       <p><a class="text-link" href="/lab/how-its-built">How the Lab is built →</a></p>
     </section>
     <section class="section-shell lab-directory" aria-label="Published Lab exhibits">
-      <div class="lab-section-heading"><div><span class="eyebrow">Recorded exhibits</span><h2>Open an experiment. Inspect the evidence.</h2></div><p>In source = backed by checked-in code and saved output. It does not imply that a hosted feature was tested today.</p></div>
+      <div class="lab-section-heading"><div><span class="eyebrow">Recorded exhibits</span><h2>Open an experiment. Inspect the evidence.</h2></div><p>In source: backed by checked-in code and saved output.</p></div>
       <div class="lab-directory-grid">
         {entries.map((entry) => (
           <article class="lab-directory-card">
@@ -44,6 +48,7 @@ const CHARTS: Record<string, 'ledger' | 'airport' | 'aviation'> = {
               <p>{entry.data.question}</p>
               <p class="lab-card-meta">{entry.data.type} · {entry.data.synthetic ? 'synthetic' : 'public'} data · recorded {fmt(entry.data.dataFreshness)}</p>
               <a class="text-link" href={`/lab/${entry.id}`}>Explore evidence and method →</a>
+              {LIVE[entry.id] && <a class="text-link" href={LIVE[entry.id]}>Ask it a question, live →</a>}
             </div>
             {CHARTS[entry.id] ? <LabEvidenceChart exhibit={CHARTS[entry.id]} compact /> : (
               <div class="lab-source-note">A recorded chart can be added when this experiment has a validated result dataset. No placeholder values are shown.</div>

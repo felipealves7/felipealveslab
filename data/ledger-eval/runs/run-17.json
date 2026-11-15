@@ -1,0 +1,885 @@
+{
+  "kind": "actual_cloudflare_rest_inference",
+  "plan": {
+    "mode": "inference",
+    "model": "@cf/google/gemma-4-26b-a4b-it",
+    "prompt": "baseline",
+    "promptSha256": "b3fcc52dbe2647879df9e38e80fc7eeea4c49dcc65996706eaab69a9c4ea43dc",
+    "suite": "legacy47",
+    "suiteSha256": "95d18e254ddbda0e15c72d73d6ec6e9a0b20dd2a94409ad52e884654dcbcf5a2",
+    "availableCases": 47,
+    "maxRequests": 47,
+    "maxOutputTokens": 400,
+    "temperature": 0,
+    "requestOptions": {
+      "chat_template_kwargs": {
+        "enable_thinking": false
+      }
+    },
+    "networkCalls": "not yet started",
+    "requiredEnvironment": [
+      "CF_ACCOUNT_ID",
+      "CF_API_TOKEN",
+      "LEDGER_ACCOUNT_PLAN=free"
+    ],
+    "note": "Free-plan confirmation and an explicit neuron budget are required. No automatic retries or recurring jobs."
+  },
+  "startedAt": "2026-11-14T18:23:28.178Z",
+  "records": [
+    {
+      "id": "L01",
+      "question": "What was total revenue in 2025?",
+      "requestedAt": "2026-11-14T18:23:31.177Z",
+      "httpStatus": 200,
+      "elapsedMs": 2996.6537980000003,
+      "raw": "```json\n{\"sql\": \"SELECT SUM(amount) FROM ledger WHERE account_group = 'Revenue' AND month LIKE '2025-%';\", \"explanation\": \"The query filters the ledger for all entries where the account group is 'Revenue' and the month starts with '2025', then calculates the sum of the amounts.\"}\n```",
+      "sql": "SELECT SUM(amount) FROM ledger WHERE account_group = 'Revenue' AND month LIKE '2025-%';",
+      "explanation": "The query filters the ledger for all entries where the account group is 'Revenue' and the month starts with '2025', then calculates the sum of the amounts.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 230,
+        "outputTokens": 75,
+        "pricingDerivedNeurons": 4.136405
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L02",
+      "question": "What was revenue in 2026?",
+      "requestedAt": "2026-11-14T18:23:33.440Z",
+      "httpStatus": 200,
+      "elapsedMs": 2262.691572,
+      "raw": "```json\n{\"sql\": \"SELECT SUM(amount) FROM ledger WHERE account_group = 'Revenue' AND month LIKE '2026-%';\", \"explanation\": \"The query filters the ledger for all entries where the account group is 'Revenue' and the month starts with '2026', then calculates the total sum of those amounts.\"}\n```",
+      "sql": "SELECT SUM(amount) FROM ledger WHERE account_group = 'Revenue' AND month LIKE '2026-%';",
+      "explanation": "The query filters the ledger for all entries where the account group is 'Revenue' and the month starts with '2026', then calculates the total sum of those amounts.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 229,
+        "outputTokens": 76,
+        "pricingDerivedNeurons": 4.154587
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L03",
+      "question": "Revenue in Q1 2026",
+      "requestedAt": "2026-11-14T18:23:35.002Z",
+      "httpStatus": 200,
+      "elapsedMs": 1561.2589529999996,
+      "raw": "```json\n{\"sql\": \"SELECT SUM(amount) FROM ledger WHERE account_group = 'Revenue' AND month BETWEEN '2026-01' AND '2026-03';\", \"explanation\": \"The query sums the 'amount' column for all entries where the 'account_group' is 'Revenue' and the 'month' falls within the first quarter of 2026 (January to March).\"}\n```",
+      "sql": "SELECT SUM(amount) FROM ledger WHERE account_group = 'Revenue' AND month BETWEEN '2026-01' AND '2026-03';",
+      "explanation": "The query sums the 'amount' column for all entries where the 'account_group' is 'Revenue' and the 'month' falls within the first quarter of 2026 (January to March).",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 229,
+        "outputTokens": 95,
+        "pricingDerivedNeurons": 4.672774
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L04",
+      "question": "What was gross profit in Q4 2025?",
+      "requestedAt": "2026-11-14T18:23:38.125Z",
+      "httpStatus": 200,
+      "elapsedMs": 3122.8584200000005,
+      "raw": "```json\n{\"sql\": \"SELECT SUM(CASE WHEN account_group = 'Revenue' THEN amount ELSE 0 END) - SUM(CASE WHEN account_group = 'Cost of sales' THEN amount ELSE 0 END) AS gross_profit FROM ledger WHERE month BETWEEN '2025-10' AND '2025-12';\", \"explanation\": \"The query calculates gross profit for Q4 2025 (October to December) by subtracting the total 'Cost of sales' from the total 'Revenue' within that specific three-month period.\"}\n```",
+      "sql": "SELECT SUM(CASE WHEN account_group = 'Revenue' THEN amount ELSE 0 END) - SUM(CASE WHEN account_group = 'Cost of sales' THEN amount ELSE 0 END) AS gross_profit FROM ledger WHERE month BETWEEN '2025-10' AND '2025-12';",
+      "explanation": "The query calculates gross profit for Q4 2025 (October to December) by subtracting the total 'Cost of sales' from the total 'Revenue' within that specific three-month period.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 232,
+        "outputTokens": 124,
+        "pricingDerivedNeurons": 5.490964
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L05",
+      "question": "What was the gross margin in 2025?",
+      "requestedAt": "2026-11-14T18:23:41.822Z",
+      "httpStatus": 200,
+      "elapsedMs": 3695.504536999999,
+      "raw": "```json\n{\"sql\": \"SELECT SUM(CASE WHEN account_group = 'Revenue' THEN amount ELSE 0 END) - SUM(CASE WHEN account_group = 'Cost of sales' THEN amount ELSE 0 END) AS gross_profit FROM ledger WHERE month LIKE '2025-%';\", \"explanation\": \"The query calculates the gross profit for the year 2025 by subtracting the total 'Cost of sales' from the total 'Revenue' for all months starting with '2025-'. Note that 'gross margin' in a financial context often refers to a percentage, but since the ledger only provides absolute amounts, the query returns the absolute gross profit value.\"}\n```",
+      "sql": "SELECT SUM(CASE WHEN account_group = 'Revenue' THEN amount ELSE 0 END) - SUM(CASE WHEN account_group = 'Cost of sales' THEN amount ELSE 0 END) AS gross_profit FROM ledger WHERE month LIKE '2025-%';",
+      "explanation": "The query calculates the gross profit for the year 2025 by subtracting the total 'Cost of sales' from the total 'Revenue' for all months starting with '2025-'. Note that 'gross margin' in a financial context often refers to a percentage, but since the ledger only provides absolute amounts, the query returns the absolute gross profit value.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 231,
+        "outputTokens": 146,
+        "pricingDerivedNeurons": 6.081879
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L06",
+      "question": "What was operating profit in 2026?",
+      "requestedAt": "2026-11-14T18:23:44.809Z",
+      "httpStatus": 200,
+      "elapsedMs": 2986.1280100000004,
+      "raw": "```json\n{\"sql\": \"SELECT SUM(CASE WHEN account_group = 'Revenue' THEN amount WHEN account_group = 'Cost of sales' THEN -amount WHEN account_group = 'Operating expense' THEN -amount ELSE 0 END) AS operating_profit FROM ledger WHERE month LIKE '2026-%';\", \"explanation\": \"The query calculates operating profit for the year 2026 by summing all revenue amounts and subtracting both cost of sales and operating expense amounts for all months starting with '2026-'.\"}\n```",
+      "sql": "SELECT SUM(CASE WHEN account_group = 'Revenue' THEN amount WHEN account_group = 'Cost of sales' THEN -amount WHEN account_group = 'Operating expense' THEN -amount ELSE 0 END) AS operating_profit FROM ledger WHERE month LIKE '2026-%';",
+      "explanation": "The query calculates operating profit for the year 2026 by summing all revenue amounts and subtracting both cost of sales and operating expense amounts for all months starting with '2026-'.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 230,
+        "outputTokens": 115,
+        "pricingDerivedNeurons": 5.227325
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L07",
+      "question": "Operating expenses in March 2026",
+      "requestedAt": "2026-11-14T18:23:47.076Z",
+      "httpStatus": 200,
+      "elapsedMs": 2266.5520679999972,
+      "raw": "```json\n{\"sql\": \"SELECT SUM(amount) FROM ledger WHERE month = '2026-03' AND account_group = 'Operating expense';\", \"explanation\": \"This query calculates the total sum of all amounts categorized under 'Operating expense' for the specific month of March 2026.\"}\n```",
+      "sql": "SELECT SUM(amount) FROM ledger WHERE month = '2026-03' AND account_group = 'Operating expense';",
+      "explanation": "This query calculates the total sum of all amounts categorized under 'Operating expense' for the specific month of March 2026.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 228,
+        "outputTokens": 70,
+        "pricingDerivedNeurons": 3.981858
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L08",
+      "question": "Cost of sales in 2025",
+      "requestedAt": "2026-11-14T18:23:49.556Z",
+      "httpStatus": 200,
+      "elapsedMs": 2479.2993210000022,
+      "raw": "```json\n{\"sql\": \"SELECT SUM(amount) FROM ledger WHERE account_group = 'Cost of sales' AND month LIKE '2025-%';\", \"explanation\": \"The query sums the 'amount' column for all entries where the 'account_group' is 'Cost of sales' and the 'month' starts with '2025', covering the entire year of 2025.\"}\n```",
+      "sql": "SELECT SUM(amount) FROM ledger WHERE account_group = 'Cost of sales' AND month LIKE '2025-%';",
+      "explanation": "The query sums the 'amount' column for all entries where the 'account_group' is 'Cost of sales' and the 'month' starts with '2025', covering the entire year of 2025.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 228,
+        "outputTokens": 90,
+        "pricingDerivedNeurons": 4.527318
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L09",
+      "question": "Revenue by entity in 2025",
+      "requestedAt": "2026-11-14T18:23:52.167Z",
+      "httpStatus": 200,
+      "elapsedMs": 2609.7590689999997,
+      "raw": "```json\n{\"sql\": \"SELECT entity, SUM(amount) AS total_revenue FROM ledger WHERE account_group = 'Revenue' AND month BETWEEN '2025-01' AND '2025-12' GROUP BY entity;\", \"explanation\": \"The query filters for the 'Revenue' account group and restricts the time range to the year 2025 using the month column, then aggregates the total amount per entity.\"}\n```",
+      "sql": "SELECT entity, SUM(amount) AS total_revenue FROM ledger WHERE account_group = 'Revenue' AND month BETWEEN '2025-01' AND '2025-12' GROUP BY entity;",
+      "explanation": "The query filters for the 'Revenue' account group and restricts the time range to the year 2025 using the month column, then aggregates the total amount per entity.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 228,
+        "outputTokens": 98,
+        "pricingDerivedNeurons": 4.745502
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L10",
+      "question": "Operating profit by entity in Q3 2026",
+      "requestedAt": "2026-11-14T18:23:54.224Z",
+      "httpStatus": 200,
+      "elapsedMs": 2056.453349000003,
+      "raw": "```json\n{\"sql\": \"SELECT entity, SUM(CASE WHEN account_group = 'Revenue' THEN amount WHEN account_group = 'Cost of sales' THEN -amount WHEN account_group = 'Operating expense' THEN -amount ELSE 0 END) AS operating_profit FROM ledger WHERE month BETWEEN '2026-07' AND '2026-09' GROUP BY entity;\", \"explanation\": \"The query calculates operating profit by summing revenues and subtracting both cost of sales and operating expenses for each entity. It filters the ledger for the months comprising Q3 2026 (July, August, and September).\"}\n```",
+      "sql": "SELECT entity, SUM(CASE WHEN account_group = 'Revenue' THEN amount WHEN account_group = 'Cost of sales' THEN -amount WHEN account_group = 'Operating expense' THEN -amount ELSE 0 END) AS operating_profit FROM ledger WHERE month BETWEEN '2026-07' AND '2026-09' GROUP BY entity;",
+      "explanation": "The query calculates operating profit by summing revenues and subtracting both cost of sales and operating expenses for each entity. It filters the ledger for the months comprising Q3 2026 (July, August, and September).",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 232,
+        "outputTokens": 137,
+        "pricingDerivedNeurons": 5.845513
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L11",
+      "question": "Revenue by month in 2025",
+      "requestedAt": "2026-11-14T18:23:56.442Z",
+      "httpStatus": 200,
+      "elapsedMs": 2216.910293000001,
+      "raw": "```json\n{\"sql\": \"SELECT month, SUM(amount) AS total_revenue FROM ledger WHERE account_group = 'Revenue' AND month LIKE '2025-%' GROUP BY month ORDER BY month;\", \"explanation\": \"The query filters for records where the account group is 'Revenue' and the month falls within the year 2025, then aggregates the amounts by month.\"}\n```",
+      "sql": "SELECT month, SUM(amount) AS total_revenue FROM ledger WHERE account_group = 'Revenue' AND month LIKE '2025-%' GROUP BY month ORDER BY month;",
+      "explanation": "The query filters for records where the account group is 'Revenue' and the month falls within the year 2025, then aggregates the amounts by month.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 228,
+        "outputTokens": 86,
+        "pricingDerivedNeurons": 4.418226
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L12",
+      "question": "Revenue by quarter in 2025",
+      "requestedAt": "2026-11-14T18:24:01.227Z",
+      "httpStatus": 200,
+      "elapsedMs": 4784.653211000001,
+      "raw": "```json\n{\"sql\": \"SELECT CASE \\n    WHEN SUBSTR(month, 6, 2) BETWEEN '01' AND '03' THEN 'Q1' \\n    WHEN SUBSTR(month, 6, 2) BETWEEN '04' AND '06' THEN 'Q2' \\n    WHEN SUBSTR(month, 6, 2) BETWEEN '07' AND '09' THEN 'Q3' \\n    ELSE 'Q4' \\nEND AS quarter, \\nSUM(amount) AS total_revenue\\nFROM ledger\\nWHERE account_group = 'Revenue' \\n  AND month LIKE '2025%'\\nGROUP BY quarter\\nORDER BY quarter;\", \"explanation\": \"The query extracts the quarter from the month string for all entries in 2025 where the account group is 'Revenue', then aggregates the amounts by quarter.\"}\n```",
+      "sql": "SELECT CASE \n    WHEN SUBSTR(month, 6, 2) BETWEEN '01' AND '03' THEN 'Q1' \n    WHEN SUBSTR(month, 6, 2) BETWEEN '04' AND '06' THEN 'Q2' \n    WHEN SUBSTR(month, 6, 2) BETWEEN '07' AND '09' THEN 'Q3' \n    ELSE 'Q4' \nEND AS quarter, \nSUM(amount) AS total_revenue\nFROM ledger\nWHERE account_group = 'Revenue' \n  AND month LIKE '2025%'\nGROUP BY quarter\nORDER BY quarter;",
+      "explanation": "The query extracts the quarter from the month string for all entries in 2025 where the account group is 'Revenue', then aggregates the amounts by quarter.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 228,
+        "outputTokens": 201,
+        "pricingDerivedNeurons": 7.554621
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L13",
+      "question": "Which entity had the highest revenue in 2025?",
+      "requestedAt": "2026-11-14T18:24:02.959Z",
+      "httpStatus": 200,
+      "elapsedMs": 1730.2575999999972,
+      "raw": "```json\n{\"sql\": \"SELECT entity FROM ledger WHERE account_group = 'Revenue' AND month LIKE '2025-%' GROUP BY entity ORDER BY SUM(amount) DESC LIMIT 1;\", \"explanation\": \"The query filters for 'Revenue' account groups within the year 2025 using a pattern match on the month, groups the results by entity, and orders them by the sum of their amounts in descending order to find the highest earner.\"}\n```",
+      "sql": "SELECT entity FROM ledger WHERE account_group = 'Revenue' AND month LIKE '2025-%' GROUP BY entity ORDER BY SUM(amount) DESC LIMIT 1;",
+      "explanation": "The query filters for 'Revenue' account groups within the year 2025 using a pattern match on the month, groups the results by entity, and orders them by the sum of their amounts in descending order to find the highest earner.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 233,
+        "outputTokens": 101,
+        "pricingDerivedNeurons": 4.872776
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L14",
+      "question": "Which entity had the lowest gross margin in 2026?",
+      "requestedAt": "2026-11-14T18:24:06.523Z",
+      "httpStatus": 200,
+      "elapsedMs": 3563.095094000004,
+      "raw": "```json\n{\"sql\": \"SELECT entity FROM (SELECT entity, SUM(CASE WHEN account_group = 'Revenue' THEN amount ELSE 0 END) as total_revenue, SUM(CASE WHEN account_group = 'Cost of sales' THEN amount ELSE 0 END) as total_cos FROM ledger WHERE month LIKE '2026-%' GROUP BY entity) WHERE total_revenue > 0 ORDER BY (total_revenue - total_cos) * 1.0 / total_revenue ASC LIMIT 1;\", \"explanation\": \"The query calculates the gross margin (Gross Profit / Revenue) for each entity for the year 2026 by aggregating revenue and cost of sales, then sorts them in ascending order to find the entity with the lowest margin.\"}\n```",
+      "sql": "SELECT entity FROM (SELECT entity, SUM(CASE WHEN account_group = 'Revenue' THEN amount ELSE 0 END) as total_revenue, SUM(CASE WHEN account_group = 'Cost of sales' THEN amount ELSE 0 END) as total_cos FROM ledger WHERE month LIKE '2026-%' GROUP BY entity) WHERE total_revenue > 0 ORDER BY (total_revenue - total_cos) * 1.0 / total_revenue ASC LIMIT 1;",
+      "explanation": "The query calculates the gross margin (Gross Profit / Revenue) for each entity for the year 2026 by aggregating revenue and cost of sales, then sorts them in ascending order to find the entity with the lowest margin.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 234,
+        "outputTokens": 163,
+        "pricingDerivedNeurons": 6.572793
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L15",
+      "question": "Top 3 entities by operating expenses in Q2 2026",
+      "requestedAt": "2026-11-14T18:24:09.399Z",
+      "httpStatus": 200,
+      "elapsedMs": 2875.2145889999956,
+      "raw": "```json\n{\"sql\": \"SELECT entity, SUM(amount) AS total_operating_expense FROM ledger WHERE account_group = 'Operating expense' AND month BETWEEN '2026-04' AND '2026-06' GROUP BY entity ORDER BY total_operating_expense DESC LIMIT 3;\", \"explanation\": \"The query filters for 'Operating expense' accounts within the months comprising Q2 2026 (April, May, and June), groups the results by entity, and returns the top three entities based on the sum of their expenses.\"}\n```",
+      "sql": "SELECT entity, SUM(amount) AS total_operating_expense FROM ledger WHERE account_group = 'Operating expense' AND month BETWEEN '2026-04' AND '2026-06' GROUP BY entity ORDER BY total_operating_expense DESC LIMIT 3;",
+      "explanation": "The query filters for 'Operating expense' accounts within the months comprising Q2 2026 (April, May, and June), groups the results by entity, and returns the top three entities based on the sum of their expenses.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 234,
+        "outputTokens": 124,
+        "pricingDerivedNeurons": 5.509146
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L16",
+      "question": "Revenue of North Hub in 2025",
+      "requestedAt": "2026-11-14T18:24:12.325Z",
+      "httpStatus": 200,
+      "elapsedMs": 2925.5891799999954,
+      "raw": "```json\n{\"sql\": \"SELECT SUM(amount) FROM ledger WHERE entity = 'North Hub' AND account_group = 'Revenue' AND month LIKE '2025-%';\", \"explanation\": \"The query sums the 'amount' column for the entity 'North Hub' where the 'account_group' is 'Revenue' and the 'month' starts with '2025' to capture all months within that year.\"}\n```",
+      "sql": "SELECT SUM(amount) FROM ledger WHERE entity = 'North Hub' AND account_group = 'Revenue' AND month LIKE '2025-%';",
+      "explanation": "The query sums the 'amount' column for the entity 'North Hub' where the 'account_group' is 'Revenue' and the 'month' starts with '2025' to capture all months within that year.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 229,
+        "outputTokens": 94,
+        "pricingDerivedNeurons": 4.645501
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L17",
+      "question": "Operating profit for Delta Services in Q1 2026",
+      "requestedAt": "2026-11-14T18:24:16.205Z",
+      "httpStatus": 200,
+      "elapsedMs": 3878.961725000001,
+      "raw": "```json\n{\"sql\": \"SELECT SUM(CASE WHEN account_group = 'Revenue' THEN amount WHEN account_group = 'Cost of sales' THEN -amount WHEN account_group = 'Operating expense' THEN -amount ELSE 0 END) AS operating_profit FROM ledger WHERE entity = 'Delta Services' AND month BETWEEN '2026-01' AND '2026-03';\", \"explanation\": \"The query calculates operating profit by summing revenues and subtracting both cost of sales and operating expenses for Delta Services during the months comprising Q1 2026 (January, February, and March).\"}\n```",
+      "sql": "SELECT SUM(CASE WHEN account_group = 'Revenue' THEN amount WHEN account_group = 'Cost of sales' THEN -amount WHEN account_group = 'Operating expense' THEN -amount ELSE 0 END) AS operating_profit FROM ledger WHERE entity = 'Delta Services' AND month BETWEEN '2026-01' AND '2026-03';",
+      "explanation": "The query calculates operating profit by summing revenues and subtracting both cost of sales and operating expenses for Delta Services during the months comprising Q1 2026 (January, February, and March).",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 232,
+        "outputTokens": 133,
+        "pricingDerivedNeurons": 5.736421
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L18",
+      "question": "What was revenue last quarter?",
+      "requestedAt": "2026-11-14T18:24:17.359Z",
+      "httpStatus": 200,
+      "elapsedMs": 1153.0400149999987,
+      "raw": "```json\n{\"sql\": null, \"explanation\": \"The term 'last quarter' is ambiguous because the dataset spans multiple years (2025 to 2026) and the current date is not specified, making it impossible to determine which specific three-month period is being requested.\"}\n```",
+      "sql": null,
+      "explanation": "The term 'last quarter' is ambiguous because the dataset spans multiple years (2025 to 2026) and the current date is not specified, making it impossible to determine which specific three-month period is being requested.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 226,
+        "outputTokens": 65,
+        "pricingDerivedNeurons": 3.827311
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L19",
+      "question": "Gross profit last month",
+      "requestedAt": "2026-11-14T18:24:19.811Z",
+      "httpStatus": 200,
+      "elapsedMs": 2451.5777120000057,
+      "raw": "```json\n{\"sql\": \"SELECT entity, SUM(CASE WHEN account_group = 'Revenue' THEN amount ELSE 0 END) - SUM(CASE WHEN account_group = 'Cost of sales' THEN amount ELSE 0 END) AS gross_profit FROM ledger WHERE month = (SELECT MAX(month) FROM ledger) GROUP BY entity;\", \"explanation\": \"The query calculates gross profit (Revenue minus Cost of sales) for each entity for the most recent month available in the ledger dataset.\"}\n```",
+      "sql": "SELECT entity, SUM(CASE WHEN account_group = 'Revenue' THEN amount ELSE 0 END) - SUM(CASE WHEN account_group = 'Cost of sales' THEN amount ELSE 0 END) AS gross_profit FROM ledger WHERE month = (SELECT MAX(month) FROM ledger) GROUP BY entity;",
+      "explanation": "The query calculates gross profit (Revenue minus Cost of sales) for each entity for the most recent month available in the ledger dataset.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 223,
+        "outputTokens": 105,
+        "pricingDerivedNeurons": 4.890958
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L20",
+      "question": "Operating expenses this year",
+      "requestedAt": "2026-11-14T18:24:21.986Z",
+      "httpStatus": 200,
+      "elapsedMs": 2173.1406199999983,
+      "raw": "```json\n{\"sql\": \"SELECT SUM(amount) FROM ledger WHERE account_group = 'Operating expense' AND month BETWEEN '2025-01' AND '2025-12';\", \"explanation\": \"The query calculates the total sum of all amounts categorized under 'Operating expense' for the calendar year 2025, which is the only full year available in the dataset context.\"}\n```",
+      "sql": "SELECT SUM(amount) FROM ledger WHERE account_group = 'Operating expense' AND month BETWEEN '2025-01' AND '2025-12';",
+      "explanation": "The query calculates the total sum of all amounts categorized under 'Operating expense' for the calendar year 2025, which is the only full year available in the dataset context.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 223,
+        "outputTokens": 90,
+        "pricingDerivedNeurons": 4.481863
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L21",
+      "question": "Sales in 2026",
+      "requestedAt": "2026-11-14T18:24:24.087Z",
+      "httpStatus": 200,
+      "elapsedMs": 2099.9258439999976,
+      "raw": "```json\n{\"sql\": \"SELECT SUM(amount) FROM ledger WHERE account_group = 'Revenue' AND month LIKE '2026-%';\", \"explanation\": \"The query sums the 'amount' for all accounts categorized under 'Revenue' where the month starts with '2026', effectively capturing all sales for that year.\"}\n```",
+      "sql": "SELECT SUM(amount) FROM ledger WHERE account_group = 'Revenue' AND month LIKE '2026-%';",
+      "explanation": "The query sums the 'amount' for all accounts categorized under 'Revenue' where the month starts with '2026', effectively capturing all sales for that year.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 226,
+        "outputTokens": 74,
+        "pricingDerivedNeurons": 4.072768
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L22",
+      "question": "Turnover for Harbour Retail in 2025",
+      "requestedAt": "2026-11-14T18:24:26.481Z",
+      "httpStatus": 200,
+      "elapsedMs": 2393.9588799999983,
+      "raw": "```json\n{\"sql\": \"SELECT SUM(amount) FROM ledger WHERE entity = 'Harbour Retail' AND account_group = 'Revenue' AND month LIKE '2025-%';\", \"explanation\": \"Turnover is interpreted as total Revenue. The query filters for the entity 'Harbour Retail', the 'Revenue' account group, and uses a pattern match to include all months within the year 2025.\"}\n```",
+      "sql": "SELECT SUM(amount) FROM ledger WHERE entity = 'Harbour Retail' AND account_group = 'Revenue' AND month LIKE '2025-%';",
+      "explanation": "Turnover is interpreted as total Revenue. The query filters for the entity 'Harbour Retail', the 'Revenue' account group, and uses a pattern match to include all months within the year 2025.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 230,
+        "outputTokens": 92,
+        "pricingDerivedNeurons": 4.600046
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L23",
+      "question": "COGS in Q2 2025",
+      "requestedAt": "2026-11-14T18:24:28.771Z",
+      "httpStatus": 200,
+      "elapsedMs": 2288.920097999995,
+      "raw": "```json\n{\"sql\": \"SELECT SUM(amount) FROM ledger WHERE account_group = 'Cost of sales' AND month BETWEEN '2025-04' AND '2025-06';\", \"explanation\": \"The query calculates the total Cost of sales (COGS) by summing the amounts for the months comprising Q2 2025 (April, May, and June).\"}\n```",
+      "sql": "SELECT SUM(amount) FROM ledger WHERE account_group = 'Cost of sales' AND month BETWEEN '2025-04' AND '2025-06';",
+      "explanation": "The query calculates the total Cost of sales (COGS) by summing the amounts for the months comprising Q2 2025 (April, May, and June).",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 229,
+        "outputTokens": 89,
+        "pricingDerivedNeurons": 4.509136
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L24",
+      "question": "Gross margin by entity in 2025",
+      "requestedAt": "2026-11-14T18:24:29.696Z",
+      "httpStatus": 200,
+      "elapsedMs": 924.2282699999996,
+      "raw": "```json\n{\"sql\": \"SELECT entity, SUM(CASE WHEN account_group = 'Revenue' THEN amount ELSE 0 END) - SUM(CASE WHEN account_group = 'Cost of sales' THEN amount ELSE 0 END) AS gross_profit FROM ledger WHERE month LIKE '2025-%' GROUP BY entity;\", \"explanation\": \"The query calculates gross profit (Revenue minus Cost of sales) for each entity by filtering for months within the year 2025 and using conditional aggregation to separate the account groups.\"}\n```",
+      "sql": "SELECT entity, SUM(CASE WHEN account_group = 'Revenue' THEN amount ELSE 0 END) - SUM(CASE WHEN account_group = 'Cost of sales' THEN amount ELSE 0 END) AS gross_profit FROM ledger WHERE month LIKE '2025-%' GROUP BY entity;",
+      "explanation": "The query calculates gross profit (Revenue minus Cost of sales) for each entity by filtering for months within the year 2025 and using conditional aggregation to separate the account groups.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 230,
+        "outputTokens": 114,
+        "pricingDerivedNeurons": 5.200052
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L25",
+      "question": "What is total revenue?",
+      "requestedAt": "2026-11-14T18:24:31.315Z",
+      "httpStatus": 200,
+      "elapsedMs": 1618.0072570000048,
+      "raw": "```json\n{\"sql\": \"SELECT SUM(amount) FROM ledger WHERE account_group = 'Revenue';\", \"explanation\": \"The query calculates the sum of all amounts where the account group is identified as 'Revenue' to provide the total revenue across all entities and time periods.\"}\n```",
+      "sql": "SELECT SUM(amount) FROM ledger WHERE account_group = 'Revenue';",
+      "explanation": "The query calculates the sum of all amounts where the account group is identified as 'Revenue' to provide the total revenue across all entities and time periods.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 224,
+        "outputTokens": 60,
+        "pricingDerivedNeurons": 3.672764
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L26",
+      "question": "Bottom 2 entities by revenue in 2026",
+      "requestedAt": "2026-11-14T18:24:34.506Z",
+      "httpStatus": 200,
+      "elapsedMs": 3189.5980219999983,
+      "raw": "```json\n{\"sql\": \"SELECT entity, SUM(amount) AS total_revenue FROM ledger WHERE account_group = 'Revenue' AND month LIKE '2026-%' GROUP BY entity ORDER BY total_revenue ASC LIMIT 2;\", \"explanation\": \"The query filters for 'Revenue' account group and months within the year 2026, aggregates the total amount per entity, and sorts them in ascending order to retrieve the two entities with the lowest revenue.\"}\n```",
+      "sql": "SELECT entity, SUM(amount) AS total_revenue FROM ledger WHERE account_group = 'Revenue' AND month LIKE '2026-%' GROUP BY entity ORDER BY total_revenue ASC LIMIT 2;",
+      "explanation": "The query filters for 'Revenue' account group and months within the year 2026, aggregates the total amount per entity, and sorts them in ascending order to retrieve the two entities with the lowest revenue.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 231,
+        "outputTokens": 102,
+        "pricingDerivedNeurons": 4.881867
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L27",
+      "question": "Monthly revenue for Summit Logistics in 2026",
+      "requestedAt": "2026-11-14T18:24:37.414Z",
+      "httpStatus": 200,
+      "elapsedMs": 2907.7020410000114,
+      "raw": "```json\n{\"sql\": \"SELECT month, SUM(amount) AS monthly_revenue FROM ledger WHERE entity = 'Summit Logistics' AND account_group = 'Revenue' AND month LIKE '2026-%' GROUP BY month ORDER BY month;\", \"explanation\": \"The query filters the ledger for the entity 'Summit Logistics' and the 'Revenue' account group, specifically targeting months in the year 2026, then aggregates the amounts by month.\"}\n```",
+      "sql": "SELECT month, SUM(amount) AS monthly_revenue FROM ledger WHERE entity = 'Summit Logistics' AND account_group = 'Revenue' AND month LIKE '2026-%' GROUP BY month ORDER BY month;",
+      "explanation": "The query filters the ledger for the entity 'Summit Logistics' and the 'Revenue' account group, specifically targeting months in the year 2026, then aggregates the amounts by month.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 230,
+        "outputTokens": 99,
+        "pricingDerivedNeurons": 4.790957
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L28",
+      "question": "Quarterly operating profit in 2026",
+      "requestedAt": "2026-11-14T18:24:44.767Z",
+      "httpStatus": 200,
+      "elapsedMs": 7351.970514999994,
+      "raw": "```json\n{\"sql\": \"SELECT \\n    CASE \\n        WHEN month BETWEEN '2026-01' AND '2026-03' THEN '2026-Q1' \\n        WHEN month BETWEEN '2026-04' AND '2026-06' THEN '2026-Q2' \\n        WHEN month BETWEEN '2026-07' AND '2026-09' THEN '2026-Q3' \\n    END AS quarter,\\n    SUM(CASE WHEN account_group = 'Revenue' THEN amount ELSE 0 END) - \\n    SUM(CASE WHEN account_group = 'Cost of sales' THEN amount ELSE 0 END) - \\n    SUM(CASE WHEN account_group = 'Operating expense' THEN amount ELSE 0 END) AS operating_profit\\nFROM ledger\\nWHERE month LIKE '2026%'\\nGROUP BY quarter\\nHAVING quarter IS NOT NULL\\nORDER BY quarter;\", \"explanation\": \"The query calculates the operating profit by subtracting both 'Cost of sales' and 'Operating expense' from 'Revenue' for each three-month period in 2026. It uses a CASE statement to group the months into quarters (Q1, Q2, and Q3) and filters for the year 2026.\"}\n```",
+      "sql": "SELECT \n    CASE \n        WHEN month BETWEEN '2026-01' AND '2026-03' THEN '2026-Q1' \n        WHEN month BETWEEN '2026-04' AND '2026-06' THEN '2026-Q2' \n        WHEN month BETWEEN '2026-07' AND '2026-09' THEN '2026-Q3' \n    END AS quarter,\n    SUM(CASE WHEN account_group = 'Revenue' THEN amount ELSE 0 END) - \n    SUM(CASE WHEN account_group = 'Cost of sales' THEN amount ELSE 0 END) - \n    SUM(CASE WHEN account_group = 'Operating expense' THEN amount ELSE 0 END) AS operating_profit\nFROM ledger\nWHERE month LIKE '2026%'\nGROUP BY quarter\nHAVING quarter IS NOT NULL\nORDER BY quarter;",
+      "explanation": "The query calculates the operating profit by subtracting both 'Cost of sales' and 'Operating expense' from 'Revenue' for each three-month period in 2026. It uses a CASE statement to group the months into quarters (Q1, Q2, and Q3) and filters for the year 2026.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 229,
+        "outputTokens": 306,
+        "pricingDerivedNeurons": 10.427377
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L29",
+      "question": "Gross profit by entity last year",
+      "requestedAt": "2026-11-14T18:24:48.620Z",
+      "httpStatus": 200,
+      "elapsedMs": 3852.208012999996,
+      "raw": "```json\n{\"sql\": \"SELECT entity, SUM(CASE WHEN account_group = 'Revenue' THEN amount ELSE 0 END) - SUM(CASE WHEN account_group = 'Cost of sales' THEN amount ELSE 0 END) AS gross_profit FROM ledger WHERE month BETWEEN '2025-01' AND '2025-12' GROUP BY entity;\", \"explanation\": \"The query calculates gross profit by subtracting the sum of 'Cost of sales' from the sum of 'Revenue' for each entity, filtered for the year 2025 (the only complete 'last year' relative to the dataset's end date).\"}\n```",
+      "sql": "SELECT entity, SUM(CASE WHEN account_group = 'Revenue' THEN amount ELSE 0 END) - SUM(CASE WHEN account_group = 'Cost of sales' THEN amount ELSE 0 END) AS gross_profit FROM ledger WHERE month BETWEEN '2025-01' AND '2025-12' GROUP BY entity;",
+      "explanation": "The query calculates gross profit by subtracting the sum of 'Cost of sales' from the sum of 'Revenue' for each entity, filtered for the year 2025 (the only complete 'last year' relative to the dataset's end date).",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 225,
+        "outputTokens": 141,
+        "pricingDerivedNeurons": 5.890968
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L30",
+      "question": "Which entity had the highest operating profit last quarter?",
+      "requestedAt": "2026-11-14T18:24:53.004Z",
+      "httpStatus": 200,
+      "elapsedMs": 4383.3731569999945,
+      "raw": "```json\n{\"sql\": \"SELECT entity FROM (SELECT entity, SUM(CASE WHEN account_group = 'Revenue' THEN amount ELSE 0 END) - SUM(CASE WHEN account_group = 'Cost of sales' THEN amount ELSE 0 END) - SUM(CASE WHEN account_group = 'Operating expense' THEN amount ELSE 0 END) AS operating_profit FROM ledger WHERE month >= '2026-07' AND month <= '2026-09' GROUP BY entity) ORDER BY operating_profit DESC LIMIT 1;\", \"explanation\": \"The query calculates the operating profit (Revenue minus Cost of sales and Operating expenses) for each entity during the most recent quarter available in the dataset (2026-07 to 2026-09) and returns the entity with the highest value.\"}\n```",
+      "sql": "SELECT entity FROM (SELECT entity, SUM(CASE WHEN account_group = 'Revenue' THEN amount ELSE 0 END) - SUM(CASE WHEN account_group = 'Cost of sales' THEN amount ELSE 0 END) - SUM(CASE WHEN account_group = 'Operating expense' THEN amount ELSE 0 END) AS operating_profit FROM ledger WHERE month >= '2026-07' AND month <= '2026-09' GROUP BY entity) ORDER BY operating_profit DESC LIMIT 1;",
+      "explanation": "The query calculates the operating profit (Revenue minus Cost of sales and Operating expenses) for each entity during the most recent quarter available in the dataset (2026-07 to 2026-09) and returns the entity with the highest value.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 229,
+        "outputTokens": 180,
+        "pricingDerivedNeurons": 6.990979
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L31",
+      "question": "How much did we sell in 2025?",
+      "requestedAt": "2026-11-14T18:24:54.199Z",
+      "httpStatus": 200,
+      "elapsedMs": 1194.2313780000113,
+      "raw": "```json\n{\"sql\": \"SELECT SUM(amount) FROM ledger WHERE account_group = 'Revenue' AND month LIKE '2025-%';\", \"explanation\": \"The query calculates the total revenue by summing the 'amount' column for all entries where the 'account_group' is 'Revenue' and the 'month' falls within the year 2025.\"}\n```",
+      "sql": "SELECT SUM(amount) FROM ledger WHERE account_group = 'Revenue' AND month LIKE '2025-%';",
+      "explanation": "The query calculates the total revenue by summing the 'amount' column for all entries where the 'account_group' is 'Revenue' and the 'month' falls within the year 2025.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 232,
+        "outputTokens": 82,
+        "pricingDerivedNeurons": 4.345498
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L32",
+      "question": "What did Orchard Foods bring in during 2025?",
+      "requestedAt": "2026-11-14T18:24:57.133Z",
+      "httpStatus": 200,
+      "elapsedMs": 2932.6682650000002,
+      "raw": "```json\n{\"sql\": \"SELECT SUM(amount) FROM ledger WHERE entity = 'Orchard Foods' AND account_group = 'Revenue' AND month BETWEEN '2025-01' AND '2025-12';\", \"explanation\": \"The term 'bring in' is interpreted as total revenue. The query sums the 'amount' for 'Orchard Foods' where the 'account_group' is 'Revenue' and the 'month' falls within the year 2025.\"}\n```",
+      "sql": "SELECT SUM(amount) FROM ledger WHERE entity = 'Orchard Foods' AND account_group = 'Revenue' AND month BETWEEN '2025-01' AND '2025-12';",
+      "explanation": "The term 'bring in' is interpreted as total revenue. The query sums the 'amount' for 'Orchard Foods' where the 'account_group' is 'Revenue' and the 'month' falls within the year 2025.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 232,
+        "outputTokens": 111,
+        "pricingDerivedNeurons": 5.136415
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L33",
+      "question": "Revenue for the first half of 2026",
+      "requestedAt": "2026-11-14T18:24:59.402Z",
+      "httpStatus": 200,
+      "elapsedMs": 2268.9742479999986,
+      "raw": "```json\n{\"sql\": \"SELECT SUM(amount) FROM ledger WHERE account_group = 'Revenue' AND month BETWEEN '2026-01' AND '2026-06';\", \"explanation\": \"The query sums the 'amount' column for all entries where the 'account_group' is 'Revenue' and the 'month' falls within the first half of 2026 (January to June).\"}\n```",
+      "sql": "SELECT SUM(amount) FROM ledger WHERE account_group = 'Revenue' AND month BETWEEN '2026-01' AND '2026-06';",
+      "explanation": "The query sums the 'amount' column for all entries where the 'account_group' is 'Revenue' and the 'month' falls within the first half of 2026 (January to June).",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 230,
+        "outputTokens": 95,
+        "pricingDerivedNeurons": 4.681865
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L34",
+      "question": "Revenue in 2025 excluding Delta Services",
+      "requestedAt": "2026-11-14T18:25:01.494Z",
+      "httpStatus": 200,
+      "elapsedMs": 2090.4690180000034,
+      "raw": "```json\n{\"sql\": \"SELECT SUM(amount) FROM ledger WHERE account_group = 'Revenue' AND month LIKE '2025-%' AND entity != 'Delta Services';\", \"explanation\": \"The query filters for the 'Revenue' account group, uses a LIKE pattern to capture all months within the year 2025, and excludes 'Delta Services' as requested.\"}\n```",
+      "sql": "SELECT SUM(amount) FROM ledger WHERE account_group = 'Revenue' AND month LIKE '2025-%' AND entity != 'Delta Services';",
+      "explanation": "The query filters for the 'Revenue' account group, uses a LIKE pattern to capture all months within the year 2025, and excludes 'Delta Services' as requested.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 229,
+        "outputTokens": 84,
+        "pricingDerivedNeurons": 4.372771
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L35",
+      "question": "What was the profit in 2025?",
+      "requestedAt": "2026-11-14T18:25:02.923Z",
+      "httpStatus": 200,
+      "elapsedMs": 1428.2985279999994,
+      "raw": "```json\n{\"sql\": \"SELECT SUM(CASE WHEN account_group = 'Revenue' THEN amount ELSE 0 END) - SUM(CASE WHEN account_group = 'Cost of sales' THEN amount ELSE 0 END) - SUM(CASE WHEN account_group = 'Operating expense' THEN amount ELSE 0 END) AS operating_profit FROM ledger WHERE month LIKE '2025-%';\", \"explanation\": \"The query calculates the total operating profit for the year 2025 by subtracting the sum of 'Cost of sales' and 'Operating expense' from the sum of 'Revenue' for all months starting with '2025-'.\"}\n```",
+      "sql": "SELECT SUM(CASE WHEN account_group = 'Revenue' THEN amount ELSE 0 END) - SUM(CASE WHEN account_group = 'Cost of sales' THEN amount ELSE 0 END) - SUM(CASE WHEN account_group = 'Operating expense' THEN amount ELSE 0 END) AS operating_profit FROM ledger WHERE month LIKE '2025-%';",
+      "explanation": "The query calculates the total operating profit for the year 2025 by subtracting the sum of 'Cost of sales' and 'Operating expense' from the sum of 'Revenue' for all months starting with '2025-'.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 231,
+        "outputTokens": 140,
+        "pricingDerivedNeurons": 5.918241
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L36",
+      "question": "What were our costs in 2026?",
+      "requestedAt": "2026-11-14T18:25:05.260Z",
+      "httpStatus": 200,
+      "elapsedMs": 2336.555192,
+      "raw": "```json\n{\"sql\": \"SELECT SUM(amount) FROM ledger WHERE month LIKE '2026-%' AND account_group IN ('Cost of sales', 'Operating expense')\", \"explanation\": \"The query sums all amounts where the month falls within the year 2026 and the account group is either 'Cost of sales' or 'Operating expense', which represents the total costs for that period.\"}\n```",
+      "sql": "SELECT SUM(amount) FROM ledger WHERE month LIKE '2026-%' AND account_group IN ('Cost of sales', 'Operating expense')",
+      "explanation": "The query sums all amounts where the month falls within the year 2026 and the account group is either 'Cost of sales' or 'Operating expense', which represents the total costs for that period.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 230,
+        "outputTokens": 88,
+        "pricingDerivedNeurons": 4.490954
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L37",
+      "question": "Revenue in Q2",
+      "requestedAt": "2026-11-14T18:25:08.028Z",
+      "httpStatus": 200,
+      "elapsedMs": 2766.8506970000017,
+      "raw": "```json\n{\"sql\": \"SELECT SUM(amount) FROM ledger WHERE account_group = 'Revenue' AND (month BETWEEN '2025-04' AND '2025-06' OR month BETWEEN '2026-04' AND '2026-06');\", \"explanation\": \"The query calculates the total revenue for all Q2 periods (April to June) available in the dataset (2025 and 2026) by summing the amounts where the account group is 'Revenue'.\"}\n```",
+      "sql": "SELECT SUM(amount) FROM ledger WHERE account_group = 'Revenue' AND (month BETWEEN '2025-04' AND '2025-06' OR month BETWEEN '2026-04' AND '2026-06');",
+      "explanation": "The query calculates the total revenue for all Q2 periods (April to June) available in the dataset (2025 and 2026) by summing the amounts where the account group is 'Revenue'.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 223,
+        "outputTokens": 120,
+        "pricingDerivedNeurons": 5.300053
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L38",
+      "question": "Revenue in March",
+      "requestedAt": "2026-11-14T18:25:10.036Z",
+      "httpStatus": 200,
+      "elapsedMs": 2006.7673809999978,
+      "raw": "```json\n{\"sql\": \"SELECT SUM(amount) FROM ledger WHERE month = '2025-03' AND account_group = 'Revenue';\", \"explanation\": \"The query calculates the total revenue by summing the 'amount' column for all entries where the month is March 2025 and the account group is categorized as 'Revenue'.\"}\n```",
+      "sql": "SELECT SUM(amount) FROM ledger WHERE month = '2025-03' AND account_group = 'Revenue';",
+      "explanation": "The query calculates the total revenue by summing the 'amount' column for all entries where the month is March 2025 and the account group is categorized as 'Revenue'.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 222,
+        "outputTokens": 78,
+        "pricingDerivedNeurons": 4.145496
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L39",
+      "question": "What was EBITDA in 2025?",
+      "requestedAt": "2026-11-14T18:25:12.960Z",
+      "httpStatus": 200,
+      "elapsedMs": 2923.4776640000055,
+      "raw": "```json\n{\"sql\": \"SELECT SUM(CASE WHEN account_group = 'Revenue' THEN amount ELSE 0 END) - SUM(CASE WHEN account_group = 'Cost of sales' THEN amount ELSE 0 END) - SUM(CASE WHEN account_group = 'Operating expense' THEN amount ELSE 0 END) AS EBITDA FROM ledger WHERE month LIKE '2025-%';\", \"explanation\": \"In this specific ledger schema, EBITDA is calculated as Operating Profit (Revenue minus Cost of Sales and Operating Expenses), as there are no interest, tax, depreciation, or amortization line items provided to adjust for.\"}\n```",
+      "sql": "SELECT SUM(CASE WHEN account_group = 'Revenue' THEN amount ELSE 0 END) - SUM(CASE WHEN account_group = 'Cost of sales' THEN amount ELSE 0 END) - SUM(CASE WHEN account_group = 'Operating expense' THEN amount ELSE 0 END) AS EBITDA FROM ledger WHERE month LIKE '2025-%';",
+      "explanation": "In this specific ledger schema, EBITDA is calculated as Operating Profit (Revenue minus Cost of Sales and Operating Expenses), as there are no interest, tax, depreciation, or amortization line items provided to adjust for.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 229,
+        "outputTokens": 130,
+        "pricingDerivedNeurons": 5.627329
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L40",
+      "question": "Forecast revenue for Q4 2026",
+      "requestedAt": "2026-11-14T18:25:13.528Z",
+      "httpStatus": 200,
+      "elapsedMs": 565.5856889999995,
+      "raw": "```json\n{\"sql\": null, \"explanation\": \"The ledger contains historical transaction data up to 2026-09, but it does not contain any forecasting models, trend coefficients, or predictive logic required to generate a forecast for Q4 2026.\"}\n```",
+      "sql": null,
+      "explanation": "The ledger contains historical transaction data up to 2026-09, but it does not contain any forecasting models, trend coefficients, or predictive logic required to generate a forecast for Q4 2026.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 230,
+        "outputTokens": 62,
+        "pricingDerivedNeurons": 3.781856
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L41",
+      "question": "Why did operating expenses rise in 2026?",
+      "requestedAt": "2026-11-14T18:25:15.362Z",
+      "httpStatus": 200,
+      "elapsedMs": 1833.5853179999976,
+      "raw": "```json\n{\"sql\": null, \"explanation\": \"The question asks for a causal explanation ('Why') for a trend, but the ledger only contains quantitative transaction data. While a query could identify which specific operating expense accounts or entities contributed to the increase, the database does not contain qualitative data or external context required to explain the underlying reasons for the rise.\"}\n```",
+      "sql": null,
+      "explanation": "The question asks for a causal explanation ('Why') for a trend, but the ledger only contains quantitative transaction data. While a query could identify which specific operating expense accounts or entities contributed to the increase, the database does not contain qualitative data or external context required to explain the underlying reasons for the rise.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 231,
+        "outputTokens": 76,
+        "pricingDerivedNeurons": 4.172769
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L42",
+      "question": "Revenue in Q4 2026",
+      "requestedAt": "2026-11-14T18:25:17.387Z",
+      "httpStatus": 200,
+      "elapsedMs": 2023.6665039999934,
+      "raw": "```json\n{\"sql\": \"SELECT SUM(amount) FROM ledger WHERE account_group = 'Revenue' AND month BETWEEN '2026-10' AND '2026-12';\", \"explanation\": \"The query sums the 'amount' for all entries categorized under the 'Revenue' account group where the month falls within the fourth quarter of 2026 (October, November, and December).\"}\n```",
+      "sql": "SELECT SUM(amount) FROM ledger WHERE account_group = 'Revenue' AND month BETWEEN '2026-10' AND '2026-12';",
+      "explanation": "The query sums the 'amount' for all entries categorized under the 'Revenue' account group where the month falls within the fourth quarter of 2026 (October, November, and December).",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 228,
+        "outputTokens": 92,
+        "pricingDerivedNeurons": 4.581864
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L43",
+      "question": "Headcount by entity",
+      "requestedAt": "2026-11-14T18:25:18.112Z",
+      "httpStatus": 200,
+      "elapsedMs": 723.9734610000014,
+      "raw": "```json\n{\"sql\": null, \"explanation\": \"The ledger contains financial transaction data (amounts in AED) but does not contain any columns or data related to employee counts or headcount metrics.\"}\n```",
+      "sql": null,
+      "explanation": "The ledger contains financial transaction data (amounts in AED) but does not contain any columns or data related to employee counts or headcount metrics.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 224,
+        "outputTokens": 43,
+        "pricingDerivedNeurons": 3.209123
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L44",
+      "question": "Revenue growth 2026 vs 2025",
+      "requestedAt": "2026-11-14T18:25:20.930Z",
+      "httpStatus": 200,
+      "elapsedMs": 2817.8663220000017,
+      "raw": "```json\n{\"sql\": \"SELECT (SUM(CASE WHEN month LIKE '2026%' THEN amount ELSE 0 END) * 1.0 / SUM(CASE WHEN month LIKE '2025%' THEN amount ELSE 0 END) - 1) * 100 AS revenue_growth_percentage FROM ledger WHERE account_group = 'Revenue';\", \"explanation\": \"This query calculates the percentage growth in total revenue by comparing the sum of all revenue amounts in 2026 against the sum of all revenue amounts in 2025.\"}\n```",
+      "sql": "SELECT (SUM(CASE WHEN month LIKE '2026%' THEN amount ELSE 0 END) * 1.0 / SUM(CASE WHEN month LIKE '2025%' THEN amount ELSE 0 END) - 1) * 100 AS revenue_growth_percentage FROM ledger WHERE account_group = 'Revenue';",
+      "explanation": "This query calculates the percentage growth in total revenue by comparing the sum of all revenue amounts in 2026 against the sum of all revenue amounts in 2025.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 232,
+        "outputTokens": 123,
+        "pricingDerivedNeurons": 5.463691
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L45",
+      "question": "What was net profit in 2025?",
+      "requestedAt": "2026-11-14T18:25:23.864Z",
+      "httpStatus": 200,
+      "elapsedMs": 2932.863025999992,
+      "raw": "```json\n{\"sql\": \"SELECT SUM(CASE WHEN account_group = 'Revenue' THEN amount ELSE 0 END) - SUM(CASE WHEN account_group = 'Cost of sales' THEN amount ELSE 0 END) - SUM(CASE WHEN account_group = 'Operating expense' THEN amount ELSE 0 END) AS net_profit FROM ledger WHERE month LIKE '2025-%';\", \"explanation\": \"The query calculates net profit (Operating profit) for the year 2025 by summing all revenue and subtracting both cost of sales and operating expenses for all months starting with '2025-'.\"}\n```",
+      "sql": "SELECT SUM(CASE WHEN account_group = 'Revenue' THEN amount ELSE 0 END) - SUM(CASE WHEN account_group = 'Cost of sales' THEN amount ELSE 0 END) - SUM(CASE WHEN account_group = 'Operating expense' THEN amount ELSE 0 END) AS net_profit FROM ledger WHERE month LIKE '2025-%';",
+      "explanation": "The query calculates net profit (Operating profit) for the year 2025 by summing all revenue and subtracting both cost of sales and operating expenses for all months starting with '2025-'.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 230,
+        "outputTokens": 133,
+        "pricingDerivedNeurons": 5.718239
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L46",
+      "question": "How many entities are there?",
+      "requestedAt": "2026-11-14T18:25:25.059Z",
+      "httpStatus": 200,
+      "elapsedMs": 1194.3967700000067,
+      "raw": "```json\n{\"sql\": \"SELECT COUNT(DISTINCT entity) FROM ledger\", \"explanation\": \"The query counts the unique number of entities present in the ledger table to determine how many distinct organizations are recorded.\"}\n```",
+      "sql": "SELECT COUNT(DISTINCT entity) FROM ledger",
+      "explanation": "The query counts the unique number of entities present in the ledger table to determine how many distinct organizations are recorded.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 225,
+        "outputTokens": 47,
+        "pricingDerivedNeurons": 3.327306
+      },
+      "error": null,
+      "attempts": 1
+    },
+    {
+      "id": "L47",
+      "question": "What was the operating profit margin in 2026?",
+      "requestedAt": "2026-11-14T18:25:28.736Z",
+      "httpStatus": 200,
+      "elapsedMs": 3676.144742999997,
+      "raw": "```json\n{\"sql\": \"SELECT (SUM(CASE WHEN account_group = 'Revenue' THEN amount ELSE 0 END) - SUM(CASE WHEN account_group = 'Cost of sales' THEN amount ELSE 0 END) - SUM(CASE WHEN account_group = 'Operating expense' THEN amount ELSE 0 END)) * 1.0 / SUM(CASE WHEN account_group = 'Revenue' THEN amount ELSE 0 END) AS operating_profit_margin FROM ledger WHERE month LIKE '2026-%';\", \"explanation\": \"The query calculates the operating profit margin for the year 2026 by dividing the total operating profit (Revenue minus Cost of sales and Operating expenses) by the total Revenue for all months within that year.\"}\n```",
+      "sql": "SELECT (SUM(CASE WHEN account_group = 'Revenue' THEN amount ELSE 0 END) - SUM(CASE WHEN account_group = 'Cost of sales' THEN amount ELSE 0 END) - SUM(CASE WHEN account_group = 'Operating expense' THEN amount ELSE 0 END)) * 1.0 / SUM(CASE WHEN account_group = 'Revenue' THEN amount ELSE 0 END) AS operating_profit_margin FROM ledger WHERE month LIKE '2026-%';",
+      "explanation": "The query calculates the operating profit margin for the year 2026 by dividing the total operating profit (Revenue minus Cost of sales and Operating expenses) by the total Revenue for all months within that year.",
+      "modelError": false,
+      "usage": {
+        "inputTokens": 232,
+        "outputTokens": 160,
+        "pricingDerivedNeurons": 6.472792
+      },
+      "error": null,
+      "attempts": 1
+    }
+  ],
+  "updatedAt": "2026-11-14T18:25:28.736Z",
+  "status": "complete",
+  "stopReason": "suite_complete",
+  "lastInvocation": {
+    "calls": 47,
+    "timeoutRetries": 0,
+    "pricingDerivedNeurons": 237.15691699999996,
+    "budgetNeurons": 400
+  }
+}
