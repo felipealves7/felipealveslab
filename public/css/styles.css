@@ -1,2 +1,2 @@
-@import url("legacy.css");
-@import url("identity.css");
+/* The base stylesheet is legacy.css followed by identity.css. src/layouts/Base.astro links both
+   directly when a page asks for 'styles', so they download in parallel instead of in a chain. */

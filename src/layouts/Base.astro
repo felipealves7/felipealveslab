@@ -44,7 +44,7 @@ const ogImage = new URL('/assets/felipe.jpg', Astro.site).href;
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
     <script is:inline>document.documentElement.classList.add('js')</script>
-    {css.map((name) => <link rel="stylesheet" href={`/css/${name}.css`} />)}
+    {css.flatMap((name) => (name === 'styles' ? ['legacy', 'identity'] : [name])).map((name) => <link rel="stylesheet" href={`/css/${name}.css`} />)}
   </head>
   <body class={bodyClass || undefined}>
     {noise && <div class="noise" aria-hidden="true"></div>}
