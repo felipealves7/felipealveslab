@@ -24,7 +24,7 @@ An interactive analysis, chart or Q&A that works from cached output with no live
 
 ## Method and results
 
-Method, tests and evaluation results, including what failed.
+Method, tests and evaluation results with full scores, and an error analysis.
 
 ## Known limits and running cost
 

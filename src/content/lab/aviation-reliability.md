@@ -48,7 +48,7 @@ The average delay stayed flat because early arrivals count as negative minutes a
 
 **Pipeline and tests.** Python downloads and reads the archives; dbt builds the tables on DuckDB. 9 models, 92 data tests passed, and 8 Python tests passed. A separate run showed that reloading a month replaces changed, deleted and new rows and matches a clean rebuild. The monthly table matches the counts taken straight from the original CSV files in all 180 comparisons, 9 measures for each of 20 months. This site checks that again on every build, and the build stops if a single count differs.
 
-**What failed along the way.**
+**Data issues found and fixed.**
 
 - BTS airport ID 14027 carries two codes in this extract, PBI and DJT. Grouping by code would split one airport in two. The pipeline groups by the stable BTS ID and keeps the reported codes.
 - The first monthly reload appended rows instead of replacing them. It now deletes a month before loading it, and fails if no month is named.

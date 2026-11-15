@@ -10,9 +10,9 @@
 
 <!-- Commands run and results. State plainly anything you could not run. -->
 
-## What I am unsure about
+## Review notes
 
-<!-- Honest list. "Nothing" is rarely true. -->
+<!-- What the reviewer should check, and any open question for Felipe. -->
 
 ## Sources opened
 
