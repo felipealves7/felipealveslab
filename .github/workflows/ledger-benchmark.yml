@@ -68,6 +68,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Check the run ID to continue
+        if: ${{ inputs.resume_run_id != '' }}
+        env:
+          RESUME_RUN_ID: ${{ inputs.resume_run_id }}
+        run: |
+          if ! [[ "$RESUME_RUN_ID" =~ ^[0-9]+$ ]]; then echo "resume_run_id must be a run ID (digits only)." >&2; exit 1; fi
       - name: Fetch the earlier run to continue
         if: ${{ inputs.resume_run_id != '' }}
         uses: actions/download-artifact@v4
@@ -82,7 +88,6 @@ jobs:
         env:
           RESUME_RUN_ID: ${{ inputs.resume_run_id }}
         run: |
-          if ! [[ "$RESUME_RUN_ID" =~ ^[0-9]+$ ]]; then echo "resume_run_id must be a run ID (digits only)." >&2; exit 1; fi
           mkdir -p ledger-eval-runs
           cp "$RUNNER_TEMP/earlier/run.json" "$RUN_FILE"
           echo "Continuing run $RESUME_RUN_ID: $(jq '.records | length' "$RUN_FILE") questions already answered."
