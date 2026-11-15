@@ -32,7 +32,7 @@ The month-by-month chart above. Pick a measure, compare January to August 2026 w
 **Results, January to August.**
 
 | Measure | 2025 | 2026 |
-| --- | ---: | ---: |
+| --- | --- | --- |
 | Scheduled flights | 4,680,482 | 4,728,732 |
 | Average arrival delay | 9.33 min | 9.33 min |
 | Average minutes late, early counted as zero | 17.98 min | 18.46 min |

@@ -6,4 +6,6 @@ export default defineConfig({
   // /milestones is built as milestones.html. Cloudflare Pages serves it without the extension.
   build: { format: 'file' },
   trailingSlash: 'never',
+  // Keep whitespace between inline elements as rendered before Astro 7 (its default is 'jsx').
+  compressHTML: true,
 });
