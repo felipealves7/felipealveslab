@@ -1,12 +1,18 @@
 {
-  "note": "Where each stored run came from. Written by hand on 2026-11-03 from the GitHub Actions run list and the artifact digests shown on each run page. The digest is the sha256 of the artifact zip (run.json and run.scored.json); it is not the digest of the file stored here.",
+  "note": "Where each stored run came from. Written by hand on 2026-11-03 from the GitHub Actions run list and the artifact digests shown on each run page. The digest is the sha256 of the artifact zip (run.json and run.scored.json); it is not the digest of the file stored here. Runs 12 and 14 to 18 were added on 2026-11-15 from the GitHub API's artifact digests, which match the sha256 of each downloaded zip.",
   "workflow": "ledger-benchmark",
   "runs": [
-    { "file": "runs/run-3.json", "githubRunNumber": 3, "githubRunId": 41571494410, "artifact": "ledger-eval-run-3", "artifactSha256": "9c453d9438a76e1bfe4427e7e1604d3a4d1db570edc6026cde47c1c7b26c666d" },
-    { "file": "runs/run-4.json", "githubRunNumber": 4, "githubRunId": 41571831068, "artifact": "ledger-eval-run-4", "artifactSha256": "41215c01f3f71e697d3683b9dc1a80df6df8c41fa146be84b0f7a2b3bb52aa00" },
-    { "file": "runs/run-5.json", "githubRunNumber": 5, "githubRunId": 41572132100, "artifact": "ledger-eval-run-5", "artifactSha256": "fc043fe5c5ff252cf1fff06f4fd46066e30a346308fdafb88ecce9b0baf0c360" },
-    { "file": "runs/run-6.json", "githubRunNumber": 6, "githubRunId": 41572226357, "artifact": "ledger-eval-run-6", "artifactSha256": "411d8b7fb2b70eb3b83e5aaf5fb67d39c310bd0e705827128c153da87c0241c1" },
-    { "file": "runs/run-7.json", "githubRunNumber": 7, "githubRunId": 41572359113, "artifact": "ledger-eval-run-7", "artifactSha256": "02edd0a92e76179c2da78c253aa9ca2c55e89853cb778340c0ba343968b1d651" },
-    { "file": "runs/run-8.json", "githubRunNumber": 8, "githubRunId": 41572498157, "artifact": "ledger-eval-run-8", "artifactSha256": "e47a7bbbd60916332fef48c6fc050d0f46f406fac45f015337f7e4f8309ae028" }
+    {"file": "runs/run-3.json", "githubRunNumber": 3, "githubRunId": 41571494410, "artifact": "ledger-eval-run-3", "artifactSha256": "9c453d9438a76e1bfe4427e7e1604d3a4d1db570edc6026cde47c1c7b26c666d"},
+    {"file": "runs/run-4.json", "githubRunNumber": 4, "githubRunId": 41571831068, "artifact": "ledger-eval-run-4", "artifactSha256": "41215c01f3f71e697d3683b9dc1a80df6df8c41fa146be84b0f7a2b3bb52aa00"},
+    {"file": "runs/run-5.json", "githubRunNumber": 5, "githubRunId": 41572132100, "artifact": "ledger-eval-run-5", "artifactSha256": "fc043fe5c5ff252cf1fff06f4fd46066e30a346308fdafb88ecce9b0baf0c360"},
+    {"file": "runs/run-6.json", "githubRunNumber": 6, "githubRunId": 41572226357, "artifact": "ledger-eval-run-6", "artifactSha256": "411d8b7fb2b70eb3b83e5aaf5fb67d39c310bd0e705827128c153da87c0241c1"},
+    {"file": "runs/run-7.json", "githubRunNumber": 7, "githubRunId": 41572359113, "artifact": "ledger-eval-run-7", "artifactSha256": "02edd0a92e76179c2da78c253aa9ca2c55e89853cb778340c0ba343968b1d651"},
+    {"file": "runs/run-8.json", "githubRunNumber": 8, "githubRunId": 41572498157, "artifact": "ledger-eval-run-8", "artifactSha256": "e47a7bbbd60916332fef48c6fc050d0f46f406fac45f015337f7e4f8309ae028"},
+    {"file": "runs/run-12.json", "githubRunNumber": 12, "githubRunId": 43624461374, "artifact": "ledger-eval-run-12", "artifactSha256": "086e431d58c4da51ff6363ae2bba7c916eeebe3a01dac21c8f017fc389a6f18f"},
+    {"file": "runs/run-14.json", "githubRunNumber": 14, "githubRunId": 43624893946, "artifact": "ledger-eval-run-14", "artifactSha256": "0cdf6b8d21cf8a7a5b7762707a367c08b53d7edbdd5329b0213edcef4a1bdb39"},
+    {"file": "runs/run-15.json", "githubRunNumber": 15, "githubRunId": 43625718546, "artifact": "ledger-eval-run-15", "artifactSha256": "0a3881387d322fae78a975eeb6c12c30792b7f02d9b85cdb0e4e73f98664405b"},
+    {"file": "runs/run-16.json", "githubRunNumber": 16, "githubRunId": 43626182429, "artifact": "ledger-eval-run-16", "artifactSha256": "080492f0b823341234741899971693639370e7bf8eff568adfffdb7e5fab9937"},
+    {"file": "runs/run-17.json", "githubRunNumber": 17, "githubRunId": 43626191972, "artifact": "ledger-eval-run-17", "artifactSha256": "f6745bec181b2257a56fbb1db7605dcc1bdee2bed4518d8aa2659b6fbe952226"},
+    {"file": "runs/run-18.json", "githubRunNumber": 18, "githubRunId": 43626565763, "artifact": "ledger-eval-run-18", "artifactSha256": "99024d9a681032749cc80ecb5aaf4c4112a7780af8b8c501b23eb25da6355347"}
   ]
 }

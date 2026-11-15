@@ -16,9 +16,9 @@ const runs = new Map(results.runs.map((r) => [r.githubRunNumber, r]));
 const original = (r) => r.ledgers.original_seed_2027;
 const question = (n, id) => runs.get(n).perQuestion.find((q) => q.id === id);
 
-test('six runs are stored, complete, from the benchmark workflow, and match their recorded checksums', () => {
-  assert.deepEqual(results.runs.map((r) => r.githubRunNumber), [3, 4, 5, 6, 7, 8]);
-  assert.equal(manifest.runs.length, 6);
+test('every stored run is complete, from the benchmark workflow, and matches its recorded checksum', () => {
+  assert.deepEqual(results.runs.map((r) => r.githubRunNumber), [3, 4, 5, 6, 7, 8, 12, 14, 15, 16, 17, 18]);
+  assert.equal(manifest.runs.length, 12);
   for (const entry of manifest.runs) {
     const text = readFileSync(join(root, 'data/ledger-eval', entry.file));
     const run = JSON.parse(text);
@@ -59,13 +59,17 @@ test('scoring the smallest stored run again gives exactly the stored numbers', a
   assert.deepEqual(again, runs.get(8));
 });
 
-// The six table rows, in the page's order, with the numbers the page must show.
-const ROWS = [[3, '47 page questions · baseline · Qwen2.5-Coder 32B'], [4, '47 page questions · candidate · Qwen2.5-Coder 32B'], [5, '47 page questions · candidate · Llama 3.2 3B'],
-  [6, '20 newer questions · baseline · Qwen2.5-Coder 32B'], [7, '20 newer questions · candidate · Qwen2.5-Coder 32B'], [8, '20 newer questions · candidate · Llama 3.2 3B']];
+// The twelve table rows, in the page's order, with the numbers the page must show.
+const ROWS = [[3, '47 page questions · baseline · Qwen2.5-Coder 32B'], [4, '47 page questions · candidate · Qwen2.5-Coder 32B'],
+  [17, '47 page questions · baseline · Gemma 4 26B A4B'], [12, '47 page questions · candidate · Gemma 4 26B A4B'],
+  [15, '47 page questions · candidate · Qwen 3.8 27B'], [5, '47 page questions · candidate · Llama 3.2 3B'],
+  [6, '20 newer questions · baseline · Qwen2.5-Coder 32B'], [7, '20 newer questions · candidate · Qwen2.5-Coder 32B'],
+  [18, '20 newer questions · baseline · Gemma 4 26B A4B'], [14, '20 newer questions · candidate · Gemma 4 26B A4B'],
+  [16, '20 newer questions · candidate · Qwen 3.8 27B'], [8, '20 newer questions · candidate · Llama 3.2 3B']];
 
 test('the benchmark table on the page shows the computed numbers, row by row', () => {
   const lines = page.split('\n').filter((l) => /^\| (47 page|20 newer) questions/.test(l));
-  assert.equal(lines.length, 6);
+  assert.equal(lines.length, 12);
   const of = (n, d) => `${n} of ${d}`;
   ROWS.forEach(([n, label], i) => {
     const r = runs.get(n);
@@ -77,9 +81,23 @@ test('the benchmark table on the page shows the computed numbers, row by row', (
 
 test('the numbers quoted in the prose are the computed ones', () => {
   const total = results.runs.reduce((a, r) => a + r.usage.neurons, 0);
-  assert.equal(total, 5197);
-  assert.match(page, /The six runs used 5,197 neurons, about US\$0\.06 at list price/);
-  assert.equal(Math.round(results.runs.reduce((a, r) => a + r.usage.listPriceUsd, 0) * 100) / 100, 0.06);
+  assert.equal(total, 9798);
+  assert.match(page, /The twelve runs used 9,798 neurons, about US\$0\.11 at list price/);
+  assert.match(page, /The twelve stored benchmark runs used 9,798 neurons in all, about US\$0\.11 at list price/);
+  assert.equal(Math.round(results.runs.reduce((a, r) => a + r.usage.listPriceUsd, 0) * 100) / 100, 0.11);
+  // The headline: Qwen 3.8 27B with the candidate prompt, against the live setup.
+  assert.deepEqual([15, 16, 3, 6].map((n) => runs.get(n).rightOnAllFour), [42, 18, 31, 10]);
+  assert.deepEqual([15, 16].map((n) => [original(runs.get(n)).declinedCorrectly, original(runs.get(n)).declinesAsked]), [[13, 13], [10, 10]]);
+  assert.match(page, /right on all four ledgers for 42 of 47 page questions and 18 of 20 newer ones, and declined every question it should have: 13 of 13 and 10 of 10/);
+  assert.match(page, /scored 31 and 10/);
+  // Gemma 4 declines by prompt: baseline 3 of 13 and 5 of 10, candidate 12 of 13 and 8 of 10.
+  assert.deepEqual([17, 18, 12, 14].map((n) => original(runs.get(n)).declinedCorrectly), [3, 5, 12, 8]);
+  assert.match(page, /declined correctly in 3 of 13 and 5 of 10 cases; with the candidate prompt, 12 of 13 and 8 of 10/);
+  // Speed: Qwen 3.8's 95th percentile on the 47, and the calls sent twice after a timeout.
+  assert.equal((runs.get(15).responseMs.p95 / 1000).toFixed(1), '17.2');
+  const retried = [15, 16].flatMap((n) => JSON.parse(read(`data/ledger-eval/runs/run-${n}.json`)).records).filter((x) => (x.attempts ?? 1) > 1).length;
+  assert.equal(retried, 3);
+  assert.match(page, /its 95th percentile was 17\.2 seconds on the 47 questions, and 3 of its 67 calls were sent a second time/);
   // About 23 neurons a question for the live model and prompt; 50 questions is about 1,200.
   const perQuestion = runs.get(3).usage.neurons / 47;
   assert.equal(Math.round(perQuestion), 23);
@@ -95,6 +113,25 @@ test('the numbers quoted in the prose are the computed ones', () => {
   assert.match(page, /3 of 47 and 2 of 20, against 1 and 1 for the baseline/);
   // Qwen with the live prompt declined 6 of 13 and 6 of 10.
   assert.deepEqual([3, 6].map((n) => original(runs.get(n)).declinedCorrectly), [6, 6]);
+});
+
+test('the misses the page names for Qwen 3.8 27B are in the data as described', () => {
+  const misses = (n) => runs.get(n).perQuestion.filter((q) => !q.rightOnAllFour).map((q) => q.id);
+  assert.deepEqual(misses(15), ['L05', 'L12', 'L14', 'L24', 'L28']);
+  assert.deepEqual(misses(16), ['V04', 'V07']);
+  // Gross margin: wrong only on the zero-revenue ledger, where the query returned no value instead of 0.
+  for (const [n, id] of [[15, 'L05'], [15, 'L14'], [15, 'L24'], [16, 'V04'], [16, 'V07']]) {
+    assert.deepEqual(question(n, id).verdicts, ['correct_answer', 'correct_answer', 'wrong_answer', 'correct_answer'], `${n} ${id}`);
+    const zero = question(n, id).detail.ledgers.find((l) => l.ledger === 'zero_revenue');
+    assert.ok(zero.got.every((row) => Object.values(row).includes(null)), `${n} ${id} returned no value on the zero-revenue ledger`);
+  }
+  // Quarters: labels built with strftime on YYYY-MM months come out empty, so one total row comes back.
+  for (const id of ['L12', 'L28']) {
+    const d = question(15, id).detail;
+    assert.match(d.sql, /strftime\('%Y', month\)/);
+    assert.equal(d.ledgers[0].got.length, 1);
+    assert.equal(d.ledgers[0].got[0].label, null);
+  }
 });
 
 test('each failure the page names is in the data as described', () => {
@@ -161,14 +198,13 @@ test('retired models keep their stored runs but are not offered for new runs', (
   assert.match(page, /Cloudflare's retirement date for this model is 20 November 2026/);
 });
 
-test('the page no longer says that no model was scored, and My take is still empty', () => {
+test('the page no longer says that no model was scored, and its data date is the latest run', () => {
   assert.doesNotMatch(page, /No model has written SQL/i);
   assert.doesNotMatch(page, /No language model has been scored/i);
   assert.doesNotMatch(page, /has not been deployed or called/i);
   assert.doesNotMatch(page, /Neurons used per question have not been measured/i);
   assert.doesNotMatch(page, /model-scorecard-box/);
-  assert.doesNotMatch(page, /^## My take/m);
-  assert.match(page, /^dataFreshness: 2026-11-03$/m);
+  assert.match(page, /^dataFreshness: 2026-11-14$/m);
 });
 
 test('the page links to the data folder, and states what the numbers are not', () => {
