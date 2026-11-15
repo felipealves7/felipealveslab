@@ -14,7 +14,7 @@
 }
 
 .portrait-panel{
-  background-image:linear-gradient(180deg,rgba(24,24,20,.01),rgba(24,24,20,.62)),url('/assets/felipe.jpg'),radial-gradient(circle at 65% 25%,#8b8c77 0,#656953 22%,#34352e 56%,#1c1d19 100%);
+  background-image:linear-gradient(180deg,rgba(24,24,20,.01),rgba(24,24,20,.62)),url('/assets/felipe.webp'),radial-gradient(circle at 65% 25%,#8b8c77 0,#656953 22%,#34352e 56%,#1c1d19 100%);
   box-shadow:0 28px 78px rgba(29,28,24,.13);
 }
 .case-card{box-shadow:0 14px 38px rgba(30,29,25,.065)}

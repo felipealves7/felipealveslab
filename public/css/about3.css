@@ -21,7 +21,7 @@
 .a3-play:hover{transform:translate(-50%,-52%);background:var(--cream)}
 .a3-play[hidden]{display:none}
 .a3-video-figure figcaption{display:flex;justify-content:space-between;gap:20px;align-items:center;padding:15px 2px 0}
-.a3-video-figure figcaption>span{font-size:10px;line-height:1.5;color:rgba(26,26,23,.49)}
+.a3-video-figure figcaption>span{font-size:10px;line-height:1.5;color:rgba(26,26,23,.66)}
 .a3-sound{appearance:none;border:0;border-bottom:1px solid rgba(26,26,23,.24);background:transparent;color:var(--olive2);font:700 9px/1 var(--sans);text-transform:uppercase;letter-spacing:.13em;padding:6px 0;cursor:pointer}
 
 .a3-work{padding:106px 0 112px;border-top:1px solid var(--line)}
@@ -67,7 +67,7 @@
 .a3-after-photo img{display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;object-position:center 42%}
 .a3-after-photo figcaption{padding:16px 17px 19px;border-top:1px solid rgba(26,26,23,.08)}
 .a3-after-photo figcaption strong{display:block;font-family:var(--serif);font-size:21px;line-height:1.08;font-weight:400;margin-bottom:6px}
-.a3-after-photo figcaption span{display:block;font-size:10px;line-height:1.5;color:rgba(26,26,23,.52)}
+.a3-after-photo figcaption span{display:block;font-size:10px;line-height:1.5;color:rgba(26,26,23,.66)}
 
 .a3-coda{margin-top:12px;margin-bottom:78px;padding:76px 80px;background:var(--olive2);color:var(--cream);border-radius:8px}
 .a3-coda .eyebrow{color:#d3d8c7}

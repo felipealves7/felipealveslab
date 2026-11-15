@@ -10,7 +10,7 @@ const anchor = (hash: string) => (home === '/' ? `/${hash}` : `${home}${hash}`);
 const here = (name: string) => (current === name ? 'page' : undefined);
 ---
 <header class="site-header">
-  <a class="brand" href={home} aria-label="Felipe Alves home"><span class="brand-mark">FA</span><span class="brand-name">Felipe Alves</span></a>
+  <a class="brand" href={home}><span class="brand-mark">FA</span><span class="brand-name">Felipe Alves</span></a>
   <nav aria-label="Primary navigation">
     <a href={anchor('#work')}>Work</a>
     <a href="/milestones" aria-current={here('milestones')}>Milestones</a>
