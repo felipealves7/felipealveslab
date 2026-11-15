@@ -20,13 +20,14 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 const d = entry.data;
 const fmt = (date: Date) => date.toISOString().slice(0, 10);
-const DEMOS: Record<string, string> = { 'ask-the-ledger': '/js/ledger-demo.js' };
+const DEMOS: Record<string, string> = { 'ask-the-ledger': '/js/ledger-demo.js', 'brazil-power-price-contract': '/js/pld-explorer.js' };
 const demoScript = DEMOS[entry.id];
 const extraScript = entry.id === 'ask-the-ledger' ? '/js/ledger-live.js' : undefined;
 const isAirport = entry.id === 'airport-data-contract';
 const isLedger = entry.id === 'ask-the-ledger';
 const isAviation = entry.id === 'aviation-reliability';
-const css = ['styles', 'responsive', 'enhancements', 'site-fixes', 'illustrations', 'lab', ...(isAirport ? ['lab-airport'] : []), 'lab-proof', ...(isAviation ? ['lab-aviation'] : [])];
+const isPld = entry.id === 'brazil-power-price-contract';
+const css = ['styles', 'responsive', 'enhancements', 'site-fixes', 'illustrations', 'lab', ...(isAirport ? ['lab-airport'] : []), 'lab-proof', ...(isAviation ? ['lab-aviation'] : []), ...(isPld ? ['lab-pld'] : [])];
 ---
 <Base
   title={`${d.title} — Felipe Alves Lab`}

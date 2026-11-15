@@ -11,6 +11,10 @@ Synthetic ledger, a small semantic layer, a keyword translator, a hand-written t
 
 Reads three public OurAirports tables, checks them against a written 19-check data contract and an upstream freshness limit, and appends one run to `data/airport-contract/results.json`. Run `node pipelines/airport-contract/run.mjs` (needs network). Tests: `node --test pipelines/airport-contract/contract.test.mjs`.
 
+## ccee-pld
+
+Checks CCEE's hourly PLD files in `data/ccee-pld-horario/` against a written 13-check data contract, saves a snapshot with a fingerprint per month, compares it with the previous snapshot to find restated or missing values, and writes `data/ccee-pld/results.json` for `/lab/brazil-power-price-contract`. No network: CCEE refuses automated downloads, so a refresh is a manual download, then `node pipelines/ccee-pld/run.mjs --retrieved YYYY-MM-DD`. Tests: `node --test pipelines/ccee-pld/pld.test.mjs`.
+
 ## ledger-api
 
 Cloudflare Worker for the live box on Ask the Ledger: origin check, daily caps, model call, SQL validator, D1. Also the D1 `schema.sql` and `seed.sql`, a scorer for model-written SQL, and the recorded example session. Regenerate the SQL with `node pipelines/ledger-api/build-sql.mjs`. Tests: `node --test pipelines/ledger-api/ledger-api.test.mjs`. Setup for Felipe: run `schema.sql` then `seed.sql` in the D1 console, put the real D1 and KV ids in `wrangler.toml`, deploy the Worker, then set `data-api` on the `ledger-live` box in `src/content/lab/ask-the-ledger.md`.
