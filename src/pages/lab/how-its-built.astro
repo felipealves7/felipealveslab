@@ -16,7 +16,6 @@ const contractRules = airport.runs[airport.runs.length - 1].checks.length;
 const pageRuns = benchmark.runs.filter((r) => r.suite === 'legacy47');
 const bestRight = Math.max(...pageRuns.map((r) => r.rightOnAllFour));
 const bestTotal = pageRuns[0].questions;
-const scoredRuns = benchmark.runs.length;
 ---
 <Base
   title="How the Lab is built — Felipe Alves Lab"
@@ -141,7 +140,7 @@ const scoredRuns = benchmark.runs.length;
         <article class="method-evidence-card">
           <div class="method-card-top"><span>Conversational BI</span><span>Benchmark run</span></div>
           <h3>Ask the Ledger</h3>
-          <p>The best of {scoredRuns} scored model runs answered <strong>{bestRight} of {bestTotal}</strong> questions right on all four synthetic ledgers. Adversarial testing found two queries that got past the live box's SQL check, one returning every row and one that never stops; <a href={pr(30)} target="_blank" rel="noreferrer">PR #30 ↗</a> closed both. <a href={pr(31)} target="_blank" rel="noreferrer">PR #31 ↗</a> made the benchmark a repeatable run.</p>
+          <p>The best of {pageRuns.length} model runs on the {bestTotal} page questions answered <strong>{bestRight} of {bestTotal}</strong> right on all four synthetic ledgers. Adversarial testing found two queries that got past the live box's SQL check, one returning every row and one that never stops; <a href={pr(30)} target="_blank" rel="noreferrer">PR #30 ↗</a> closed both. <a href={pr(31)} target="_blank" rel="noreferrer">PR #31 ↗</a> made the benchmark a repeatable run.</p>
           <p class="method-card-limit"><strong>Shows:</strong> conversational BI, model evaluation and SQL guardrails.</p>
           <div class="method-card-links"><a href="/lab/ask-the-ledger" aria-label="Open the Ask the Ledger exhibit">Open exhibit</a><a href={pr(30)} target="_blank" rel="noreferrer">Validator fix ↗</a><a href={pr(31)} target="_blank" rel="noreferrer">Benchmark run ↗</a></div>
         </article>
