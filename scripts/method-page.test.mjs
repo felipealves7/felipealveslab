@@ -26,7 +26,7 @@ test('the Lab hub and the footer link to it, and every internal reference resolv
 
 test('the footer keeps its existing links', () => {
   const footer = read('src/components/SiteFooter.astro');
-  assert.match(footer, /mailto:felipe\.s\.alves7@gmail\.com/);
+  assert.match(footer, /mailto:hello@felipealveslab\.com/);
   assert.match(footer, /href="\/behind-the-scenes"/);
   assert.match(footer, /linkedin\.com\/in\/felipealves7/);
 });
