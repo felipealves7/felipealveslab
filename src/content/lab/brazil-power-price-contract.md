@@ -11,7 +11,7 @@ dataFreshness: 2026-11-14
 synthetic: false
 limits: "One snapshot so far, so no restatement has been looked for yet. Refreshes are manual downloads because CCEE refuses automated ones. It checks shape, completeness and ranges, not whether a price is right. Plain Node, not dlt, dbt and DuckDB."
 runningCost: "US$0 a month. No scheduled job and no live service; the page reads one saved file from this site."
-builtBy: "https://github.com/felipealves7/felipealveslab/pull/0"
+builtBy: "https://github.com/felipealves7/felipealveslab/pull/49"
 published: 2026-11-15
 ---
 
@@ -92,7 +92,7 @@ The chart and the yearly table use the plain mean of each day's 24 hourly prices
 
 ## How it was built
 
-- Pull request: https://github.com/felipealves7/felipealveslab/pull/0
+- Pull request: https://github.com/felipealves7/felipealveslab/pull/49
 - Code: `pipelines/ccee-pld/` and `public/js/pld-explorer.js`. Saved runs and figures: `data/ccee-pld/`. Raw files: `data/ccee-pld-horario/`. Tests: `pipelines/ccee-pld/pld.test.mjs` and `scripts/pld-page.test.mjs`.
 
 Data: Câmara de Comercialização de Energia Elétrica (CCEE), PLD_HORARIO, [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Daily means and yearly figures computed by this Lab.
