@@ -38,8 +38,9 @@ rule 6). The steps below apply, except the Lab page and data parts of step 4.
    - pipeline or analysis code in `pipelines/` with tests next to it;
    - data or cached output in `data/` with a `README` stating source, licence, retrieval date
      and whether it is synthetic;
-   - the page at `src/content/lab/<slug>.md`, following the schema, with exactly the five required
-     sections, in order;
+   - the page at `src/content/lab/<slug>.md`, following the schema, with exactly the required
+     sections for its series, in order (`CLAUDE.md`); on a Human Variable page, leave The
+     Provocation and The Return for Felipe to write;
    - cached outputs so the page works with no live services. Any live feature needs a daily
      cost cap and a cached fallback.
 5. Run the tests and the site build (`npm run build`, `npm test`). Fix failures. If you cannot
