@@ -23,6 +23,7 @@ body:
         - data engineering
         - conversational BI and evaluation
         - wildcard
+        - The Human Variable
     validations:
       required: true
   - type: dropdown

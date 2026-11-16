@@ -58,7 +58,7 @@ Nothing reaches the live site unless Felipe merges it.
 
 | Agent | Starts when | Output | Never |
 | --- | --- | --- | --- |
-| Scout | Weekly, Monday | Up to three proposal issues, ranked | Writes code |
+| Scout | Monthly: the first Monday on or after the 15th | One brief for next month's lab, and a status comment on this month's | Writes code |
 | Builder | Felipe labels a proposal or a `maintenance` issue `go` | One pull request on a `claude/` branch | Merges |
 | Critic | A pull request opens from a `claude/` branch | One review comment; label `blocked` only for a problem a person must fix (see `critic.md`) | Edits code |
 | Keeper | Weekly, Thursday | Small fix pull requests, or one `maintenance` issue | Changes published conclusions |
@@ -91,6 +91,20 @@ these exact headings in this order:
 Pages use exactly these five sections, with `###` headings inside them. Never write opinions,
 judgements or personal reflections in Felipe's name; he writes those himself.
 
+**The Human Variable.** Pages in this series (front matter `series: human-variable`) use these
+headings instead, in this order:
+
+1. `## The Provocation`: written by Felipe
+2. `## What We Know`: what the research found, where studies disagree, and their limits
+3. `## The Experiment`: the live piece, the method and the results with full scores
+4. `## What Surprised Me`: misses, failed hypotheses and the limits of the method
+5. `## The Return`: written by Felipe
+6. `## How it was built`: the link to the pull request and the running cost (rule 8 applies)
+
+Human Variable labs may use Felipe's own self-tracking data, shown only as aggregates (categories
+and numbers), never as the content of entries. The schema and `scripts/check-content.mjs` gain
+this variant with the first Human Variable lab.
+
 Front matter must state `type` (`production-like demo`, `research study` or `experiment`), the data
 source, its licence, its freshness date, and whether the data is synthetic. Synthetic data is
 labelled as synthetic wherever it appears.
@@ -113,6 +127,8 @@ British or American spelling is fine; be consistent within a page.
 ## Budget and cadence
 
 Free tiers first. Anything paid states its monthly cost and has a hard cap.
-The Scout adds nothing new while five proposals wait for Felipe's decision (open, labelled
-`proposal`, without `go`). Felipe's `go` sets the pace: an approved issue is built when approved.
+One new lab a month on alternating tracks: The Human Variable in even months, a career lab in odd
+months (`tracks` and `calendar` in `interests.yml`). A lab ships by the last day of its month; when
+it runs late, cut scope and keep the date. The next lab starts after the current one ships.
+Felipe's `go` starts each lab, and `maintenance` issues are built when approved.
 Prefer established, well-documented tools unless a newer one is the point of the experiment.

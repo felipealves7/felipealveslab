@@ -4,13 +4,88 @@ purpose: >
   A public Data & AI Lab that shows data, product and transformation judgement through working
   data engineering, evaluation and newer tooling. Credibility over volume.
 
-lanes:               # target mix of accepted projects over time
+tracks:              # one new lab a month, alternating
+  human_variable: even months (December, February, April, June, August, October)
+  career: odd months (January, March, May, July, September, November)
+
+lanes:               # target mix of accepted career labs over time
   data_engineering: 50
   conversational_bi_and_evaluation: 25
   wildcard: 25
 
 cadence:
-  max_open_proposals: 5     # Scout stays quiet while this many wait for a decision (open, no go label)
+  new_labs_per_month: 1
+  brief: first Monday on or after the 15th, for next month's lab
+  ship_by: last day of the month; cut scope, keep the date
+  next_lab_starts: after the current lab ships
+
+human_variable:          # the psychology series, in even months
+  name: The Human Variable
+  about: questions about human experience, tested with real data and stated limits
+  felipe_writes: [The Provocation, The Return]
+  themes:
+    - attention and mind-wandering
+    - motivation, goal pursuit and finishing
+    - decisions under uncertainty, confidence and calibration
+    - curiosity and how people explore information
+    - flow (Csikszentmihalyi)
+    - self-determination theory
+    - regret and counterfactual thinking
+    - meaning and finitude (Kierkegaard, Camus, Viktor Frankl)
+    - Stoicism (Epictetus), Aristotle and Martin Buber
+    - beginner's mind
+
+calendar:                # one entry per month; the Scout briefs each entry as written
+  - month: 2026-12
+    track: human_variable
+    question: "Where does my attention go?"
+    notes: >
+      Random phone pings for about three weeks from 1 December: what Felipe is doing, whether his
+      mind is on it, in the past or in the future, which project it is on, and his mood from 0 to
+      100. Compared with priorities he writes down before the first ping and with measured usage
+      from his phone or laptop (check what can be exported). Method: experience sampling
+      (Csikszentmihalyi and Larson). Benchmark: Killingsworth and Gilbert, Science 2010, mind
+      wandering in 46.9% of samples. Self-report cannot see all of attention, so the gaps between
+      stated, reported and measured attention are the finding. Candidate build: a Cloudflare
+      Worker that sends random pings and stores answers in D1. Includes the Human Variable page
+      variant in the schema and the content check.
+  - month: 2027-01
+    track: career
+    lane: data_engineering
+    question: "What does the on-time metric hide?"
+    notes: >
+      Do airlines lengthen scheduled flight times so that more flights count as on time? Extends
+      /lab/aviation-reliability with scheduled against actual elapsed time and air time from the
+      US BTS on-time data, over a longer history. Human question: Goodhart's law, how a target
+      changes behaviour.
+  - month: 2027-02
+    track: human_variable
+    question: "The finisher's curve: do projects stall in the middle?"
+    notes: >
+      How many new public GitHub repositories are still active after 30, 90 and 180 days, and does
+      activity sag halfway (Bonezzi, Brendl and De Angelis, Psychological Science 2011)? Data: GH
+      Archive on BigQuery, with query cost kept inside the free tier and shown on the page.
+  - month: 2027-03
+    track: career
+    lane: conversational_bi_and_evaluation
+    question: "How much should I know before I decide?"
+    notes: >
+      Add information to a forecast step by step and chart accuracy against stated confidence
+      (Tsai, Klayman and Hastie 2008). Public finance or aviation data; calibration and proper
+      scoring rules.
+  - month: 2027-04
+    track: human_variable
+    question: "Hunter or busybody?"
+    notes: >
+      Curiosity styles as knowledge networks (Lydon-Staley, Zhou, Blevins, Zurn and Bassett, Nature
+      Human Behaviour 2021). Felipe's own browsing, scored privately; only network measures are
+      published.
+  - month: 2027-05
+    track: career
+    lane: conversational_bi_and_evaluation
+    question: "Ask the Ledger v2: does the model know when it doesn't know?"
+    notes: >
+      Calibrated declines and stated confidence on the existing Ask the Ledger benchmark.
 
 domains_i_know:          # use these as the lens for choosing data and questions
   - finance data analytics at a large airline and travel group
@@ -36,7 +111,7 @@ data_rules:
   must_state: source URL, licence, update cadence, freshness date
   avoid:
     - anything from or resembling employer systems
-    - personal data of any kind
+    - personal data of any kind, except Felipe's own self-tracking data on Human Variable labs, published only as aggregates (categories and numbers), never as the content of entries
     - sources whose licence you could not open and read
   first_choice_pipeline: Dubai Land Department property transactions (Dubai Pulse), if the licence and access check out
   fallback_pipeline: US Bureau of Transportation Statistics on-time performance data
