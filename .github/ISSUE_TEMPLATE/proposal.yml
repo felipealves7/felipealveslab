@@ -1,5 +1,5 @@
 name: Lab proposal
-description: A ranked project proposal for the Data & AI Lab (normally opened by the Scout)
+description: "A monthly lab brief for the Data & AI Lab, normally opened by the Scout. Title format: Monthly lab · <Month YYYY> · <Career or The Human Variable> · <the question>"
 labels: ["proposal"]
 body:
   - type: input

@@ -44,9 +44,12 @@ calendar:                # one entry per month; the Scout briefs each entry as w
       mind is on it, in the past or in the future, which project it is on, and his mood from 0 to
       100. Compared with priorities he writes down before the first ping and with measured usage
       from his phone or laptop (check what can be exported). Method: experience sampling
-      (Csikszentmihalyi and Larson). Benchmark: Killingsworth and Gilbert, Science 2010, mind
-      wandering in 46.9% of samples. Self-report cannot see all of attention, so the gaps between
-      stated, reported and measured attention are the finding. Candidate build: a Cloudflare
+      (Csikszentmihalyi and Larson). Benchmark: Killingsworth and Gilbert, Science 2010, minds
+      wandering 46.9% of the time across 2,250 volunteers (opened 16 November 2026:
+      https://news.harvard.edu/gazette/story/2010/11/wandering-mind-not-a-happy-mind/; the Scout
+      re-opens it before the figure reaches a page). Self-report cannot see all of attention, so
+      the gaps between stated, reported and measured attention are the finding. Candidate build:
+      a Cloudflare
       Worker that sends random pings and stores answers in D1. Includes the Human Variable page
       variant in the schema and the content check.
   - month: 2027-01
