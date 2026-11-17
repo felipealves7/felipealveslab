@@ -36,7 +36,9 @@ const isAirport = entry.id === 'airport-data-contract';
 const isLedger = entry.id === 'ask-the-ledger';
 const isAviation = entry.id === 'aviation-reliability';
 const isPld = entry.id === 'brazil-power-price-contract';
-const css = ['styles', 'responsive', 'enhancements', 'site-fixes', 'illustrations', 'lab', ...(isAirport ? ['lab-airport'] : []), 'lab-proof', ...(isAirport || isLedger || isPld ? ['lab-charts'] : []), ...(isAviation ? ['lab-aviation'] : []), ...(isPld ? ['lab-pld'] : [])];
+const isDst = entry.id === 'spring-clock-change-road-deaths';
+const label = d.series === 'human-variable' ? 'The Human Variable' : d.lane;
+const css = ['styles', 'responsive', 'enhancements', 'site-fixes', 'illustrations', 'lab', ...(isAirport ? ['lab-airport'] : []), 'lab-proof', ...(isAirport || isLedger || isPld ? ['lab-charts'] : []), ...(isAviation ? ['lab-aviation'] : []), ...(isPld ? ['lab-pld'] : []), ...(isDst ? ['lab-dst'] : [])];
 ---
 <Base
   title={`${d.title} — Felipe Alves Lab`}
