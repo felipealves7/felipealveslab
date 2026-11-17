@@ -1,0 +1,61 @@
+# stack-radar.yml: the tools and approaches the Lab uses, trials and avoids.
+# adopt: the default. trial: use in the next lab it fits. assess: watch, test small. hold: avoid for now.
+# The Builder adds what each lab used, with its pull request as evidence. The Scout proposes ring
+# moves each quarter (interests.yml cadence.stack_review); Felipe approves them with the brief's go.
+reviewed: 2026-11-17
+
+adopt:
+  - name: Astro
+    area: site
+    evidence: every page of felipealveslab.com
+  - name: Cloudflare Pages, Workers and D1
+    area: hosting and live Q&A with a daily cap
+    evidence: /lab/ask-the-ledger
+  - name: Workers AI with Qwen models
+    area: conversational BI
+    evidence: Ask the Ledger benchmark, PR #46
+  - name: Build-time SVG charts in Astro components
+    area: visuals
+    evidence: /lab/aviation-reliability
+  - name: DuckDB and dbt-core
+    area: transformation and tests
+    evidence: /lab/aviation-reliability
+  - name: GitHub Actions and the Node test runner
+    area: CI, benchmarks and tests
+    evidence: every pull request; the ledger-benchmark workflow
+  - name: Tableau Public
+    area: companion dashboard
+    evidence: BTS Flight Reliability dashboard
+  - name: Kaggle notebooks and datasets
+    area: companion analysis
+    evidence: aviation reliability notebook and dataset
+
+trial:
+  - name: Parquet files on Cloudflare R2
+    area: storage for joined datasets
+  - name: DuckDB-WASM
+    area: in-browser SQL explorer over a lab's joined data, loaded on demand
+  - name: Observable Plot
+    area: one chart library for build-time SVG
+  - name: BigQuery public datasets
+    area: large public sources, for example GH Archive and NOAA weather
+
+assess:
+  - name: Mosaic
+    area: linked interactive views over DuckDB
+  - name: Evidence
+    area: BI as code, SQL and Markdown pages
+  - name: DuckLake
+    area: lakehouse tables on DuckDB
+  - name: dlt
+    area: ingestion
+  - name: rfars
+    area: FARS download and harmonisation (an R package)
+  - name: Claude Haiku for Ask panels
+    area: conversational BI; cost measured in PR #46, accuracy not yet
+
+hold:
+  - name: A chart that needs JavaScript as a page's only visual
+    area: visuals
+  - name: Tableau embeds on phones
+    area: visuals
