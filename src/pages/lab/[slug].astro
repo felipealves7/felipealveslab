@@ -27,7 +27,9 @@ const isAirport = entry.id === 'airport-data-contract';
 const isLedger = entry.id === 'ask-the-ledger';
 const isAviation = entry.id === 'aviation-reliability';
 const isPld = entry.id === 'brazil-power-price-contract';
-const css = ['styles', 'responsive', 'enhancements', 'site-fixes', 'illustrations', 'lab', ...(isAirport ? ['lab-airport'] : []), 'lab-proof', ...(isAviation ? ['lab-aviation'] : []), ...(isPld ? ['lab-pld'] : [])];
+const isDst = entry.id === 'spring-clock-change-road-deaths';
+const label = d.series === 'human-variable' ? 'The Human Variable' : d.lane;
+const css = ['styles', 'responsive', 'enhancements', 'site-fixes', 'illustrations', 'lab', ...(isAirport ? ['lab-airport'] : []), 'lab-proof', ...(isAviation ? ['lab-aviation'] : []), ...(isPld ? ['lab-pld'] : []), ...(isDst ? ['lab-dst'] : [])];
 ---
 <Base
   title={`${d.title} — Felipe Alves Lab`}
@@ -47,7 +49,7 @@ const css = ['styles', 'responsive', 'enhancements', 'site-fixes', 'illustration
     ) : (
       <section class="case-hero section-shell reveal">
         <div>
-          <span class="eyebrow">Lab exhibit · {d.lane}</span>
+          <span class="eyebrow">Lab exhibit · {label}</span>
           <h1>{d.title}</h1>
           <p>{d.question}</p>
           <span class="lab-provenance">In source · recorded evidence</span>

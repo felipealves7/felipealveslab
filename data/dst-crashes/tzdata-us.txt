@@ -1,0 +1,77 @@
+# Extract of the IANA Time Zone Database, release 2026f, file northamerica,
+# https://data.iana.org/time-zones/tzdb/northamerica, downloaded 2026-11-17. Public domain
+# (https://data.iana.org/time-zones/tzdb/LICENSE). Only the lines this pipeline reads are kept,
+# unchanged: the US rules and the zones assigned to states in pipelines/dst-crashes/states.mjs.
+Rule	US	1918	1919	-	Mar	lastSun	2:00	1:00	D
+Rule	US	1918	1919	-	Oct	lastSun	2:00	0	S
+Rule	US	1942	only	-	Feb	9	2:00	1:00	W # War
+Rule	US	1945	only	-	Aug	14	23:00u	1:00	P # Peace
+Rule	US	1945	only	-	Sep	30	2:00	0	S
+Rule	US	1967	2006	-	Oct	lastSun	2:00	0	S
+Rule	US	1967	1973	-	Apr	lastSun	2:00	1:00	D
+Rule	US	1974	only	-	Jan	6	2:00	1:00	D
+Rule	US	1975	only	-	Feb	lastSun	2:00	1:00	D
+Rule	US	1976	1986	-	Apr	lastSun	2:00	1:00	D
+Rule	US	1987	2006	-	Apr	Sun>=1	2:00	1:00	D
+Rule	US	2007	max	-	Mar	Sun>=8	2:00	1:00	D
+Rule	US	2007	max	-	Nov	Sun>=1	2:00	0	S
+Zone America/New_York	-4:56:02 -	LMT	1883 Nov 18 17:00u
+			-5:00	US	E%sT	1920
+			-5:00	NYC	E%sT	1942
+			-5:00	US	E%sT	1946
+			-5:00	NYC	E%sT	1967
+			-5:00	US	E%sT
+Zone America/Chicago	-5:50:36 -	LMT	1883 Nov 18 18:00u
+			-6:00	US	C%sT	1920
+			-6:00	Chicago	C%sT	1936 Mar  1  2:00
+			-5:00	-	EST	1936 Nov 15  2:00
+			-6:00	Chicago	C%sT	1942
+			-6:00	US	C%sT	1946
+			-6:00	Chicago	C%sT	1967
+			-6:00	US	C%sT
+Zone America/Denver	-6:59:56 -	LMT	1883 Nov 18 19:00u
+			-7:00	US	M%sT	1920
+			-7:00	Denver	M%sT	1942
+			-7:00	US	M%sT	1946
+			-7:00	Denver	M%sT	1967
+			-7:00	US	M%sT
+Zone America/Los_Angeles -7:52:58 -	LMT	1883 Nov 18 20:00u
+			-8:00	US	P%sT	1946
+			-8:00	CA	P%sT	1967
+			-8:00	US	P%sT
+Zone America/Anchorage	 14:00:24 -	LMT	1867 Oct 19  0:31:13u
+			 -9:59:36 -	LMT	1900 Aug 20 12:00
+			-10:00	-	AST	1942
+			-10:00	US	A%sT	1967 Apr
+			-10:00	-	AHST	1969
+			-10:00	US	AH%sT	1983 Oct 30  2:00
+			 -9:00	US	Y%sT	1983 Nov 30
+			 -9:00	US	AK%sT
+Zone America/Phoenix	-7:28:18 -	LMT	1883 Nov 18 19:00u
+			-7:00	US	M%sT	1944 Jan  1  0:01
+			-7:00	-	MST	1944 Apr  1  0:01
+			-7:00	US	M%sT	1944 Oct  1  0:01
+			-7:00	-	MST	1967
+			-7:00	US	M%sT	1968 Mar 21
+			-7:00	-	MST
+Zone Pacific/Honolulu	-10:31:26 -	LMT	1896 Jan 13 12:00
+			-10:30	-	HST	1933 Apr 30  2:00
+			-10:30	1:00	HDT	1933 May 21 12:00
+			-10:30	US	H%sT	1947 Jun  8  2:00
+			-10:00	-	HST
+Zone America/Indiana/Indianapolis -5:44:38 - LMT 1883 Nov 18 18:00u
+			-6:00	US	C%sT	1920
+			-6:00 Indianapolis C%sT	1942
+			-6:00	US	C%sT	1946
+			-6:00 Indianapolis C%sT	1955 Apr 24  2:00
+			-5:00	-	EST	1957 Sep 29  2:00
+			-6:00	-	CST	1958 Apr 27  2:00
+			-5:00	-	EST	1969
+			-5:00	US	E%sT	1971
+			-5:00	-	EST	2006
+			-5:00	US	E%sT
+Zone America/Boise	-7:44:49 -	LMT	1883 Nov 18 20:00u
+			-8:00	US	P%sT	1923 May 13  2:00
+			-7:00	US	M%sT	1974
+			-7:00	-	MST	1974 Feb  3  2:00
+			-7:00	US	M%sT
