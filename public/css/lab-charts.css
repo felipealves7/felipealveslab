@@ -1,0 +1,32 @@
+/* Build-time SVG charts inside Lab page sections (src/lib/lab/svg-charts.mjs). Site tokens from legacy.css.
+   One data colour per chart (--olive2 lines and bars); check states use olive, hatched olive-dark and ink,
+   each named in the legend and in the table view, so colour is never the only cue. */
+.lab-svg-figure { margin: 22px 0 26px; max-width: 720px; }
+.lab-svg-caption { display: grid; gap: 2px; margin: 0 0 8px; }
+.lab-svg-caption strong { font-size: 15px; }
+.lab-svg-caption span { font-size: 12px; line-height: 1.45; color: rgba(26,26,23,.66); }
+.lab-svg { display: block; width: 100%; height: auto; background: var(--cream); border: 1px solid var(--line); border-radius: 8px; font-family: var(--sans); }
+.lab-svg text { font-size: 11px; fill: rgba(26,26,23,.66); }
+.lab-svg .lab-svg-axis { font-size: 10.5px; letter-spacing: .02em; }
+.lab-svg .lab-svg-panel-title, .lab-svg .lab-svg-label { fill: var(--ink); font-weight: 650; font-size: 11.5px; }
+.lab-svg .lab-svg-muted { fill: rgba(26,26,23,.62); font-weight: 400; }
+.lab-svg .lab-svg-value, .lab-svg .lab-svg-legend { fill: var(--ink); font-weight: 650; font-variant-numeric: tabular-nums; }
+.lab-svg .lab-svg-note { font-size: 10.5px; }
+.lab-svg-grid line { stroke: rgba(26,26,23,.12); stroke-width: 1; }
+.lab-svg-grid .lab-svg-year { stroke: rgba(26,26,23,.07); }
+.lab-svg-line { fill: none; stroke: var(--olive2); stroke-width: 1.25; stroke-linejoin: round; }
+.lab-svg-track { fill: rgba(26,26,23,.06); }
+.lab-svg-bar { fill: var(--olive2); }
+.lab-svg-row:hover .lab-svg-bar { fill: var(--ink); }
+.lab-svg-cell--pass { fill: var(--olive); }
+.lab-svg-cell--tolerated { fill: url(#lab-svg-hatch); }
+.lab-svg-cell--fail { fill: var(--ink); }
+.lab-svg-hatch-bg { fill: var(--olive2); }
+.lab-svg-hatch-line { stroke: rgba(255,255,255,.6); stroke-width: 3; }
+.lab-svg-check { outline: none; }
+.lab-svg-check:focus-visible rect, .lab-svg-check:hover rect { stroke: var(--ink); stroke-width: 2; }
+.lab-svg-table { margin: 10px 0 0; }
+.lab-svg-table summary { cursor: pointer; font-size: 12px; font-weight: 700; color: var(--olive2); }
+.lab-prose .lab-svg-table table { font-size: 13px; margin: 8px 0; font-variant-numeric: tabular-nums; }
+.lab-prose .lab-svg-table p { font-size: 12px; margin: 0; color: rgba(26,26,23,.62); }
+.lab-prose .lab-svg-source { font-size: 12px; color: rgba(26,26,23,.62); margin: 6px 0 0; }

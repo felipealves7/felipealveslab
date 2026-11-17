@@ -1,5 +1,5 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import AirportHero from '../../components/AirportHero.astro';
 import AirportReplay from '../../components/AirportReplay.astro';
@@ -10,6 +10,10 @@ import AviationExplorer from '../../components/AviationExplorer.astro';
 import AviationDistribution from '../../components/AviationDistribution.astro';
 import AviationNotebook from '../../components/AviationNotebook.astro';
 import AviationElsewhere from '../../components/AviationElsewhere.astro';
+import pldResults from '../../../data/ccee-pld/results.json';
+import airportResults from '../../../data/airport-contract/results.json';
+import ledgerEvalResults from '../../../data/ledger-eval/results.json';
+import { fillLabCharts, pldChart, airportChart, ledgerChart } from '../../lib/lab/svg-charts.mjs';
 
 export async function getStaticPaths() {
   const entries = await getCollection('lab');
@@ -17,7 +21,12 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { Content } = await render(entry);
+// Build-time SVG charts replace their markers in the rendered Markdown, so they sit inside the page's sections.
+const body = fillLabCharts(entry.rendered?.html ?? '', {
+  pld: () => pldChart(pldResults),
+  airport: () => airportChart(airportResults),
+  ledger: () => ledgerChart(ledgerEvalResults),
+});
 const d = entry.data;
 const fmt = (date: Date) => date.toISOString().slice(0, 10);
 const DEMOS: Record<string, string> = { 'ask-the-ledger': '/js/ledger-demo.js', 'brazil-power-price-contract': '/js/pld-explorer.js' };
@@ -27,9 +36,7 @@ const isAirport = entry.id === 'airport-data-contract';
 const isLedger = entry.id === 'ask-the-ledger';
 const isAviation = entry.id === 'aviation-reliability';
 const isPld = entry.id === 'brazil-power-price-contract';
-const isDst = entry.id === 'spring-clock-change-road-deaths';
-const label = d.series === 'human-variable' ? 'The Human Variable' : d.lane;
-const css = ['styles', 'responsive', 'enhancements', 'site-fixes', 'illustrations', 'lab', ...(isAirport ? ['lab-airport'] : []), 'lab-proof', ...(isAviation ? ['lab-aviation'] : []), ...(isPld ? ['lab-pld'] : []), ...(isDst ? ['lab-dst'] : [])];
+const css = ['styles', 'responsive', 'enhancements', 'site-fixes', 'illustrations', 'lab', ...(isAirport ? ['lab-airport'] : []), 'lab-proof', ...(isAirport || isLedger || isPld ? ['lab-charts'] : []), ...(isAviation ? ['lab-aviation'] : []), ...(isPld ? ['lab-pld'] : [])];
 ---
 <Base
   title={`${d.title} — Felipe Alves Lab`}
@@ -74,7 +81,7 @@ const css = ['styles', 'responsive', 'enhancements', 'site-fixes', 'illustration
     {isAviation && <AviationElsewhere />}
     {isAviation && <div class="section-shell"><AviationNotebook /></div>}
     <section class="section-shell lab-body">
-      <div class="lab-prose"><Content /></div>
+      <div class="lab-prose"><Fragment set:html={body} /></div>
     </section>
   </main>
   {isAirport && <AirportReplay />}

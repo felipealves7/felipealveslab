@@ -23,6 +23,8 @@ Can a small pipeline load Brazil's hourly power spot price (PLD), enforce a writ
 
 Pick a saved run to see its 13 checks, and a period to see the daily price in each of the four submarkets. Everything below is read from `data/ccee-pld/results.json`, saved with the page. Nothing is fetched from CCEE.
 
+<div data-lab-chart="pld"></div>
+
 <div id="pld-explorer" class="pld-live" data-src="/data/ccee-pld/results.json"><p>The explorer needs JavaScript. The saved runs and figures are in <code>data/ccee-pld/results.json</code> and the code is in <code>pipelines/ccee-pld/</code>.</p></div>
 
 ## Method and results
