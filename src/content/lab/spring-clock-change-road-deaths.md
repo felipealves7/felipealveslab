@@ -11,7 +11,7 @@ dataFreshness: 2026-11-17
 synthetic: false
 limits: "Counts of fatal crashes only, by day, not exposure. 28 years pooled; a single year is too noisy to read. The comparison group is two small states. A placebo date also shows a rise after 2007. The season-long effect of evening light is not estimated yet."
 runningCost: "US$0 a month. A fixed snapshot: the page reads saved files. No scheduled job and no live service."
-builtBy: "https://github.com/felipealves7/felipealveslab/pulls?q=head%3Aclaude%2F54-spring-clock-road-deaths"
+builtBy: "https://github.com/felipealves7/felipealveslab/pull/57"
 ---
 
 ## The Provocation
@@ -112,7 +112,7 @@ Felipe writes this section.
 
 ## How it was built
 
-- Pull request: [claude/54-spring-clock-road-deaths](https://github.com/felipealves7/felipealveslab/pulls?q=head%3Aclaude%2F54-spring-clock-road-deaths)
+- Pull request: https://github.com/felipealves7/felipealveslab/pull/57
 - Code: `pipelines/dst-crashes/`. Saved outputs: `data/dst-crashes/` (daily counts in the windows, the per-year load log, the results and the IANA rule extract). Tests: `pipelines/dst-crashes/dst.test.mjs` and `scripts/dst-page.test.mjs`.
 - Running cost: US$0 a month. A fixed snapshot, rebuilt by hand when NHTSA releases a new year.
 
