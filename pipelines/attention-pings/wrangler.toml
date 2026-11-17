@@ -1,0 +1,29 @@
+# Worker `attention-pings`: random experience-sampling pings for /lab/where-does-my-attention-go.
+# No secrets here. Felipe sets these as Worker secrets in Cloudflare (`npx wrangler secret put <NAME>`):
+#   PING_SECRET   signs each answer link
+#   NTFY_TOPIC    the ntfy.sh topic the phone subscribes to; on the free server the topic name is the password
+#   EXPORT_TOKEN  bearer token for GET /aggregates
+#   NTFY_TOKEN    optional ntfy access token
+name = "attention-pings"
+main = "worker.mjs"
+compatibility_date = "2026-11-01"
+
+[vars]
+BASE_URL = "https://attention-pings.REPLACE.workers.dev" # the Worker's own address, used in answer links
+START_DATE = "2026-12-01"       # first local day with pings
+END_DATE = "2026-12-22"         # last local day with pings
+TZ_OFFSET_MINUTES = "240"       # local time = UTC + this; 240 is UTC+4, no daylight saving
+WINDOW_START_HOUR = "9"         # pings fall between these local hours
+WINDOW_END_HOUR = "21"
+PINGS_PER_DAY = "6"
+MIN_GAP_MINUTES = "60"
+EXPIRE_MINUTES = "30"           # an answer is accepted up to this long after the ping is sent
+PROJECTS = ""                   # comma-separated, the same names as data/attention/priorities.json
+
+[triggers]
+crons = ["*/5 * * * *"]         # 288 runs a day: plans the day's pings and sends the ones that are due
+
+[[d1_databases]]
+binding = "DB"
+database_name = "attention"
+database_id = "REPLACE_WITH_D1_DATABASE_ID" # shown in the Cloudflare dashboard; an id, not a secret

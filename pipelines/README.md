@@ -11,6 +11,18 @@ Synthetic ledger, a small semantic layer, a keyword translator, a hand-written t
 
 Reads three public OurAirports tables, checks them against a written 19-check data contract and an upstream freshness limit, and appends one run to `data/airport-contract/results.json`. Run `node pipelines/airport-contract/run.mjs` (needs network). Tests: `node --test pipelines/airport-contract/contract.test.mjs`.
 
+## attention-pings
+
+Cloudflare Worker for `/lab/where-does-my-attention-go`: plans six random pings a day, sends each to ntfy.sh with a signed link, takes answers on a one-screen form (categories and a 0 to 100 mood, no free text) into D1, and returns aggregates only from `GET /aggregates`. `run.mjs` turns those aggregates and `data/attention/priorities.json` into `data/attention/results.json`. Tests: `node --test pipelines/attention-pings/attention.test.mjs`.
+
+### Deploying attention-pings (Felipe, in Cloudflare and on the phone)
+
+1. Create the D1 database `attention`, run `schema.sql` in its console, and put its id in `wrangler.toml`.
+2. Write the ranked projects to `data/attention/priorities.json` and the same names, comma-separated, to `PROJECTS` in `wrangler.toml`. Commit before 1 December 2026.
+3. Pick a long random ntfy topic name and subscribe to it in the ntfy phone app.
+4. `npx wrangler secret put` for `PING_SECRET`, `NTFY_TOPIC` and `EXPORT_TOKEN` (and `NTFY_TOKEN` if used), set `BASE_URL` to the Worker's address, then `npx wrangler deploy --config pipelines/attention-pings/wrangler.toml`. Not tested from this repository.
+5. To refresh the page: `ATTENTION_URL=<worker address> ATTENTION_TOKEN=<export token> node pipelines/attention-pings/run.mjs`.
+
 ## ccee-pld
 
 Checks CCEE's hourly PLD files in `data/ccee-pld-horario/` against a written 13-check data contract, saves a snapshot with a fingerprint per month, compares it with the previous snapshot to find restated or missing values, and writes `data/ccee-pld/results.json` for `/lab/brazil-power-price-contract`. No network: CCEE refuses automated downloads, so a refresh is a manual download, then `node pipelines/ccee-pld/run.mjs --retrieved YYYY-MM-DD`. Tests: `node --test pipelines/ccee-pld/pld.test.mjs`.

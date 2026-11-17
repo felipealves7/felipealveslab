@@ -10,6 +10,7 @@ import AviationExplorer from '../../components/AviationExplorer.astro';
 import AviationDistribution from '../../components/AviationDistribution.astro';
 import AviationNotebook from '../../components/AviationNotebook.astro';
 import AviationElsewhere from '../../components/AviationElsewhere.astro';
+import AttentionResults from '../../components/AttentionResults.astro';
 
 export async function getStaticPaths() {
   const entries = await getCollection('lab');
@@ -27,7 +28,9 @@ const isAirport = entry.id === 'airport-data-contract';
 const isLedger = entry.id === 'ask-the-ledger';
 const isAviation = entry.id === 'aviation-reliability';
 const isPld = entry.id === 'brazil-power-price-contract';
-const css = ['styles', 'responsive', 'enhancements', 'site-fixes', 'illustrations', 'lab', ...(isAirport ? ['lab-airport'] : []), 'lab-proof', ...(isAviation ? ['lab-aviation'] : []), ...(isPld ? ['lab-pld'] : [])];
+const isAttention = entry.id === 'where-does-my-attention-go';
+const label = d.series === 'human-variable' ? 'The Human Variable' : d.lane;
+const css = ['styles', 'responsive', 'enhancements', 'site-fixes', 'illustrations', 'lab', ...(isAirport ? ['lab-airport'] : []), 'lab-proof', ...(isAviation ? ['lab-aviation'] : []), ...(isPld ? ['lab-pld'] : []), ...(isAttention ? ['lab-attention'] : [])];
 ---
 <Base
   title={`${d.title} — Felipe Alves Lab`}
@@ -47,14 +50,14 @@ const css = ['styles', 'responsive', 'enhancements', 'site-fixes', 'illustration
     ) : (
       <section class="case-hero section-shell reveal">
         <div>
-          <span class="eyebrow">Lab exhibit · {d.lane}</span>
+          <span class="eyebrow">Lab exhibit · {label}</span>
           <h1>{d.title}</h1>
           <p>{d.question}</p>
           <span class="lab-provenance">In source · recorded evidence</span>
         </div>
         <div class="case-facts">
           <div><span>Type</span><strong>{d.type}</strong></div>
-          <div><span>Dataset</span><strong>{d.synthetic ? 'Synthetic' : 'Public'} · as recorded {fmt(d.dataFreshness)}</strong></div>
+          <div><span>Dataset</span><strong>{d.synthetic ? 'Synthetic' : d.series === 'human-variable' ? 'Own data, aggregates only' : 'Public'} · as recorded {fmt(d.dataFreshness)}</strong></div>
           <div><span>Licence</span><strong>{d.dataLicence}</strong></div>
           <div><span>Running cost</span><strong>{d.runningCost}</strong></div>
         </div>
@@ -71,6 +74,7 @@ const css = ['styles', 'responsive', 'enhancements', 'site-fixes', 'illustration
     {isAviation && <AviationDistribution />}
     {isAviation && <AviationElsewhere />}
     {isAviation && <div class="section-shell"><AviationNotebook /></div>}
+    {isAttention && <AttentionResults />}
     <section class="section-shell lab-body">
       <div class="lab-prose"><Content /></div>
     </section>

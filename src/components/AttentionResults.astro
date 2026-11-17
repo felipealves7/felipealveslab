@@ -1,0 +1,83 @@
+---
+// Live piece for /lab/where-does-my-attention-go. Reads only data/attention/results.json, which holds
+// aggregates (categories and counts) built by pipelines/attention-pings/run.mjs. Nothing is fetched.
+import results from '../../data/attention/results.json';
+
+interface Share { count: number; of: number; share: number | null; interval95: [number, number] | null }
+interface Row extends Share { name: string; statedRank: number; reportedRank: number | null }
+interface Block { block: string; sent: number; answered: number }
+const s = results.summary;
+const blocks = s.responseByBlock as unknown as Block[];
+const p = s.pings;
+const comparison = (results.comparison ?? null) as Row[] | null;
+const off = s.offTask as Share;
+const started = p.sent > 0;
+const pct = (x: number | null | undefined) => (x === null || x === undefined ? '–' : `${Math.round(x * 100)}%`);
+const range = (i: [number, number] | null) => (i ? `${pct(i[0])} to ${pct(i[1])}` : '–');
+const fmtDate = (iso: string) => new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
+const BENCHMARK = 0.469;
+const none = (s.projects as Share[] & { name: string }[]).find((x) => x.name === 'No project') as (Share & { name: string }) | undefined;
+---
+<section class="att section-shell" aria-labelledby="att-title">
+  <div class="att-head">
+    <span class="eyebrow">The Experiment · aggregates saved {fmtDate(results.generated)}</span>
+    <h2 id="att-title">{started ? `${p.answered} of ${p.sent} pings answered` : 'Collection has not started'}</h2>
+    <p class="att-note">
+      Collection runs {fmtDate(results.collection.start)} to {fmtDate(results.collection.end)}.
+      {started
+        ? ` ${p.sent} pings sent on ${p.days} days; ${p.missed} missed. ${p.sendFailed} failed to send and ${p.notSent} were not sent.`
+        : ' No ping has been sent, so every figure below is empty. The panel fills in from saved aggregates as the study runs.'}
+    </p>
+  </div>
+
+  <div class="att-grid">
+    <figure class="att-card">
+      <figcaption>Mind on something other than the activity</figcaption>
+      <p class="att-big">{off.of > 0 ? `${off.count} of ${off.of}` : '–'}</p>
+      <p class="att-note">Share {pct(off.share)}, 95% interval {range(off.interval95)}.</p>
+      <div class="att-scale" role="img" aria-label={`Off-task share ${pct(off.share)}, interval ${range(off.interval95)}; published benchmark 46.9%.`}>
+        {off.interval95 && <span class="att-band" style={`left:${off.interval95[0] * 100}%;width:${(off.interval95[1] - off.interval95[0]) * 100}%`}></span>}
+        {off.share !== null && <span class="att-dot" style={`left:${off.share * 100}%`}></span>}
+        <span class="att-bench" style={`left:${BENCHMARK * 100}%`}></span>
+      </div>
+      <p class="att-note">Marker: 46.9% of waking hours, Killingsworth and Gilbert (2010), 2,250 volunteers, as reported by the Harvard Gazette.</p>
+    </figure>
+
+    <figure class="att-card">
+      <figcaption>Answered pings by time of day (local)</figcaption>
+      {blocks.length === 0 ? <p class="att-empty">No pings sent yet.</p> : (
+        <table class="att-table">
+          <thead><tr><th scope="col">Block</th><th scope="col">Answered</th><th scope="col">Sent</th></tr></thead>
+          <tbody>{blocks.map((b) => <tr><td>{b.block}</td><td>{b.answered}</td><td>{b.sent}</td></tr>)}</tbody>
+        </table>
+      )}
+    </figure>
+  </div>
+
+  <figure class="att-card att-wide">
+    <figcaption>Stated priority against reported attention</figcaption>
+    {comparison === null ? (
+      <p class="att-empty">Stated priorities are not yet committed. They are written and committed before the first ping, then compared here.</p>
+    ) : (
+      <div class="att-table-wrap">
+        <table class="att-table">
+          <thead><tr><th scope="col">Project</th><th scope="col">Stated rank</th><th scope="col">Answered pings</th><th scope="col">Share (95% interval)</th><th scope="col">Reported rank</th></tr></thead>
+          <tbody>
+            {comparison.map((r) => (
+              <tr>
+                <th scope="row">{r.name}</th>
+                <td>{r.statedRank}</td>
+                <td>{r.of > 0 ? `${r.count} of ${r.of}` : '–'}</td>
+                <td>{pct(r.share)} ({range(r.interval95)})</td>
+                <td>{r.reportedRank ?? '–'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        {none && none.of > 0 && <p class="att-note">No project: {none.count} of {none.of} answered pings ({pct(none.share)}, 95% interval {range(none.interval95)}).</p>}
+      </div>
+    )}
+  </figure>
+
+  <p class="att-note">Measured device usage: not included. Whether it can be exported is decided by 8 Dec 2026; if it cannot, this panel stays a two-way comparison.</p>
+</section>

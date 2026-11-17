@@ -64,3 +64,26 @@ test('flags an element id used twice and accepts distinct ids', () => {
   assert.deepEqual(idClashes('<div id="a"></div>\n<div id="a"></div>'), ['id "a" is used twice']);
   assert.deepEqual(idClashes('### Model scorecard\n\n<div id="model-scorecard-box"></div>\n<h3 id="recorded-session">Recorded session</h3>'), []);
 });
+
+test('a Human Variable page uses its six sections, in order', async () => {
+  const { HUMAN_VARIABLE_HEADINGS, seriesOf } = await import('./check-content.mjs');
+  const fm = '---\ntitle: "x"\nseries: "human-variable"\n---\n\n';
+  const page = fm + HUMAN_VARIABLE_HEADINGS.map((h) => `${h}\n\ntext`).join('\n\n');
+  assert.equal(seriesOf(page), 'human-variable');
+  assert.deepEqual(missingHeadings(page), []);
+  assert.deepEqual(extraSections(page), []);
+  assert.deepEqual(missingHeadings(fm + REQUIRED_HEADINGS.join('\n\n')).length, HUMAN_VARIABLE_HEADINGS.length - 1);
+  assert.deepEqual(extraSections(fm + HUMAN_VARIABLE_HEADINGS.join('\n\n') + '\n\n## The question\n'), ['## The question']);
+  const swapped = [...HUMAN_VARIABLE_HEADINGS];
+  [swapped[0], swapped[1]] = [swapped[1], swapped[0]];
+  assert.ok(missingHeadings(fm + swapped.join('\n\n')).length > 0);
+});
+
+test('a page without a series keeps the five career-lab sections', async () => {
+  const { seriesOf, headingsFor } = await import('./check-content.mjs');
+  const page = '---\ntitle: "x"\nlane: "wildcard"\n---\n\n' + REQUIRED_HEADINGS.join('\n\n');
+  assert.equal(seriesOf(page), null);
+  assert.deepEqual(headingsFor(page), REQUIRED_HEADINGS);
+  assert.deepEqual(missingHeadings(page), []);
+  assert.deepEqual(extraSections('---\nseries: human-variable\n---\n' + REQUIRED_HEADINGS.join('\n\n')).length, 4);
+});

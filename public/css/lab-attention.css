@@ -1,0 +1,19 @@
+/* /lab/where-does-my-attention-go. Site tokens from legacy.css. One ink colour; the benchmark marker
+   is a dashed line and the result a dot with its interval band, so no colour carries meaning alone. */
+.att { margin: 8px auto 0; }
+.att-head h2 { font-family: var(--serif); font-weight: 400; font-size: 30px; letter-spacing: -.02em; margin: 6px 0 8px; }
+.att-note, .att-empty { font-size: 13px; line-height: 1.5; color: rgba(26,26,23,.68); margin: 0 0 10px; }
+.att-empty { padding: 12px 14px; border: 1px dashed var(--line); border-radius: 6px; }
+.att-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 16px 0; }
+.att-card { margin: 0; padding: 16px; border: 1px solid var(--line); border-radius: 8px; background: var(--cream); min-width: 0; }
+.att-wide { margin-bottom: 12px; }
+.att-card figcaption { font-size: 10px; text-transform: uppercase; letter-spacing: .14em; font-weight: 700; color: var(--olive2); margin: 0 0 10px; }
+.att-big { font-family: var(--serif); font-size: 34px; margin: 0 0 4px; font-variant-numeric: tabular-nums; }
+.att-scale { position: relative; height: 18px; margin: 10px 0 12px; border-bottom: 1px solid rgba(26,26,23,.35); }
+.att-band { position: absolute; top: 6px; height: 6px; background: rgba(26,26,23,.2); border-radius: 3px; }
+.att-dot { position: absolute; top: 4px; width: 10px; height: 10px; margin-left: -5px; border-radius: 50%; background: var(--ink); }
+.att-bench { position: absolute; top: -4px; height: 22px; border-left: 2px dashed var(--olive2); }
+.att-table-wrap { overflow-x: auto; }
+.att-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.att-table th, .att-table td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); }
+.att-table td { font-variant-numeric: tabular-nums; white-space: nowrap; }

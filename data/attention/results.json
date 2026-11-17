@@ -1,0 +1,134 @@
+{
+  "generated": "2026-11-17",
+  "collection": {
+    "start": "2026-12-01",
+    "end": "2026-12-22"
+  },
+  "priorities": null,
+  "summary": {
+    "pings": {
+      "scheduled": 0,
+      "sent": 0,
+      "sendFailed": 0,
+      "notSent": 0,
+      "answered": 0,
+      "missed": 0,
+      "answerRate": null,
+      "days": 0
+    },
+    "responseByBlock": [],
+    "offTask": {
+      "count": 0,
+      "of": 0,
+      "share": null,
+      "interval95": null
+    },
+    "projects": [
+      {
+        "name": "No project",
+        "count": 0,
+        "of": 0,
+        "share": null,
+        "interval95": null
+      }
+    ],
+    "activities": [
+      {
+        "name": "Focused work",
+        "count": 0,
+        "of": 0
+      },
+      {
+        "name": "Email and messages",
+        "count": 0,
+        "of": 0
+      },
+      {
+        "name": "Meetings and calls",
+        "count": 0,
+        "of": 0
+      },
+      {
+        "name": "Reading and learning",
+        "count": 0,
+        "of": 0
+      },
+      {
+        "name": "Exercise",
+        "count": 0,
+        "of": 0
+      },
+      {
+        "name": "Commuting and travel",
+        "count": 0,
+        "of": 0
+      },
+      {
+        "name": "Eating",
+        "count": 0,
+        "of": 0
+      },
+      {
+        "name": "Chores and errands",
+        "count": 0,
+        "of": 0
+      },
+      {
+        "name": "Leisure and entertainment",
+        "count": 0,
+        "of": 0
+      },
+      {
+        "name": "Socialising",
+        "count": 0,
+        "of": 0
+      },
+      {
+        "name": "Resting",
+        "count": 0,
+        "of": 0
+      },
+      {
+        "name": "Other",
+        "count": 0,
+        "of": 0
+      }
+    ],
+    "timeFocus": [
+      {
+        "name": "past",
+        "count": 0,
+        "of": 0
+      },
+      {
+        "name": "present",
+        "count": 0,
+        "of": 0
+      },
+      {
+        "name": "future",
+        "count": 0,
+        "of": 0
+      }
+    ],
+    "mood": {
+      "all": {
+        "n": 0,
+        "mean": null,
+        "suppressed": true
+      },
+      "onTask": {
+        "n": 0,
+        "mean": null,
+        "suppressed": true
+      },
+      "offTask": {
+        "n": 0,
+        "mean": null,
+        "suppressed": true
+      },
+      "minCell": 5
+    }
+  },
+  "comparison": null
+}

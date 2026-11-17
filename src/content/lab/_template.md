@@ -2,6 +2,7 @@
 title: "Replace with a plain title"
 type: "experiment"            # production-like demo | research study | experiment
 lane: "wildcard"              # data engineering | conversational BI and evaluation | wildcard
+# series: "human-variable"    # only for The Human Variable pages; they omit lane and use the six series headings
 status: "building"            # building | live | retired
 question: "One sentence: what question does this answer?"
 payer: "Who would pay to have it answered"
