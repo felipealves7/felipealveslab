@@ -41,6 +41,8 @@ human_variable:          # the psychology series, in even months
     - beginner's mind
 
 calendar:                # one entry per month; the Scout briefs each entry as written
+  # References and figures in the notes are pointers, not verified claims. The Scout and the
+  # Builder open each one before any figure reaches a page (CLAUDE.md rule 3).
   - month: 2026-12
     track: human_variable
     question: "The lost hour: does the spring clock change cost lives on the road?"
@@ -52,7 +54,8 @@ calendar:                # one entry per month; the Scout briefs each entry as w
       of the change from April to March. Replicates Fritz et al. (Current Biology 2020) and Smith
       (AEJ: Applied 2016) with newer years, and sets the first week's cost of lost sleep against
       the season's gain from evening light (Ferguson et al. 1995; Coate and Markowitz 2004).
-      Reuses the Human Variable page variant built on branch claude/51-attention-sampling.
+      Brief: #54. Copies the Human Variable page variant from branch claude/51-attention-sampling
+      (closed PR #52, not merged).
   - month: 2027-01
     track: career
     lane: data_engineering
@@ -63,8 +66,10 @@ calendar:                # one entry per month; the Scout briefs each entry as w
       Mobility Reports), quarterly GDP (IBGE) and the hourly prices already in the Lab (CCEE). The
       shock is the March 2020 lockdowns; the dose is strictness by state. Reference point: the
       IEA's Global Energy Review 2021 (world electricity down about 1% in 2020, at times 20-30%
-      below pre-lockdown levels; oil down 8.6%). Shows how the answer changes between hours,
-      days and quarters.
+      below pre-lockdown levels; oil down 8.6%; read through search on 17 November 2026:
+      https://www.iea.org/reports/global-energy-review-2021/electricity and
+      https://www.iea.org/articles/global-energy-review-co2-emissions-in-2020). Shows how the
+      answer changes between hours, days and quarters.
   - month: 2027-02
     track: human_variable
     question: "Did an app revive a language? Esperanto and the Duolingo courses"
@@ -86,8 +91,8 @@ calendar:                # one entry per month; the Scout briefs each entry as w
     question: "Do markets have moods? Sunshine and stock returns"
     notes: >
       Daily weather at stock-exchange cities (NOAA) against daily index returns (licence to
-      check). Replicates Hirshleifer and Shumway (Journal of Finance 2003) and tests whether the
-      effect faded after it was published.
+      check). Replicates Hirshleifer and Shumway (Journal of Finance 2003; not verified) and tests
+      whether the effect faded after it was published.
   - month: 2027-05
     track: career
     lane: conversational_bi_and_evaluation
