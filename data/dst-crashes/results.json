@@ -1,0 +1,1604 @@
+{
+ "generated": "2026-11-17",
+ "design": {
+  "treat": [
+   1,
+   2,
+   3,
+   4,
+   5
+  ],
+  "control": [
+   -13,
+   -12,
+   -11,
+   -10,
+   -9,
+   -6,
+   -5,
+   -4,
+   -3,
+   -2,
+   8,
+   9,
+   10,
+   11,
+   12
+  ],
+  "controlSymmetric": [
+   -6,
+   -5,
+   -4,
+   -3,
+   -2,
+   8,
+   9,
+   10,
+   11,
+   12
+  ],
+  "excludeYears": [
+   2020
+  ],
+  "bootstrap": 4000,
+  "seed": 20261117
+ },
+ "data": {
+  "years": [
+   1996,
+   2024
+  ],
+  "crashes": 1029989,
+  "deaths": 1132885,
+  "rows": 1030121,
+  "droppedUnknownDate": 132,
+  "crashWindowPairs": 146065,
+  "excludedPairs": 3083,
+  "sunJoined": 115612,
+  "timeUnknown": 1217,
+  "sunAgreement": {
+   "both": 107982,
+   "agree": 106261
+  },
+  "layouts": [
+   {
+    "year": 1996,
+    "member": "ACCIDENT.CSV",
+    "columns": 49,
+    "byteOrderMark": false,
+    "hasCoordinates": false
+   },
+   {
+    "year": 1997,
+    "member": "ACCIDENT.CSV",
+    "columns": 49,
+    "byteOrderMark": false,
+    "hasCoordinates": false
+   },
+   {
+    "year": 1998,
+    "member": "ACCIDENT.CSV",
+    "columns": 49,
+    "byteOrderMark": false,
+    "hasCoordinates": false
+   },
+   {
+    "year": 1999,
+    "member": "ACCIDENT.CSV",
+    "columns": 51,
+    "byteOrderMark": false,
+    "hasCoordinates": true
+   },
+   {
+    "year": 2000,
+    "member": "ACCIDENT.CSV",
+    "columns": 51,
+    "byteOrderMark": false,
+    "hasCoordinates": true
+   },
+   {
+    "year": 2001,
+    "member": "ACCIDENT.CSV",
+    "columns": 51,
+    "byteOrderMark": false,
+    "hasCoordinates": true
+   },
+   {
+    "year": 2002,
+    "member": "ACCIDENT.CSV",
+    "columns": 51,
+    "byteOrderMark": false,
+    "hasCoordinates": true
+   },
+   {
+    "year": 2003,
+    "member": "ACCIDENT.CSV",
+    "columns": 51,
+    "byteOrderMark": false,
+    "hasCoordinates": true
+   },
+   {
+    "year": 2004,
+    "member": "ACCIDENT.CSV",
+    "columns": 52,
+    "byteOrderMark": false,
+    "hasCoordinates": true
+   },
+   {
+    "year": 2005,
+    "member": "ACCIDENT.CSV",
+    "columns": 53,
+    "byteOrderMark": false,
+    "hasCoordinates": true
+   },
+   {
+    "year": 2006,
+    "member": "FARS2006NationalCSV/ACCIDENT.CSV",
+    "columns": 53,
+    "byteOrderMark": false,
+    "hasCoordinates": true
+   },
+   {
+    "year": 2007,
+    "member": "FARS2007NationalCSV/ACCIDENT.CSV",
+    "columns": 55,
+    "byteOrderMark": false,
+    "hasCoordinates": true
+   },
+   {
+    "year": 2008,
+    "member": "FARS2008NationalCSV/ACCIDENT.CSV",
+    "columns": 55,
+    "byteOrderMark": false,
+    "hasCoordinates": true
+   },
+   {
+    "year": 2009,
+    "member": "FARS2009NationalCSV/ACCIDENT.CSV",
+    "columns": 54,
+    "byteOrderMark": false,
+    "hasCoordinates": true
+   },
+   {
+    "year": 2010,
+    "member": "FARS2010NationalCSV/ACCIDENT.CSV",
+    "columns": 47,
+    "byteOrderMark": false,
+    "hasCoordinates": true
+   },
+   {
+    "year": 2011,
+    "member": "FARS2011NationalCSV/ACCIDENT.CSV",
+    "columns": 50,
+    "byteOrderMark": false,
+    "hasCoordinates": true
+   },
+   {
+    "year": 2012,
+    "member": "FARS2012NationalCSV/ACCIDENT.csv",
+    "columns": 50,
+    "byteOrderMark": false,
+    "hasCoordinates": true
+   },
+   {
+    "year": 2013,
+    "member": "FARS2013NationalCSV/ACCIDENT.csv",
+    "columns": 50,
+    "byteOrderMark": false,
+    "hasCoordinates": true
+   },
+   {
+    "year": 2014,
+    "member": "FARS2014NationalCSV/ACCIDENT.csv",
+    "columns": 50,
+    "byteOrderMark": false,
+    "hasCoordinates": true
+   },
+   {
+    "year": 2015,
+    "member": "FARS2015NationalCSV/accident.csv",
+    "columns": 89,
+    "byteOrderMark": false,
+    "hasCoordinates": true
+   },
+   {
+    "year": 2016,
+    "member": "accident.CSV",
+    "columns": 91,
+    "byteOrderMark": false,
+    "hasCoordinates": true
+   },
+   {
+    "year": 2017,
+    "member": "accident.CSV",
+    "columns": 91,
+    "byteOrderMark": false,
+    "hasCoordinates": true
+   },
+   {
+    "year": 2018,
+    "member": "accident.csv",
+    "columns": 91,
+    "byteOrderMark": false,
+    "hasCoordinates": true
+   },
+   {
+    "year": 2019,
+    "member": "accident.CSV",
+    "columns": 91,
+    "byteOrderMark": false,
+    "hasCoordinates": true
+   },
+   {
+    "year": 2020,
+    "member": "FARS2020NationalCSV/accident.csv",
+    "columns": 81,
+    "byteOrderMark": false,
+    "hasCoordinates": true
+   },
+   {
+    "year": 2021,
+    "member": "FARS2021NationalCSV/accident.csv",
+    "columns": 80,
+    "byteOrderMark": true,
+    "hasCoordinates": true
+   },
+   {
+    "year": 2022,
+    "member": "FARS2022NationalCSV/accident.csv",
+    "columns": 80,
+    "byteOrderMark": true,
+    "hasCoordinates": true
+   },
+   {
+    "year": 2023,
+    "member": "FARS2023NationalCSV/accident.csv",
+    "columns": 80,
+    "byteOrderMark": false,
+    "hasCoordinates": true
+   },
+   {
+    "year": 2024,
+    "member": "FARS2024NationalCSV/accident.csv",
+    "columns": 80,
+    "byteOrderMark": false,
+    "hasCoordinates": true
+   }
+  ]
+ },
+ "main": {
+  "label": "Observing states, work week after the spring change",
+  "years": [
+   1996,
+   2024
+  ],
+  "nYears": 28,
+  "field": "crashes",
+  "treatDays": 140,
+  "controlDays": 420,
+  "treat": 11524,
+  "control": 32189,
+  "rateRatio": 1.074,
+  "interval95": [
+   1.045,
+   1.104
+  ],
+  "excessPerYear": 28.4,
+  "excessInterval95": [
+   17.4,
+   39.7
+  ],
+  "deathsTreat": 12601,
+  "deathsControl": 35308,
+  "excessDeathsPerYear": 29.7,
+  "excessDeathsInterval95": [
+   16.8,
+   42.5
+  ]
+ },
+ "eras": [
+  {
+   "label": "Observing states, change on the first Sunday of April",
+   "years": [
+    1996,
+    2006
+   ],
+   "nYears": 11,
+   "field": "crashes",
+   "treatDays": 55,
+   "controlDays": 165,
+   "treat": 4881,
+   "control": 13854,
+   "rateRatio": 1.057,
+   "interval95": [
+    1.007,
+    1.109
+   ],
+   "excessPerYear": 23.9,
+   "excessInterval95": [
+    2.8,
+    45.1
+   ],
+   "deathsTreat": 5399,
+   "deathsControl": 15333,
+   "excessDeathsPerYear": 26.2,
+   "excessDeathsInterval95": [
+    1.2,
+    50.3
+   ]
+  },
+  {
+   "label": "Observing states, change on the second Sunday of March",
+   "years": [
+    2007,
+    2024
+   ],
+   "nYears": 17,
+   "field": "crashes",
+   "treatDays": 85,
+   "controlDays": 255,
+   "treat": 6643,
+   "control": 18335,
+   "rateRatio": 1.087,
+   "interval95": [
+    1.055,
+    1.123
+   ],
+   "excessPerYear": 31.3,
+   "excessInterval95": [
+    19.7,
+    43.9
+   ],
+   "deathsTreat": 7202,
+   "deathsControl": 19975,
+   "excessDeathsPerYear": 32,
+   "excessDeathsInterval95": [
+    18.5,
+    46.5
+   ]
+  },
+  {
+   "label": "Observing states, 2007-2015",
+   "years": [
+    2007,
+    2015
+   ],
+   "nYears": 9,
+   "field": "crashes",
+   "treatDays": 45,
+   "controlDays": 135,
+   "treat": 3295,
+   "control": 9020,
+   "rateRatio": 1.096,
+   "interval95": [
+    1.05,
+    1.143
+   ],
+   "excessPerYear": 32,
+   "excessInterval95": [
+    16.5,
+    48.4
+   ],
+   "deathsTreat": 3577,
+   "deathsControl": 9858,
+   "excessDeathsPerYear": 32.3,
+   "excessDeathsInterval95": [
+    12,
+    56.5
+   ]
+  },
+  {
+   "label": "Observing states, 2016-2024",
+   "years": [
+    2016,
+    2024
+   ],
+   "nYears": 8,
+   "field": "crashes",
+   "treatDays": 40,
+   "controlDays": 120,
+   "treat": 3348,
+   "control": 9315,
+   "rateRatio": 1.078,
+   "interval95": [
+    1.037,
+    1.13
+   ],
+   "excessPerYear": 30.4,
+   "excessInterval95": [
+    14.5,
+    50.5
+   ],
+   "deathsTreat": 3625,
+   "deathsControl": 10117,
+   "excessDeathsPerYear": 31.6,
+   "excessDeathsInterval95": [
+    16.7,
+    49.3
+   ]
+  }
+ ],
+ "placebos": [
+  {
+   "label": "Observing states, second Sunday of March while the change was in April",
+   "years": [
+    1996,
+    2006
+   ],
+   "nYears": 11,
+   "field": "crashes",
+   "treatDays": 55,
+   "controlDays": 165,
+   "treat": 4329,
+   "control": 13246,
+   "rateRatio": 0.98,
+   "interval95": [
+    0.943,
+    1.017
+   ],
+   "excessPerYear": -7.8,
+   "excessInterval95": [
+    -23.3,
+    6.8
+   ],
+   "deathsTreat": 4797,
+   "deathsControl": 14731,
+   "excessDeathsPerYear": -10.3,
+   "excessDeathsInterval95": [
+    -29,
+    7.5
+   ]
+  },
+  {
+   "label": "Observing states, first Sunday of April after the change moved to March",
+   "years": [
+    2007,
+    2024
+   ],
+   "nYears": 17,
+   "field": "crashes",
+   "treatDays": 85,
+   "controlDays": 255,
+   "treat": 6663,
+   "control": 18992,
+   "rateRatio": 1.052,
+   "interval95": [
+    1.021,
+    1.083
+   ],
+   "excessPerYear": 19.5,
+   "excessInterval95": [
+    8,
+    31.2
+   ],
+   "deathsTreat": 7221,
+   "deathsControl": 20595,
+   "excessDeathsPerYear": 20.9,
+   "excessDeathsInterval95": [
+    10.1,
+    32.9
+   ]
+  }
+ ],
+ "standard": {
+  "label": "Arizona and Hawaii, same dates",
+  "years": [
+   1996,
+   2024
+  ],
+  "nYears": 28,
+  "field": "crashes",
+  "treatDays": 140,
+  "controlDays": 420,
+  "treat": 356,
+  "control": 1120,
+  "rateRatio": 0.954,
+  "interval95": [
+   0.827,
+   1.079
+  ],
+  "excessPerYear": -0.6,
+  "excessInterval95": [
+   -2.3,
+   1
+  ],
+  "deathsTreat": 396,
+  "deathsControl": 1240,
+  "excessDeathsPerYear": -0.6,
+  "excessDeathsInterval95": [
+   -2.5,
+   1.1
+  ]
+ },
+ "did": {
+  "label": "Observing against Arizona and Hawaii",
+  "years": [
+   1996,
+   2024
+  ],
+  "nYears": 28,
+  "ratio": 1.126,
+  "interval95": [
+   0.987,
+   1.308
+  ]
+ },
+ "timeOfDay": [
+  {
+   "label": "Morning, 05:00-09:59 clock time",
+   "years": [
+    1996,
+    2024
+   ],
+   "nYears": 28,
+   "field": "crashes_am",
+   "treatDays": 140,
+   "controlDays": 420,
+   "treat": 2084,
+   "control": 5565,
+   "rateRatio": 1.123,
+   "interval95": [
+    1.061,
+    1.183
+   ],
+   "excessPerYear": 8.2,
+   "excessInterval95": [
+    4.1,
+    12
+   ]
+  },
+  {
+   "label": "Evening, 16:00-20:59 clock time",
+   "years": [
+    1996,
+    2024
+   ],
+   "nYears": 28,
+   "field": "crashes_pm",
+   "treatDays": 140,
+   "controlDays": 420,
+   "treat": 3119,
+   "control": 8996,
+   "rateRatio": 1.04,
+   "interval95": [
+    0.996,
+    1.087
+   ],
+   "excessPerYear": 4.3,
+   "excessInterval95": [
+    -0.5,
+    9.2
+   ]
+  }
+ ],
+ "sun": [
+  {
+   "label": "Crashes with the sun up",
+   "years": [
+    2001,
+    2024
+   ],
+   "nYears": 23,
+   "field": "crashes_sun_day",
+   "treatDays": 115,
+   "controlDays": 345,
+   "treat": 4789,
+   "control": 12816,
+   "rateRatio": 1.121,
+   "interval95": [
+    1.088,
+    1.156
+   ],
+   "excessPerYear": 22.5,
+   "excessInterval95": [
+    16.4,
+    28.8
+   ]
+  },
+  {
+   "label": "Crashes in the dark (sun below -6°)",
+   "years": [
+    2001,
+    2024
+   ],
+   "nYears": 23,
+   "field": "crashes_sun_dark",
+   "treatDays": 115,
+   "controlDays": 345,
+   "treat": 3888,
+   "control": 11379,
+   "rateRatio": 1.025,
+   "interval95": [
+    0.979,
+    1.073
+   ],
+   "excessPerYear": 4.1,
+   "excessInterval95": [
+    -3.4,
+    12
+   ]
+  }
+ ],
+ "with2020": {
+  "label": "Observing states, 1996-2024 including 2020",
+  "years": [
+   1996,
+   2024
+  ],
+  "nYears": 29,
+  "field": "crashes",
+  "treatDays": 145,
+  "controlDays": 435,
+  "treat": 11882,
+  "control": 33325,
+  "rateRatio": 1.07,
+  "interval95": [
+   1.041,
+   1.099
+  ],
+  "excessPerYear": 26.7,
+  "excessInterval95": [
+   15.7,
+   37.6
+  ],
+  "deathsTreat": 12998,
+  "deathsControl": 36515,
+  "excessDeathsPerYear": 28.5,
+  "excessDeathsInterval95": [
+   15.7,
+   40.7
+  ]
+ },
+ "only2020": {
+  "year": 2020,
+  "t": 358,
+  "c": 1136
+ },
+ "replication": [
+  {
+   "label": "Fritz et al. years: 1996-2017",
+   "years": [
+    1996,
+    2017
+   ],
+   "nYears": 22,
+   "field": "crashes",
+   "treatDays": 110,
+   "controlDays": 330,
+   "treat": 8962,
+   "control": 25152,
+   "rateRatio": 1.069,
+   "interval95": [
+    1.035,
+    1.103
+   ],
+   "excessPerYear": 26.3,
+   "excessInterval95": [
+    13.7,
+    38.9
+   ],
+   "deathsTreat": 9816,
+   "deathsControl": 27663,
+   "excessDeathsPerYear": 27,
+   "excessDeathsInterval95": [
+    11.2,
+    42.5
+   ],
+   "reference": "fritz2020"
+  },
+  {
+   "label": "Smith years: 2002-2011",
+   "years": [
+    2002,
+    2011
+   ],
+   "nYears": 10,
+   "field": "crashes",
+   "treatDays": 50,
+   "controlDays": 150,
+   "treat": 4137,
+   "control": 11581,
+   "rateRatio": 1.072,
+   "interval95": [
+    1.011,
+    1.127
+   ],
+   "excessPerYear": 27.7,
+   "excessInterval95": [
+    4.6,
+    47.9
+   ],
+   "deathsTreat": 4526,
+   "deathsControl": 12779,
+   "excessDeathsPerYear": 26.6,
+   "excessDeathsInterval95": [
+    -3.7,
+    54.1
+   ],
+   "reference": "smith2016"
+  }
+ ],
+ "symmetric": {
+  "main": {
+   "label": "Observing states, symmetric comparison weeks",
+   "years": [
+    1996,
+    2024
+   ],
+   "nYears": 28,
+   "field": "crashes",
+   "treatDays": 140,
+   "controlDays": 280,
+   "treat": 11524,
+   "control": 21653,
+   "rateRatio": 1.064,
+   "interval95": [
+    1.032,
+    1.097
+   ],
+   "excessPerYear": 24.9,
+   "excessInterval95": [
+    12.7,
+    36.8
+   ],
+   "deathsTreat": 12601,
+   "deathsControl": 23759,
+   "excessDeathsPerYear": 25.8,
+   "excessDeathsInterval95": [
+    12,
+    39.6
+   ]
+  },
+  "pre": {
+   "label": "Observing states, April change, symmetric weeks",
+   "years": [
+    1996,
+    2006
+   ],
+   "nYears": 11,
+   "field": "crashes",
+   "treatDays": 55,
+   "controlDays": 110,
+   "treat": 4881,
+   "control": 9444,
+   "rateRatio": 1.034,
+   "interval95": [
+    0.986,
+    1.084
+   ],
+   "excessPerYear": 14.5,
+   "excessInterval95": [
+    -6.1,
+    35.5
+   ],
+   "deathsTreat": 5399,
+   "deathsControl": 10450,
+   "excessDeathsPerYear": 15.8,
+   "excessDeathsInterval95": [
+    -8.8,
+    39.7
+   ]
+  },
+  "post": {
+   "label": "Observing states, March change, symmetric weeks",
+   "years": [
+    2007,
+    2024
+   ],
+   "nYears": 17,
+   "field": "crashes",
+   "treatDays": 85,
+   "controlDays": 170,
+   "treat": 6643,
+   "control": 12209,
+   "rateRatio": 1.088,
+   "interval95": [
+    1.05,
+    1.128
+   ],
+   "excessPerYear": 31.7,
+   "excessInterval95": [
+    18.3,
+    45.7
+   ],
+   "deathsTreat": 7202,
+   "deathsControl": 13309,
+   "excessDeathsPerYear": 32.2,
+   "excessDeathsInterval95": [
+    17.1,
+    48
+   ]
+  },
+  "placeboPre": {
+   "label": "Placebo: second Sunday of March before 2007, symmetric weeks",
+   "years": [
+    1996,
+    2006
+   ],
+   "nYears": 11,
+   "field": "crashes",
+   "treatDays": 55,
+   "controlDays": 110,
+   "treat": 4329,
+   "control": 8814,
+   "rateRatio": 0.982,
+   "interval95": [
+    0.945,
+    1.019
+   ],
+   "excessPerYear": -7.1,
+   "excessInterval95": [
+    -22.3,
+    7.4
+   ],
+   "deathsTreat": 4797,
+   "deathsControl": 9764,
+   "excessDeathsPerYear": -7.7,
+   "excessDeathsInterval95": [
+    -26.7,
+    9.3
+   ]
+  },
+  "placeboPost": {
+   "label": "Placebo: first Sunday of April from 2007, symmetric weeks",
+   "years": [
+    2007,
+    2024
+   ],
+   "nYears": 17,
+   "field": "crashes",
+   "treatDays": 85,
+   "controlDays": 170,
+   "treat": 6663,
+   "control": 12916,
+   "rateRatio": 1.032,
+   "interval95": [
+    0.998,
+    1.064
+   ],
+   "excessPerYear": 12.1,
+   "excessInterval95": [
+    -0.6,
+    24.2
+   ],
+   "deathsTreat": 7221,
+   "deathsControl": 13976,
+   "excessDeathsPerYear": 13.7,
+   "excessDeathsInterval95": [
+    2.1,
+    25.6
+   ]
+  },
+  "standard": {
+   "label": "Arizona and Hawaii, symmetric weeks",
+   "years": [
+    1996,
+    2024
+   ],
+   "nYears": 28,
+   "field": "crashes",
+   "treatDays": 140,
+   "controlDays": 280,
+   "treat": 356,
+   "control": 742,
+   "rateRatio": 0.96,
+   "interval95": [
+    0.828,
+    1.089
+   ],
+   "excessPerYear": -0.5,
+   "excessInterval95": [
+    -2.3,
+    1.2
+   ],
+   "deathsTreat": 396,
+   "deathsControl": 818,
+   "excessDeathsPerYear": -0.5,
+   "excessDeathsInterval95": [
+    -2.3,
+    1.3
+   ]
+  },
+  "did": {
+   "label": "Observing against Arizona and Hawaii, symmetric weeks",
+   "years": [
+    1996,
+    2024
+   ],
+   "nYears": 28,
+   "ratio": 1.109,
+   "interval95": [
+    0.971,
+    1.29
+   ]
+  }
+ },
+ "perYear": [
+  {
+   "year": 1996,
+   "treat": 497,
+   "control": 1265,
+   "rateRatio": 1.179
+  },
+  {
+   "year": 1997,
+   "treat": 435,
+   "control": 1288,
+   "rateRatio": 1.013
+  },
+  {
+   "year": 1998,
+   "treat": 415,
+   "control": 1210,
+   "rateRatio": 1.029
+  },
+  {
+   "year": 1999,
+   "treat": 403,
+   "control": 1219,
+   "rateRatio": 0.992
+  },
+  {
+   "year": 2000,
+   "treat": 461,
+   "control": 1153,
+   "rateRatio": 1.199
+  },
+  {
+   "year": 2001,
+   "treat": 417,
+   "control": 1232,
+   "rateRatio": 1.015
+  },
+  {
+   "year": 2002,
+   "treat": 399,
+   "control": 1343,
+   "rateRatio": 0.891
+  },
+  {
+   "year": 2003,
+   "treat": 455,
+   "control": 1340,
+   "rateRatio": 1.019
+  },
+  {
+   "year": 2004,
+   "treat": 469,
+   "control": 1263,
+   "rateRatio": 1.114
+  },
+  {
+   "year": 2005,
+   "treat": 486,
+   "control": 1283,
+   "rateRatio": 1.136
+  },
+  {
+   "year": 2006,
+   "treat": 444,
+   "control": 1258,
+   "rateRatio": 1.059
+  },
+  {
+   "year": 2007,
+   "treat": 489,
+   "control": 1261,
+   "rateRatio": 1.163
+  },
+  {
+   "year": 2008,
+   "treat": 347,
+   "control": 1057,
+   "rateRatio": 0.985
+  },
+  {
+   "year": 2009,
+   "treat": 346,
+   "control": 979,
+   "rateRatio": 1.06
+  },
+  {
+   "year": 2010,
+   "treat": 363,
+   "control": 883,
+   "rateRatio": 1.233
+  },
+  {
+   "year": 2011,
+   "treat": 339,
+   "control": 914,
+   "rateRatio": 1.113
+  },
+  {
+   "year": 2012,
+   "treat": 375,
+   "control": 1022,
+   "rateRatio": 1.101
+  },
+  {
+   "year": 2013,
+   "treat": 356,
+   "control": 963,
+   "rateRatio": 1.109
+  },
+  {
+   "year": 2014,
+   "treat": 325,
+   "control": 980,
+   "rateRatio": 0.995
+  },
+  {
+   "year": 2015,
+   "treat": 355,
+   "control": 961,
+   "rateRatio": 1.108
+  },
+  {
+   "year": 2016,
+   "treat": 396,
+   "control": 1151,
+   "rateRatio": 1.032
+  },
+  {
+   "year": 2017,
+   "treat": 390,
+   "control": 1127,
+   "rateRatio": 1.038
+  },
+  {
+   "year": 2018,
+   "treat": 389,
+   "control": 1085,
+   "rateRatio": 1.076
+  },
+  {
+   "year": 2019,
+   "treat": 381,
+   "control": 1043,
+   "rateRatio": 1.096
+  },
+  {
+   "year": 2020,
+   "treat": 358,
+   "control": 1136,
+   "rateRatio": 0.945
+  },
+  {
+   "year": 2021,
+   "treat": 427,
+   "control": 1265,
+   "rateRatio": 1.013
+  },
+  {
+   "year": 2022,
+   "treat": 483,
+   "control": 1305,
+   "rateRatio": 1.11
+  },
+  {
+   "year": 2023,
+   "treat": 406,
+   "control": 1182,
+   "rateRatio": 1.03
+  },
+  {
+   "year": 2024,
+   "treat": 476,
+   "control": 1157,
+   "rateRatio": 1.234
+  }
+ ],
+ "chart": {
+  "pre": [
+   {
+    "offset": -14,
+    "weekday": 0,
+    "crashes": 1116,
+    "index": 1.011
+   },
+   {
+    "offset": -13,
+    "weekday": 1,
+    "crashes": 810,
+    "index": 0.937
+   },
+   {
+    "offset": -12,
+    "weekday": 2,
+    "crashes": 804,
+    "index": 0.971
+   },
+   {
+    "offset": -11,
+    "weekday": 3,
+    "crashes": 826,
+    "index": 0.951
+   },
+   {
+    "offset": -10,
+    "weekday": 4,
+    "crashes": 933,
+    "index": 1.013
+   },
+   {
+    "offset": -9,
+    "weekday": 5,
+    "crashes": 1037,
+    "index": 0.914
+   },
+   {
+    "offset": -8,
+    "weekday": 6,
+    "crashes": 1271,
+    "index": 0.975
+   },
+   {
+    "offset": -7,
+    "weekday": 0,
+    "crashes": 1061,
+    "index": 0.961
+   },
+   {
+    "offset": -6,
+    "weekday": 1,
+    "crashes": 825,
+    "index": 0.954
+   },
+   {
+    "offset": -5,
+    "weekday": 2,
+    "crashes": 811,
+    "index": 0.979
+   },
+   {
+    "offset": -4,
+    "weekday": 3,
+    "crashes": 851,
+    "index": 0.979
+   },
+   {
+    "offset": -3,
+    "weekday": 4,
+    "crashes": 906,
+    "index": 0.983
+   },
+   {
+    "offset": -2,
+    "weekday": 5,
+    "crashes": 1190,
+    "index": 1.048
+   },
+   {
+    "offset": -1,
+    "weekday": 6,
+    "crashes": 1328,
+    "index": 1.019
+   },
+   {
+    "offset": 0,
+    "weekday": 0,
+    "crashes": 1132,
+    "index": 1.026
+   },
+   {
+    "offset": 1,
+    "weekday": 1,
+    "crashes": 938,
+    "index": 1.085
+   },
+   {
+    "offset": 2,
+    "weekday": 2,
+    "crashes": 909,
+    "index": 1.098
+   },
+   {
+    "offset": 3,
+    "weekday": 3,
+    "crashes": 939,
+    "index": 1.081
+   },
+   {
+    "offset": 4,
+    "weekday": 4,
+    "crashes": 929,
+    "index": 1.008
+   },
+   {
+    "offset": 5,
+    "weekday": 5,
+    "crashes": 1166,
+    "index": 1.027
+   },
+   {
+    "offset": 6,
+    "weekday": 6,
+    "crashes": 1288,
+    "index": 0.988
+   },
+   {
+    "offset": 7,
+    "weekday": 0,
+    "crashes": 1134,
+    "index": 1.027
+   },
+   {
+    "offset": 8,
+    "weekday": 1,
+    "crashes": 959,
+    "index": 1.109
+   },
+   {
+    "offset": 9,
+    "weekday": 2,
+    "crashes": 869,
+    "index": 1.05
+   },
+   {
+    "offset": 10,
+    "weekday": 3,
+    "crashes": 930,
+    "index": 1.07
+   },
+   {
+    "offset": 11,
+    "weekday": 4,
+    "crashes": 925,
+    "index": 1.004
+   },
+   {
+    "offset": 12,
+    "weekday": 5,
+    "crashes": 1178,
+    "index": 1.038
+   },
+   {
+    "offset": 13,
+    "weekday": 6,
+    "crashes": 1310,
+    "index": 1.005
+   }
+  ],
+  "post": [
+   {
+    "offset": -14,
+    "weekday": 0,
+    "crashes": 1428,
+    "index": 0.97
+   },
+   {
+    "offset": -13,
+    "weekday": 1,
+    "crashes": 1127,
+    "index": 0.958
+   },
+   {
+    "offset": -12,
+    "weekday": 2,
+    "crashes": 1081,
+    "index": 0.973
+   },
+   {
+    "offset": -11,
+    "weekday": 3,
+    "crashes": 1181,
+    "index": 1.002
+   },
+   {
+    "offset": -10,
+    "weekday": 4,
+    "crashes": 1240,
+    "index": 1.021
+   },
+   {
+    "offset": -9,
+    "weekday": 5,
+    "crashes": 1497,
+    "index": 1.046
+   },
+   {
+    "offset": -8,
+    "weekday": 6,
+    "crashes": 1666,
+    "index": 1.003
+   },
+   {
+    "offset": -7,
+    "weekday": 0,
+    "crashes": 1521,
+    "index": 1.034
+   },
+   {
+    "offset": -6,
+    "weekday": 1,
+    "crashes": 1169,
+    "index": 0.993
+   },
+   {
+    "offset": -5,
+    "weekday": 2,
+    "crashes": 1111,
+    "index": 1
+   },
+   {
+    "offset": -4,
+    "weekday": 3,
+    "crashes": 1181,
+    "index": 1.002
+   },
+   {
+    "offset": -3,
+    "weekday": 4,
+    "crashes": 1191,
+    "index": 0.981
+   },
+   {
+    "offset": -2,
+    "weekday": 5,
+    "crashes": 1376,
+    "index": 0.962
+   },
+   {
+    "offset": -1,
+    "weekday": 6,
+    "crashes": 1643,
+    "index": 0.989
+   },
+   {
+    "offset": 0,
+    "weekday": 0,
+    "crashes": 1543,
+    "index": 1.048
+   },
+   {
+    "offset": 1,
+    "weekday": 1,
+    "crashes": 1249,
+    "index": 1.061
+   },
+   {
+    "offset": 2,
+    "weekday": 2,
+    "crashes": 1218,
+    "index": 1.096
+   },
+   {
+    "offset": 3,
+    "weekday": 3,
+    "crashes": 1281,
+    "index": 1.087
+   },
+   {
+    "offset": 4,
+    "weekday": 4,
+    "crashes": 1317,
+    "index": 1.085
+   },
+   {
+    "offset": 5,
+    "weekday": 5,
+    "crashes": 1578,
+    "index": 1.103
+   },
+   {
+    "offset": 6,
+    "weekday": 6,
+    "crashes": 1662,
+    "index": 1.001
+   },
+   {
+    "offset": 7,
+    "weekday": 0,
+    "crashes": 1466,
+    "index": 0.996
+   },
+   {
+    "offset": 8,
+    "weekday": 1,
+    "crashes": 1235,
+    "index": 1.049
+   },
+   {
+    "offset": 9,
+    "weekday": 2,
+    "crashes": 1141,
+    "index": 1.027
+   },
+   {
+    "offset": 10,
+    "weekday": 3,
+    "crashes": 1173,
+    "index": 0.995
+   },
+   {
+    "offset": 11,
+    "weekday": 4,
+    "crashes": 1212,
+    "index": 0.998
+   },
+   {
+    "offset": 12,
+    "weekday": 5,
+    "crashes": 1420,
+    "index": 0.992
+   },
+   {
+    "offset": 13,
+    "weekday": 6,
+    "crashes": 1674,
+    "index": 1.008
+   }
+  ],
+  "standard": [
+   {
+    "offset": -14,
+    "weekday": 0,
+    "crashes": 83,
+    "index": 0.912
+   },
+   {
+    "offset": -13,
+    "weekday": 1,
+    "crashes": 65,
+    "index": 0.899
+   },
+   {
+    "offset": -12,
+    "weekday": 2,
+    "crashes": 61,
+    "index": 0.953
+   },
+   {
+    "offset": -11,
+    "weekday": 3,
+    "crashes": 71,
+    "index": 1.005
+   },
+   {
+    "offset": -10,
+    "weekday": 4,
+    "crashes": 89,
+    "index": 1.197
+   },
+   {
+    "offset": -9,
+    "weekday": 5,
+    "crashes": 92,
+    "index": 1
+   },
+   {
+    "offset": -8,
+    "weekday": 6,
+    "crashes": 107,
+    "index": 1.081
+   },
+   {
+    "offset": -7,
+    "weekday": 0,
+    "crashes": 83,
+    "index": 0.912
+   },
+   {
+    "offset": -6,
+    "weekday": 1,
+    "crashes": 75,
+    "index": 1.037
+   },
+   {
+    "offset": -5,
+    "weekday": 2,
+    "crashes": 71,
+    "index": 1.109
+   },
+   {
+    "offset": -4,
+    "weekday": 3,
+    "crashes": 72,
+    "index": 1.019
+   },
+   {
+    "offset": -3,
+    "weekday": 4,
+    "crashes": 63,
+    "index": 0.848
+   },
+   {
+    "offset": -2,
+    "weekday": 5,
+    "crashes": 83,
+    "index": 0.902
+   },
+   {
+    "offset": -1,
+    "weekday": 6,
+    "crashes": 100,
+    "index": 1.01
+   },
+   {
+    "offset": 0,
+    "weekday": 0,
+    "crashes": 90,
+    "index": 0.989
+   },
+   {
+    "offset": 1,
+    "weekday": 1,
+    "crashes": 63,
+    "index": 0.871
+   },
+   {
+    "offset": 2,
+    "weekday": 2,
+    "crashes": 62,
+    "index": 0.969
+   },
+   {
+    "offset": 3,
+    "weekday": 3,
+    "crashes": 83,
+    "index": 1.175
+   },
+   {
+    "offset": 4,
+    "weekday": 4,
+    "crashes": 69,
+    "index": 0.928
+   },
+   {
+    "offset": 5,
+    "weekday": 5,
+    "crashes": 79,
+    "index": 0.859
+   },
+   {
+    "offset": 6,
+    "weekday": 6,
+    "crashes": 114,
+    "index": 1.152
+   },
+   {
+    "offset": 7,
+    "weekday": 0,
+    "crashes": 107,
+    "index": 1.176
+   },
+   {
+    "offset": 8,
+    "weekday": 1,
+    "crashes": 77,
+    "index": 1.065
+   },
+   {
+    "offset": 9,
+    "weekday": 2,
+    "crashes": 60,
+    "index": 0.938
+   },
+   {
+    "offset": 10,
+    "weekday": 3,
+    "crashes": 69,
+    "index": 0.976
+   },
+   {
+    "offset": 11,
+    "weekday": 4,
+    "crashes": 71,
+    "index": 0.955
+   },
+   {
+    "offset": 12,
+    "weekday": 5,
+    "crashes": 101,
+    "index": 1.098
+   },
+   {
+    "offset": 13,
+    "weekday": 6,
+    "crashes": 90,
+    "index": 0.909
+   }
+  ]
+ }
+}

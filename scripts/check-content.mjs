@@ -1,7 +1,8 @@
 // Repository checks run by CI (job "test"). Zero dependencies.
 // 1. Lab pages, data and pipelines must not mention employer names.
 // 2. No tracked file may contain something that looks like a secret.
-// 3. Every Lab page must contain the five required sections, in order, and no other top-level section.
+// 3. Every Lab page must contain its required sections, in order, and no other top-level section:
+//    five for a career lab, six for a page in The Human Variable series (front matter series: human-variable).
 // 4. No element id on a Lab page may repeat or equal a heading's anchor.
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
@@ -25,6 +26,28 @@ export const REQUIRED_HEADINGS = [
   '## Known limits and running cost',
   '## How it was built',
 ];
+
+export const HUMAN_VARIABLE_HEADINGS = [
+  '## The Provocation',
+  '## What We Know',
+  '## The Experiment',
+  '## What Surprised Me',
+  '## The Return',
+  '## How it was built',
+];
+
+/** The front matter's `series` value, or null. */
+export function seriesOf(markdown) {
+  const fm = /^---\r?\n([\s\S]*?)\r?\n---/.exec(markdown);
+  if (!fm) return null;
+  const m = /^series:\s*["']?([^"'#\s]+)["']?\s*(#.*)?$/m.exec(fm[1]);
+  return m ? m[1] : null;
+}
+
+/** The headings a page must use, chosen by its series. */
+export function headingsFor(markdown) {
+  return seriesOf(markdown) === 'human-variable' ? HUMAN_VARIABLE_HEADINGS : REQUIRED_HEADINGS;
+}
 
 const SKIP_DIRS = new Set(['.git', 'node_modules', 'dist', '.astro']);
 
@@ -89,18 +112,18 @@ export function idClashes(markdown) {
   return clashes;
 }
 
-// Top-level (##) sections other than the five required ones. Subsections use ###.
-export function extraSections(markdown) {
+// Top-level (##) sections other than the required ones. Subsections use ###.
+export function extraSections(markdown, headings = headingsFor(markdown)) {
   return proseLines(markdown)
     .map((l) => l.trimEnd())
-    .filter((l) => /^##\s/.test(l) && !REQUIRED_HEADINGS.includes(l));
+    .filter((l) => /^##\s/.test(l) && !headings.includes(l));
 }
 
-export function missingHeadings(markdown) {
+export function missingHeadings(markdown, headings = headingsFor(markdown)) {
   const lines = markdown.split(/\r?\n/).map((l) => l.trimEnd());
   const missing = [];
   let from = 0;
-  for (const heading of REQUIRED_HEADINGS) {
+  for (const heading of headings) {
     const idx = lines.indexOf(heading, from);
     if (idx === -1) missing.push(heading);
     else from = idx + 1;
@@ -135,7 +158,7 @@ export function run(root) {
     }
     if (rel.startsWith('src/content/lab/') && rel.endsWith('.md') && !rel.split('/').pop().startsWith('_')) {
       for (const h of missingHeadings(text)) problems.push(`${rel}: missing or out-of-order heading "${h}"`);
-      for (const h of extraSections(text)) problems.push(`${rel}: "${h}" is not one of the five Lab sections; use a ### heading inside one`);
+      for (const h of extraSections(text)) problems.push(`${rel}: "${h}" is not one of this page's required sections; use a ### heading inside one`);
       for (const c of idClashes(text)) problems.push(`${rel}: ${c}; rename the element's id`);
     }
   }

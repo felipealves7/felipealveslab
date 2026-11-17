@@ -43,7 +43,7 @@ const CHARTS: Record<string, 'ledger' | 'airport' | 'aviation'> = {
         {entries.map((entry) => (
           <article class="lab-directory-card">
             <div class="lab-directory-card-copy">
-              <div class="lab-card-overline"><span>{entry.data.lane}</span><span class="lab-provenance">In source</span></div>
+              <div class="lab-card-overline"><span>{entry.data.series === 'human-variable' ? 'The Human Variable' : entry.data.lane}</span><span class="lab-provenance">In source</span></div>
               <h3><a href={`/lab/${entry.id}`}>{entry.data.title}</a></h3>
               <p>{entry.data.question}</p>
               <p class="lab-card-meta">{entry.data.type} · {entry.data.synthetic ? 'synthetic' : 'public'} data · recorded {fmt(entry.data.dataFreshness)}</p>

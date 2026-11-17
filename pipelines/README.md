@@ -29,3 +29,7 @@ Cloudflare Worker for the live box on Ask the Ledger: origin check, daily caps, 
 ## ledger-eval
 
 Model benchmark for Ask the Ledger: a guarded Workers AI runner, started by hand with the `ledger-benchmark` workflow, and strict offline scoring on four synthetic ledgers. See `pipelines/ledger-eval/README.md`. Tests: `node --test pipelines/ledger-eval/ledger-eval.test.mjs`.
+
+## dst-crashes
+
+Spring clock change and fatal crashes, for `/lab/spring-clock-change-road-deaths`. `extract.mjs` reads NHTSA's FARS accident files for 1996 to 2024 (downloaded into a cache folder you name), joins each crash to its state's clock rule (IANA extract in `data/dst-crashes/tzdata-us.txt`) and to the sun's elevation at its place and minute, and writes daily counts 14 days either side of two spring Sundays. `analyse.mjs` writes the estimates and `chart.mjs --write` draws the page's SVG chart. Plain Node; `extract.mjs` also needs the `unzip` command. Tests: `node --test pipelines/dst-crashes/dst.test.mjs scripts/dst-page.test.mjs`.

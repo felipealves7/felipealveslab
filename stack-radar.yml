@@ -16,7 +16,7 @@ adopt:
     evidence: Ask the Ledger benchmark, https://github.com/felipealves7/felipealveslab/pull/46
   - name: Build-time SVG charts in Astro components
     area: visuals
-    evidence: /lab/aviation-reliability
+    evidence: /lab/aviation-reliability; /lab/spring-clock-change-road-deaths, https://github.com/felipealves7/felipealveslab/pull/57
   - name: DuckDB and dbt-core
     area: transformation and tests
     evidence: /lab/aviation-reliability
@@ -31,6 +31,12 @@ adopt:
     evidence: the aviation reliability notebook and dataset, linked from /lab/aviation-reliability
 
 trial:
+  - name: Plain Node pipelines with no dependencies
+    area: ingestion, joins and estimates
+    evidence: pipelines/dst-crashes, https://github.com/felipealves7/felipealveslab/pull/57
+  - name: IANA Time Zone Database rules and computed sun position as join keys
+    area: joining timestamped events to clock law and daylight
+    evidence: /lab/spring-clock-change-road-deaths, https://github.com/felipealves7/felipealveslab/pull/57
   - name: Parquet files on Cloudflare R2
     area: storage for joined datasets
   - name: DuckDB-WASM
