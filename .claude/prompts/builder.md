@@ -42,7 +42,14 @@ rule 6). The steps below apply, except the Lab page and data parts of step 4.
      sections for its series, in order (`CLAUDE.md`); on a Human Variable page, leave The
      Provocation and The Return for Felipe to write;
    - cached outputs so the page works with no live services. Any live feature needs a daily
-     cost cap and a cached fallback.
+     cost cap and a cached fallback;
+   - at least one chart in the page's HTML at build time (SVG from cached data, no JavaScript
+     needed), readable at 375 px wide; explorers and embeds come on top of it;
+   - the companion artifact the brief names, or a line in the pull request saying why not;
+   - an Ask this lab panel only when the brief calls for it, on the Ask the Ledger engine and with
+     its own benchmark;
+   - an update to `stack-radar.yml`: the tools this lab used, with the pull request as evidence,
+     and any ring moves the brief proposed.
 5. Run the tests and the site build (`npm run build`, `npm test`). Fix failures. If you cannot
    run something, say so plainly in the pull request.
 6. Open a pull request labelled `agent-built`, titled by what it delivers, linking the issue (`Closes #<n>` is not allowed:

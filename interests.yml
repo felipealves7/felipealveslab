@@ -2,7 +2,9 @@
 owner: Felipe Alves
 purpose: >
   A public Data & AI Lab that shows data, product and transformation judgement through working
-  data engineering, evaluation and newer tooling. Credibility over volume.
+  data engineering, evaluation and newer tooling. Each lab joins public datasets from different
+  worlds around one idea, tests it against a shock, and, where it earns one, ends in a panel that
+  answers questions about the joined data. Credibility over volume.
 
 tracks:              # one new lab a month, alternating
   human_variable: even months (December, February, April, June, August, October)
@@ -18,15 +20,18 @@ cadence:
   brief: first Monday on or after the 15th, for next month's lab
   ship_by: last day of the month; cut scope, keep the date
   next_lab_starts: after the current lab ships
+  stack_review: in the briefs written in February, May, August and November (stack-radar.yml)
 
 human_variable:          # the psychology series, in even months
   name: The Human Variable
-  about: questions about human experience, tested with real data and stated limits
+  about: questions about human behaviour, tested on public data about many people, with stated limits
   felipe_writes: [The Provocation, The Return]
   themes:
-    - attention and mind-wandering
+    - attention, sleep and time
+    - perception and belief
     - motivation, goal pursuit and finishing
     - decisions under uncertainty, confidence and calibration
+    - mood and money
     - curiosity and how people explore information
     - flow (Csikszentmihalyi)
     - self-determination theory
@@ -36,59 +41,78 @@ human_variable:          # the psychology series, in even months
     - beginner's mind
 
 calendar:                # one entry per month; the Scout briefs each entry as written
+  # References and figures in the notes are pointers, not verified claims. The Scout and the
+  # Builder open each one before any figure reaches a page (CLAUDE.md rule 3).
   - month: 2026-12
     track: human_variable
-    question: "Where does my attention go?"
+    question: "The lost hour: does the spring clock change cost lives on the road?"
     notes: >
-      Random phone pings for about three weeks from 1 December: what Felipe is doing, whether his
-      mind is on it, in the past or in the future, which project it is on, and his mood from 0 to
-      100. Compared with priorities he writes down before the first ping and with measured usage
-      from his phone or laptop (check what can be exported). Method: experience sampling
-      (Csikszentmihalyi and Larson). Benchmark: Killingsworth and Gilbert, Science 2010, minds
-      wandering 46.9% of the time across 2,250 volunteers (opened 16 November 2026:
-      https://news.harvard.edu/gazette/story/2010/11/wandering-mind-not-a-happy-mind/; the Scout
-      re-opens it before the figure reaches a page). Self-report cannot see all of attention, so
-      the gaps between stated, reported and measured attention are the finding. Candidate build:
-      a Cloudflare
-      Worker that sends random pings and stores answers in D1. Includes the Human Variable page
-      variant in the schema and the content check.
+      US fatal crash records (NHTSA FARS: time, place and light condition of every fatal crash)
+      joined to daylight saving rules by state and year (IANA Time Zone Database) and to sunrise
+      and sunset computed for each crash's place and date. The shock is the spring change; the
+      comparisons are states that keep standard time all year (Arizona, Hawaii) and the 2007 move
+      of the change from April to March. Replicates Fritz et al. (Current Biology 2020) and Smith
+      (AEJ: Applied 2016) with newer years, and sets the first week's cost of lost sleep against
+      the season's gain from evening light (Ferguson et al. 1995; Coate and Markowitz 2004).
+      Brief: #54. Copies the Human Variable page variant from branch claude/51-attention-sampling
+      (closed PR #52, not merged).
   - month: 2027-01
     track: career
     lane: data_engineering
-    question: "What does the on-time metric hide?"
+    question: "Which demands bend? Brazil's power use, lockdowns and GDP in 2020"
     notes: >
-      Do airlines lengthen scheduled flight times so that more flights count as on time? Extends
-      /lab/aviation-reliability with scheduled against actual elapsed time and air time from the
-      US BTS on-time data, over a longer history. Human question: Goodhart's law, how a target
-      changes behaviour.
+      Brazil's hourly power load by subsystem (ONS open data), daily lockdown strictness by state
+      (Oxford COVID-19 Government Response Tracker), daily mobility (Google COVID-19 Community
+      Mobility Reports), quarterly GDP (IBGE) and the hourly prices already in the Lab (CCEE). The
+      shock is the March 2020 lockdowns; the dose is strictness by state. Reference point: the
+      IEA's Global Energy Review 2021 (world electricity down about 1% in 2020, at times 20-30%
+      below pre-lockdown levels; oil down 8.6%; read through search on 17 November 2026:
+      https://www.iea.org/reports/global-energy-review-2021/electricity and
+      https://www.iea.org/articles/global-energy-review-co2-emissions-in-2020). Shows how the
+      answer changes between hours, days and quarters.
   - month: 2027-02
     track: human_variable
-    question: "The finisher's curve: do projects stall in the middle?"
+    question: "Did an app revive a language? Esperanto and the Duolingo courses"
     notes: >
-      How many new public GitHub repositories are still active after 30, 90 and 180 days, and does
-      activity sag halfway (Bonezzi, Brendl and De Angelis, Psychological Science 2011)? Data: GH
-      Archive on BigQuery, with query cost kept inside the free tier and shown on the page.
+      Wikipedia pageviews and edits (the Esperanto edition, and Esperanto articles in other
+      editions), search interest, and the launch dates of Duolingo's Esperanto courses for each
+      source language as staggered shocks. Human question: does gamified learning create lasting
+      interest or a spike that fades? Check each source's licence and the launch dates.
   - month: 2027-03
     track: career
-    lane: conversational_bi_and_evaluation
-    question: "How much should I know before I decide?"
+    lane: data_engineering
+    question: "What moves Dubai property: planes, oil or rules?"
     notes: >
-      Add information to a forecast step by step and chart accuracy against stated confidence
-      (Tsai, Klayman and Hastie 2008). Public finance or aviation data; calibration and proper
-      scoring rules.
+      Dubai Land Department transactions by area and day (licence and access to check), airport
+      passenger numbers, the Brent oil price, and the dates of visa and residency rule changes as
+      shocks. Candidate for an Ask this lab panel.
   - month: 2027-04
     track: human_variable
-    question: "Hunter or busybody?"
+    question: "Do markets have moods? Sunshine and stock returns"
     notes: >
-      Curiosity styles as knowledge networks (Lydon-Staley, Zhou, Blevins, Zurn and Bassett, Nature
-      Human Behaviour 2021). Felipe's own browsing, scored privately; only network measures are
-      published.
+      Daily weather at stock-exchange cities (NOAA) against daily index returns (licence to
+      check). Replicates Hirshleifer and Shumway (Journal of Finance 2003; not verified) and tests
+      whether the effect faded after it was published.
   - month: 2027-05
     track: career
     lane: conversational_bi_and_evaluation
-    question: "Ask the Ledger v2: does the model know when it doesn't know?"
+    question: "The heat penalty: do hot days delay flights?"
     notes: >
-      Calibrated declines and stated confidence on the existing Ask the Ledger benchmark.
+      US BTS on-time data (extends /lab/aviation-reliability) joined to hourly airport weather
+      (NOAA), with heat waves as shocks. Ends in an Ask this lab panel on the joined flights and
+      weather data, with benchmark questions whose answer changes between hours and months.
+
+ideas:                   # backlog for months after the calendar, and for second candidates
+  - "The halftime kettle: does Brazil's grid feel World Cup matches? (ONS load at its finest grain, match timelines)"
+  - "Helmet laws: what happens when a state repeals one? (FARS, law change dates)"
+  - "Who gets adopted, and when? Shelter dogs and the 2020 adoption boom (Austin Animal Center open data)"
+  - "What did New York's congestion charge change? (TLC trip records, MTA ridership, traffic speeds)"
+  - "AI's power bill: are data centres moving grid demand? (EIA hourly demand by balancing authority)"
+  - "Do UFO reports follow satellite launches? (public sighting reports, launch dates; licence to check)"
+  - "Rainy weekends and the box office (weather, opening weekends; licence to check)"
+  - "Text-to-SQL shoot-out on public Spider 2.0 and BIRD subsets (conversational BI)"
+  - "Git-scraped tracker, for example UAE monthly fuel prices (data engineering)"
+  - "Cities and airports network analysis"
 
 domains_i_know:          # use these as the lens for choosing data and questions
   - finance data analytics at a large airline and travel group
@@ -97,16 +121,28 @@ domains_i_know:          # use these as the lens for choosing data and questions
   - KPI design, reconciliation, forecasting, risk analytics
 
 focus_areas:             # prefer proposals that show one of these with real data
+  - joining datasets with different keys, calendars and levels of detail
   - data pipelines: ingestion, modelling, testing, scheduling (dlt, DuckDB or DuckLake, dbt-core, GitHub Actions)
   - data contracts and freshness checks
   - evaluating text-to-SQL and conversational BI (accuracy, clarification behaviour, cost per correct answer)
   - semantic layers and metric definitions
   - newer tooling, judged by what it changes for a finance or operations team
 
-wildcard_subjects:       # curiosity topics from the Behind the Scenes page
-  - history
-  - mythology
-  - cities and airports
+curiosities:             # topics Felipe enjoys; good sources for fun questions
+  - traffic, cities and airports
+  - infrastructure and engineering
+  - aviation engineering
+  - AI, chips and compute
+  - space exploration
+  - history and civilizations
+  - mythology and folklore
+  - languages, including invented ones
+  - cinema and its economics
+  - piano and craftsmanship
+  - motorcycles
+  - dogs
+  - mystery storytelling
+  - Japan
   - design
 
 data_rules:
@@ -124,13 +160,6 @@ flagships:
     summary: conversational finance BI on synthetic multi-currency cash-flow data, with a public accuracy scorecard
   - id: public-data-pipeline
     summary: weekly-refreshed public-data pipeline with tests, freshness checks and failure triage
-
-seed_backlog:
-  - Brazil's power market from CCEE open data (wildcard)
-  - Text-to-SQL shoot-out on public Spider 2.0 and BIRD subsets (conversational BI)
-  - Git-scraped tracker, for example UAE monthly fuel prices (data engineering)
-  - Lab operations dashboard from the GitHub API (wildcard)
-  - Cities and airports network analysis (wildcard)
 
 never:
   - claims about Emirates Group, dnata or their systems

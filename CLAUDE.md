@@ -58,7 +58,7 @@ Nothing reaches the live site unless Felipe merges it.
 
 | Agent | Starts when | Output | Never |
 | --- | --- | --- | --- |
-| Scout | Monthly: the first Monday on or after the 15th | One brief for next month's lab, and a status comment on this month's | Writes code |
+| Scout | Monthly: the first Monday on or after the 15th | One brief for next month's lab with the ways to build it, a status comment on this month's, and a stack review each quarter | Writes code |
 | Builder | Felipe labels a proposal or a `maintenance` issue `go` | One pull request on a `claude/` branch | Merges |
 | Critic | A pull request opens from a `claude/` branch | One review comment; label `blocked` only for a problem a person must fix (see `critic.md`) | Edits code |
 | Keeper | Weekly, Thursday | Small fix pull requests, or one `maintenance` issue | Changes published conclusions |
@@ -75,6 +75,22 @@ Everything an agent opens carries the label `agent-built`.
 - `pipelines/`: ingestion and transformation code, with tests next to it.
 - `scripts/`: repository checks run by CI.
 - `interests.yml`: what Felipe cares about; steers the Scout.
+- `stack-radar.yml`: the tools and approaches the Lab adopts, trials, assesses and holds; the
+  Builder adds what each lab used and the Scout reviews it each quarter.
+
+## House style for labs
+
+- Each lab joins two to four public datasets from different domains and levels of detail around
+  one idea, and states why the link should exist.
+- The design rests on a shock, not a trend: a sudden event with a before and after, a place or
+  group the shock missed, or a dose that varies. Two series that rise together prove nothing.
+- Show how the level of detail changes the answer (for example hours against years) and say which
+  level each figure uses.
+- An Ask this lab panel on the joined data, built on the Ask the Ledger engine, is added only when
+  the joined data has enough dimensions to make questions worthwhile. Its benchmark includes
+  questions whose answer changes with the level of detail.
+- Prefer questions a curious non-specialist would want to open: concrete, surprising, fun where
+  possible (`curiosities` and `ideas` in `interests.yml`).
 
 ## Required on every experiment page
 
@@ -104,6 +120,12 @@ headings instead, in this order:
 Human Variable labs may use Felipe's own self-tracking data, shown only as aggregates (categories
 and numbers), never as the content of entries. The schema and `scripts/check-content.mjs` gain
 this variant with the first Human Variable lab.
+
+**Every lab page shows at least one chart in its HTML at build time**: an SVG drawn from cached
+data, with no JavaScript needed, readable at 375 px wide, in `## The live piece` or
+`## The Experiment`. Interactive explorers and embeds come on top of it. Each brief also names one
+companion artifact (a Tableau Public dashboard, a Kaggle notebook and dataset, an in-browser data
+explorer, or the code alone) and the reason.
 
 Front matter must state `type` (`production-like demo`, `research study` or `experiment`), the data
 source, its licence, its freshness date, and whether the data is synthetic. Synthetic data is
