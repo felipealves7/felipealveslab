@@ -25,6 +25,8 @@ Replay a saved run step by step: where the data comes from, how it is fetched an
 
 <div id="airport-replay" class="airport-replay"><p>The replay needs JavaScript. The saved runs are in <code>data/airport-contract/results.json</code> and the code is in <code>pipelines/airport-contract/</code>.</p></div>
 
+<div data-lab-chart="airport"></div>
+
 ## Method and results
 
 **Data.** Three files from [OurAirports](https://ourairports.com/data/): airports, runways and countries. They are downloaded from `davidmegginson.github.io/ourairports-data`, the published copy of the [ourairports-data repository](https://github.com/davidmegginson/ourairports-data). The data page says the files are updated every night and released to the Public Domain, with no guarantee of accuracy.

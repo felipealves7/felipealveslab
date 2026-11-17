@@ -39,6 +39,8 @@ A small Worker, `ledger-api`, takes one question, asks a model for one read-only
 
 Twelve model runs were scored on 3 and 14 November 2026. The table, the error analysis and the limits are under [Model benchmark](#model-benchmark) below. The stored runs and the scoring code are in `data/ledger-eval/` and `pipelines/ledger-eval/`.
 
+<div data-lab-chart="ledger"></div>
+
 ## Method and results
 
 **The ledger is invented.** 1,008 rows: six made-up companies, eight made-up accounts, 2025-01 to 2026-09, in thousands of AED. It comes from a fixed random seed, so the same numbers appear every run.
