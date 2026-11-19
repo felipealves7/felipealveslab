@@ -2,7 +2,7 @@
 title: "The lost hour: does the spring clock change cost lives on the road?"
 type: "research study"
 series: "human-variable"
-status: "building"
+status: "live"
 question: "Does the spring clock change cost lives on US roads in the work week that follows it?"
 payer: "Road-safety agencies, insurers and fleet operators planning the week after the change, and legislators weighing permanent daylight saving time against permanent standard time."
 dataSource: "NHTSA Fatality Analysis Reporting System (FARS), national accident files 1996-2024 from https://static.nhtsa.gov/nhtsa/downloads/FARS/, downloaded 17 Nov 2026; IANA Time Zone Database release 2026f (US rules and zones); sun position computed for each crash."
@@ -16,7 +16,32 @@ builtBy: "https://github.com/felipealves7/felipealveslab/pull/57"
 
 ## The Provocation
 
-Felipe writes this section.
+Every March, most of the United States moves its clocks forward one hour. By law, millions of people lose an hour of sleep on the same night and go to work on Monday as if nothing happened.
+
+We talk about attention as if it were discipline. But it runs on a body, and it is paid for with last night's sleep. If attention is that physical, a small deficit shared by millions should show up somewhere, and the road is where a lapse of a second is least forgiving.
+
+So this lab asks one question: when a country loses an hour of sleep together, does it cost lives?
+
+<details class="dst-essay">
+<summary>Read the full essay</summary>
+
+Every March, most of the United States moves its clocks forward one hour. On the same night, by law, millions of people lose an hour of sleep and go to work on Monday as if nothing happened. Most of us remember it as a heavy morning and an oven clock that stays wrong for weeks.
+
+I grew up in a country that used to change its clocks every summer. I now live in one that never does. Seen from here, the ritual looks stranger than it felt then. The clock looks like a fact of nature, but it is an agreement, a line in a statute. Our bodies never signed it. They keep running on the sun.
+
+I have been thinking a lot about attention lately: where it goes, what it costs, and how much of it is really a choice. We talk about attention as if it were discipline, something we decide where to point. But it runs on a body. It is spent in the present and paid for with the sleep we had, or didn't. You cannot borrow it from tomorrow or save yesterday's.
+
+That makes the spring change an experiment nobody designed. A whole country gives up the same hour on the same night. No one person loses much: an hour is less than a commute, less than a meeting that could have been an email. If attention were only willpower, nothing should happen.
+
+But if attention is as physical as I suspect, a small deficit shared by millions should show up somewhere. And there is one place where a lapse of a second is least forgiving: the road.
+
+I want to keep the question open rather than answer it in advance. The same law that takes an hour of sleep in March moves an hour of daylight into the evening, when roads are busy and darkness is dangerous. The clock might take lives in the first week and give them back over the summer. Both can be true. Which is larger is a question about numbers, not about how a Monday feels.
+
+Underneath sits a quieter question. Some truths about people can't be seen from inside one life. I could log my tired mornings for years and never find what a population reveals in a single week. To see the human variable, you sometimes have to step back far enough that no individual is visible at all.
+
+That is what The Human Variable is for. It takes questions about how people actually behave, the kind I tend to argue with myself about, and tests them on data about many people, with the limits stated. The first one starts with an hour.
+
+</details>
 
 ## What We Know
 
@@ -108,7 +133,26 @@ The designs differ: Fritz et al. left out Arizona, Smith's design is known here 
 
 ## The Return
 
-Felipe writes this section.
+The hour has a price. In states that change their clocks, fatal crashes ran about 7% higher in the work week after the spring change: roughly 30 deaths a year. When the law moved the change from April to March in 2007, the rise moved with it.
+
+No single year proves it: 5 of 29 years show no rise at all. Only decades, pooled, make it visible. The cost lives in the total, not in the person.
+
+One hour is nothing to one person and about 30 lives to a country. Attention works the same way: a private resource with public consequences.
+
+<details class="dst-essay">
+<summary>Read the full essay</summary>
+
+The hour has a price. In states that change their clocks, fatal crashes ran about 7% higher in the work week after the spring change than on the same weekdays around it: roughly 30 deaths a year, across nearly three decades of data. When the law moved the change from April to March in 2007, the rise moved with it. Arizona and Hawaii, which keep one time all year, showed no such rise.
+
+What stays with me is the scale. In any single year the effect can vanish: 5 of 29 years show no rise at all. Only decades of crashes, pooled, make it visible. Nobody could notice this in their own life. Each tired driver who got to work safely would say the hour cost nothing, and almost all of them would be right. The cost lives in the total, not in the person.
+
+The shape of the rise points at attention rather than darkness. It sits mostly in the morning, and mostly in crashes that happened in daylight, not in the dark. That fits drivers who slept less better than roads that got darker, though this method can't fully separate the two.
+
+There are things this lab can't say yet. It hasn't measured the season: whether evening light saves more lives from March to November than the first week costs. Its comparison states are small. And one check came out less clean than I hoped: a date three weeks after the change also shows a smaller rise. A tighter comparison mostly removes it, and the March effect survives both designs.
+
+So, back to the question. One hour is nothing to one person and about 30 lives to a country. Attention behaves like that: a private resource with public consequences, spent in the present and funded by a night we've already had. I don't change my clocks anymore. But I still lose hours: to late nights, early flights, one more thing at midnight. The lab didn't measure that. It did change how I count it.
+
+</details>
 
 ## How it was built
 
