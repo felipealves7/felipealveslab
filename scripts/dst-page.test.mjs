@@ -15,11 +15,19 @@ const n3 = (x) => x.toFixed(3);
 const iv = (e) => `${n3(e.interval95[0])} to ${n3(e.interval95[1])}`;
 const has = (s) => assert.ok(page.includes(s), `page should include: ${s}`);
 
-test('the page uses the six Human Variable sections and leaves Felipe\'s two to him', () => {
+test('the page uses the six Human Variable sections', () => {
   assert.deepEqual(headingsFor(page), HUMAN_VARIABLE_HEADINGS);
   assert.deepEqual(missingHeadings(page), []);
-  assert.match(page, /## The Provocation\n\nFelipe writes this section\./);
-  assert.match(page, /## The Return\n\nFelipe writes this section\./);
+});
+
+test("Felipe's two sections are written and quote the saved figures", () => {
+  assert.doesNotMatch(page, /Felipe writes this section\./);
+  const m = r.main;
+  const below = r.perYear.filter((y) => y.rateRatio < 1);
+  has(`about ${Math.round((m.rateRatio - 1) * 100)}% higher`);
+  has(`roughly ${Math.round(m.excessDeathsPerYear)} deaths a year`);
+  has(`about ${Math.round(m.excessDeathsPerYear)} lives to a country`);
+  has(`${below.length} of ${r.perYear.length} years show no rise`);
 });
 
 test('the chart in the page is drawn from the saved results, inside The Experiment', () => {

@@ -21,4 +21,6 @@
 .lab-prose .dst-table table { font-size: 13px; }
 .dst-table td, .dst-table th { font-variant-numeric: tabular-nums; }
 .dst-table td { text-align: right; }
+.dst-essay { margin: 14px 0 4px; }
+.dst-essay summary { cursor: pointer; font-size: 14px; font-weight: 650; margin: 6px 0 10px; }
 @media (max-width: 680px) { .dst-legend, .dst-tick { font-size: 12px; } }
