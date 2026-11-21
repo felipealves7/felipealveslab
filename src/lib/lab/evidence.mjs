@@ -96,7 +96,7 @@ export function aviationEvidence(martMonthCsv) {
   };
 }
 
-const signed = (pct) => `${pct > 0 ? '+' : ''}${pct.toFixed(1)}%`;
+const signed = (pct) => `${pct < 0 ? '\u2212' : pct > 0 ? '+' : ''}${Math.abs(pct).toFixed(1)}%`;
 const money = (value) => new Intl.NumberFormat('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value);
 
 export function pldEvidence(data) {
@@ -125,9 +125,9 @@ export function pldEvidence(data) {
 
 export function dstEvidence(r) {
   const groups = [
-    { key: 'april', label: 'Change in April, 1996–2006', e: r?.eras?.[0] },
-    { key: 'march', label: 'Change in March, 2007–2024', e: r?.eras?.[1] },
-    { key: 'standard', label: 'Arizona and Hawaii, no change', e: r?.standard },
+    { key: 'april', label: 'Change in April, 1996–\u20602006', e: r?.eras?.[0] },
+    { key: 'march', label: 'Change in March, 2007–\u20602024', e: r?.eras?.[1] },
+    { key: 'standard', label: 'Arizona and Hawaii, no\u00a0change', e: r?.standard },
   ];
   if (groups.some((g) => !Number.isFinite(g.e?.rateRatio)) || !Number.isFinite(r?.main?.rateRatio)) {
     throw new Error('Missing rate ratios in the clock-change evidence');
@@ -135,7 +135,9 @@ export function dstEvidence(r) {
   const bars = groups.map((g) => ({ ...g, change: (g.e.rateRatio - 1) * 100 }));
   const maxAbs = Math.max(...bars.map((b) => Math.abs(b.change)));
   const m = r.main;
+  const st = r.standard;
   const pct = (x) => ((x - 1) * 100).toFixed(1);
+  const change = (x) => signed((x - 1) * 100);
   return {
     title: 'The lost hour: fatal crashes after the spring change',
     subtitle: 'Work week after the change against the same weekdays in nearby weeks · US FARS, 1996 to 2024 without 2020',
@@ -145,6 +147,6 @@ export function dstEvidence(r) {
     diverging: true,
     axis: '% change against nearby weeks · bars scaled to the largest change',
     bars: bars.map((b) => ({ key: b.key, label: b.label, value: b.change, percent: (b.change / maxAbs) * 100, tone: b.change > 0 ? 'negative' : 'neutral', text: signed(b.change) })),
-    summary: `In states that change their clocks, fatal crashes were ${pct(m.rateRatio)}% higher in that work week (95% interval ${pct(m.interval95[0])}% to ${pct(m.interval95[1])}%), about ${Math.round(m.excessDeathsPerYear)} extra deaths a year. Arizona and Hawaii show no rise.`,
+    summary: `In states that change their clocks, fatal crashes were ${pct(m.rateRatio)}% higher in that work week (95% interval ${pct(m.interval95[0])}% to ${pct(m.interval95[1])}%), about ${Math.round(m.excessDeathsPerYear)} extra deaths a year. In Arizona and Hawaii, which do not change their clocks: ${change(st.rateRatio)} (95% interval ${change(st.interval95[0])} to ${change(st.interval95[1])}), from ${fmt(st.treat)} work-week crashes.`,
   };
 }

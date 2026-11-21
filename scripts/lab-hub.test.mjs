@@ -36,4 +36,7 @@ test('the clock-change card charts the saved rate ratios', () => {
   assert.deepEqual(e.bars.map((b) => Number(b.value.toFixed(1))), [r.eras[0], r.eras[1], r.standard].map(pct));
   assert.ok(e.diverging);
   assert.match(e.summary, new RegExp(`${((r.main.rateRatio - 1) * 100).toFixed(1)}% higher`));
+  const sign = (x) => { const v = (x - 1) * 100; return `${v < 0 ? '\u2212' : '\\+'}${Math.abs(v).toFixed(1)}%`; };
+  const [lo, hi] = r.standard.interval95;
+  assert.match(e.summary, new RegExp(`Arizona and Hawaii.*${sign(r.standard.rateRatio)} \\(95% interval ${sign(lo)} to ${sign(hi)}\\)`), 'the no-change states carry their interval');
 });
