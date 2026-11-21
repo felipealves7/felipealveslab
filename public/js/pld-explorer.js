@@ -134,7 +134,13 @@
     s.appendChild(holder);
     s.appendChild(el('p', 'Source: CCEE, PLD_HORARIO, CC BY 4.0. Daily figures computed by this Lab from the hourly prices; not published by CCEE.', 'pld-note'));
 
+    // The chart is drawn at the width it is shown at, so its labels keep their size on a phone.
+    var shown = 0;
+    function chartWidth() { return Math.round(Math.min(900, Math.max(320, holder.clientWidth || 900))); }
+    var drawnAt = 0;
+    window.addEventListener('resize', function () { if (Math.abs(chartWidth() - drawnAt) > 40) draw(shown); });
     function draw(ri) {
+      shown = ri;
       buttons.forEach(function (b, j) { b.setAttribute('aria-pressed', String(ri === j)); });
       var r = ranges[ri];
       var idx = [];
@@ -143,7 +149,8 @@
       idx.forEach(function (i) { SUBS.forEach(function (sb) { var v = sum.daily.series[sb][i]; if (v > max) max = v; }); });
       var step = max > 800 ? 250 : max > 400 ? 100 : 50;
       var top = Math.ceil(max / step) * step;
-      var W = 900, PH = 120, GAP = 34, L = 54, R = 16, T = 10;
+      var W = chartWidth(), PH = 120, GAP = 34, L = 54, R = 16, T = 10;
+      drawnAt = W;
       var H = T + SUBS.length * (PH + GAP) + 6;
       var x = function (k) { return L + (idx.length < 2 ? 0 : (k / (idx.length - 1)) * (W - L - R)); };
       holder.textContent = '';

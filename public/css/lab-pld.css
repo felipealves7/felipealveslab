@@ -36,5 +36,4 @@
 .pld-cross { stroke: rgba(26,26,23,.5); stroke-width: 1; opacity: 0; pointer-events: none; }
 .pld-hit { fill: transparent; cursor: crosshair; }
 .pld-tip { position: absolute; top: 12px; display: grid; gap: 2px; padding: 8px 10px; background: var(--ink); color: var(--cream); border-radius: 6px; font-size: 12px; font-variant-numeric: tabular-nums; pointer-events: none; white-space: nowrap; }
-@media (max-width: 680px) { .pld-tick { font-size: 15px; } .pld-panel-title { font-size: 16px; } }
 .pld-checks td:nth-child(3), .pld-checks td:nth-child(4) { white-space: nowrap; }

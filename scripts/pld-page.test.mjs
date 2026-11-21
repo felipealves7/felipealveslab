@@ -71,3 +71,11 @@ test('price figures as printed', () => {
   assert.deepEqual(se, ['280.50', '59.05', '72.16', '128.16', '224.31', '194.92']);
   assert.ok(page.includes('280.50 (2021), 59.05 (2022), 72.16 (2023), 128.16 (2024), 224.31 (2025) and 194.92 (2026 to 14 Nov)'));
 });
+
+test('the explorer draws its chart at the width it is shown at, so labels keep their size on a phone', () => {
+  const js = read('public/js/pld-explorer.js');
+  assert.match(js, /function chartWidth\(\) \{ return Math\.round\(Math\.min\(900, Math\.max\(320, holder\.clientWidth \|\| 900\)\)\); \}/);
+  assert.match(js, /var W = chartWidth\(\),/);
+  assert.match(js, /window\.addEventListener\('resize'/);
+  assert.doesNotMatch(read('public/css/lab-pld.css'), /\.pld-tick \{ font-size: 15px; \}/, 'no phone-only font scaling: the chart is drawn at phone width instead');
+});
