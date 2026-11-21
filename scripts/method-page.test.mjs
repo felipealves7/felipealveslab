@@ -117,3 +117,11 @@ test('the page adds no script of its own', () => {
   assert.doesNotMatch(body, /<script/);
   assert.match(body, /script="script"/);
 });
+
+test('section 03 says how many exhibits the Lab has, counted from the content collection', () => {
+  assert.match(page, /import \{ getCollection \} from 'astro:content'/);
+  assert.match(page, /const exhibitCount = \(await getCollection\('lab'\)\)\.length;/);
+  assert.match(body, /03 \/ Three of \{inWords\(exhibitCount\)\} exhibits/);
+  assert.match(body, /href="\/lab">All \{inWords\(exhibitCount\)\} exhibits in the Lab →/);
+  assert.doesNotMatch(body, /03 \/ Three exhibits</, 'no count typed by hand');
+});
