@@ -3,9 +3,11 @@
 import ledgerData from '../../data/ask-the-ledger/results.json';
 import airportData from '../../data/airport-contract/results.json';
 import aviationMonths from '../../data/aviation-reliability/mart_month.csv?raw';
-import { ledgerEvidence, airportEvidence, aviationEvidence } from '../lib/lab/evidence.mjs';
+import pldData from '../../data/ccee-pld/results.json';
+import dstData from '../../data/dst-crashes/results.json';
+import { ledgerEvidence, airportEvidence, aviationEvidence, pldEvidence, dstEvidence } from '../lib/lab/evidence.mjs';
 
-interface Props { exhibit: 'ledger' | 'airport' | 'aviation'; compact?: boolean; }
+interface Props { exhibit: 'ledger' | 'airport' | 'aviation' | 'pld' | 'dst'; compact?: boolean; }
 interface Bar { key: string; label: string; value: number; percent: number; tone: string; text?: string }
 // One explicit shape for every exhibit: the ledger and aviation fill `bars`, the airport fills `cells`.
 // Aviation bars are signed (`diverging`): percent runs from -100 to 100 around a centre line.
@@ -19,7 +21,14 @@ interface Evidence {
   rowsLine?: string;
 }
 const { exhibit, compact = false } = Astro.props;
-const raw = exhibit === 'ledger' ? ledgerEvidence(ledgerData) : exhibit === 'airport' ? airportEvidence(airportData) : aviationEvidence(aviationMonths);
+const builders = {
+  ledger: () => ledgerEvidence(ledgerData),
+  airport: () => airportEvidence(airportData),
+  aviation: () => aviationEvidence(aviationMonths),
+  pld: () => pldEvidence(pldData),
+  dst: () => dstEvidence(dstData),
+};
+const raw = builders[exhibit]();
 const evidence = raw as unknown as Evidence;
 const fmt = (value: number) => new Intl.NumberFormat('en-GB').format(value);
 const valueText = (bar: Bar) => bar.text ?? fmt(bar.value);
