@@ -47,11 +47,14 @@ test('every page gets HTTPS-only, no framing and a restrictive policy', () => {
   assert.doesNotMatch(all.headers['permissions-policy'] ?? '', /interest-cohort/, 'browsers log an error for this retired feature');
 });
 
-test('the policy allows the live box Worker, the airport results and the Tableau embed the pages use', () => {
+test('the policy allows the live box Worker, the airport results and files, and the Tableau embed the pages use', () => {
   const api = /data-api="([^"]+)"/.exec(read('src/content/lab/ask-the-ledger.md'))[1];
   assert.ok(csp['connect-src'].includes(new URL(api).origin), `connect-src allows ${api}`);
   const runs = /RUNS_URL = '([^']+)'/.exec(read('src/lib/airport/replay.mjs'))[1];
   assert.ok(csp['connect-src'].includes(new URL(runs).origin), `connect-src allows ${runs}`);
+  // "Run it yourself" on the airport page downloads OurAirports' files in the browser with this URL.
+  const files = /BASE_URL = '([^']+)'/.exec(read('pipelines/airport-contract/load.mjs'))[1];
+  assert.ok(csp['connect-src'].includes(new URL(files).origin), `connect-src allows ${files}`);
   const tableau = new URL(JSON.parse(read('data/aviation-reliability/external.json')).tableau.embed.script).origin;
   for (const d of ['script-src', 'frame-src', 'img-src']) assert.ok(csp[d].includes(tableau), `${d} allows ${tableau}`);
 });
