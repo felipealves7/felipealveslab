@@ -195,7 +195,8 @@ test('retired models keep their stored runs but are not offered for new runs', (
     assert.ok(!rated.includes(model), `${model} is retired but still listed in models.json`);
   }
   assert.deepEqual([runs.get(5).model, runs.get(8).model], [RETIRED[0], RETIRED[0]]);
-  assert.match(page, /Cloudflare's retirement date for this model is 20 November 2026/);
+  assert.match(page, /Cloudflare's changelog set 20 November 2026 as the day this model stops returning responses/);
+  assert.doesNotMatch(page, /retirement date for this model is/, 'the date has passed; the page says what the changelog set');
 });
 
 test('the page no longer says that no model was scored, and its data date is the latest run', () => {
