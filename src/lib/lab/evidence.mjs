@@ -95,3 +95,58 @@ export function aviationEvidence(martMonthCsv) {
     summary: `Cancellations ${canc.text}, while the average arrival delay moved ${delay.text}. Each bar is the ${m.years[1]} value as a change from ${m.years[0]}.`,
   };
 }
+
+const signed = (pct) => `${pct < 0 ? '\u2212' : pct > 0 ? '+' : ''}${Math.abs(pct).toFixed(1)}%`;
+const money = (value) => new Intl.NumberFormat('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value);
+
+export function pldEvidence(data) {
+  const s = data?.summary;
+  const rows = (s?.yearly ?? []).filter((y) => y.submarket === 'SUDESTE').sort((a, b) => a.year - b.year);
+  if (rows.length === 0 || rows.some((y) => !Number.isFinite(y.mean) || y.mean <= 0)) {
+    throw new Error('No usable SUDESTE yearly means in the PLD evidence');
+  }
+  const max = Math.max(...rows.map((y) => y.mean));
+  const lastYear = String(rows[rows.length - 1].year);
+  const toDate = s.last.startsWith(lastYear) && !s.last.endsWith('-12-31');
+  const label = (y) => (toDate && String(y.year) === lastYear ? `${y.year} to date` : String(y.year));
+  const first = rows[0];
+  const last = rows[rows.length - 1];
+  return {
+    title: 'Brazil power price: yearly mean, SUDESTE',
+    subtitle: `Mean hourly PLD, ${s.first} to ${s.last} · ${fmt(s.days)} days of CCEE files`,
+    source: 'data/ccee-pld/results.json',
+    provenance: 'In source',
+    unit: 'R$/MWh',
+    axis: 'Mean hourly price, read as R$/MWh · bars scaled to the highest year',
+    bars: rows.map((y) => ({ key: String(y.year), label: label(y), value: y.mean, percent: (y.mean / max) * 100, tone: 'neutral', text: money(y.mean) })),
+    summary: `The yearly mean of hourly prices in SUDESTE moved from ${money(first.mean)} in ${first.year} to ${money(last.mean)} in ${label(last)}.`,
+  };
+}
+
+export function dstEvidence(r) {
+  const groups = [
+    { key: 'april', label: 'Change in April, 1996–\u20602006', e: r?.eras?.[0] },
+    { key: 'march', label: 'Change in March, 2007–\u20602024', e: r?.eras?.[1] },
+    { key: 'standard', label: 'Arizona and Hawaii, no\u00a0change', e: r?.standard },
+  ];
+  if (groups.some((g) => !Number.isFinite(g.e?.rateRatio)) || !Number.isFinite(r?.main?.rateRatio)) {
+    throw new Error('Missing rate ratios in the clock-change evidence');
+  }
+  const bars = groups.map((g) => ({ ...g, change: (g.e.rateRatio - 1) * 100 }));
+  const maxAbs = Math.max(...bars.map((b) => Math.abs(b.change)));
+  const m = r.main;
+  const st = r.standard;
+  const pct = (x) => ((x - 1) * 100).toFixed(1);
+  const change = (x) => signed((x - 1) * 100);
+  return {
+    title: 'The lost hour: fatal crashes after the spring change',
+    subtitle: 'Work week after the change against the same weekdays in nearby weeks · US FARS, 1996 to 2024 without 2020',
+    source: 'data/dst-crashes/results.json',
+    provenance: 'In source',
+    unit: '%',
+    diverging: true,
+    axis: '% change against nearby weeks · bars scaled to the largest change',
+    bars: bars.map((b) => ({ key: b.key, label: b.label, value: b.change, percent: (b.change / maxAbs) * 100, tone: b.change > 0 ? 'negative' : 'neutral', text: signed(b.change) })),
+    summary: `In states that change their clocks, fatal crashes were ${pct(m.rateRatio)}% higher in that work week (95% interval ${pct(m.interval95[0])}% to ${pct(m.interval95[1])}%), about ${Math.round(m.excessDeathsPerYear)} extra deaths a year. In Arizona and Hawaii, which do not change their clocks: ${change(st.rateRatio)} (95% interval ${change(st.interval95[0])} to ${change(st.interval95[1])}), from ${fmt(st.treat)} work-week crashes.`,
+  };
+}
