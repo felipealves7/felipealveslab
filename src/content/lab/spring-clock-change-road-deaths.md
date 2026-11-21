@@ -12,6 +12,7 @@ synthetic: false
 limits: "Counts of fatal crashes only, by day, not exposure. 28 years pooled; a single year is too noisy to read. The comparison group is two small states. A placebo date also shows a rise after 2007. The season-long effect of evening light is not estimated yet."
 runningCost: "US$0 a month. A fixed snapshot: the page reads saved files. No scheduled job and no live service."
 builtBy: "https://github.com/felipealves7/felipealveslab/pull/57"
+published: 2026-11-17
 ---
 
 ## The Provocation

@@ -13,6 +13,7 @@ synthetic: false
 limits: "Known limits, stated before strengths. At least forty characters."
 runningCost: "US$0 a month"
 builtBy: "https://github.com/felipealves7/felipealveslab/pull/0"
+published: 2026-01-01          # the day the page first went live on the site; the /lab hub lists newest first
 ---
 
 ## The question
