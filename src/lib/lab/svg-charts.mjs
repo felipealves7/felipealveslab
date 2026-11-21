@@ -95,7 +95,8 @@ export function pldChart(results) {
 }
 
 // ---------------------------------------------------------------------------------------------
-// Airport data contract: every check of the latest saved run that was not a rehearsal.
+// Airport data contract: every check of the latest run in the copy saved with the page that was not
+// a rehearsal. The weekly runs live on the airport-runs branch and appear in the page's replay.
 export function airportChartData(results) {
   if (results?.synthetic !== false || !Array.isArray(results.runs)) throw new Error('Unexpected airport results');
   const run = [...results.runs].reverse().find((r) => r.deliberate === false);
@@ -138,7 +139,7 @@ export function airportChart(results) {
   return figure({
     id: 'airport-checks-chart',
     title: `Contract checks, run of ${d.runDate}`,
-    subtitle: `Latest saved run that was not a rehearsal · ${d.status === 'pass' ? 'passed' : 'failed'} · ${d.checks.length} checks`,
+    subtitle: `Latest run in the copy saved with this page · ${d.status === 'pass' ? 'passed' : 'failed'} · ${d.checks.length} checks · weekly runs are in the replay`,
     svg,
     table,
     source: 'data/airport-contract/results.json',
