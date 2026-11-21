@@ -42,6 +42,9 @@ test('Airport chart: latest non-rehearsal run, 18 passed, 1 within tolerance, 0 
   assert.match(html, />18 passed</);
   assert.match(html, />1 within tolerance</);
   assert.match(html, />0 failed</);
+  // The page's replay reads newer weekly runs, so the chart names the copy it was drawn from.
+  assert.match(html, /Latest run in the copy saved with this page/);
+  assert.doesNotMatch(html, /Latest saved run/);
 });
 
 test('Airport chart skips rehearsals', () => {
