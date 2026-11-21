@@ -46,6 +46,12 @@
       "version": "Version 3 (163.98 MB)",
       "licence": "U.S. Government Works"
     },
-    "note": "Both were private (not found when signed out) on 2026-11-01 morning, Dubai time, and public when checked again the same evening. Later that evening the dataset was replaced by a clean Version 3, with internal working files removed, and the notebook was re-run on it as Version 2; those two were checked signed in as the owner."
+    "note": "Both were private (not found when signed out) on 2026-11-01 morning, Dubai time, and public when checked again the same evening. Later that evening the dataset was replaced by a clean Version 3, with internal working files removed, and the notebook was re-run on it as Version 2; those two were checked signed in as the owner.",
+    "rechecked": {
+      "date": "2026-11-21",
+      "how": "Both pages opened signed out in a browser.",
+      "notebook": "Public: Version 2 of 2, 31.4 second run, successful, Apache 2.0 licence, input Aviation Reliability BTS Foundation v1.",
+      "dataset": "Public: Aviation Reliability BTS Foundation v1, its data card describing 11,730,351 reported flight segments, January 2025 to August 2026."
+    }
   }
 }
