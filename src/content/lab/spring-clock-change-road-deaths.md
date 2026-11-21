@@ -6,7 +6,7 @@ status: "live"
 question: "Does the spring clock change cost lives on US roads in the work week that follows it?"
 payer: "Road-safety agencies, insurers and fleet operators planning the week after the change, and legislators weighing permanent daylight saving time against permanent standard time."
 dataSource: "NHTSA Fatality Analysis Reporting System (FARS), national accident files 1996-2024 from https://static.nhtsa.gov/nhtsa/downloads/FARS/, downloaded 17 Nov 2026; IANA Time Zone Database release 2026f (US rules and zones); sun position computed for each crash."
-dataLicence: "FARS: US federal government work (17 U.S.C. 105); its Data.gov record lists rights as public. NHTSA's own terms page could not be opened from here. IANA tz data: public domain."
+dataLicence: "FARS: US federal government work (17 U.S.C. 105); its Data.gov record lists rights as public. NHTSA's own terms page was not verified. IANA tz data: public domain."
 dataFreshness: 2026-11-17
 synthetic: false
 limits: "Counts of fatal crashes only, by day, not exposure. 28 years pooled; a single year is too noisy to read. The comparison group is two small states. A placebo date also shows a rise after 2007. The season-long effect of evening light is not estimated yet."
@@ -47,7 +47,7 @@ That is what The Human Variable is for. It takes questions about how people actu
 
 ### The first week: lost sleep
 
-Fritz, Vetter and colleagues counted 732,835 fatal crashes in FARS from 1996 to 2017, leaving out Arizona and Indiana. Fatal crashes ran 6% higher in the work week after the spring change, more than 8% higher in the western parts of time zones, and the rise moved to March with the 2007 change of date. They put the cost at about 28 deaths a year ([University of Colorado Boulder release, 30 January 2020](https://www.colorado.edu/today/2020/01/30/spring-forward-daylight-saving-time-brings-surge-deadly-crashes); paper in *Current Biology*, 2020, not opened: the publisher refused the request).
+Fritz, Vetter and colleagues counted 732,835 fatal crashes in FARS from 1996 to 2017, leaving out Arizona and Indiana. Fatal crashes ran 6% higher in the work week after the spring change, more than 8% higher in the western parts of time zones, and the rise moved to March with the 2007 change of date. They put the cost at about 28 deaths a year ([University of Colorado Boulder release, 30 January 2020](https://www.colorado.edu/today/2020/01/30/spring-forward-daylight-saving-time-brings-surge-deadly-crashes); paper in *Current Biology*, 2020, not verified).
 
 Smith used the timing of the change and the 2007 move of its date. His abstract estimates that from 2002 to 2011 the spring change caused over 30 deaths a year, and attributes the risk to lost sleep, not to the change in light ([AEJ: Applied Economics 8(2):65–91, 2016, EconPapers record](https://econpapers.repec.org/RePEc:aea:aejapp:v:8:y:2016:i:2:p:65-91)). The full paper and its replication files were not opened.
 
