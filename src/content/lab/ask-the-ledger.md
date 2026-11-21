@@ -33,7 +33,7 @@ A small Worker, `ledger-api`, takes one question, asks a model for one read-only
 
 <h3 id="recorded-session">Recorded session</h3>
 
-<div id="recorded-session-box" class="ledger-demo" data-src="/data/ledger-api/recorded-session.json"><p>Loading the recorded session.</p></div>
+<div id="recorded-session-box" class="ledger-demo" data-src="/data/ledger-api/recorded-session.json"><p>The recorded session needs JavaScript. It is in <code>data/ledger-api/recorded-session.json</code>.</p></div>
 
 ### Model scorecard
 
@@ -120,7 +120,7 @@ Each query goes through the validator and then runs on four synthetic ledgers: t
 - *The wrong period.* For "Operating expenses this year" (L20) both Qwen2.5-Coder prompts summed January 2025 to September 2026 (125,394). The year to date is 58,488.
 - *Divide by zero.* For "Gross margin for Delta Services for 2025" (V07) Qwen2.5-Coder's candidate returned NULL on the zero-revenue ledger. Its prompt says the answer is zero when revenue is zero.
 - *Ties.* "Which entity had the highest revenue in 2025?" (L13) and "Top two companies by sales in September 2026" (V08) fail on the zero-revenue ledger, where every company has zero revenue and the order is arbitrary. The candidate prompt says to rank ties by label, so for V08 and for L13 under that prompt this is a miss. The baseline prompt says nothing about ties, so for L13 under the baseline it is a weakness of the test.
-- *Llama 3.2 3B was not usable here:* 1 of 47 and 0 of 20. Of the 47 queries it wrote, the validator rejected 6, 7 failed to run or timed out and 1 reply was a model error; the rest ran and gave wrong answers. It replied in about 0.6 seconds. Cloudflare's retirement date for this model is 20 November 2026 ([changelog](https://developers.cloudflare.com/changelog/post/2026-11-05-planned-model-deprecations/), opened 2026-11-14), so these two runs stay as a record and cannot be repeated.
+- *Llama 3.2 3B was not usable here:* 1 of 47 and 0 of 20. Of the 47 queries it wrote, the validator rejected 6, 7 failed to run or timed out and 1 reply was a model error; the rest ran and gave wrong answers. It replied in about 0.6 seconds. Cloudflare's changelog set 20 November 2026 as the day this model stops returning responses ([changelog](https://developers.cloudflare.com/changelog/post/2026-11-05-planned-model-deprecations/), opened 2026-11-21), so these two runs stay as a record and cannot be repeated.
 
 **Limits of the benchmark.**
 - Each row is one run at temperature 0. How much the answers change from run to run is not measured. One question is worth 2 points of 47 and 5 points of 20.
