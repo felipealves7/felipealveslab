@@ -314,7 +314,7 @@ export function lineChart(rows, key, opts = {}) {
     width: r2(step2),
     values: out.map((s) => {
       const p = s.points.find((q) => q.month === i + 1);
-      return { year: s.year, text: p ? p.text : 'no data yet' };
+      return { year: s.year, text: p ? p.text : 'not in snapshot' };
     }),
   }));
   return {
