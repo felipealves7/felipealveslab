@@ -1,6 +1,10 @@
 /* Shared production fixes: progressive enhancement, layout, contact chrome, focus */
 :focus-visible{outline:2px solid var(--olive2);outline-offset:3px}
 
+/* The hidden attribute always hides, even on elements whose class sets a display value
+   (the PLD explorer's tooltip, the airport badge before its script fills it). */
+[hidden]{display:none!important}
+
 /* Content is readable without JavaScript; JS opts reveal elements into animation. */
 .reveal,.a3-reveal{opacity:1!important;transform:none!important}
 .js .reveal:not(.visible){opacity:0!important;transform:translateY(18px)!important}
