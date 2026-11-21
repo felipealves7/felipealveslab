@@ -118,7 +118,7 @@ test('chart geometry stays inside the plot', () => {
       assert.ok(p.cy >= c.plot.top && p.cy <= c.plot.bottom, `${key} y`);
     }
     assert.equal(c.columns.length, 12);
-    assert.equal(c.columns[11].values[1].text, 'no data yet');
+    assert.equal(c.columns[11].values[1].text, 'not in snapshot', 'the snapshot ends in August 2026; later months are not pending');
   }
   const h = histogramChart(parseHistogram(read('delay_histogram.csv')));
   assert.ok(h.bars.every((b) => b.width <= 24 && b.y >= h.plot.top && b.y + b.height <= h.plot.bottom + 0.01));
