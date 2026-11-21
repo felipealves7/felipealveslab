@@ -14,6 +14,7 @@ import pldResults from '../../../data/ccee-pld/results.json';
 import airportResults from '../../../data/airport-contract/results.json';
 import ledgerEvalResults from '../../../data/ledger-eval/results.json';
 import { fillLabCharts, pldChart, airportChart, ledgerChart } from '../../lib/lab/svg-charts.mjs';
+import { wrapTables } from '../../lib/lab/prose.mjs';
 
 export async function getStaticPaths() {
   const entries = await getCollection('lab');
@@ -22,11 +23,12 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 // Build-time SVG charts replace their markers in the rendered Markdown, so they sit inside the page's sections.
-const body = fillLabCharts(entry.rendered?.html ?? '', {
+// Every table then sits in a container that scrolls sideways on a phone.
+const body = wrapTables(fillLabCharts(entry.rendered?.html ?? '', {
   pld: () => pldChart(pldResults),
   airport: () => airportChart(airportResults),
   ledger: () => ledgerChart(ledgerEvalResults),
-});
+}));
 const d = entry.data;
 const fmt = (date: Date) => date.toISOString().slice(0, 10);
 const DEMOS: Record<string, string> = { 'ask-the-ledger': '/js/ledger-demo.js', 'brazil-power-price-contract': '/js/pld-explorer.js' };
