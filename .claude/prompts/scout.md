@@ -60,9 +60,9 @@ Otherwise stop and post nothing. Say so in one line in your session summary.
    - **Ways to build it:** two or three ways to build the lab (tools and approach), the trade-offs,
      and the one you recommend. When one fits, include a tool from the `trial` or `assess` rings of
      `stack-radar.yml`;
-   - the hero chart (what it shows, drawn at build time) and the companion artifact: a Tableau
-     Public dashboard, a Kaggle notebook and dataset, an in-browser data explorer, or the code
-     alone, with the reason;
+   - the hero chart (what it shows, drawn at build time) and the main artifact: the tool the use
+     case calls for (`CLAUDE.md`, The use case picks the tool), what it shows, and what Felipe
+     does to publish it;
    - whether the lab earns an Ask this lab panel and, if so, three questions it must answer, one
      of whose answers changes with the level of detail;
    - what Felipe does himself, in hours per week (on Human Variable labs he writes The Provocation
