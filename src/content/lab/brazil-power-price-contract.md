@@ -94,7 +94,7 @@ The chart and the yearly table use the plain mean of each day's 24 hourly prices
 
 ## How it was built
 
-- Pull request: https://github.com/felipealves7/felipealveslab/pull/49
+- Pull request: https://github.com/felipealves7/felipealveslab/pull/49. The daily price chart in Altair: https://github.com/felipealves7/felipealveslab/pull/78
 - Code: `pipelines/ccee-pld/` and `public/js/pld-explorer.js`. Chart: `charts/pld_daily.py` in Altair, with the site's chart theme in `charts/theme.py`, drawn by `src/lib/charts/`. Saved runs and figures: `data/ccee-pld/`. Raw files: `data/ccee-pld-horario/`. Tests: `pipelines/ccee-pld/pld.test.mjs` and `scripts/pld-page.test.mjs`.
 
 Data: Câmara de Comercialização de Energia Elétrica (CCEE), PLD_HORARIO, [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Daily means and yearly figures computed by this Lab.
