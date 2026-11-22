@@ -1,0 +1,588 @@
+{
+  "periods": [
+    {
+      "key": "before",
+      "label": "Before the shutdown",
+      "from": "2025-09-01",
+      "to": "2025-09-30",
+      "days": 30,
+      "all": {
+        "scheduled": 562439,
+        "cancelled": 2886,
+        "cancelled_nas": 710,
+        "diverted": 1224,
+        "observed_arrivals": 558328,
+        "on_time": 465469,
+        "arrival_delay_sum": 1293226,
+        "positive_delay_sum": 6729508,
+        "cancellation_rate": 0.00513122311930716,
+        "nas_share_of_cancellations": 0.24601524601524602,
+        "arrival_otp": 0.83368378444212,
+        "mean_signed_delay": 2.3162477969938817
+      },
+      "both": {
+        "scheduled": 230350,
+        "cancelled": 1266,
+        "cancelled_nas": 334,
+        "diverted": 596,
+        "observed_arrivals": 228488,
+        "on_time": 186778,
+        "arrival_delay_sum": 769775,
+        "positive_delay_sum": 3018153,
+        "cancellation_rate": 0.005495984371608422,
+        "nas_share_of_cancellations": 0.2638230647709321,
+        "arrival_otp": 0.8174521200238087,
+        "mean_signed_delay": 3.368995308287525
+      },
+      "one": {
+        "scheduled": 310591,
+        "cancelled": 1589,
+        "cancelled_nas": 373,
+        "diverted": 600,
+        "observed_arrivals": 308401,
+        "on_time": 260045,
+        "arrival_delay_sum": 544063,
+        "positive_delay_sum": 3535192,
+        "cancellation_rate": 0.005116052944225686,
+        "nas_share_of_cancellations": 0.23473882945248584,
+        "arrival_otp": 0.8432041400643967,
+        "mean_signed_delay": 1.7641414911105995
+      },
+      "none": {
+        "scheduled": 21498,
+        "cancelled": 31,
+        "cancelled_nas": 3,
+        "diverted": 28,
+        "observed_arrivals": 21439,
+        "on_time": 18646,
+        "arrival_delay_sum": -20612,
+        "positive_delay_sum": 176163,
+        "cancellation_rate": 0.001441994604149223,
+        "nas_share_of_cancellations": 0.0967741935483871,
+        "arrival_otp": 0.8697234012780447,
+        "mean_signed_delay": -0.9614254396193852
+      }
+    },
+    {
+      "key": "shutdown",
+      "label": "Shutdown, before the order",
+      "from": "2025-10-01",
+      "to": "2025-11-06",
+      "days": 37,
+      "all": {
+        "scheduled": 717182,
+        "cancelled": 3693,
+        "cancelled_nas": 1163,
+        "diverted": 1211,
+        "observed_arrivals": 712278,
+        "on_time": 568371,
+        "arrival_delay_sum": 3824293,
+        "positive_delay_sum": 10005972,
+        "cancellation_rate": 0.005149320535094299,
+        "nas_share_of_cancellations": 0.3149201191443271,
+        "arrival_otp": 0.7979623124678847,
+        "mean_signed_delay": 5.369101670976781
+      },
+      "both": {
+        "scheduled": 291953,
+        "cancelled": 1821,
+        "cancelled_nas": 589,
+        "diverted": 513,
+        "observed_arrivals": 289619,
+        "on_time": 225531,
+        "arrival_delay_sum": 1981442,
+        "positive_delay_sum": 4496625,
+        "cancellation_rate": 0.006237305319691868,
+        "nas_share_of_cancellations": 0.3234486545853926,
+        "arrival_otp": 0.7787161753890456,
+        "mean_signed_delay": 6.841546997952483
+      },
+      "one": {
+        "scheduled": 395285,
+        "cancelled": 1793,
+        "cancelled_nas": 558,
+        "diverted": 628,
+        "observed_arrivals": 392864,
+        "on_time": 318845,
+        "arrival_delay_sum": 1700411,
+        "positive_delay_sum": 5134395,
+        "cancellation_rate": 0.00453596771949353,
+        "nas_share_of_cancellations": 0.3112102621305075,
+        "arrival_otp": 0.8115912885884173,
+        "mean_signed_delay": 4.328243361570416
+      },
+      "none": {
+        "scheduled": 29944,
+        "cancelled": 79,
+        "cancelled_nas": 16,
+        "diverted": 70,
+        "observed_arrivals": 29795,
+        "on_time": 23995,
+        "arrival_delay_sum": 142440,
+        "positive_delay_sum": 374952,
+        "cancellation_rate": 0.0026382580817526048,
+        "nas_share_of_cancellations": 0.20253164556962025,
+        "arrival_otp": 0.8053364658499749,
+        "mean_signed_delay": 4.780667897298204
+      }
+    },
+    {
+      "key": "order",
+      "label": "Order in force",
+      "from": "2025-11-07",
+      "to": "2025-11-16",
+      "days": 10,
+      "all": {
+        "scheduled": 190658,
+        "cancelled": 9636,
+        "cancelled_nas": 7033,
+        "diverted": 305,
+        "observed_arrivals": 180717,
+        "on_time": 141590,
+        "arrival_delay_sum": 1395821,
+        "positive_delay_sum": 3161186,
+        "cancellation_rate": 0.050540758845681794,
+        "nas_share_of_cancellations": 0.7298671647986716,
+        "arrival_otp": 0.7834902084474621,
+        "mean_signed_delay": 7.72379466237266
+      },
+      "both": {
+        "scheduled": 77787,
+        "cancelled": 4370,
+        "cancelled_nas": 3231,
+        "diverted": 108,
+        "observed_arrivals": 73309,
+        "on_time": 55780,
+        "arrival_delay_sum": 729717,
+        "positive_delay_sum": 1424852,
+        "cancellation_rate": 0.05617905305513775,
+        "nas_share_of_cancellations": 0.7393592677345537,
+        "arrival_otp": 0.7608888403879469,
+        "mean_signed_delay": 9.953989278260513
+      },
+      "one": {
+        "scheduled": 104975,
+        "cancelled": 5237,
+        "cancelled_nas": 3793,
+        "diverted": 180,
+        "observed_arrivals": 99558,
+        "on_time": 79539,
+        "arrival_delay_sum": 621643,
+        "positive_delay_sum": 1619575,
+        "cancellation_rate": 0.04988806858775899,
+        "nas_share_of_cancellations": 0.7242696200114569,
+        "arrival_otp": 0.7989212318447538,
+        "mean_signed_delay": 6.244028606440467
+      },
+      "none": {
+        "scheduled": 7896,
+        "cancelled": 29,
+        "cancelled_nas": 9,
+        "diverted": 17,
+        "observed_arrivals": 7850,
+        "on_time": 6271,
+        "arrival_delay_sum": 44461,
+        "positive_delay_sum": 116759,
+        "cancellation_rate": 0.0036727456940222896,
+        "nas_share_of_cancellations": 0.3103448275862069,
+        "arrival_otp": 0.7988535031847134,
+        "mean_signed_delay": 5.663821656050955
+      }
+    },
+    {
+      "key": "after",
+      "label": "After the order",
+      "from": "2025-11-17",
+      "to": "2025-11-30",
+      "days": 14,
+      "all": {
+        "scheduled": 268554,
+        "cancelled": 4070,
+        "cancelled_nas": 343,
+        "diverted": 613,
+        "observed_arrivals": 263871,
+        "on_time": 210484,
+        "arrival_delay_sum": 1678796,
+        "positive_delay_sum": 4202211,
+        "cancellation_rate": 0.01515523879741132,
+        "nas_share_of_cancellations": 0.08427518427518428,
+        "arrival_otp": 0.7976776530956414,
+        "mean_signed_delay": 6.362184552300177
+      },
+      "both": {
+        "scheduled": 109152,
+        "cancelled": 1368,
+        "cancelled_nas": 55,
+        "diverted": 244,
+        "observed_arrivals": 107540,
+        "on_time": 85167,
+        "arrival_delay_sum": 663351,
+        "positive_delay_sum": 1692506,
+        "cancellation_rate": 0.012532981530343008,
+        "nas_share_of_cancellations": 0.0402046783625731,
+        "arrival_otp": 0.7919564813092803,
+        "mean_signed_delay": 6.168411753766041
+      },
+      "one": {
+        "scheduled": 147523,
+        "cancelled": 2613,
+        "cancelled_nas": 283,
+        "diverted": 333,
+        "observed_arrivals": 144577,
+        "on_time": 115863,
+        "arrival_delay_sum": 953443,
+        "positive_delay_sum": 2344421,
+        "cancellation_rate": 0.017712492289337935,
+        "nas_share_of_cancellations": 0.10830463069269039,
+        "arrival_otp": 0.8013930293200163,
+        "mean_signed_delay": 6.594707318591477
+      },
+      "none": {
+        "scheduled": 11879,
+        "cancelled": 89,
+        "cancelled_nas": 5,
+        "diverted": 36,
+        "observed_arrivals": 11754,
+        "on_time": 9454,
+        "arrival_delay_sum": 62002,
+        "positive_delay_sum": 165284,
+        "cancellation_rate": 0.007492213149254988,
+        "nas_share_of_cancellations": 0.056179775280898875,
+        "arrival_otp": 0.8043219329589927,
+        "mean_signed_delay": 5.274970222902842
+      }
+    }
+  ],
+  "by_cut": [
+    {
+      "cut": 3,
+      "days": 2,
+      "exposed": {
+        "scheduled": 35595,
+        "cancelled": 300,
+        "cancellation_rate": 0.008428150021070375
+      },
+      "unlisted": {
+        "scheduled": 1501,
+        "cancelled": 5,
+        "cancellation_rate": 0.0033311125916055963
+      }
+    },
+    {
+      "cut": 4,
+      "days": 4,
+      "exposed": {
+        "scheduled": 73881,
+        "cancelled": 6473,
+        "cancellation_rate": 0.0876138655405314
+      },
+      "unlisted": {
+        "scheduled": 3319,
+        "cancelled": 20,
+        "cancellation_rate": 0.006025911419102139
+      }
+    },
+    {
+      "cut": 6,
+      "days": 4,
+      "exposed": {
+        "scheduled": 73286,
+        "cancelled": 2834,
+        "cancellation_rate": 0.03867041454029419
+      },
+      "unlisted": {
+        "scheduled": 3076,
+        "cancelled": 4,
+        "cancellation_rate": 0.0013003901170351106
+      }
+    }
+  ],
+  "difference_in_differences": [
+    {
+      "group": "both",
+      "change_pp": 4.994174773544588,
+      "comparison_change_pp": 0.10344876122696847,
+      "difference_pp": 4.890726012317619
+    },
+    {
+      "group": "one",
+      "change_pp": 4.535210086826546,
+      "comparison_change_pp": 0.10344876122696847,
+      "difference_pp": 4.431761325599577
+    }
+  ],
+  "scheduled_against_weekday": [
+    {
+      "group": "both",
+      "days": [
+        {
+          "date": "2025-11-07",
+          "cut": 4,
+          "scheduled": 8062,
+          "expected": 8153.75,
+          "change": -0.011252491185037572
+        },
+        {
+          "date": "2025-11-08",
+          "cut": 4,
+          "scheduled": 6816,
+          "expected": 6946.5,
+          "change": -0.0187864392139927
+        },
+        {
+          "date": "2025-11-09",
+          "cut": 4,
+          "scheduled": 8272,
+          "expected": 8319.25,
+          "change": -0.00567959852150135
+        },
+        {
+          "date": "2025-11-10",
+          "cut": 4,
+          "scheduled": 8237,
+          "expected": 8371.75,
+          "change": -0.01609579836951658
+        },
+        {
+          "date": "2025-11-11",
+          "cut": 6,
+          "scheduled": 7425,
+          "expected": 7459.75,
+          "change": -0.004658333054056718
+        },
+        {
+          "date": "2025-11-12",
+          "cut": 6,
+          "scheduled": 7407,
+          "expected": 7530.5,
+          "change": -0.01639997344133859
+        },
+        {
+          "date": "2025-11-13",
+          "cut": 6,
+          "scheduled": 8311,
+          "expected": 8329,
+          "change": -0.0021611237843678355
+        },
+        {
+          "date": "2025-11-14",
+          "cut": 6,
+          "scheduled": 8200,
+          "expected": 8153.75,
+          "change": 0.005672236700904554
+        },
+        {
+          "date": "2025-11-15",
+          "cut": 3,
+          "scheduled": 6805,
+          "expected": 6946.5,
+          "change": -0.020369970488735345
+        },
+        {
+          "date": "2025-11-16",
+          "cut": 3,
+          "scheduled": 8252,
+          "expected": 8319.25,
+          "change": -0.0080836613877453
+        }
+      ],
+      "scheduled": 77787,
+      "expected": 78530,
+      "change": -0.009461352349420582
+    },
+    {
+      "group": "one",
+      "days": [
+        {
+          "date": "2025-11-07",
+          "cut": 4,
+          "scheduled": 10858,
+          "expected": 10933,
+          "change": -0.006859965242842825
+        },
+        {
+          "date": "2025-11-08",
+          "cut": 4,
+          "scheduled": 9296,
+          "expected": 9445.5,
+          "change": -0.015827642792864305
+        },
+        {
+          "date": "2025-11-09",
+          "cut": 4,
+          "scheduled": 11256,
+          "expected": 11417.25,
+          "change": -0.014123365959403555
+        },
+        {
+          "date": "2025-11-10",
+          "cut": 4,
+          "scheduled": 11084,
+          "expected": 11285.25,
+          "change": -0.017833012117587144
+        },
+        {
+          "date": "2025-11-11",
+          "cut": 6,
+          "scheduled": 9834,
+          "expected": 9991.5,
+          "change": -0.015763398889055646
+        },
+        {
+          "date": "2025-11-12",
+          "cut": 6,
+          "scheduled": 9795,
+          "expected": 10156,
+          "change": -0.03554549035053167
+        },
+        {
+          "date": "2025-11-13",
+          "cut": 6,
+          "scheduled": 11260,
+          "expected": 11351,
+          "change": -0.008016914809267917
+        },
+        {
+          "date": "2025-11-14",
+          "cut": 6,
+          "scheduled": 11054,
+          "expected": 10933,
+          "change": 0.011067410591786286
+        },
+        {
+          "date": "2025-11-15",
+          "cut": 3,
+          "scheduled": 9289,
+          "expected": 9445.5,
+          "change": -0.016568736435339626
+        },
+        {
+          "date": "2025-11-16",
+          "cut": 3,
+          "scheduled": 11249,
+          "expected": 11417.25,
+          "change": -0.014736473318881504
+        }
+      ],
+      "scheduled": 104975,
+      "expected": 106375.25,
+      "change": -0.013163306314203704
+    },
+    {
+      "group": "none",
+      "days": [
+        {
+          "date": "2025-11-07",
+          "cut": 4,
+          "scheduled": 916,
+          "expected": 897.25,
+          "change": 0.020897185845639488
+        },
+        {
+          "date": "2025-11-08",
+          "cut": 4,
+          "scheduled": 586,
+          "expected": 622.75,
+          "change": -0.05901244480128465
+        },
+        {
+          "date": "2025-11-09",
+          "cut": 4,
+          "scheduled": 914,
+          "expected": 960.5,
+          "change": -0.048412285268089494
+        },
+        {
+          "date": "2025-11-10",
+          "cut": 4,
+          "scheduled": 903,
+          "expected": 912.5,
+          "change": -0.01041095890410959
+        },
+        {
+          "date": "2025-11-11",
+          "cut": 6,
+          "scheduled": 608,
+          "expected": 644.5,
+          "change": -0.056633048875097014
+        },
+        {
+          "date": "2025-11-12",
+          "cut": 6,
+          "scheduled": 644,
+          "expected": 672.25,
+          "change": -0.0420230568984753
+        },
+        {
+          "date": "2025-11-13",
+          "cut": 6,
+          "scheduled": 919,
+          "expected": 939.75,
+          "change": -0.022080340516094754
+        },
+        {
+          "date": "2025-11-14",
+          "cut": 6,
+          "scheduled": 905,
+          "expected": 897.25,
+          "change": 0.008637503482864295
+        },
+        {
+          "date": "2025-11-15",
+          "cut": 3,
+          "scheduled": 581,
+          "expected": 622.75,
+          "change": -0.0670413488558812
+        },
+        {
+          "date": "2025-11-16",
+          "cut": 3,
+          "scheduled": 920,
+          "expected": 960.5,
+          "change": -0.04216553878188445
+        }
+      ],
+      "scheduled": 7896,
+      "expected": 8130,
+      "change": -0.028782287822878283
+    }
+  ],
+  "level_of_detail": {
+    "october": {
+      "cancellation_rate": 0.005288490106364015,
+      "mean_signed_delay": 5.585546154229766,
+      "scheduled": 605844,
+      "cancelled": 3204
+    },
+    "november": {
+      "cancellation_rate": 0.02487950223468583,
+      "mean_signed_delay": 6.372840791217657,
+      "scheduled": 570550,
+      "cancelled": 14195
+    },
+    "peak_day": {
+      "date": "2025-11-09",
+      "cancellation_rate": 0.12131885334116035,
+      "cancelled": 2480,
+      "scheduled": 20442,
+      "mean_signed_delay": 39.719639760586226
+    }
+  },
+  "applied_cuts": [
+    {
+      "from": "2025-11-07",
+      "to": "2025-11-10",
+      "cut": 4
+    },
+    {
+      "from": "2025-11-11",
+      "to": "2025-11-14",
+      "cut": 6
+    },
+    {
+      "from": "2025-11-15",
+      "to": "2025-11-16",
+      "cut": 3
+    }
+  ]
+}
