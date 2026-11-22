@@ -1,0 +1,90 @@
+---
+// "The MVP" on /case-studies/aviation-platform: the loader's scan as a clickable Figma prototype.
+// Everything shown when the page loads comes from data/aviation-platform/prototype.json and the four images in
+// public/assets/case-studies/aviation/. Nothing is requested from Figma until a visitor clicks
+// "Try the prototype here", and that button only appears on wide screens with scripts on.
+import proto from '../../data/aviation-platform/prototype.json';
+import { checkPrototype, contrastFacts, figmaLinks } from '../lib/case-studies/loader-prototype.mjs';
+
+checkPrototype(proto);
+const c = contrastFacts(proto);
+const links = figmaLinks(proto);
+const [labelLead, ...labelRest] = proto.label.split(/(?<=\.)\s+/);
+---
+<section class="case-section loader-proto" id="mvp">
+  <span class="eyebrow">The MVP · clickable prototype</span>
+  <h2>Load, or don’t.</h2>
+  <p>
+    The MVP centred on one decision in the loader’s hand. The loader scans a unit, then a bag, and the handheld
+    answers at once: green, load it; red, don’t. It came first because this is where a mistake costs the most. A
+    bag in the wrong unit ends up in the wrong place, and an offloaded bag must not fly. The business wanted it
+    first.
+  </p>
+  <p>
+    The app is used indoors at the carousels and outdoors on the ramp, so the screens are drawn for both: a small
+    handheld, big type, big buttons and contrast that holds up in bright sun. White text on the green screen has a
+    contrast ratio of {c.green}, and on the red screen {c.red}. Every result also carries a word and a shape, so
+    colour is never the only signal.
+  </p>
+  <p class="illustration-label"><strong>{labelLead}</strong> {labelRest.join(' ')}</p>
+  <div class="lp-screens">
+    {proto.screens.map((s) => (
+      <figure>
+        <img src={s.src} alt={s.alt} width="360" height="640" loading="lazy" decoding="async" />
+        <figcaption>{s.caption}</figcaption>
+      </figure>
+    ))}
+  </div>
+  <div class="lp-actions">
+    <button type="button" class="button primary lp-load" data-lp-load aria-controls="lp-slot">Try the prototype here</button>
+    <a class="button ghost" href={links.proto} target="_blank" rel="noreferrer">Open the prototype in Figma ↗</a>
+  </div>
+  <div class="lp-slot" id="lp-slot" hidden data-src={links.embed}></div>
+  <p class="lp-note">Loading it here fetches the prototype from Figma, which sets its own cookies. Nothing is requested from Figma until you click.</p>
+  <h3>The rules behind the colours</h3>
+  <p>Any failed check turns the screen red.</p>
+  <table class="decision-table lp-rules">
+    <thead>
+      <tr><th>When the scan finds</th><th>The loader sees</th></tr>
+    </thead>
+    <tbody>
+      {proto.rules.map((r) => (
+        <tr>
+          <td>{r.finds}</td>
+          <td><span class:list={['lp-pill', r.verdict === 'LOAD' ? 'lp-go' : 'lp-stop']}>{r.verdict}</span> {r.sees}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+  <details class="illustration-method">
+    <summary>Acceptance criteria, as examples</summary>
+    {proto.criteria.map((k) => (
+      <p class="lp-criterion"><strong>Given</strong> {k.given}<br /><strong>when</strong> {k.when}<br /><strong>then</strong> {k.then}</p>
+    ))}
+  </details>
+  <p class="lp-file">
+    The Figma file also holds every screen, this table and the design notes.
+    <a href={proto.figma.designUrl} target="_blank" rel="noreferrer">Open the file ↗</a>
+  </p>
+</section>
+<script is:inline>
+(() => {
+  const button = document.querySelector('[data-lp-load]');
+  const slot = document.getElementById('lp-slot');
+  if (!button || !slot) return;
+  button.addEventListener('click', () => {
+    if (slot.dataset.loaded) return;
+    slot.dataset.loaded = 'yes';
+    button.disabled = true;
+    button.textContent = 'Loading…';
+    slot.hidden = false;
+    const frame = document.createElement('iframe');
+    frame.title = 'Loader scan prototype, in Figma';
+    frame.allowFullscreen = true;
+    frame.addEventListener('load', () => { button.textContent = 'Loaded below'; });
+    frame.src = slot.dataset.src;
+    slot.appendChild(frame);
+    slot.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+})();
+</script>
