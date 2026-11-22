@@ -21,7 +21,7 @@ Can a small pipeline load Brazil's hourly power spot price (PLD), enforce a writ
 
 ## The live piece
 
-Pick a saved run to see its 13 checks, and a period to see the daily price in each of the four submarkets. Everything below is read from `data/ccee-pld/results.json`, saved with the page. Nothing is fetched from CCEE.
+Pick a period to see the daily price in each of the four submarkets, and a saved run to see its 13 checks. Everything below is read from `data/ccee-pld/results.json`, saved with the page. Nothing is fetched from CCEE.
 
 <div data-lab-chart="pld"></div>
 
@@ -73,7 +73,7 @@ The chart and the yearly table use the plain mean of each day's 24 hourly prices
 
 ### Tests
 
-14 tests in `pipelines/ccee-pld/pld.test.mjs`: one for the line reader, one showing both file shapes give the same rows and fingerprints, one clean file, six fault tests on small made-up files (renamed column, 23-hour day, 25-hour day, missing submarket or day or unknown code, wrong hour count or day or year or price, stale files), three for snapshots and comparisons, one for the daily mean, and one that runs the contract on the real files. `scripts/pld-page.test.mjs` pins the figures on this page to the saved results.
+14 tests in `pipelines/ccee-pld/pld.test.mjs`: one for the line reader, one showing both file shapes give the same rows and fingerprints, one clean file, six fault tests on small made-up files (renamed column, 23-hour day, 25-hour day, missing submarket or day or unknown code, wrong hour count or day or year or price, stale files), three for snapshots and comparisons, one for the daily mean, and one that runs the contract on the real files. `scripts/pld-page.test.mjs` pins the figures on this page to the saved results. The chart has its own checks: `scripts/altair-charts.test.mjs` draws it from the saved results, and `python3 charts/build.py --check` confirms its saved spec is the one `charts/pld_daily.py` makes.
 
 ### How to rerun
 
@@ -95,6 +95,6 @@ The chart and the yearly table use the plain mean of each day's 24 hourly prices
 ## How it was built
 
 - Pull request: https://github.com/felipealves7/felipealveslab/pull/49
-- Code: `pipelines/ccee-pld/` and `public/js/pld-explorer.js`. Saved runs and figures: `data/ccee-pld/`. Raw files: `data/ccee-pld-horario/`. Tests: `pipelines/ccee-pld/pld.test.mjs` and `scripts/pld-page.test.mjs`.
+- Code: `pipelines/ccee-pld/` and `public/js/pld-explorer.js`. Chart: `charts/pld_daily.py` in Altair, with the site's chart theme in `charts/theme.py`, drawn by `src/lib/charts/`. Saved runs and figures: `data/ccee-pld/`. Raw files: `data/ccee-pld-horario/`. Tests: `pipelines/ccee-pld/pld.test.mjs` and `scripts/pld-page.test.mjs`.
 
 Data: Câmara de Comercialização de Energia Elétrica (CCEE), PLD_HORARIO, [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Daily means and yearly figures computed by this Lab.
