@@ -21,7 +21,7 @@ Did US domestic flights get more reliable in 2026? The usual answer is the avera
 
 ## The live piece
 
-The month-by-month chart above. Pick a measure, compare January to August 2026 with 2025, and hover or tab through the months for both years' values. "Show the numbers" under each chart lists the same values as a table. Every value is worked out from the saved monthly totals when this site is built. No service runs behind it. Further down, the same data can also be loaded as a Tableau dashboard, if you choose.
+The month-by-month chart above. Pick a measure, compare January to August 2026 with 2025, and hover or tab through the months for both years' values. "Show the numbers" under each chart lists the same values as a table. Every value is worked out from the saved monthly totals when this site is built. No service runs behind it. Further down, on wide screens, the same data loads as a Tableau dashboard as you reach it.
 
 ## Method and results
 

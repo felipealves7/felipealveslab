@@ -89,17 +89,22 @@ test('the Figma links open one file at one starting screen', () => {
   assert.ok(data.figma.designUrl.endsWith(data.figma.fileKey));
 });
 
-test('the page shows the section after Approach and loads Figma only on a click, on wide screens', () => {
+test('the page embeds the prototype to load as the visitor reaches it, with the stills as the fallback', () => {
   assert.match(page, /import LoaderScanPrototype from '\.\.\/\.\.\/components\/LoaderScanPrototype\.astro'/);
   assert.match(page, /<a href="#approach">Approach<\/a><a href="#mvp">MVP<\/a>/);
   assert.match(page, /<\/section><LoaderScanPrototype \/><section class="case-section" id="evidence">/);
   assert.match(page, /'case-prototype'/);
   assert.match(component, /id="mvp"/);
-  assert.doesNotMatch(component, /<iframe/i, 'no iframe in the HTML: the script creates it after a click');
-  assert.match(component, /createElement\('iframe'\)/);
-  assert.match(component, /data-lp-load/);
-  assert.match(css, /\.lp-load,\.lp-note\{display:none\}/, 'the button is hidden by default');
-  assert.match(css, /@media\(min-width:1000px\)\{\.js \.lp-load\{display:inline-flex\}/, 'and shown on wide screens with scripts on');
+  const frames = component.match(/<iframe[^>]*>/g) ?? [];
+  assert.equal(frames.length, 1, 'one embed, in the HTML: no click needed');
+  assert.match(frames[0], /src=\{links\.embed\}/);
+  assert.match(frames[0], /loading="lazy"/, 'it loads as the visitor reaches it');
+  assert.match(frames[0], /title="[^"]+"/);
+  assert.doesNotMatch(component, /data-lp-load|<script/, 'no button and no script');
+  assert.ok(component.indexOf('<iframe') < component.indexOf('class="lp-screens"'), 'the live prototype comes before the stills');
+  assert.match(component, /loads from Figma as you reach it, and Figma sets its own cookies/, 'the line names the service');
+  assert.match(css, /\.lp-live iframe\{display:block;width:100%;height:760px;border:0\}/);
+  assert.match(css, /@media\(max-width:680px\)\{[^}]*\}\.lp-live iframe\{height:700px\}\}/, 'phones get the embed too');
 });
 
 test('the words never count the checks, and say the screens are simplified and not the real system', () => {
