@@ -127,8 +127,30 @@ export function analyse(daily) {
   };
 }
 
+export const GROUP_LABELS = Object.freeze({
+  both: 'Listed airport at both ends',
+  one: 'Listed airport at one end',
+  none: 'No listed airport',
+});
+export const TABLEAU_COLUMNS = Object.freeze([
+  'Date', 'Group', 'Period', 'Cut in force (%)', 'Scheduled flights', 'Cancelled flights',
+  'Cancelled (air traffic system code)', 'Observed arrivals', 'On-time arrivals', 'Arrival delay (total minutes)',
+]);
+
+/** The daily file with plain labels, for a BI tool: one row per day and group. */
+export function tableauCsv(daily) {
+  const period = (date) => PERIODS.find((p) => within(date, p)).label;
+  const quote = (v) => (/[",]/.test(String(v)) ? `"${String(v).replace(/"/g, '""')}"` : String(v));
+  const rows = [...daily].sort((a, b) => (a.date + a.exposure).localeCompare(b.date + b.exposure)).map((r) => [
+    r.date, GROUP_LABELS[r.exposure], period(r.date), r.cut, r.scheduled, r.cancelled,
+    r.cancelled_nas, r.observed_arrivals, r.on_time, r.arrival_delay_sum,
+  ].map(quote).join(','));
+  return `${[TABLEAU_COLUMNS.map(quote).join(','), ...rows].join('\n')}\n`;
+}
+
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   const root = new URL('../../data/aviation-shutdown/', import.meta.url);
   const daily = readDaily(readFileSync(new URL('daily-exposure.csv', root), 'utf8'));
   writeFileSync(new URL('results.json', root), `${JSON.stringify(analyse(daily), null, 2)}\n`);
+  writeFileSync(new URL('tableau-daily.csv', root), tableauCsv(daily));
 }

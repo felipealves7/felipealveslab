@@ -39,6 +39,7 @@ flight cuts did. Used by the shutdown test on `/lab/aviation-reliability`. Built
 | `daily-airport.csv` | One row per day and origin airport, with `high_impact` = 1 for the 40 listed airports; ready for a BI tool |
 | `extract.json` | The three source archives with SHA-256, size, BTS's last-modified date and row count, and the airport list |
 | `results.json` | What `pipelines/aviation-shutdown/analyse.mjs` computes from `daily-exposure.csv` |
+| `tableau-daily.csv` | `daily-exposure.csv` with plain column names, group labels and the period, for the Tableau view; written by `analyse.mjs` |
 
 ## Columns
 
