@@ -9,6 +9,7 @@ export const SITE_PAGES = [
   '/case-studies/finance-forecasting',
   '/case-studies/risk-analysis',
   '/case-studies/einvoicing',
+  '/case-studies/sinalvo',
   '/lab',
   '/lab/how-its-built',
 ];

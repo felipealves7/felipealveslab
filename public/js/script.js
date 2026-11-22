@@ -5,7 +5,7 @@ const isHome=path==='/'||path.endsWith('/index');
 
 /* Selected-work filter */
 const lensCopy={
-  all:'Four pieces of work. Same person.',
+  all:'Five pieces of work. Same person.',
   data:'Where the medium was data and logic.',
   product:'Where the job was discovery, scope and roadmap.',
   transformation:'Where the job was coordinated change.'

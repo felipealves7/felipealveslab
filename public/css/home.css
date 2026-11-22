@@ -74,3 +74,28 @@
   .home-milestone-controls{grid-template-columns:1fr}
   .milestone-card-grid{grid-auto-columns:88%!important}
 }
+
+/* Case 05 runs the full width under the 2×2 set: the visual on the left, the text on the right. */
+@media(min-width:981px){
+  .case-grid .case-card--wide{grid-column:1/-1;min-height:0;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);grid-template-rows:auto auto 1fr auto auto;column-gap:44px}
+  .case-card--wide .case-topline{grid-column:1/-1;grid-row:1}
+  .case-card--wide .case-visual{grid-column:1;grid-row:2/6;margin:24px 0 0}
+  .case-card--wide h3{grid-column:2;grid-row:2;margin-top:30px}
+  .case-card--wide p{grid-column:2;grid-row:3}
+  .case-card--wide .case-proof{grid-column:2;grid-row:4}
+  .case-card--wide .case-link{grid-column:2;grid-row:5}
+}
+
+/* A week of notices narrowing to the open energy tenders: each bar is the slice of the bar above. */
+.case-visual.sinalvo-visual{height:auto;min-height:210px;display:flex;flex-direction:column;justify-content:center;padding:22px 26px;background:linear-gradient(150deg,#1d1e1a,#34362d)}
+.sv-row{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:baseline;column-gap:12px;color:var(--cream)}
+.sv-num{font-family:var(--serif);font-size:30px;line-height:1;letter-spacing:-.02em}
+.sv-cap{justify-self:end;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(248,246,240,.62)}
+.sv-bar{grid-column:1/-1;position:relative;display:block;height:6px;margin-top:9px;background:rgba(248,246,240,.22);border-radius:2px}
+.sv-bar i{position:absolute;right:0;top:0;bottom:0;width:var(--w);min-width:3px;background:#d2d8bd;border-radius:2px}
+.sv-link{height:20px;background:rgba(210,216,189,.17);clip-path:polygon(var(--from) 0,100% 0,100% 100%,0 100%)}
+@media(max-width:720px){
+  .case-visual.sinalvo-visual{min-height:185px;padding:18px 20px}
+  .sv-num{font-size:25px}
+  .sv-link{height:14px}
+}
