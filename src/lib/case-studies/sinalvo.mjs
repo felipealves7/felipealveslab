@@ -97,7 +97,7 @@ function figure({ id, title, subtitle, plot, table, note }) {
     + plot
     + (note ? `<p class="cs-note">${esc(note)}</p>` : '')
     + `<details class="cs-table"><summary>Show the numbers</summary>${table}</details>`
-    + '<p class="cs-source">Source: <code>data/sinalvo/figures.json</code> · drawn when the site is built.</p>'
+    + '<p class="cs-source">Source: <code>data/sinalvo/figures.json</code>, results recorded in November 2026 · drawn when the site is built.</p>'
     + '</figure>';
 }
 

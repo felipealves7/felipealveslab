@@ -91,6 +91,7 @@ test('the page text quotes the figures as recorded', () => {
     `needed at least ${WORDS[n.cleanGapsRequired]} clean gaps`,
     `the typical new app had ${WORDS[n.medianInstallsNewApp]} install`,
     `About ${f.effort.hours} hours in one week`,
+    `For ${f.paymentRisk.tceSp.towns} São Paulo towns, the probe measured payment timing`,
   ];
   for (const text of expected) assert.ok(page.includes(text), `page says "${text}"`);
   assert.equal(n.cleanGapsFound, 0);
