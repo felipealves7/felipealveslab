@@ -11,7 +11,8 @@ const home = text('index.astro');
 const milestones = text('milestones.astro');
 const aviation = text('case-studies/aviation-platform.astro');
 const risk = text('case-studies/risk-analysis.astro');
-const einvoicing = text('case-studies/einvoicing.astro');
+// Hidden for now (the underscore keeps Astro from building it); its figures must still agree.
+const einvoicing = text('case-studies/_einvoicing.astro');
 
 test('BRS: 75 features, a five-year roadmap and two Scrum teams wherever they appear', () => {
   assert.match(home, /75 features authored during BRS discovery/);
@@ -25,11 +26,12 @@ test('BRS: 75 features, a five-year roadmap and two Scrum teams wherever they ap
   assert.match(milestones, /82M\+/);
 });
 
-test('eInvoicing: 40+ applications wherever it appears', () => {
-  for (const [name, page] of [['home', home], ['eInvoicing case study', einvoicing], ['milestones', milestones]]) {
+test('eInvoicing: 40+ applications wherever it appears, and the home page does not show it', () => {
+  for (const [name, page] of [['hidden eInvoicing case study', einvoicing], ['milestones', milestones]]) {
     assert.match(page, /40\+ (applications|apps)\b/, `${name}: 40+ applications`);
     assert.doesNotMatch(page, /\b(30|35|45|50)\+ applications/, `${name}: one figure only`);
   }
+  assert.doesNotMatch(home, /eInvoicing|\/case-studies\/einvoicing/, 'the home page has no eInvoicing card or metric');
 });
 
 test('Integrated Risk Analysis: a 32% fall in leverage, and Felipe led its delivery', () => {

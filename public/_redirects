@@ -1,0 +1,2 @@
+# Cloudflare Pages redirects: source, destination, status. 302 keeps them temporary.
+/case-studies/einvoicing / 302
