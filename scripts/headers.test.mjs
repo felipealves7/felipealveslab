@@ -59,6 +59,15 @@ test('the policy allows the live box Worker, the airport results and files, and 
   for (const d of ['script-src', 'frame-src', 'img-src']) assert.ok(csp[d].includes(tableau), `${d} allows ${tableau}`);
 });
 
+test('frames allow the Figma prototype on the aviation case study, and nothing else from Figma', () => {
+  const figma = JSON.parse(read('data/aviation-platform/prototype.json')).figma;
+  assert.ok(figma.frameOrigins.includes(new URL(figma.embedUrl).origin), 'the embed origin is recorded');
+  for (const origin of figma.frameOrigins) assert.ok(csp['frame-src'].includes(origin), `frame-src allows ${origin}`);
+  for (const d of ['script-src', 'connect-src', 'img-src']) {
+    assert.ok(!csp[d].some((v) => /figma\.com/.test(v)), `${d} needs no Figma host: the embed runs inside its own frame`);
+  }
+});
+
 test('Cache-Control is set once per folder, never for every path, and long only for hashed files', () => {
   assert.equal(all.headers['cache-control'], undefined, 'HTML keeps the Cloudflare default and revalidates');
   const cached = rules.filter((r) => r.headers['cache-control']);

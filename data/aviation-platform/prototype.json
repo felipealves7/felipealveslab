@@ -1,0 +1,63 @@
+{
+  "checked": "2026-11-22",
+  "how": "Requested signed out. Figma's oEmbed endpoint returned the file's title and a thumbnail. The embed URL below loaded in headless Chrome from a local page and was clicked through: ready, unit open, pick a bag, baggage offloaded, pick a bag. The embed redirects through www.figma.com before it shows the prototype.",
+  "synthetic": true,
+  "label": "Illustrative screens, not the real system. The process and the checks are simplified, and flights, tags and units are invented.",
+  "figma": {
+    "title": "BRS loader scan — MVP prototype",
+    "fileKey": "FO8nwtyO1PRU0SWXo9VEAY",
+    "startNode": "14-132",
+    "designUrl": "https://www.figma.com/design/FO8nwtyO1PRU0SWXo9VEAY",
+    "protoUrl": "https://www.figma.com/proto/FO8nwtyO1PRU0SWXo9VEAY?node-id=14-132&starting-point-node-id=14-132",
+    "embedUrl": "https://embed.figma.com/proto/FO8nwtyO1PRU0SWXo9VEAY?node-id=14-132&starting-point-node-id=14-132&embed-host=felipealveslab&footer=false",
+    "frameOrigins": ["https://embed.figma.com", "https://www.figma.com"],
+    "docs": "https://developers.figma.com/docs/embeds/embed-figma-prototype"
+  },
+  "colours": { "white": "#FFFFFF", "black": "#000000", "green": "#00662C", "red": "#B0101A" },
+  "screens": [
+    {
+      "src": "/assets/case-studies/aviation/loader-unit-open.webp",
+      "caption": "Unit open",
+      "alt": "Handheld screen, unit open: AKE 41207 ZZ for flight ZZ 301 to LHR, departs 14:35, Economy, 23 bags. Buttons: Scan bag and Close unit."
+    },
+    {
+      "src": "/assets/case-studies/aviation/loader-load.webp",
+      "caption": "Load",
+      "alt": "Green screen with a tick: LOAD. Right flight, right class. Tag ZZ 214893, ZZ 301, Economy. Place it in AKE 41207 ZZ; 24 bags in this unit."
+    },
+    {
+      "src": "/assets/case-studies/aviation/loader-wrong-flight.webp",
+      "caption": "Do not load: wrong flight",
+      "alt": "Red screen with a cross: DO NOT LOAD. Wrong flight. Tag ZZ 214877, booked on ZZ 305 to Manchester. Send it back to sortation."
+    },
+    {
+      "src": "/assets/case-studies/aviation/loader-offloaded.webp",
+      "caption": "Do not load: baggage offloaded",
+      "alt": "Red screen with a cross: DO NOT LOAD. Baggage offloaded. Tag ZZ 214851. An offloaded bag cannot be loaded into a unit."
+    }
+  ],
+  "rules": [
+    { "finds": "No check-in record for the tag", "verdict": "DO NOT LOAD", "sees": "Unknown bag" },
+    { "finds": "The bag has been offloaded", "verdict": "DO NOT LOAD", "sees": "Baggage offloaded" },
+    { "finds": "The bag is booked on another flight", "verdict": "DO NOT LOAD", "sees": "Wrong flight" },
+    { "finds": "The bag’s class doesn’t match the unit", "verdict": "DO NOT LOAD", "sees": "Wrong class" },
+    { "finds": "Everything matches", "verdict": "LOAD", "sees": "Right flight, right class" }
+  ],
+  "criteria": [
+    {
+      "given": "a unit open for ZZ 301, Economy,",
+      "when": "a loader scans a bag checked in for ZZ 301, Economy,",
+      "then": "the screen turns green, shows LOAD and counts the bag into the unit."
+    },
+    {
+      "given": "a bag that has been offloaded,",
+      "when": "a loader scans it,",
+      "then": "the screen turns red, shows DO NOT LOAD and Baggage offloaded, and the bag is not counted into the unit."
+    },
+    {
+      "given": "a tag with no check-in record,",
+      "when": "a loader scans it,",
+      "then": "the screen turns red and sends the loader to the problem-bag desk."
+    }
+  ]
+}

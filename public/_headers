@@ -7,7 +7,7 @@
   X-Frame-Options: DENY
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()
   Cross-Origin-Opener-Policy: same-origin
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://public.tableau.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://public.tableau.com; font-src 'self' data:; media-src 'self'; connect-src 'self' https://ledger-api.felipe-s-alves7.workers.dev https://raw.githubusercontent.com https://davidmegginson.github.io https://cloudflareinsights.com https://public.tableau.com; frame-src https://public.tableau.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://public.tableau.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://public.tableau.com; font-src 'self' data:; media-src 'self'; connect-src 'self' https://ledger-api.felipe-s-alves7.workers.dev https://raw.githubusercontent.com https://davidmegginson.github.io https://cloudflareinsights.com https://public.tableau.com; frame-src https://public.tableau.com https://embed.figma.com https://www.figma.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests
 
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
