@@ -92,13 +92,39 @@ Everything an agent opens carries the label `agent-built`.
 - Prefer questions a curious non-specialist would want to open: concrete, surprising, fun where
   possible (`curiosities` and `ideas` in `interests.yml`).
 
+## The use case picks the tool
+
+Each lab and each case study is built around one main artifact, made in the tool its use case
+calls for. The work is shown where a professional would do it, not rebuilt as a web page.
+
+| Use case | Main artifact |
+| --- | --- |
+| BI and analytics | A dashboard in a BI tool (Tableau Public) |
+| Product and UX | Screens and a clickable prototype in Figma; journeys and boards in Miro or FigJam |
+| Data engineering | The pipeline's own documentation and tests: dbt docs, the tested code |
+| Data science and AI | A notebook and dataset (Kaggle), or the running tool with its benchmark |
+
+- The page embeds the main artifact live and loads it as the visitor reaches it, with no click. A
+  still exported from it stays on the page as the fallback, so the page still works with no live
+  services. A line under the embed names the service it loads from.
+- Where the tool's phone layout does not work yet, phones show the still and a link until it is
+  fixed, and the pull request says so.
+- Beyond the one build-time chart (below), visuals live in the main artifact, not in hand-built
+  HTML. Pages built before this rule keep their extra charts until Felipe asks to move them.
+- Publishing to Felipe's accounts (Tableau Public, Kaggle, Figma, Miro) happens in his session or
+  with him present. Agents prepare the tool-ready data, the design, the still and the steps; the
+  pull request lists what waits for Felipe.
+- When a use case fits none of these, the brief names the closest professional tool and says why.
+
 ## Required on every experiment page
 
 The schema enforces the front matter; `scripts/check-content.mjs` enforces that the body contains
 these exact headings in this order:
 
 1. `## The question`: one sentence, and who would pay to have it answered
-2. `## The live piece`: an interactive analysis, chart or Q&A that works from cached output with no live services
+2. `## The live piece`: the main artifact, embedded and loaded as the visitor reaches it, with its
+   still as the fallback, and the one build-time chart; it works from cached output with no live
+   services
 3. `## Method and results`: method, tests and evaluation results with full scores (right out of
    total) and an error analysis
 4. `## Known limits and running cost`
@@ -121,11 +147,9 @@ Human Variable labs may use Felipe's own self-tracking data, shown only as aggre
 and numbers), never as the content of entries. The schema and `scripts/check-content.mjs` gain
 this variant with the first Human Variable lab.
 
-**Every lab page shows at least one chart in its HTML at build time**: an SVG drawn from cached
-data, with no JavaScript needed, readable at 375 px wide, in `## The live piece` or
-`## The Experiment`. Interactive explorers and embeds come on top of it. Each brief also names one
-companion artifact (a Tableau Public dashboard, a Kaggle notebook and dataset, an in-browser data
-explorer, or the code alone) and the reason.
+**Every lab page shows one chart in its HTML at build time**: an SVG drawn from cached data, with
+no JavaScript needed, readable at 375 px wide, in `## The live piece` or `## The Experiment`. Other
+visuals come from the main artifact. Each brief names the main artifact's tool and the reason.
 
 Front matter must state `type` (`production-like demo`, `research study` or `experiment`), the data
 source, its licence, its freshness date, and whether the data is synthetic. Synthetic data is

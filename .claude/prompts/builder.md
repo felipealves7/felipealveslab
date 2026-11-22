@@ -43,9 +43,13 @@ rule 6). The steps below apply, except the Lab page and data parts of step 4.
      Provocation and The Return for Felipe to write;
    - cached outputs so the page works with no live services. Any live feature needs a daily
      cost cap and a cached fallback;
-   - at least one chart in the page's HTML at build time (SVG from cached data, no JavaScript
-     needed), readable at 375 px wide; explorers and embeds come on top of it;
-   - the companion artifact the brief names, or a line in the pull request saying why not;
+   - one chart in the page's HTML at build time (SVG from cached data, no JavaScript needed),
+     readable at 375 px wide; other visuals come from the main artifact, not hand-built HTML;
+   - the main artifact in the tool the brief names (`CLAUDE.md`, The use case picks the tool),
+     embedded live on the page and loaded as the visitor reaches it, with a still exported from it
+     as the fallback and a line naming the service it loads from. Where publishing needs
+     Felipe's account, include the tool-ready files and the exact steps, and list them in the pull
+     request as waiting for Felipe;
    - an Ask this lab panel only when the brief calls for it, on the Ask the Ledger engine and with
      its own benchmark;
    - an update to `stack-radar.yml`: the tools this lab used, with the pull request as evidence,
