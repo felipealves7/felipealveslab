@@ -21,7 +21,8 @@ test('every folder and file the README points to exists, and its counts match', 
   for (const [, path] of readme.matchAll(/`((?:src|pipelines|data|public|scripts)\/[^`*]*?)`/g)) {
     assert.ok(existsSync(root + path.replace(/\/$/, '')), `${path} exists`);
   }
-  const cases = readdirSync(root + 'src/pages/case-studies').filter((f) => f.endsWith('.astro')).length;
+  // Files that start with an underscore are hidden: Astro builds no page from them.
+  const cases = readdirSync(root + 'src/pages/case-studies').filter((f) => f.endsWith('.astro') && !f.startsWith('_')).length;
   assert.match(readme, new RegExp(`${WORDS[cases]} case studies`), `README says ${WORDS[cases]} case studies`);
   const prompts = readdirSync(root + '.claude/prompts').filter((f) => f.endsWith('.md')).length;
   assert.match(readme, new RegExp(`${WORDS[prompts][0].toUpperCase()}${WORDS[prompts].slice(1)} Claude agents`));

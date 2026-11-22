@@ -8,7 +8,6 @@ export const SITE_PAGES = [
   '/case-studies/aviation-platform',
   '/case-studies/finance-forecasting',
   '/case-studies/risk-analysis',
-  '/case-studies/einvoicing',
   '/case-studies/sinalvo',
   '/lab',
   '/lab/how-its-built',

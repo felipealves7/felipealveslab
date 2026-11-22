@@ -142,9 +142,9 @@ test('the home card shows the same week, drawn to the same proportions', () => {
   assert.deepEqual(bars, [w(f.energyShare), w(f.open / f.energy), '100%']);
   const links = [...card.matchAll(/--from:([\d.]+%)/g)].map((m) => m[1]);
   assert.deepEqual(links, [w(1 - f.energyShare), w(1 - f.open / f.energy)]);
-  assert.match(home, /<strong>Five pieces of work\. Same person\.<\/strong>/);
-  assert.match(read('public/js/script.js'), /all:'Five pieces of work\. Same person\.'/);
-  assert.equal((home.match(/class="case-card[ "]/g) ?? []).length, 5);
+  assert.match(home, /<strong>Four pieces of work\. Same person\.<\/strong>/);
+  assert.match(read('public/js/script.js'), /all:'Four pieces of work\. Same person\.'/);
+  assert.equal((home.match(/class="case-card[ "]/g) ?? []).length, 4);
 });
 
 test('the sector chart draws every sector, longest bar first, energy highlighted', () => {
@@ -202,5 +202,5 @@ test('every chart is static HTML with a table view', () => {
 
 test('the case study is in the sitemap list and linked from the home page', () => {
   assert.ok(SITE_PAGES.includes('/case-studies/sinalvo'));
-  assert.match(home, /class="case-card case-card--wide reveal" data-tags="data product" href="\/case-studies\/sinalvo"/);
+  assert.match(home, /class="case-card reveal delay-3" data-tags="data product" href="\/case-studies\/sinalvo"/);
 });

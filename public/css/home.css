@@ -99,3 +99,5 @@
   .sv-num{font-size:25px}
   .sv-link{height:14px}
 }
+/* Three metrics in one row on wide screens; narrower screens keep the two- and one-column grids. */
+@media (min-width:981px){.metrics--three{grid-template-columns:repeat(3,1fr)}}

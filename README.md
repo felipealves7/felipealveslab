@@ -32,7 +32,7 @@ D1. Tests and build checks run in GitHub Actions.
 
 ## Layout
 
-- `src/pages/`: the portfolio pages (home, milestones, behind the scenes, five case studies, 404), the Lab hub, the operating-model page and the exhibit page template.
+- `src/pages/`: the portfolio pages (home, milestones, behind the scenes, four case studies, 404), the Lab hub, the operating-model page and the exhibit page template.
 - `src/content/lab/`: one Markdown page per exhibit; `src/content.config.ts` is their schema.
 - `src/layouts/Base.astro`, `src/components/`: shared page frame, header and footer, the exhibits' charts and explorers, and the four case-study illustrations.
 - `src/lib/`: build-time code behind the charts, the airport replay and the illustrations. The illustrations use synthetic data with fixed random seeds; the sinalvo case study's charts (`src/lib/case-studies/`) read recorded results from `data/sinalvo/`.

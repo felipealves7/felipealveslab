@@ -19,12 +19,15 @@ function astroPages(dir) {
   });
 }
 
-// src/pages/case-studies/einvoicing.astro -> /case-studies/einvoicing; lab/index.astro -> /lab.
+// src/pages/case-studies/sinalvo.astro -> /case-studies/sinalvo; lab/index.astro -> /lab.
 const route = (file) => `/${relative(pagesDir, file).replace(/\.astro$/, '').replace(/(^|\/)index$/, '')}`.replace(/\/$/, '') || '/';
+// Astro builds no page from a file whose name starts with an underscore: those pages are hidden.
+const hidden = (file) => /(^|[\\/])_[^\\/]*\.astro$/.test(file);
 
-test('every fixed page that is not a 404, a preview or a dynamic route is in the sitemap list', () => {
+test('every fixed page that is not a 404, a preview, hidden or a dynamic route is in the sitemap list', () => {
   const expected = astroPages(pagesDir)
     .filter((f) => !f.includes('['))
+    .filter((f) => !hidden(f))
     .filter((f) => !/404\.astro$/.test(f))
     .filter((f) => !/\bnoindex\b/.test(readFileSync(f, 'utf8')))
     .map(route)
@@ -49,4 +52,17 @@ test('the XML is well formed and uses full addresses without trailing slashes', 
   assert.equal(locs[0], 'https://felipealveslab.com/');
   for (const l of locs.slice(1)) assert.match(l, /^https:\/\/felipealveslab\.com\/[a-z0-9/-]+[a-z0-9]$/);
   assert.ok(locs.includes('https://felipealveslab.com/lab/spring-clock-change-road-deaths'));
+});
+
+test('a hidden case study keeps its old address working: a temporary redirect to the home page', () => {
+  const redirects = readFileSync(join(root, 'public/_redirects'), 'utf8').split('\n')
+    .map((l) => l.trim()).filter((l) => l && !l.startsWith('#')).map((l) => l.split(/\s+/));
+  for (const r of redirects) assert.equal(r.length, 3, `"${r.join(' ')}" is source, destination and status`);
+  const hiddenCases = astroPages(join(pagesDir, 'case-studies')).filter(hidden)
+    .map((f) => route(f).replace('/_', '/'));
+  assert.ok(hiddenCases.length > 0);
+  for (const path of hiddenCases) {
+    assert.ok(!SITE_PAGES.includes(path), `${path} is not in the sitemap`);
+    assert.deepEqual(redirects.find((r) => r[0] === path), [path, '/', '302'], `${path} redirects home with a 302`);
+  }
 });
