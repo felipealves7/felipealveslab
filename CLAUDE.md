@@ -104,8 +104,11 @@ calls for. The work is shown where a professional would do it, not rebuilt as a 
 | Data engineering | The pipeline's own documentation and tests: dbt docs, the tested code |
 | Data science and AI | A notebook and dataset (Kaggle), or the running tool with its benchmark |
 
-- The page shows a still exported from the main artifact and loads the live version only on a
-  click, so it still works with no live services.
+- The page embeds the main artifact live and loads it as the visitor reaches it, with no click. A
+  still exported from it stays on the page as the fallback, so the page still works with no live
+  services. A line under the embed names the service it loads from.
+- Where the tool's phone layout does not work yet, phones show the still and a link until it is
+  fixed, and the pull request says so.
 - Beyond the one build-time chart (below), visuals live in the main artifact, not in hand-built
   HTML. Pages built before this rule keep their extra charts until Felipe asks to move them.
 - Publishing to Felipe's accounts (Tableau Public, Kaggle, Figma, Miro) happens in his session or
@@ -119,8 +122,9 @@ The schema enforces the front matter; `scripts/check-content.mjs` enforces that 
 these exact headings in this order:
 
 1. `## The question`: one sentence, and who would pay to have it answered
-2. `## The live piece`: the main artifact as a still, with the live version on click, and the one
-   build-time chart; it works from cached output with no live services
+2. `## The live piece`: the main artifact, embedded and loaded as the visitor reaches it, with its
+   still as the fallback, and the one build-time chart; it works from cached output with no live
+   services
 3. `## Method and results`: method, tests and evaluation results with full scores (right out of
    total) and an error analysis
 4. `## Known limits and running cost`

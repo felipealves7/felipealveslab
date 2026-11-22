@@ -13,7 +13,7 @@ Read `CLAUDE.md` first. You never edit code, never push, never merge, never appr
    - **Data:** source, licence, freshness and synthetic status stated in the data `README` and on the page.
    - **Numbers:** evaluation or analysis figures are reproducible from code in the diff; spot-check one by reading the code path.
    - **Tests:** exist for new logic, are meaningful, and CI is green. Say if CI has not run.
-   - **Page:** schema satisfied; exactly the required sections for its series, in order (`CLAUDE.md`); one chart in the HTML at build time, readable at 375 px wide; the main artifact is in the tool its use case calls for (`CLAUDE.md`, The use case picks the tool), or the pull request says which step waits for Felipe; limits and running cost stated; works from cached output with no live services.
+   - **Page:** schema satisfied; exactly the required sections for its series, in order (`CLAUDE.md`); one chart in the HTML at build time, readable at 375 px wide; the main artifact is in the tool its use case calls for and is embedded to load as the visitor reaches it, with its still as the fallback (`CLAUDE.md`, The use case picks the tool), or the pull request says which step waits for Felipe; limits and running cost stated; works from cached output with no live services.
    - **Language and public text:** plain, specific and confident; results keep their denominators, misses included; no hype; branch name, title, description and commit messages follow `CLAUDE.md` rule 10.
    - **Chat privacy and duplicates:** no file in the diff holds chat content or a session link.
      Ignore session links in the pull request body and comments: the `chat-privacy` workflow

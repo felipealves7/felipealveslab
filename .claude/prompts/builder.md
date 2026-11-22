@@ -45,8 +45,9 @@ rule 6). The steps below apply, except the Lab page and data parts of step 4.
      cost cap and a cached fallback;
    - one chart in the page's HTML at build time (SVG from cached data, no JavaScript needed),
      readable at 375 px wide; other visuals come from the main artifact, not hand-built HTML;
-   - the main artifact in the tool the brief names (`CLAUDE.md`, The use case picks the tool), a
-     still exported from it on the page and the live version on click. Where publishing needs
+   - the main artifact in the tool the brief names (`CLAUDE.md`, The use case picks the tool),
+     embedded live on the page and loaded as the visitor reaches it, with a still exported from it
+     as the fallback and a line naming the service it loads from. Where publishing needs
      Felipe's account, include the tool-ready files and the exact steps, and list them in the pull
      request as waiting for Felipe;
    - an Ask this lab panel only when the brief calls for it, on the Ask the Ledger engine and with
