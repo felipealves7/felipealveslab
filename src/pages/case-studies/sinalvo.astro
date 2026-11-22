@@ -1,0 +1,160 @@
+---
+import Base from '../../layouts/Base.astro';
+import figures from '../../../data/sinalvo/figures.json';
+import { sectorChart, funnelChart, paymentChart } from '../../lib/case-studies/sinalvo.mjs';
+
+// The three exhibits are drawn at build time from data/sinalvo/figures.json.
+// scripts/sinalvo-page.test.mjs checks the figures quoted in the text below against the same file.
+const sectors = sectorChart(figures);
+const funnel = funnelChart(figures);
+const payment = paymentChart(figures);
+---
+<Base
+  title={'sinalvo case study — Felipe Alves'}
+  description={"A B2B data product on Brazil's public tender data, tested in one week and stopped before build: market sizing, two data probes, an investor-style review and a post-mortem."}
+  ogDescription={'Product discovery with stop rules, cheap probes and a clear stop: a data product tested in a week.'}
+  ogType="article"
+  css={['styles', 'responsive', 'enhancements', 'site-fixes', 'illustrations', 'case-charts']}
+  bodyClass="case-page"
+  script="script"
+>
+<main>
+<section class="case-hero section-shell reveal">
+  <div>
+    <span class="eyebrow">Case study 05 · Product discovery</span>
+    <p class="cs-wordmark">sinalvo<span>.</span></p>
+    <h1>Testing a data product in a week, and deciding not to build it.</h1>
+    <p>A daily radar of Brazil's public energy tenders, built on the government's open procurement data. In one week I sized the market, probed the data and the finance edge, and stopped before spending money on a product no customer had asked for.</p>
+  </div>
+  <div class="case-facts">
+    <div><span>Role</span><strong>Product lead, directing AI agents</strong></div>
+    <div><span>Data</span><strong>360,217 public notices · 3 public finance sources</strong></div>
+    <div><span>Effort</span><strong>About 20 hours in one week · no money spent</strong></div>
+    <div><span>Outcome</span><strong>Stopped before build</strong></div>
+  </div>
+</section>
+<section class="case-body section-shell">
+  <aside class="case-nav"><a href="#context">Context</a><a href="#idea">The idea</a><a href="#approach">Approach</a><a href="#evidence">Evidence</a><a href="#decision">Decision</a><a href="#what-changed">What changed</a><a href="#ownership">Ownership</a><a href="#public-context">Public context</a><a href="#reflection">Reflection</a><a class="back-link" href="/#work">← Back to work</a></aside>
+  <div>
+    <section class="case-section" id="context">
+      <span class="eyebrow">Context</span>
+      <h2>A product AI agents could run, inside hard limits.</h2>
+      <p>In November 2026 I went looking for a side income stream that AI agents could run day to day, on a few hours of my time a week. Before picking an idea, I fixed the method: score the options against those limits, write the stop rules down, and run cheap probes before writing any product code.</p>
+      <p>Seventeen business models were scored on who pays, where buyers come from, how much of the work AI can do, and the main risk in 2026. One shape fitted: a business-to-business data product with a few customers who each pay more. Content and entertainment dropped out first. They pay little per user, depend on hits, and the big platforms are tightening against mass-produced AI output.</p>
+    </section>
+
+    <section class="case-section" id="idea">
+      <span class="eyebrow">The idea</span>
+      <h2>A daily tender radar with a payment grade.</h2>
+      <p>Brazil's public bodies must publish their procurement notices on one national portal, PNCP, which anyone can read for free (<a href="https://www.gov.br/pncp/pt-br/pncp/perguntas-e-respostas" target="_blank" rel="noreferrer">PNCP ↗</a>). The plan was to send each supplier, every morning, the open tenders that fit what it sells, with a plain-language summary of each tender's documents.</p>
+      <p>I sized every sector before choosing one. Ninety days of notices, 5 August to 2 November 2026, came to 360,217. Construction and health dominate, and large general-purpose tools already serve them. Energy and lighting was about 1% of notices, but its formal tenders were large, with a median of R$438,000, and no tool I found specialised in it. It also looked like my field: I spent six years at CCEE, which runs Brazil's wholesale electricity market.</p>
+      <p>The edge was meant to be finance: a “will this buyer pay?” grade for every public buyer, built from Treasury data. I named the product sinalvo, from the Portuguese <i lang="pt">sinal</i> and <i lang="pt">alvo</i>: signal and target.</p>
+      <Fragment set:html={sectors} />
+    </section>
+
+    <section class="case-section" id="approach">
+      <span class="eyebrow">Approach</span>
+      <h2>Stop rules before code. Probes before spend.</h2>
+      <div class="decision-grid">
+        <div class="decision-card"><span>Kill criteria</span><h3>Write the stop rule first</h3><p>The first plan carried its own exit: fewer than 30 free sign-ups, or fewer than 5 people saying they would pay, by week 4 meant stop. Gate 1 was set for 1 December.</p></div>
+        <div class="decision-card"><span>Stage gates</span><h3>Gate every stage</h3><p>The build plan ran in stages with a gate between each, and put a no-cost feasibility probe ahead of any product code, domain or licence.</p></div>
+        <div class="decision-card"><span>Probes</span><h3>Measure before building</h3><p>Two probes on 8 November: one week of live tender data, with 50 tender packages downloaded and read, and the payment grade tested against three public finance sources.</p></div>
+        <div class="decision-card"><span>Cross-checks</span><h3>Check the agents' work</h3><p>I labelled a sample of notices by hand, had a second AI system review the labels, and brought in fresh competitor research to test the desk research.</p></div>
+      </div>
+      <ol class="cs-timeline" aria-label="Timeline, November 2026">
+        <li><time datetime="2026-11-03">3 Nov</time><strong>First plan</strong><span>17 models scored; 90 days of tender data point to energy</span></li>
+        <li><time datetime="2026-11-05">5 Nov</time><strong>Named</strong><span>sinalvo, with a staged build plan and gates</span></li>
+        <li><time datetime="2026-11-08">8 Nov</time><strong>Probes</strong><span>Live tender data and buyer payment risk</span></li>
+        <li class="is-turn"><time datetime="2026-11-10">10 Nov</time><strong>The turn</strong><span>Four findings, an investor-style review, build paused</span></li>
+        <li><time datetime="2026-11-22">22 Nov</time><strong>Closed</strong><span>Idea retired</span></li>
+      </ol>
+    </section>
+
+    <section class="case-section" id="evidence">
+      <span class="eyebrow">Evidence</span>
+      <h2>Eight checks ran. The one that mattered most did not.</h2>
+      <ol class="cs-checks">
+        <li class="cs-check"><span class="cs-check-meta"><span class="cs-check-n">1</span><time datetime="2026-11-03">3 Nov</time></span><div class="cs-check-body"><h3>Which kind of business fits the limits?</h3><p>17 models scored. Only a B2B data product with a few, higher-paying customers fitted.</p></div><span class="cs-verdict">Shaped the plan</span></li>
+        <li class="cs-check"><span class="cs-check-meta"><span class="cs-check-n">2</span><time datetime="2026-11-03">3 Nov</time></span><div class="cs-check-body"><h3>Which sector?</h3><p>90 days, 360,217 notices. Energy and lighting: about 1% of notices, a R$438,000 median formal tender, no specialist tool found.</p></div><span class="cs-verdict">Energy chosen</span></li>
+        <li class="cs-check"><span class="cs-check-meta"><span class="cs-check-n">3</span><time datetime="2026-11-03">3 Nov</time></span><div class="cs-check-body"><h3>Is anyone already serving energy?</h3><p>No energy specialist found. The check missed a general tool already selling the planned edge (check 8).</p></div><span class="cs-verdict cs-verdict--warn">Overturned</span></li>
+        <li class="cs-check"><span class="cs-check-meta"><span class="cs-check-n">4</span><time datetime="2026-11-03">3 Nov</time></span><div class="cs-check-body"><h3>Can it run cheaply?</h3><p>Estimated at about US$70 a month to run at launch.</p></div><span class="cs-verdict">Not the problem</span></li>
+        <li class="cs-check"><span class="cs-check-meta"><span class="cs-check-n">5</span><time datetime="2026-11-08">8 Nov</time></span><div class="cs-check-body"><h3>Do the data and the API hold up?</h3><p>7 days and 1,196 API calls, complete against PNCP's own totals. File lists were slow: a median of 14 seconds, with 31 of 205 calls timing out.</p></div><span class="cs-verdict">Feasible</span></li>
+        <li class="cs-check"><span class="cs-check-meta"><span class="cs-check-n">6</span><time datetime="2026-11-08">8 Nov</time></span><div class="cs-check-body"><h3>Can a payment grade work?</h3><p>Yes, in layers, from three public sources with a clear gradient by grade. Not yet as a single score.</p></div><span class="cs-verdict">Raw signals only</span></li>
+        <li class="cs-check"><span class="cs-check-meta"><span class="cs-check-n">7</span><time datetime="2026-11-10">10 Nov</time></span><div class="cs-check-body"><h3>Does the classification hold up?</h3><p>No. “Is it energy?” was the wrong question, and direct purchases and sole-source awards cannot be bid on.</p></div><span class="cs-verdict cs-verdict--warn">Market smaller</span></li>
+        <li class="cs-check"><span class="cs-check-meta"><span class="cs-check-n">8</span><time datetime="2026-11-10">10 Nov</time></span><div class="cs-check-body"><h3>Is the edge still an edge?</h3><p>No. A general tool already sold PNCP search, AI analysis and a buyer payment score from R$59 a month.</p></div><span class="cs-verdict cs-verdict--warn">Edge gone</span></li>
+        <li class="cs-check cs-check--gap"><span class="cs-check-meta"><span class="cs-check-n">9</span><span>Not run</span></span><div class="cs-check-body"><h3>Will anyone pay?</h3><p>Never tested. No buyer was asked at any point.</p></div><span class="cs-verdict cs-verdict--gap">Not tested</span></li>
+      </ol>
+
+      <h3 class="cs-subhead">One week of live data: a thin market</h3>
+      <p>The probe pulled every notice PNCP published from 1 to 7 November 2026: 24,847, matching the API's own totals with no duplicates. 173 matched the energy terms (0.7%), and 87 of those were open tenders, with a median estimated value of R$577,000. Lighting and LED made up 60% of the energy notices. The free electricity market, where my own experience sits, produced none.</p>
+      <Fragment set:html={funnel} />
+      <p>Reading 50 tender packages showed what each summary would cost to produce: a median of 102 pages, or about 69,000 tokens of text for an AI model to read, with 5% of pages scanned. The data and the API held up. The keyword list did not: about 1 in 6 matches were something else, from stage hire for festivities to Christmas street lighting.</p>
+
+      <h3 class="cs-subhead">The finance edge: a real signal, not yet a score</h3>
+      <p>For the 124 public buyers behind the energy notices, I tested three public sources. The Treasury's payment-capacity grade, CAPAG, covered 71% of the energy tenders but barely moves: from June to September 2026, 57 of 4,691 graded municipalities (1.2%) changed letter. Bimonthly fiscal reports (Siconfi) are fresher. Among the 66% of buyers that file the full report, the median grade-A buyer had paid 97% of the 2025 bills it carried into 2026 by August; for grade C it was 78%. For São Paulo, the state audit court's spending data dates each step of a payment, so timing could be measured directly.</p>
+      <Fragment set:html={payment} />
+      <p>The gradient is real, but it is not a score. Within grade C, towns paid between 49% and 100% of invoices within 30 days, and one grade-A town paid 63%. So the plan changed: show each raw signal with its source and date, and build no composite score until one can be checked against real payments. An index never checked against real payments is opinion with decimal places.</p>
+    </section>
+
+    <section class="case-section" id="decision">
+      <span class="eyebrow">Decision</span>
+      <h2>Four findings in one day, then an investor's question.</h2>
+      <div class="decision-grid">
+        <div class="decision-card"><span>Labels</span><h3>The question was wrong</h3><p>I labelled a 60-row sample and had a second AI system review it. “Is it energy?” had no right answer: a R$430 purchase of LED bulbs is energy to one reader and noise to another. The useful question is whether a customer in a given segment would want the alert. Direct purchases and sole-source awards appear on PNCP for transparency and cannot be bid on.</p></div>
+        <div class="decision-card"><span>Competition</span><h3>The edge was gone</h3><p>Fresh competitor research found ContrataX already selling PNCP search, AI analysis of tender documents and a payment-reliability score for public buyers, from R$59 a month (<a href="https://www.capterra.com/p/10050610/Contratax-Licitacoes-Publicas/" target="_blank" rel="noreferrer">Capterra ↗</a>). Alerta Licitação already ran solar-tender pages by state (<a href="https://alertalicitacao.com.br/licitacoes/energia-solar/GO" target="_blank" rel="noreferrer">example ↗</a>). Both as of November 2026.</p></div>
+        <div class="decision-card"><span>Expertise</span><h3>My edge sat where tenders don't</h3><p>My experience is in the free electricity market, which produced no tenders that week. Lighting and LED, an electrical contractors' market, made up 60% of the energy notices.</p></div>
+        <div class="decision-card"><span>Market size</span><h3>The real flow was small</h3><p>Projected to a month, the probe gives about 455 open energy tenders. Applying the sample's proportions, roughly 100 are direct energy work and about 220 include adjacent electrical work. A rough estimate, but a small order of magnitude.</p></div>
+      </div>
+      <p>Then I reviewed the plan the way an experienced investor would. What evidence was there, from a customer, that energy needed its own service? None. Every check had measured supply: tenders, documents, costs and risk data. None had measured demand. I paused the build.</p>
+      <p>A four-week demand test was designed and never run: 20 to 30 past winners of solar or lighting tenders, a manual weekly bulletin, and a stop if fewer than 3 in 20 showed interest. The stop rules from 3 November were never reached either, because nothing went to market. The stop came from desk evidence and from the goal itself: I did not want to run a company, which is what a subscription product needs.</p>
+    </section>
+
+    <section class="case-section" id="what-changed">
+      <span class="eyebrow">What changed</span>
+      <h2>The error was the method, not the market.</h2>
+      <p>The written post-mortem put the mistake upstream of energy and Brazil. The plan chose by what could be built and automated, not by where buyers were left unserved.</p>
+      <ul class="cs-misses">
+        <li>“People already pay for this” proves a market exists, not that there is room for one more seller. Money per seller was never measured.</li>
+        <li>The plan named distribution as the scarce thing, then picked a product with no borrowed channel. Ads, search and partners all had to be built from zero.</li>
+        <li>“AI does the work” is no advantage when AI builds the same thing for everyone.</li>
+        <li>The desk research missed a direct competitor. AI research needs confirming with a buyer.</li>
+      </ul>
+      <div class="ownership-box cs-rules">
+        <div><h3>How I picked sinalvo</h3><ul><li>Buyers already pay for tender alerts</li><li>The data is free and official</li><li>AI can run the daily work</li><li>It fits my background</li></ul></div>
+        <div><h3>What I check now</h3><ul><li>Money per seller, and its trend</li><li>A store or channel that brings and bills the customer</li><li>Forced demand: a law, a migration or a deadline</li><li>A goal reachable with a few customers</li><li>Demand visible in public data before building</li></ul></div>
+      </div>
+      <p>The new rules were tested the same day. The next-best idea, apps for the Atlassian Marketplace, needed at least three clean gaps. It had none. New apps a month had risen from about 69 (August 2024 to July 2025) to about 327 (August to October 2026), the typical new app had one install, and both gaps opened by platform migrations were already closed among the leading apps.</p>
+    </section>
+
+    <section class="case-section" id="ownership">
+      <span class="eyebrow">Ownership</span>
+      <h2>I set the direction. Agents did the legwork.</h2>
+      <div class="ownership-box">
+        <div><h3>I owned</h3><ul><li>The brief, its limits and the stop rules</li><li>The choice of model, sector and edge</li><li>The hand-labelled sample and its second review</li><li>The competitor research that showed the edge was gone</li><li>The investor-style review, and every pause and stop</li></ul></div>
+        <div><h3>Agents built, to my brief</h3><ul><li>Research and data pulls from public APIs</li><li>Probe scripts and analysis</li><li>Plans, cost models and the written post-mortem</li><li>Estimates, each labelled as an estimate</li></ul></div>
+      </div>
+      <div class="evidence-strip"><div class="evidence-pill">Stage gates and kill criteria</div><div class="evidence-pill">Public-data analysis at scale</div><div class="evidence-pill">Payment-risk analytics</div><div class="evidence-pill">Unit economics</div><div class="evidence-pill">Directing AI agents</div><div class="evidence-pill">Stopping early</div></div>
+    </section>
+
+    <section class="case-section public-context" id="public-context">
+      <span class="eyebrow">Independent public context</span>
+      <h2>Every source is public.</h2>
+      <p class="context-intro">The probes used only open government data, so anyone can check the sources.</p>
+      <div class="source-grid">
+        <a class="source-card" href="https://www.gov.br/pncp/pt-br/pncp/perguntas-e-respostas" target="_blank" rel="noreferrer"><span class="source-type">PNCP · Brazil</span><strong>One national portal for public procurement</strong><span>Mandatory under Law 14.133/2021, free to access ↗</span></a>
+        <a class="source-card" href="https://www.tesourotransparente.gov.br/ckan/dataset/9ff93162-409e-48b5-91d9-cf645a47fdfc/resource/f3d005e7-97fb-4c9c-aefd-0d0288d54dfb/download/Metadados.pdf" target="_blank" rel="noreferrer"><span class="source-type">Tesouro Nacional · CAPAG</span><strong>A to D payment-capacity grades for every municipality</strong><span>Debt, current savings and liquidity, every four months ↗</span></a>
+        <a class="source-card" href="https://www.tesourotransparente.gov.br/consultas/consultas-siconfi/siconfi-api-de-dados-abertos" target="_blank" rel="noreferrer"><span class="source-type">Tesouro Transparente · Siconfi</span><strong>Fiscal reports from states and municipalities</strong><span>Open data API, no registration or fees ↗</span></a>
+      </div>
+    </section>
+
+    <section class="case-section" id="reflection">
+      <span class="eyebrow">Reflection</span>
+      <h2>Test demand before you measure supply.</h2>
+      <p>A week of tender counts, document sizes, costs and risk data, and not one conversation with a buyer. The probes still earned their keep: they ended the plan before any licence, domain or advertising spend. Three rules I keep. “People already pay for this” proves a market, not room for me. Expertise is a hypothesis, not evidence. And when AI makes building cheap for everyone, the edge is distribution and trust, not automation.</p>
+    </section>
+
+    <section class="case-cta"><span class="eyebrow">Next</span><h2>Want to talk this through?</h2><div class="closing-actions"><a class="button primary" href="mailto:hello@felipealveslab.com">Email Felipe</a><a class="button ghost" href="https://www.linkedin.com/in/felipealves7" target="_blank" rel="noreferrer">LinkedIn ↗</a><a class="button ghost" href="/#work">More selected work</a></div></section>
+  </div>
+</section>
+</main>
+</Base>

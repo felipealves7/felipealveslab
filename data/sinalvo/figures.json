@@ -1,0 +1,113 @@
+{
+  "project": "sinalvo",
+  "synthetic": false,
+  "recorded": "2026-11-22",
+  "effort": { "hours": 20, "moneySpent": 0, "firstPlan": "2026-11-03", "buildPaused": "2026-11-10", "closed": "2026-11-22" },
+  "models": { "scored": 17 },
+  "killCriteria": { "signUps": 30, "wouldPay": 5, "byWeek": 4, "gate1": "2026-12-01" },
+  "pncp90": {
+    "source": "PNCP consultation API, notices published 5 Aug to 2 Nov 2026; totals per procurement method exact, sectors estimated from a weighted sample",
+    "from": "2026-08-05",
+    "to": "2026-11-02",
+    "notices": 360217,
+    "formalTenders": 114365,
+    "sample": 9131,
+    "sampleErrorLarge": 0.02,
+    "sampleErrorEnergy": 0.11,
+    "energyNoticesEstimate": 2900,
+    "sectors": [
+      { "key": "construction", "label": "Construction & works", "formalTenders": 22745, "medianFormalTender": 606000 },
+      { "key": "building-materials", "label": "Building materials", "formalTenders": 10755, "medianFormalTender": 285000 },
+      { "key": "health-supplies", "label": "Health: supplies", "formalTenders": 9966, "medianFormalTender": 324000 },
+      { "key": "fuel-fleet", "label": "Fuel & fleet", "formalTenders": 9155, "medianFormalTender": 373000 },
+      { "key": "it-telecom", "label": "IT & telecom", "formalTenders": 6736, "medianFormalTender": 335000 },
+      { "key": "food", "label": "Food", "formalTenders": 6143, "medianFormalTender": 382000 },
+      { "key": "health-medicines", "label": "Health: medicines", "formalTenders": 4545, "medianFormalTender": 1000000 },
+      { "key": "health-services", "label": "Health: services", "formalTenders": 3445, "medianFormalTender": 205000 },
+      { "key": "energy", "label": "Energy & lighting", "formalTenders": 1618, "medianFormalTender": 438000 }
+    ]
+  },
+  "runningCostEstimateUsdPerMonth": 70,
+  "probe": {
+    "source": "PNCP consultation API, every modality, notices published 1 to 7 Nov 2026 (Brasilia dates), run on 8 Nov 2026",
+    "from": "2026-11-01",
+    "to": "2026-11-07",
+    "workingDays": 4,
+    "apiCalls": 1196,
+    "notices": 24847,
+    "duplicates": 0,
+    "shortOfApiTotals": 0,
+    "energyNotices": 173,
+    "energyByModality": [
+      { "modality": "Pregão (electronic)", "notices": 66, "openTender": true },
+      { "modality": "Concorrência (electronic)", "notices": 18, "openTender": true },
+      { "modality": "Pregão (in person)", "notices": 3, "openTender": true },
+      { "modality": "Dispensa (direct purchase)", "notices": 77, "openTender": false },
+      { "modality": "Inexigibilidade (sole source)", "notices": 7, "openTender": false },
+      { "modality": "Credenciamento (accreditation)", "notices": 2, "openTender": false }
+    ],
+    "energyByWork": [
+      { "key": "lighting", "label": "Public lighting & LED", "notices": 103 },
+      { "key": "substations", "label": "Substations & generators", "notices": 42 },
+      { "key": "efficiency", "label": "Efficiency & retrofit", "notices": 15 },
+      { "key": "solar", "label": "Solar & distributed generation", "notices": 13 },
+      { "key": "free-market", "label": "Free electricity market", "notices": 0 }
+    ],
+    "medianEnergyTender": 577000,
+    "keywordFalseMatches": 30,
+    "packagesRead": 50,
+    "medianPagesPerPackage": 102,
+    "medianTokensPerPackage": 69049,
+    "scannedPageShare": 0.05,
+    "fileListCalls": 205,
+    "fileListTimeouts": 31,
+    "fileListMedianSeconds": 14.4,
+    "monthly": { "notices": 129932, "energyNotices": 906, "energyTenders": 455 }
+  },
+  "labels": {
+    "source": "60-row sample from the probe (30 keyword matches, 30 near-misses), labelled by hand on 10 Nov 2026 and reviewed by a second AI system",
+    "rows": 60,
+    "direct": 13,
+    "adjacent": 16,
+    "noContest": 6,
+    "discard": 25,
+    "ledBulbPurchase": 430,
+    "monthlyDirectEstimate": 100,
+    "monthlyWithAdjacentEstimate": 220
+  },
+  "paymentRisk": {
+    "source": "Tesouro Nacional CAPAG (June and September 2026 positions), Siconfi RREO for Jul–Aug 2026, TCE-SP municipal spending API; probe run on 8 Nov 2026",
+    "buyers": 124,
+    "capag": { "formalTenders": 87, "withGrade": 62, "lettersChanged": 57, "gradedBoth": 4691, "from": "2026-06", "to": "2026-09" },
+    "siconfi": { "fullReportShare": 0.66, "paidByAugust": { "A": 0.97, "B": 0.91, "C": 0.78, "D": 0.55 } },
+    "tceSp": {
+      "towns": 35,
+      "companyLiquidations": 39800,
+      "medianDaysToPay": 7,
+      "window": "liquidations in June and July 2026, payments followed to 31 August 2026",
+      "byGrade": [
+        { "grade": "A", "towns": 8, "paidWithin30Days": 0.94 },
+        { "grade": "B", "towns": 5, "paidWithin30Days": 0.89 },
+        { "grade": "C", "towns": 16, "paidWithin30Days": 0.86, "low": 0.49, "high": 1.0 },
+        { "grade": "D", "towns": 1, "paidWithin30Days": 0.48 },
+        { "grade": "No grade", "towns": 5, "paidWithin30Days": 0.81 }
+      ],
+      "oneGradeATown": 0.63
+    }
+  },
+  "competition": {
+    "contrataxFromBrlPerMonth": 59,
+    "checked": "2026-11-22"
+  },
+  "demand": { "buyerConversations": 0, "testCompaniesMin": 20, "testCompaniesMax": 30, "stopIfFewerThan": 3, "outOf": 20 },
+  "nextIdea": {
+    "source": "Atlassian Marketplace public pages and sitemap, read on 10 Nov 2026",
+    "newAppsPerMonthBefore": 69,
+    "beforePeriod": "Aug 2024 to Jul 2025",
+    "newAppsPerMonthAfter": 327,
+    "afterPeriod": "Aug to Oct 2026",
+    "medianInstallsNewApp": 1,
+    "cleanGapsRequired": 3,
+    "cleanGapsFound": 0
+  }
+}

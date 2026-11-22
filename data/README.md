@@ -9,4 +9,4 @@ Small datasets and pipeline outputs. Every dataset lives in its own folder with 
 
 No personal data. No employer data.
 
-Folders: `airport-contract/`, `ask-the-ledger/`, `aviation-reliability/`, `ccee-pld/`, `ccee-pld-horario/`, `dst-crashes/`, `ledger-api/`, `ledger-eval/`.
+Folders: `airport-contract/`, `ask-the-ledger/`, `aviation-reliability/`, `ccee-pld/`, `ccee-pld-horario/`, `dst-crashes/`, `ledger-api/`, `ledger-eval/`, `sinalvo/`.

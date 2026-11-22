@@ -17,7 +17,7 @@
 .hero-role{margin:10px 0 0;font-size:13px;font-weight:650;letter-spacing:.02em;color:var(--olive2)}
 .metric-type{font-size:8px;text-transform:uppercase;letter-spacing:.14em;color:var(--olive2);font-weight:750}
 
-/* Four selected cases are a deliberate 2×2 set, not a 3+1 leftover. */
+/* Cases 01–04 are a deliberate 2×2 set; case 05 runs full width below them (home.css). */
 .case-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
 .case-card{min-height:520px}
 .case-card.is-hidden{display:none!important}
