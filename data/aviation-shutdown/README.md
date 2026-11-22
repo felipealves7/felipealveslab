@@ -10,8 +10,10 @@ flight cuts did. Used by the shutdown test on `/lab/aviation-reliability`. Built
   (1987-present), the September, October and November 2025 archives from https://transtats.bts.gov/PREZIP/.
   Downloaded on 22 November 2026. File names, SHA-256 and BTS's last-modified dates are in
   `extract.json`. The same table as `data/aviation-reliability/`, re-read for these three months.
-- **Licence:** public US federal flight records, as for `data/aviation-reliability/` (see its README).
-  No Creative Commons licence is claimed.
+- **Licence:** public US federal flight records. The Data.gov record
+  https://catalog.data.gov/dataset/bts-flight-data (publisher: Bureau of Transportation Statistics) gives
+  https://www.usa.gov/government-works as its licence. Opened on 22 November 2026. No Creative Commons
+  licence is claimed.
 - **The order:** FAA emergency order of 6 November 2025, Federal Register of 12 November 2025, with the
   40 High Impact Airports in its Appendix A:
   https://www.govinfo.gov/content/pkg/FR-2025-11-12/html/2025-19850.htm. It ordered cuts in scheduled
