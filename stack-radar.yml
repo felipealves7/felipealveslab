@@ -41,8 +41,6 @@ trial:
     area: storage for joined datasets
   - name: DuckDB-WASM
     area: in-browser SQL explorer over a lab's joined data, loaded on demand
-  - name: Observable Plot
-    area: one chart library for build-time SVG
   - name: Altair (Vega-Lite)
     area: the Lab and case-study charts, in one theme; drawn to SVG at build time and run in the browser with Vega
     evidence: the Lab pages and /case-studies/sinalvo; https://github.com/felipealves7/felipealveslab/pull/78 and https://github.com/felipealves7/felipealveslab/pull/79
