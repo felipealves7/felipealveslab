@@ -1,0 +1,402 @@
+{
+ "config": {
+  "background": "#f8f6f0",
+  "padding": {
+   "left": 8,
+   "right": 14,
+   "top": 10,
+   "bottom": 6
+  },
+  "font": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+  "view": {
+   "stroke": null
+  },
+  "axis": {
+   "labelFont": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "labelFontSize": 11,
+   "labelColor": "#656561",
+   "titleFont": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "titleFontSize": 11,
+   "titleFontWeight": 400,
+   "titleColor": "#656561",
+   "gridColor": "#dddcd6",
+   "gridWidth": 1,
+   "domainColor": "#aaa9a4",
+   "tickColor": "#aaa9a4",
+   "labelPadding": 5
+  },
+  "axisX": {
+   "grid": true,
+   "domain": true,
+   "ticks": true,
+   "tickSize": 4,
+   "labelFlush": true
+  },
+  "axisY": {
+   "grid": true,
+   "domain": false,
+   "ticks": false,
+   "minExtent": 40,
+   "maxExtent": 40,
+   "labelPadding": 6
+  },
+  "header": {
+   "labelFont": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "labelFontSize": 12,
+   "labelFontWeight": 600,
+   "labelColor": "#1a1a17",
+   "labelAnchor": "start",
+   "labelAngle": 0,
+   "labelOrient": "top",
+   "labelPadding": 6,
+   "titleFontSize": 0
+  },
+  "facet": {
+   "spacing": 20
+  },
+  "line": {
+   "color": "#4f5744",
+   "strokeWidth": 2,
+   "strokeJoin": "round",
+   "strokeCap": "round"
+  },
+  "point": {
+   "color": "#4f5744",
+   "filled": true,
+   "size": 64,
+   "stroke": "#f8f6f0",
+   "strokeWidth": 2,
+   "opacity": 1
+  },
+  "rule": {
+   "color": "#1a1a17",
+   "strokeWidth": 1,
+   "opacity": 0.45
+  },
+  "bar": {
+   "color": "#4f5744",
+   "cornerRadiusEnd": 4
+  },
+  "text": {
+   "font": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "fontSize": 11,
+   "color": "#1a1a17"
+  },
+  "range": {
+   "category": [
+    "#4f5744",
+    "#9a9588"
+   ]
+  },
+  "legend": {
+   "labelFont": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "labelFontSize": 11,
+   "labelColor": "#1a1a17",
+   "titleFont": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "titleFontSize": 11,
+   "titleColor": "#656561",
+   "titleFontWeight": 400,
+   "orient": "top",
+   "symbolStrokeWidth": 2
+  },
+  "title": {
+   "font": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "fontSize": 15,
+   "fontWeight": 600,
+   "color": "#1a1a17",
+   "anchor": "start"
+  }
+ },
+ "data": {
+  "url": "/data/ccee-pld/results.json",
+  "format": {
+   "property": "summary.daily",
+   "type": "json"
+  }
+ },
+ "facet": {
+  "row": {
+   "field": "panel",
+   "header": {
+    "labelLimit": 0
+   },
+   "sort": {
+    "field": "order",
+    "op": "min"
+   },
+   "title": null,
+   "type": "nominal"
+  }
+ },
+ "spec": {
+  "layer": [
+   {
+    "mark": {
+     "type": "line",
+     "aria": false,
+     "strokeWidth": 1.5
+    },
+    "encoding": {
+     "x": {
+      "axis": {
+       "format": {
+        "year": "%Y",
+        "quarter": "%b",
+        "month": "%b",
+        "date": "%-d %b"
+       },
+       "tickCount": 6
+      },
+      "field": "day_start",
+      "timeUnit": "utcyearmonthdate",
+      "title": null,
+      "type": "temporal"
+     },
+     "y": {
+      "axis": {
+       "format": ",.0f",
+       "tickCount": 3
+      },
+      "field": "price",
+      "title": null,
+      "type": "quantitative"
+     }
+    },
+    "name": "line"
+   },
+   {
+    "mark": {
+     "type": "point",
+     "aria": false,
+     "clip": true
+    },
+    "encoding": {
+     "x": {
+      "axis": {
+       "format": {
+        "year": "%Y",
+        "quarter": "%b",
+        "month": "%b",
+        "date": "%-d %b"
+       },
+       "tickCount": 6
+      },
+      "field": "day_start",
+      "timeUnit": "utcyearmonthdate",
+      "title": null,
+      "type": "temporal"
+     },
+     "y": {
+      "axis": {
+       "format": ",.0f",
+       "tickCount": 3
+      },
+      "field": "price",
+      "title": null,
+      "type": "quantitative"
+     }
+    },
+    "transform": [
+     {
+      "filter": "datum.dates === datum.peak.dates"
+     }
+    ]
+   },
+   {
+    "mark": {
+     "type": "rule",
+     "aria": false,
+     "clip": true
+    },
+    "encoding": {
+     "x": {
+      "axis": {
+       "format": {
+        "year": "%Y",
+        "quarter": "%b",
+        "month": "%b",
+        "date": "%-d %b"
+       },
+       "tickCount": 6
+      },
+      "field": "day_start",
+      "timeUnit": "utcyearmonthdate",
+      "title": null,
+      "type": "temporal"
+     }
+    },
+    "transform": [
+     {
+      "filter": "datum.dates === day"
+     }
+    ]
+   },
+   {
+    "mark": {
+     "type": "point",
+     "aria": false,
+     "clip": true,
+     "color": "#1a1a17"
+    },
+    "encoding": {
+     "tooltip": [
+      {
+       "field": "day_start",
+       "format": "%-d %b %Y",
+       "timeUnit": "utcyearmonthdate",
+       "title": "Day",
+       "type": "temporal"
+      },
+      {
+       "field": "SUDESTE",
+       "format": ",.2f",
+       "title": "SUDESTE",
+       "type": "quantitative"
+      },
+      {
+       "field": "SUL",
+       "format": ",.2f",
+       "title": "SUL",
+       "type": "quantitative"
+      },
+      {
+       "field": "NORDESTE",
+       "format": ",.2f",
+       "title": "NORDESTE",
+       "type": "quantitative"
+      },
+      {
+       "field": "NORTE",
+       "format": ",.2f",
+       "title": "NORTE",
+       "type": "quantitative"
+      }
+     ],
+     "x": {
+      "axis": {
+       "format": {
+        "year": "%Y",
+        "quarter": "%b",
+        "month": "%b",
+        "date": "%-d %b"
+       },
+       "tickCount": 6
+      },
+      "field": "day_start",
+      "timeUnit": "utcyearmonthdate",
+      "title": null,
+      "type": "temporal"
+     },
+     "y": {
+      "axis": {
+       "format": ",.0f",
+       "tickCount": 3
+      },
+      "field": "price",
+      "title": null,
+      "type": "quantitative"
+     }
+    },
+    "name": "readout",
+    "transform": [
+     {
+      "filter": "datum.dates === day"
+     }
+    ]
+   }
+  ],
+  "height": 74,
+  "width": 650
+ },
+ "description": "Daily mean of the 24 hourly power prices in R$/MWh, one panel per Brazilian submarket: SUDESTE, SUL, NORDESTE and NORTE, all on one scale from zero. Each panel title gives the highest daily mean in the period shown. The yearly figures are in the table below the chart.",
+ "params": [
+  {
+   "name": "period",
+   "value": "all"
+  },
+  {
+   "name": "day",
+   "value": null
+  }
+ ],
+ "transform": [
+  {
+   "calculate": "datum.series.SUDESTE",
+   "as": "SUDESTE"
+  },
+  {
+   "calculate": "datum.series.SUL",
+   "as": "SUL"
+  },
+  {
+   "calculate": "datum.series.NORDESTE",
+   "as": "NORDESTE"
+  },
+  {
+   "calculate": "datum.series.NORTE",
+   "as": "NORTE"
+  },
+  {
+   "flatten": [
+    "dates",
+    "SUDESTE",
+    "SUL",
+    "NORDESTE",
+    "NORTE"
+   ]
+  },
+  {
+   "filter": "period == 'all' || substring(datum.dates, 0, 4) == period"
+  },
+  {
+   "calculate": "toDate(datum.dates + 'T00:00:00Z')",
+   "as": "day_start"
+  },
+  {
+   "fold": [
+    "SUDESTE",
+    "SUL",
+    "NORDESTE",
+    "NORTE"
+   ],
+   "as": [
+    "submarket",
+    "price"
+   ]
+  },
+  {
+   "calculate": "indexof(['SUDESTE', 'SUL', 'NORDESTE', 'NORTE'], datum.submarket)",
+   "as": "order"
+  },
+  {
+   "joinaggregate": [
+    {
+     "op": "argmax",
+     "field": "price",
+     "as": "peak"
+    }
+   ],
+   "groupby": [
+    "submarket"
+   ]
+  },
+  {
+   "calculate": "datum.submarket + ' · peak ' + format(datum.peak.price, ',.0f') + ' on ' + utcFormat(datum.peak.day_start, '%-d %b %Y')",
+   "as": "panel"
+  }
+ ],
+ "usermeta": {
+  "generator": "charts/pld_daily.py",
+  "live": {
+   "day": "day",
+   "key": "dates",
+   "snap": "line_marks",
+   "readout": "readout_marks",
+   "params": [
+    "period"
+   ]
+  },
+  "altair": "6.3.0"
+ },
+ "$schema": "https://vega.github.io/schema/vega-lite/v6.4.1.json"
+}

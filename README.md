@@ -27,8 +27,9 @@ Each exhibit is a page backed by code, saved output and tests in this repository
 
 Stack: Astro, hosted on Cloudflare Pages. Lab pipelines run in plain Node; the flight-reliability
 analysis was built with Python and dbt on DuckDB, and its outputs and code are in
-`data/aviation-reliability/`. The Ask the Ledger live box is a Cloudflare Worker on Workers AI and
-D1. Tests and build checks run in GitHub Actions.
+`data/aviation-reliability/`. The Brazil power price chart is made with Altair in Python
+(`charts/`). The Ask the Ledger live box is a Cloudflare Worker on Workers AI and D1. Tests and
+build checks run in GitHub Actions.
 
 ## Layout
 
@@ -36,6 +37,7 @@ D1. Tests and build checks run in GitHub Actions.
 - `src/content/lab/`: one Markdown page per exhibit; `src/content.config.ts` is their schema.
 - `src/layouts/Base.astro`, `src/components/`: shared page frame, header and footer, the exhibits' charts and explorers, and the four case-study illustrations.
 - `src/lib/`: build-time code behind the charts, the airport replay and the illustrations. The illustrations use synthetic data with fixed random seeds; the sinalvo case study's charts (`src/lib/case-studies/`) read recorded results from `data/sinalvo/`.
+- `charts/`: charts made with Altair in Python, with the site's chart theme. `python3 charts/build.py` writes each chart's Vega-Lite spec to `src/charts/`; the build draws it to SVG (`src/lib/charts/`) and the page runs it with Vega.
 - `pipelines/`: each exhibit's pipeline, with its tests next to it.
 - `data/`: saved outputs and small datasets, each with a `README` stating source, licence and date.
 - `public/`: stylesheets (linked per page in a fixed order; later files override earlier ones), page scripts, images, video, the CV and `_headers` (security headers and caching).

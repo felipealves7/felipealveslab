@@ -1,0 +1,23 @@
+/* Altair charts (charts/*.py, drawn by src/lib/charts/). The chart's own colours, fonts and lines
+   come from charts/theme.py; this file lays the figure out. With no JavaScript the drawing made for
+   the screen size shows; with it, the live chart takes its place at the column's width. */
+.altair-figure { max-width: 720px; }
+.altair-controls { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 12px; }
+.altair-controls button { cursor: pointer; border: 1px solid var(--line); background: var(--cream); color: var(--ink); border-radius: 999px; padding: 7px 13px; min-height: 36px; font: 600 12px/1.2 var(--sans); }
+.altair-controls button:hover { border-color: rgba(26,26,23,.4); }
+.altair-controls button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--cream); }
+.altair-controls button:disabled { cursor: default; opacity: .6; }
+.altair-controls button:focus-visible, .altair-live:focus-visible { outline: 2px solid var(--olive2); outline-offset: 2px; }
+.altair-frame { position: relative; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--cream); }
+.altair-frame svg { display: block; width: 100%; height: auto; }
+.altair-static--narrow { display: none; }
+@media (max-width: 560px) {
+  .altair-static--wide { display: none; }
+  .altair-static--narrow { display: block; }
+}
+.altair-live { cursor: crosshair; touch-action: pan-y; outline: none; }
+.altair-tip { position: absolute; top: 34px; display: grid; gap: 2px; padding: 8px 10px; background: var(--ink); color: rgba(248,246,240,.74); border-radius: 6px; font-size: 12px; line-height: 1.35; font-variant-numeric: tabular-nums; white-space: nowrap; pointer-events: none; transform: translateX(10px); z-index: 2; }
+.altair-tip.is-left { transform: translateX(calc(-100% - 10px)); }
+.altair-tip strong, .altair-tip b { color: var(--cream); font-weight: 650; }
+.altair-tip strong { margin-bottom: 2px; }
+.lab-prose .altair-hint { font-size: 12px; line-height: 1.45; color: rgba(26,26,23,.62); margin: 8px 0 0; }

@@ -15,7 +15,10 @@
     "test": "node --test \"scripts/*.test.mjs\" \"pipelines/**/*.test.mjs\""
   },
   "dependencies": {
-    "astro": "^7.4.12"
+    "astro": "^7.4.12",
+    "vega": "6.4.0",
+    "vega-interpreter": "2.3.2",
+    "vega-lite": "6.4.1"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.12",

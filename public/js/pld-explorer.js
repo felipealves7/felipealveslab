@@ -1,12 +1,10 @@
 // Brazil hourly power price (PLD): the live piece. Reads one saved file, /data/ccee-pld/results.json,
 // written by pipelines/ccee-pld/run.mjs. No other network calls. Data: CCEE, CC BY 4.0.
+// The daily price chart above it is an Altair chart (charts/pld_daily.py, src/lib/charts/).
 (function () {
   var root = document.getElementById('pld-explorer');
   if (!root) return;
-  var SUBS = ['SUDESTE', 'SUL', 'NORDESTE', 'NORTE'];
-  var NAMES = { SUDESTE: 'Southeast/Centre-West (SUDESTE)', SUL: 'South (SUL)', NORDESTE: 'Northeast (NORDESTE)', NORTE: 'North (NORTE)' };
   var FRESH_DAYS = 7;
-  var SVGNS = 'http://www.w3.org/2000/svg';
   var nf = new Intl.NumberFormat('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   var nInt = new Intl.NumberFormat('en-GB');
   var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -15,11 +13,6 @@
     var n = document.createElement(tag);
     if (text !== undefined && text !== null) n.textContent = text;
     if (cls) n.className = cls;
-    return n;
-  }
-  function svg(tag, attrs) {
-    var n = document.createElementNS(SVGNS, tag);
-    for (var k in attrs) n.setAttribute(k, attrs[k]);
     return n;
   }
   function day(iso) { var p = iso.split('-'); return Number(p[2]) + ' ' + MONTHS[Number(p[1]) - 1] + ' ' + p[0]; }
@@ -114,114 +107,7 @@
     show(lastReal);
   }
 
-  // 3. Daily price chart: one panel per submarket, shared scale, shared crosshair.
-  function chart(data) {
-    var sum = data.summary;
-    var s = section('Daily price by submarket', 'Mean of the 24 hourly prices each day, in R$/MWh, from the last passed run. One panel per submarket on the same scale, because the four often carry the same price and their lines would hide each other. Hover or tap for the values of all four that day.');
-    var years = []; sum.daily.dates.forEach(function (d) { var y = d.slice(0, 4); if (years.indexOf(y) < 0) years.push(y); });
-    var ranges = [{ label: 'All, ' + years[0] + ' to ' + years[years.length - 1], from: sum.first, to: sum.last }].concat(years.map(function (y) { return { label: y, from: y + '-01-01', to: y + '-12-31' }; }));
-    var picker = el('div', null, 'pld-switch');
-    picker.setAttribute('role', 'group');
-    picker.setAttribute('aria-label', 'Period');
-    var holder = el('div', null, 'pld-chart');
-    var buttons = ranges.map(function (r, i) {
-      var b = el('button', r.label); b.type = 'button';
-      b.addEventListener('click', function () { draw(i); });
-      picker.appendChild(b);
-      return b;
-    });
-    s.appendChild(picker);
-    s.appendChild(holder);
-    s.appendChild(el('p', 'Source: CCEE, PLD_HORARIO, CC BY 4.0. Daily figures computed by this Lab from the hourly prices; not published by CCEE.', 'pld-note'));
-
-    // The chart is drawn at the width it is shown at, so its labels keep their size on a phone.
-    var shown = 0;
-    function chartWidth() { return Math.round(Math.min(900, Math.max(320, holder.clientWidth || 900))); }
-    var drawnAt = 0;
-    window.addEventListener('resize', function () { if (Math.abs(chartWidth() - drawnAt) > 40) draw(shown); });
-    function draw(ri) {
-      shown = ri;
-      buttons.forEach(function (b, j) { b.setAttribute('aria-pressed', String(ri === j)); });
-      var r = ranges[ri];
-      var idx = [];
-      sum.daily.dates.forEach(function (d, i) { if (d >= r.from && d <= r.to) idx.push(i); });
-      var max = 0;
-      idx.forEach(function (i) { SUBS.forEach(function (sb) { var v = sum.daily.series[sb][i]; if (v > max) max = v; }); });
-      var step = max > 800 ? 250 : max > 400 ? 100 : 50;
-      var top = Math.ceil(max / step) * step;
-      var W = chartWidth(), PH = 120, GAP = 34, L = 54, R = 16, T = 10;
-      drawnAt = W;
-      var H = T + SUBS.length * (PH + GAP) + 6;
-      var x = function (k) { return L + (idx.length < 2 ? 0 : (k / (idx.length - 1)) * (W - L - R)); };
-      holder.textContent = '';
-      var root2 = svg('svg', { viewBox: '0 0 ' + W + ' ' + H, class: 'pld-svg', role: 'img', 'aria-label': 'Daily mean PLD by submarket, ' + r.label + ', 0 to ' + top + ' R$/MWh. Values are in the yearly table below.' });
-      var cross = svg('line', { class: 'pld-cross', y1: T, y2: H - 6 });
-      SUBS.forEach(function (sb, p) {
-        var y0 = T + p * (PH + GAP) + 18;
-        var y = function (v) { return y0 + PH - (v / top) * PH; };
-        var g = svg('g', {});
-        var title = svg('text', { x: L, y: y0 - 6, class: 'pld-panel-title' }); title.textContent = NAMES[sb]; g.appendChild(title);
-        for (var t = 0; t <= top; t += step) {
-          if (top / step > 4 && (t / step) % 2) continue;
-          g.appendChild(svg('line', { x1: L, x2: W - R, y1: y(t), y2: y(t), class: t === 0 ? 'pld-base' : 'pld-grid' }));
-          var lab = svg('text', { x: L - 8, y: y(t) + 4, 'text-anchor': 'end', class: 'pld-tick' }); lab.textContent = nInt.format(t); g.appendChild(lab);
-        }
-        var d = '';
-        idx.forEach(function (i, k) { var v = sum.daily.series[sb][i]; if (v === null) return; d += (d ? 'L' : 'M') + x(k).toFixed(1) + ' ' + y(v).toFixed(1); });
-        g.appendChild(svg('path', { d: d, class: 'pld-line' }));
-        root2.appendChild(g);
-      });
-      // Year or month ticks under the last panel.
-      var axisY = T + SUBS.length * (PH + GAP) - GAP + 18 + 16;
-      idx.forEach(function (i, k) {
-        var dt = sum.daily.dates[i];
-        var yearly = ri === 0;
-        if ((yearly && dt.slice(5) === '01-01') || (!yearly && dt.slice(8) === '01')) {
-          var lab = svg('text', { x: x(k), y: axisY, 'text-anchor': 'middle', class: 'pld-tick' });
-          lab.textContent = yearly ? dt.slice(0, 4) : MONTHS[Number(dt.slice(5, 7)) - 1];
-          root2.appendChild(lab);
-        }
-      });
-      root2.appendChild(cross);
-      var hit = svg('rect', { x: L, y: T, width: W - L - R, height: H - T, class: 'pld-hit', tabindex: '0', 'aria-label': 'Chart area: use the left and right arrow keys to move day by day' });
-      root2.appendChild(hit);
-      var tip = el('div', null, 'pld-tip');
-      tip.hidden = true;
-      holder.appendChild(root2);
-      holder.appendChild(tip);
-      var cur = idx.length - 1;
-      function at(k) {
-        cur = Math.max(0, Math.min(idx.length - 1, k));
-        var i = idx[cur];
-        var cx = x(cur);
-        cross.setAttribute('x1', cx); cross.setAttribute('x2', cx); cross.style.opacity = 1;
-        tip.textContent = '';
-        tip.appendChild(el('strong', day(sum.daily.dates[i])));
-        SUBS.forEach(function (sb) { var v = sum.daily.series[sb][i]; tip.appendChild(el('span', sb + ': ' + (v === null ? 'no data' : nf.format(v)))); });
-        tip.hidden = false;
-        var pct = cx / W;
-        tip.style.left = (pct * 100) + '%';
-        tip.style.transform = pct > 0.6 ? 'translateX(calc(-100% - 10px))' : 'translateX(10px)';
-      }
-      function fromEvent(ev) {
-        var box = root2.getBoundingClientRect();
-        var px = ((ev.clientX - box.left) / box.width) * W;
-        at(Math.round(((px - L) / (W - L - R)) * (idx.length - 1)));
-      }
-      hit.addEventListener('pointermove', fromEvent);
-      hit.addEventListener('pointerdown', fromEvent);
-      hit.addEventListener('pointerleave', function () { cross.style.opacity = 0; tip.hidden = true; });
-      hit.addEventListener('focus', function () { at(cur); });
-      hit.addEventListener('blur', function () { cross.style.opacity = 0; tip.hidden = true; });
-      hit.addEventListener('keydown', function (ev) {
-        if (ev.key === 'ArrowLeft') { at(cur - 1); ev.preventDefault(); }
-        if (ev.key === 'ArrowRight') { at(cur + 1); ev.preventDefault(); }
-      });
-    }
-    draw(0);
-  }
-
-  // 4. Revisions between snapshots.
+  // 3. Revisions between snapshots.
   function revisions(data) {
     var n = data.snapshots.length;
     var s = section('Restated or missing values', n + (n === 1 ? ' snapshot' : ' snapshots') + ' saved. Each real run fingerprints every month (SHA-256 of its rows), so the next download shows which months CCEE rewrote; with the older files at hand it lists each changed or missing hour.');
@@ -240,7 +126,7 @@
     if (changed.length) s.appendChild(table(['Seen on', 'Month, submarket, day, hour', 'Before', 'After'], changed));
   }
 
-  // 5. The table view: every year and submarket.
+  // 4. The table view: every year and submarket.
   function yearly(data) {
     var s = section('Year by year', 'Hourly PLD in R$/MWh from the last passed run. The minimum is often reached in many hours; the table shows the first. ' + data.summary.last.slice(0, 4) + ' runs to ' + day(data.summary.last) + '.');
     s.appendChild(table(['Year', 'Submarket', 'Hours', 'Mean', 'Min (first hour)', 'Max (first hour)'], data.summary.yearly.map(function (y) {
@@ -254,7 +140,7 @@
       root.textContent = '';
       freshness(data);
       contract(data);
-      if (data.summary) { chart(data); yearly(data); }
+      if (data.summary) yearly(data);
       revisions(data);
     })
     .catch(function () {

@@ -1,0 +1,8 @@
+---
+// Runs the site's Altair charts in the browser (src/lib/charts/live.mjs) on a page that has one.
+// Vega loads from this site, in its own file, only when a chart comes near the screen.
+---
+<script>
+  import { mountCharts } from '../lib/charts/live.mjs';
+  mountCharts();
+</script>

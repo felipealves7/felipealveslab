@@ -1,4 +1,5 @@
-// Build-time SVG charts for Lab pages that otherwise draw their visuals with JavaScript.
+// Build-time SVG charts for Lab pages that otherwise draw their visuals with JavaScript. The PLD
+// chart is made with Altair instead (charts/pld_daily.py, drawn by src/lib/charts/).
 // Each function takes the parsed, checked-in results file and returns static HTML (an inline SVG
 // and a table view). No network, no hardcoded figures: every number is read from the input.
 // fillLabCharts() puts the charts in place of `<div data-lab-chart="…"></div>` markers in a page.
@@ -17,81 +18,6 @@ function tableHtml(head, rows) {
   const th = head.map((h) => `<th scope="col">${esc(h)}</th>`).join('');
   const tr = rows.map((cells) => `<tr><th scope="row">${esc(cells[0])}</th>${cells.slice(1).map((c) => `<td>${esc(c)}</td>`).join('')}</tr>`).join('');
   return `<table><thead><tr>${th}</tr></thead><tbody>${tr}</tbody></table>`;
-}
-
-// ---------------------------------------------------------------------------------------------
-// Brazil hourly power price: daily mean of the 24 hourly prices, one small panel per submarket,
-// all on the same scale, first to last saved day.
-export const SUBMARKETS = ['SUDESTE', 'SUL', 'NORDESTE', 'NORTE'];
-
-export function pldChartData(results) {
-  const daily = results?.summary?.daily;
-  if (!daily || !Array.isArray(daily.dates) || !daily.series) throw new Error('PLD results have no daily series');
-  const n = daily.dates.length;
-  if (n < 2) throw new Error('PLD daily series is too short to draw');
-  for (const s of SUBMARKETS) {
-    if (!Array.isArray(daily.series[s]) || daily.series[s].length !== n) throw new Error(`PLD series ${s} does not match the dates`);
-  }
-  if (daily.dates[0] !== results.summary.first || daily.dates[n - 1] !== results.summary.last) throw new Error('PLD daily dates do not match the summary');
-  let max = 0;
-  for (const s of SUBMARKETS) for (const v of daily.series[s]) if (v !== null && v > max) max = v;
-  const step = 250;
-  const top = Math.ceil(max / step) * step;
-  return { dates: daily.dates, series: daily.series, max, top, step, first: daily.dates[0], last: daily.dates[n - 1] };
-}
-
-export function pldChart(results) {
-  const d = pldChartData(results);
-  const left = 34, right = W - 8, panelH = 62, gap = 26, topPad = 22;
-  const height = topPad + SUBMARKETS.length * (panelH + gap) + 4;
-  const n = d.dates.length;
-  const x = (i) => left + (i / (n - 1)) * (right - left);
-  const ticks = [];
-  for (let v = 0; v <= d.top; v += d.step) ticks.push(v);
-  const years = [];
-  d.dates.forEach((date, i) => { if (date.endsWith('-01-01')) years.push({ i, label: date.slice(0, 4) }); });
-  const peak = (s) => {
-    let best = -1;
-    d.series[s].forEach((v, i) => { if (v !== null && (best < 0 || v > d.series[s][best])) best = i; });
-    return best;
-  };
-  const panels = SUBMARKETS.map((s, k) => {
-    const y0 = topPad + k * (panelH + gap) + 14; // top of the plot area
-    const y = (v) => y0 + panelH - (v / d.top) * panelH;
-    let path = '';
-    let pen = false;
-    d.series[s].forEach((v, i) => {
-      if (v === null) { pen = false; return; }
-      path += `${pen ? 'L' : 'M'}${r1(x(i))} ${r1(y(v))}`;
-      pen = true;
-    });
-    const p = peak(s);
-    const grid = ticks.map((t) => `<line x1="${left}" x2="${right}" y1="${r1(y(t))}" y2="${r1(y(t))}"/><text x="${left - 5}" y="${r1(y(t) + 4)}" text-anchor="end">${int(t)}</text>`).join('');
-    const yearLines = years.map((yr) => `<line class="lab-svg-year" x1="${r1(x(yr.i))}" x2="${r1(x(yr.i))}" y1="${y0}" y2="${y0 + panelH}"/>`).join('');
-    const peakText = `Highest daily mean ${nf(2).format(d.series[s][p])} on ${d.dates[p]}`;
-    return `<g class="lab-svg-panel"><title>${esc(`${s}: daily mean price, ${d.first} to ${d.last}. ${peakText}.`)}</title>`
-      + `<text class="lab-svg-panel-title" x="${left}" y="${y0 - 5}">${esc(s)}</text>`
-      + `<text class="lab-svg-note" x="${right}" y="${y0 - 5}" text-anchor="end">${esc(`peak ${int(d.series[s][p])} · ${d.dates[p].slice(0, 7)}`)}</text>`
-      + `<g class="lab-svg-grid">${grid}${yearLines}</g>`
-      + `<path class="lab-svg-line" d="${path}"/></g>`;
-  }).join('');
-  const lastY0 = topPad + (SUBMARKETS.length - 1) * (panelH + gap) + 14 + panelH;
-  const xLabels = years.map((yr) => `<text class="lab-svg-xlabel" x="${r1(x(yr.i) + 3)}" y="${lastY0 + 14}">${yr.label}</text>`).join('');
-  const svg = `<svg class="lab-svg" viewBox="0 0 ${W} ${height + 12}" role="img" aria-label="${esc(`Daily mean hourly power price in R$/MWh for the four Brazilian submarkets, ${d.first} to ${d.last}, on one scale from 0 to ${int(d.top)}. Exact yearly figures are in the table below.`)}">`
-    + `<text class="lab-svg-axis" x="${left}" y="11">R$/MWh, daily mean of 24 hourly prices</text>${panels}${xLabels}</svg>`;
-  const yearly = results.summary.yearly ?? [];
-  const yearList = [...new Set(yearly.map((r) => r.year))].sort();
-  const cell = (year, s) => { const r = yearly.find((q) => q.year === year && q.submarket === s); return r ? nf(2).format(r.mean) : '–'; };
-  const table = tableHtml(['Year', ...SUBMARKETS], yearList.map((yr) => [String(yr), ...SUBMARKETS.map((s) => cell(yr, s))]))
-    + '<p>Mean hourly price by year and submarket, R$/MWh.</p>';
-  return figure({
-    id: 'pld-daily-chart',
-    title: 'Daily mean price by submarket',
-    subtitle: `${int(n)} days, ${d.first} to ${d.last} · day level · unweighted mean of each day's 24 hours`,
-    svg,
-    table,
-    source: 'data/ccee-pld/results.json',
-  });
 }
 
 // ---------------------------------------------------------------------------------------------

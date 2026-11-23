@@ -150,3 +150,6 @@ vite.config.ts.timestamp-*
 
 # Ask the Ledger benchmark runs (kept as workflow artifacts, not committed)
 ledger-eval-runs/
+
+# Python bytecode (charts/)
+__pycache__/

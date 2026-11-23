@@ -1,36 +1,15 @@
-// Build-time SVG charts on the PLD, airport and Ask the Ledger pages: the numbers come from the
-// checked-in results, and each page places its chart inside `## The live piece`.
+// Build-time SVG charts on the airport and Ask the Ledger pages: the numbers come from the checked-in
+// results, and each page places its chart inside `## The live piece`. The PLD page's chart is an
+// Altair chart, tested in scripts/altair-charts.test.mjs; its marker is checked here with the others.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { pldChart, pldChartData, airportChart, airportChartData, ledgerChart, ledgerChartData, fillLabCharts, SUBMARKETS } from '../src/lib/lab/svg-charts.mjs';
+import { airportChart, airportChartData, ledgerChart, ledgerChartData, fillLabCharts } from '../src/lib/lab/svg-charts.mjs';
 
 const read = (p) => readFileSync(new URL(`../${p}`, import.meta.url), 'utf8');
 const json = (p) => JSON.parse(read(p));
-const pld = json('data/ccee-pld/results.json');
 const airport = json('data/airport-contract/results.json');
 const ledger = json('data/ledger-eval/results.json');
-
-test('PLD chart: one line per submarket over every saved day, on one scale', () => {
-  const d = pldChartData(pld);
-  assert.equal(d.dates.length, pld.summary.days);
-  assert.equal(d.first, '2021-01-01');
-  assert.equal(d.last, pld.summary.last);
-  assert.ok(d.top >= d.max && d.top - d.max < d.step);
-  const html = pldChart(pld);
-  assert.equal((html.match(/<svg /g) || []).length, 1);
-  assert.equal((html.match(/class="lab-svg-line"/g) || []).length, SUBMARKETS.length);
-  for (const s of SUBMARKETS) assert.ok(html.includes(`>${s}</text>`));
-  // Each line has one point per day with a price.
-  const points = (html.match(/class="lab-svg-line" d="([^"]+)"/) || [])[1].match(/[ML]/g).length;
-  assert.equal(points, pld.summary.daily.series[SUBMARKETS[0]].filter((v) => v !== null).length);
-});
-
-test('PLD chart refuses a series that does not match the dates', () => {
-  const broken = structuredClone(pld);
-  broken.summary.daily.series.SUL.pop();
-  assert.throws(() => pldChartData(broken), /SUL does not match/);
-});
 
 test('Airport chart: latest non-rehearsal run, 18 passed, 1 within tolerance, 0 failed', () => {
   const d = airportChartData(airport);
