@@ -1,87 +1,19 @@
-/* Exhibits on case-study pages drawn at build time from saved data (first used by the sinalvo case
-   study, src/lib/case-studies/sinalvo.mjs). Plain HTML bars on the tokens in legacy.css, so the text
-   stays readable at any width. Colour is never the only cue: every bar carries its number, and every
-   chart has a table view. */
+/* Case-study pages: the sinalvo exhibits are the site's Altair charts (altair-charts.css,
+   charts/theme.py); this file frames them in the case study's type, and styles the page's timeline,
+   check list and boxes. */
 
 .case-hero .cs-wordmark{margin:22px 0 0;font-family:var(--serif);font-size:38px;line-height:1;letter-spacing:-.035em;color:var(--ink)}
 .case-hero .cs-wordmark span{color:var(--olive)}
 
 .cs-subhead{font-family:var(--serif);font-weight:400;font-size:30px;line-height:1.08;letter-spacing:-.03em;margin:46px 0 12px}
 
-/* Figure frame */
-.cs-figure{margin:30px 0 26px;max-width:760px;padding:22px 22px 18px;background:var(--cream);border:1px solid rgba(26,26,23,.08);border-radius:8px}
-.cs-caption{display:grid;gap:6px;margin:0 0 18px}
-.cs-caption strong{font-family:var(--serif);font-weight:400;font-size:25px;line-height:1.1;letter-spacing:-.02em;color:var(--ink)}
-.cs-caption span{font-size:12px;line-height:1.5;color:rgba(26,26,23,.62)}
-.cs-plot{font-size:13px;color:var(--soft)}
-.cs-figure .cs-note{margin:16px 0 0;font-size:12px;color:rgba(26,26,23,.66)}
-.cs-table{margin:14px 0 0}
-.cs-table summary{cursor:pointer;font-size:12px;font-weight:700;color:var(--olive2)}
-.cs-table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
-.cs-table table{width:100%;border-collapse:collapse;margin:10px 0 0;font-size:13px;font-variant-numeric:tabular-nums}
-.cs-table th,.cs-table td{text-align:left;padding:8px 10px 8px 0;border-bottom:1px solid var(--line);vertical-align:top}
-.cs-table thead th{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--olive2)}
-.cs-table tbody th{font-weight:600}
-.cs-figure .cs-source{margin:10px 0 0;font-size:11px;color:rgba(26,26,23,.55)}
-.cs-source code{background:rgba(26,26,23,.06);padding:1px 5px;border-radius:3px;font-size:11px}
-
-/* Bars shared by the charts */
-.cs-track{position:relative;display:block;height:12px;background:rgba(26,26,23,.07);border-radius:2px}
-.cs-fill{position:absolute;left:0;top:0;bottom:0;background:var(--olive);border-radius:2px}
-
-/* 1. Sectors: formal tenders as bars, the median tender value at the end of the row */
-.cs-sector{display:grid;grid-template-columns:minmax(120px,168px) minmax(0,1fr) 54px 62px;column-gap:12px;align-items:center;padding:7px 0;border-bottom:1px solid rgba(26,26,23,.06)}
-.cs-sector-label{font-size:13px;color:var(--soft)}
-.cs-sector-count,.cs-sector-median{text-align:right;font-variant-numeric:tabular-nums;font-size:13px}
-.cs-sector-median{color:rgba(26,26,23,.62)}
-.cs-sector-head{padding:0 0 8px;border-bottom:1px solid var(--line)}
-.cs-sector-head>span,.cs-sector-head .cs-sector-label,.cs-sector-head .cs-sector-median{font-size:9px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--olive2)}
-.cs-sector.is-focus{border-bottom:0}
-.cs-sector.is-focus .cs-sector-label,.cs-sector.is-focus .cs-sector-count{font-weight:700;color:var(--ink)}
-.cs-sector.is-focus .cs-fill{background:var(--ink)}
-.cs-sector.is-focus .cs-sector-median{justify-self:end;padding:3px 8px;border-radius:999px;background:var(--ink);color:var(--cream);font-weight:700}
-
-/* 2. One week, zoomed: each row is the slice of the row above it */
-.cs-figure .cs-zoom-label{margin:0 0 8px;font-size:13px;color:var(--soft);max-width:none}
-.cs-zoom-label strong{font-family:var(--serif);font-weight:400;font-size:24px;letter-spacing:-.02em;color:var(--ink);margin-right:3px}
-.cs-stack{display:flex;height:22px;border-radius:3px;overflow:hidden;background:rgba(26,26,23,.07)}
-.cs-seg{display:block;height:100%;flex-shrink:1}
-.cs-seg+.cs-seg{box-shadow:inset 2px 0 0 var(--cream)}
-.cs-seg--base{background:#d3cebe}
-.cs-seg--focus{background:var(--ink)}
-.cs-seg--sliver{min-width:4px;flex-shrink:0}
-.cs-seg+.cs-seg--sliver{box-shadow:none}
-.cs-seg--muted{background:#c3beac}
-.cs-seg--w1{background:var(--ink)}
-.cs-seg--w2{background:var(--olive2)}
-.cs-seg--w3{background:#8b927b}
-.cs-seg--w4{background:#bcc0ac}
-.cs-seg--w5{background:transparent;box-shadow:inset 0 0 0 1.5px var(--ink)}
-.cs-figure .cs-zoom-callout{margin:8px 0 0;text-align:right;font-size:12px;color:var(--ink);max-width:none}
-.cs-zoom-link{height:36px;margin:6px 0 10px;background:linear-gradient(180deg,rgba(26,26,23,.2),rgba(26,26,23,.05));clip-path:polygon(var(--from) 0,100% 0,100% 100%,0 100%)}
-.cs-figure .cs-zoom-same{margin:26px 0 10px;padding-top:16px;border-top:1px dashed var(--line);font-size:10px;letter-spacing:.13em;text-transform:uppercase;font-weight:700;color:var(--olive2);max-width:none}
-.cs-legend{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:7px}
-.cs-legend li{display:grid;grid-template-columns:12px minmax(0,1fr) auto auto;column-gap:9px;align-items:center;font-size:13px;line-height:1.35;color:var(--soft)}
-.cs-legend strong{font-variant-numeric:tabular-nums;color:var(--ink);text-align:right}
-.cs-legend em{font-style:normal;font-variant-numeric:tabular-nums;color:rgba(26,26,23,.55);min-width:36px;text-align:right}
-.cs-legend li.is-zero span,.cs-legend li.is-zero strong{font-weight:700;color:var(--ink)}
-.cs-key{display:block;width:12px;height:12px;border-radius:2px}
-
-/* 3. Payment timing by grade: bars on a 0–100% scale; a whisker marks a range across towns */
-.cs-pay-row{display:grid;grid-template-columns:96px minmax(0,1fr) 46px;column-gap:12px;row-gap:4px;align-items:center;padding:7px 0}
-.cs-pay-label{display:grid;line-height:1.25}
-.cs-pay-label strong{font-size:13px;color:var(--ink)}
-.cs-pay-label span{font-size:11px;color:rgba(26,26,23,.55)}
-.cs-pay-row .cs-track{height:16px}
-.cs-pay-value{text-align:right;font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink)}
-.cs-pay-row.is-ungraded .cs-fill{background:#bcc0ac}
-.cs-range{position:absolute;top:50%;height:2px;margin-top:-1px;background:var(--ink)}
-.cs-range::before,.cs-range::after{content:"";position:absolute;top:-5px;width:2px;height:12px;background:var(--ink)}
-.cs-range::before{left:0}
-.cs-range::after{right:0}
-.cs-pay-range{grid-column:2;font-size:11px;color:rgba(26,26,23,.62)}
-.cs-pay-axis{display:grid;grid-template-columns:96px minmax(0,1fr) 46px;column-gap:12px;margin-top:2px}
-.cs-pay-ticks{display:flex;justify-content:space-between;padding-top:5px;border-top:1px solid var(--line);font-size:10px;color:rgba(26,26,23,.5);font-variant-numeric:tabular-nums}
+/* Figure frame for the Altair charts (src/lib/charts/sinalvo.mjs): the caption in the page's serif */
+.cs-figure.altair-figure{margin:30px 0 26px;max-width:760px}
+.cs-figure .altair-caption{gap:6px;margin:0 0 14px}
+.cs-figure .altair-caption strong{font-family:var(--serif);font-weight:400;font-size:25px;line-height:1.1;letter-spacing:-.02em}
+.cs-figure .altair-caption span{line-height:1.5;color:rgba(26,26,23,.62)}
+.cs-figure .altair-table thead th{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--olive2)}
+.cs-figure .altair-table tbody th{font-weight:600}
 
 /* Timeline strip */
 .cs-timeline{list-style:none;margin:36px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-top:2px solid var(--ink)}
@@ -112,15 +44,7 @@
 .cs-rules>div:last-child{border-color:var(--ink);background:var(--cream)}
 
 @media(max-width:720px){
-  .cs-figure{padding:18px 16px 16px;margin:24px 0 22px}
-  .cs-caption strong{font-size:23px}
-  .cs-sector{grid-template-columns:minmax(0,1fr) 48px 58px;row-gap:5px;column-gap:10px;padding:8px 0}
-  .cs-sector .cs-sector-label{grid-column:1/-1}
-  .cs-sector .cs-track{grid-column:1}
-  .cs-sector-head{grid-template-columns:minmax(0,1fr) 48px 58px}
-  .cs-sector-head .cs-sector-label{grid-column:1}
-  .cs-sector-head .cs-track-head{display:none}
-  .cs-pay-row,.cs-pay-axis{grid-template-columns:76px minmax(0,1fr) 40px;column-gap:10px}
+  .cs-figure .altair-caption strong{font-size:23px}
   .cs-timeline{grid-template-columns:1fr;gap:18px;margin:30px 0 0 6px;padding:2px 0;border-top:0;border-left:2px solid var(--ink)}
   .cs-timeline li{padding:0 0 0 20px}
   .cs-timeline li::before{top:3px;left:-7px}

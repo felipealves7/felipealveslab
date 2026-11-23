@@ -1,0 +1,414 @@
+{
+ "config": {
+  "background": "#f8f6f0",
+  "padding": {
+   "left": 8,
+   "right": 14,
+   "top": 10,
+   "bottom": 6
+  },
+  "font": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+  "view": {
+   "stroke": null
+  },
+  "axis": {
+   "labelFont": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "labelFontSize": 11,
+   "labelColor": "#656561",
+   "titleFont": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "titleFontSize": 11,
+   "titleFontWeight": 400,
+   "titleColor": "#656561",
+   "gridColor": "#dddcd6",
+   "gridWidth": 1,
+   "domainColor": "#aaa9a4",
+   "tickColor": "#aaa9a4",
+   "labelPadding": 5
+  },
+  "axisX": {
+   "grid": true,
+   "domain": true,
+   "ticks": true,
+   "tickSize": 4,
+   "labelFlush": true
+  },
+  "axisY": {
+   "grid": true,
+   "domain": false,
+   "ticks": false,
+   "minExtent": 40,
+   "maxExtent": 40,
+   "labelPadding": 6
+  },
+  "header": {
+   "labelFont": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "labelFontSize": 12,
+   "labelFontWeight": 600,
+   "labelColor": "#1a1a17",
+   "labelAnchor": "start",
+   "labelAngle": 0,
+   "labelOrient": "top",
+   "labelPadding": 6,
+   "titleFontSize": 0
+  },
+  "facet": {
+   "spacing": 20
+  },
+  "line": {
+   "color": "#4f5744",
+   "strokeWidth": 2,
+   "strokeJoin": "round",
+   "strokeCap": "round"
+  },
+  "point": {
+   "color": "#4f5744",
+   "filled": true,
+   "size": 64,
+   "stroke": "#f8f6f0",
+   "strokeWidth": 2,
+   "opacity": 1
+  },
+  "rule": {
+   "color": "#1a1a17",
+   "strokeWidth": 1,
+   "opacity": 0.45
+  },
+  "bar": {
+   "color": "#4f5744"
+  },
+  "rect": {
+   "color": "#4f5744"
+  },
+  "text": {
+   "font": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "fontSize": 11,
+   "color": "#1a1a17"
+  },
+  "range": {
+   "category": [
+    "#4f5744",
+    "#9a9588",
+    "#a5562f"
+   ]
+  },
+  "legend": {
+   "labelFont": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "labelFontSize": 11,
+   "labelColor": "#1a1a17",
+   "titleFont": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "titleFontSize": 11,
+   "titleColor": "#656561",
+   "titleFontWeight": 400,
+   "orient": "top",
+   "symbolStrokeWidth": 2
+  },
+  "title": {
+   "font": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "fontSize": 15,
+   "fontWeight": 600,
+   "color": "#1a1a17",
+   "anchor": "start"
+  }
+ },
+ "layer": [
+  {
+   "mark": {
+    "type": "rule",
+    "aria": false,
+    "color": "#1a1a17",
+    "opacity": 0.35,
+    "strokeWidth": 1,
+    "y2Offset": -8.0,
+    "yOffset": 8.0
+   },
+   "encoding": {
+    "x": {
+     "axis": null,
+     "field": "at",
+     "scale": {
+      "domain": [
+       0,
+       1
+      ]
+     },
+     "type": "quantitative"
+    },
+    "x2": {
+     "field": "to"
+    },
+    "y": {
+     "axis": null,
+     "field": "top",
+     "type": "ordinal"
+    },
+    "y2": {
+     "field": "bottom"
+    }
+   },
+   "transform": [
+    {
+     "filter": "isValid(datum.zoomFrom)"
+    },
+    {
+     "fold": [
+      "zoomFrom",
+      "zoomTo"
+     ],
+     "as": [
+      "edge",
+      "at"
+     ]
+    },
+    {
+     "calculate": "datum.step",
+     "as": "top"
+    },
+    {
+     "calculate": "datum.step + 1",
+     "as": "bottom"
+    },
+    {
+     "calculate": "datum.edge === 'zoomFrom' ? 0 : 1",
+     "as": "to"
+    }
+   ]
+  },
+  {
+   "mark": {
+    "type": "bar",
+    "aria": false,
+    "size": 16,
+    "tooltip": {
+     "expr": "datum.readout"
+    }
+   },
+   "encoding": {
+    "color": {
+     "field": "tone",
+     "legend": null,
+     "scale": {
+      "domain": [
+       "base",
+       "focus",
+       "muted"
+      ],
+      "range": [
+       "#d3cebe",
+       "#1a1a17",
+       "#bcc0ac"
+      ]
+     },
+     "type": "nominal"
+    },
+    "stroke": {
+     "condition": {
+      "test": "datum.key === active",
+      "value": "#1a1a17"
+     },
+     "value": "#f8f6f0"
+    },
+    "strokeWidth": {
+     "condition": {
+      "test": "datum.key === active",
+      "value": 2
+     },
+     "value": 1
+    },
+    "x": {
+     "axis": null,
+     "field": "start",
+     "scale": {
+      "domain": [
+       0,
+       1
+      ],
+      "nice": false,
+      "zero": true
+     },
+     "type": "quantitative"
+    },
+    "x2": {
+     "field": "end"
+    },
+    "y": {
+     "axis": null,
+     "field": "step",
+     "scale": {
+      "paddingInner": 0,
+      "paddingOuter": 0
+     },
+     "type": "ordinal"
+    }
+   },
+   "name": "segments"
+  },
+  {
+   "mark": {
+    "type": "text",
+    "align": "left",
+    "aria": false,
+    "baseline": "middle",
+    "dy": -23.0,
+    "fontWeight": 600
+   },
+   "encoding": {
+    "text": {
+     "field": "caption",
+     "type": "nominal"
+    },
+    "x": {
+     "datum": 0
+    },
+    "y": {
+     "axis": null,
+     "field": "step",
+     "scale": {
+      "paddingInner": 0,
+      "paddingOuter": 0
+     },
+     "type": "ordinal"
+    }
+   },
+   "transform": [
+    {
+     "filter": "datum.caption && datum.step === 1"
+    }
+   ]
+  },
+  {
+   "mark": {
+    "type": "text",
+    "align": "right",
+    "aria": false,
+    "baseline": "middle",
+    "dy": -23.0,
+    "fontWeight": 600
+   },
+   "encoding": {
+    "text": {
+     "field": "value",
+     "type": "nominal"
+    },
+    "x": {
+     "datum": 1
+    },
+    "y": {
+     "axis": null,
+     "field": "step",
+     "scale": {
+      "paddingInner": 0,
+      "paddingOuter": 0
+     },
+     "type": "ordinal"
+    }
+   },
+   "transform": [
+    {
+     "filter": "datum.caption && datum.step === 1"
+    },
+    {
+     "filter": "datum.value"
+    }
+   ]
+  },
+  {
+   "mark": {
+    "type": "text",
+    "align": "left",
+    "aria": false,
+    "baseline": "middle",
+    "dy": 23.0,
+    "fontWeight": 600
+   },
+   "encoding": {
+    "text": {
+     "field": "caption",
+     "type": "nominal"
+    },
+    "x": {
+     "datum": 0
+    },
+    "y": {
+     "axis": null,
+     "field": "step",
+     "scale": {
+      "paddingInner": 0,
+      "paddingOuter": 0
+     },
+     "type": "ordinal"
+    }
+   },
+   "transform": [
+    {
+     "filter": "datum.caption && datum.step > 1"
+    }
+   ]
+  },
+  {
+   "mark": {
+    "type": "text",
+    "align": "right",
+    "aria": false,
+    "baseline": "middle",
+    "dy": 23.0,
+    "fontWeight": 600
+   },
+   "encoding": {
+    "text": {
+     "field": "value",
+     "type": "nominal"
+    },
+    "x": {
+     "datum": 1
+    },
+    "y": {
+     "axis": null,
+     "field": "step",
+     "scale": {
+      "paddingInner": 0,
+      "paddingOuter": 0
+     },
+     "type": "ordinal"
+    }
+   },
+   "transform": [
+    {
+     "filter": "datum.caption && datum.step > 1"
+    },
+    {
+     "filter": "datum.value"
+    }
+   ]
+  }
+ ],
+ "data": {
+  "name": "rows"
+ },
+ "description": "Two bars: every notice in the week, with the energy notices as a slice, then the energy notices split by procurement type. The table under the chart lists every count.",
+ "height": {
+  "step": 64
+ },
+ "params": [
+  {
+   "name": "active",
+   "value": null
+  }
+ ],
+ "usermeta": {
+  "generator": "charts/zoom.py",
+  "rows": [
+   "rows"
+  ],
+  "live": {
+   "pick": {
+    "mark": "segments_marks",
+    "by": "xy",
+    "signal": "active",
+    "key": "key"
+   }
+  },
+  "altair": "6.3.0"
+ },
+ "width": 600,
+ "$schema": "https://vega.github.io/schema/vega-lite/v6.4.1.json"
+}

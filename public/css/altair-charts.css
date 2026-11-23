@@ -1,23 +1,49 @@
 /* Altair charts (charts/*.py, drawn by src/lib/charts/). The chart's own colours, fonts and lines
    come from charts/theme.py; this file lays the figure out. With no JavaScript the drawing made for
-   the screen size shows; with it, the live chart takes its place at the column's width. */
-.altair-figure { max-width: 720px; }
+   the container's size shows (container queries pick it); with JavaScript the live chart takes its
+   place at the container's width. */
+.altair-figure { margin: 22px 0 26px; max-width: 720px; }
+.altair-figure--compact { margin: 0; max-width: none; }
+.altair-caption { display: grid; gap: 2px; margin: 0 0 8px; }
+.altair-caption strong { font-size: 15px; line-height: 1.3; color: var(--ink); }
+.altair-caption span { font-size: 12px; line-height: 1.45; color: rgba(26,26,23,.66); }
+.altair-figure--compact .altair-caption strong { font-size: 14px; }
 .altair-controls { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 12px; }
 .altair-controls button { cursor: pointer; border: 1px solid var(--line); background: var(--cream); color: var(--ink); border-radius: 999px; padding: 7px 13px; min-height: 36px; font: 600 12px/1.2 var(--sans); }
 .altair-controls button:hover { border-color: rgba(26,26,23,.4); }
 .altair-controls button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--cream); }
 .altair-controls button:disabled { cursor: default; opacity: .6; }
 .altair-controls button:focus-visible, .altair-live:focus-visible { outline: 2px solid var(--olive2); outline-offset: 2px; }
-.altair-frame { position: relative; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--cream); }
+.altair-frame { position: relative; container-type: inline-size; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--cream); }
 .altair-frame svg { display: block; width: 100%; height: auto; }
 .altair-static--narrow { display: none; }
-@media (max-width: 560px) {
-  .altair-static--wide { display: none; }
-  .altair-static--narrow { display: block; }
+.altair-figure--fixed .altair-frame svg { width: auto; max-width: 100%; }
+@container (max-width: 560px) {
+  .altair-figure:not(.altair-figure--compact) .altair-static--wide { display: none; }
+  .altair-figure:not(.altair-figure--compact) .altair-static--narrow { display: block; }
+}
+@container (max-width: 420px) {
+  .altair-figure--compact .altair-static--wide { display: none; }
+  .altair-figure--compact .altair-static--narrow { display: block; }
 }
 .altair-live { cursor: crosshair; touch-action: pan-y; outline: none; }
-.altair-tip { position: absolute; top: 34px; display: grid; gap: 2px; padding: 8px 10px; background: var(--ink); color: rgba(248,246,240,.74); border-radius: 6px; font-size: 12px; line-height: 1.35; font-variant-numeric: tabular-nums; white-space: nowrap; pointer-events: none; transform: translateX(10px); z-index: 2; }
-.altair-tip.is-left { transform: translateX(calc(-100% - 10px)); }
+.altair-tip { position: absolute; top: 34px; left: 0; display: grid; gap: 2px; max-width: min(300px, calc(100% - 8px)); width: max-content; padding: 8px 10px; background: var(--ink); color: rgba(248,246,240,.74); border-radius: 6px; font-size: 12px; line-height: 1.35; font-variant-numeric: tabular-nums; pointer-events: none; z-index: 2; }
 .altair-tip strong, .altair-tip b { color: var(--cream); font-weight: 650; }
-.altair-tip strong { margin-bottom: 2px; }
-.lab-prose .altair-hint { font-size: 12px; line-height: 1.45; color: rgba(26,26,23,.62); margin: 8px 0 0; }
+.altair-tip strong { margin-bottom: 2px; white-space: normal; max-width: 260px; }
+.altair-figure .altair-hint, .altair-figure .altair-note, .altair-figure .altair-source { font-size: 12px; line-height: 1.45; color: rgba(26,26,23,.62); margin: 8px 0 0; }
+.altair-figure .altair-note { color: rgba(26,26,23,.72); }
+.altair-table { margin: 10px 0 0; overflow-x: auto; }
+.altair-table summary { cursor: pointer; font-size: 12px; font-weight: 700; color: var(--olive2); }
+.altair-table table { width: 100%; border-collapse: collapse; margin: 8px 0; font-size: 13px; font-variant-numeric: tabular-nums; }
+.altair-table th, .altair-table td { text-align: left; padding: 6px 10px 6px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+.altair-table p { font-size: 12px; margin: 0; color: rgba(26,26,23,.62); }
+.altair-figure code { font-size: .92em; }
+.altair-figure--section { max-width: 900px; margin: 0; }
+.altair-terms { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px 22px; margin: 14px 0 0; font-size: 12px; line-height: 1.45; }
+.altair-terms dt { font-weight: 650; color: var(--ink); }
+.altair-terms dd { margin: 2px 0 0; color: rgba(26,26,23,.66); }
+.altair-keys { list-style: none; display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 10px 0 0; padding: 0; font-size: 12px; line-height: 1.4; color: rgba(26,26,23,.72); }
+.altair-keys li { display: inline-flex; align-items: center; gap: 7px; }
+.altair-key { display: inline-block; width: 12px; height: 12px; border-radius: 2px; flex: none; }
+.altair-key--ink { background: var(--ink); }
+.altair-key--pale { background: #bcc0ac; }

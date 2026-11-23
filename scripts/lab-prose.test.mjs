@@ -5,7 +5,8 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
 import { wrapTables, TABLE_SCROLL_CLASS } from '../src/lib/lab/prose.mjs';
-import { fillLabCharts, airportChart, ledgerChart } from '../src/lib/lab/svg-charts.mjs';
+import { fillLabCharts } from '../src/lib/lab/charts.mjs';
+import { airportFigure, ledgerFigure } from '../src/lib/charts/lab.mjs';
 import { pldFigure } from '../src/lib/charts/pld.mjs';
 
 const read = (p) => readFileSync(new URL(`../${p}`, import.meta.url), 'utf8');
@@ -28,11 +29,13 @@ test('wrapTables refuses nested or unbalanced tables', () => {
 });
 
 test('the build-time charts, whose number tables open on tap, come out wrapped too', async () => {
-  const pld = await pldFigure(json('data/ccee-pld/results.json'), json('src/charts/pld-daily.vl.json'));
+  const pld = await pldFigure(json('data/ccee-pld/results.json'));
+  const airport = await airportFigure(json('data/airport-contract/results.json'));
+  const ledger = await ledgerFigure(json('data/ledger-eval/results.json'));
   const html = wrapTables(fillLabCharts('<div data-lab-chart="pld"></div><div data-lab-chart="airport"></div><div data-lab-chart="ledger"></div>', {
     pld: () => pld,
-    airport: () => airportChart(json('data/airport-contract/results.json')),
-    ledger: () => ledgerChart(json('data/ledger-eval/results.json')),
+    airport: () => airport,
+    ledger: () => ledger,
   }));
   assert.ok(count(html, /<table/g) >= 3);
   assert.equal(count(html, /<table/g), count(html, /<div class="lab-table-scroll"[^>]*><table/g));

@@ -21,7 +21,7 @@ Did US domestic flights get more reliable in 2026? The usual answer is the avera
 
 ## The live piece
 
-The month-by-month chart above. Pick a measure, compare January to August 2026 with 2025, and hover or tab through the months for both years' values. "Show the numbers" under each chart lists the same values as a table. Every value is worked out from the saved monthly totals when this site is built. No service runs behind it. Further down, on wide screens, the same data loads as a Tableau dashboard as you reach it.
+The month-by-month chart above. Pick a measure, compare January to August 2026 with 2025, and hover, tap or use the arrow keys for both years' values. "Show the numbers" under each chart lists the same values as a table. Every value is worked out from the saved monthly totals when this site is built. No service runs behind it. Further down, on wide screens, the same data loads as a Tableau dashboard as you reach it.
 
 ## Method and results
 
@@ -96,5 +96,6 @@ The average delay stayed flat because early arrivals count as negative minutes a
 - Analysis and pipeline: a standalone project outside this repository, package `aviation-reliability-v1` of 30 October 2026. Python download and ingest, dbt models on DuckDB, a Python notebook and a Tableau Public draft. Its files, code included, are public as a Kaggle dataset; the cells above are exact copies of them.
 - This page: pull request https://github.com/felipealves7/felipealveslab/pull/27
 - The shutdown test: pull request https://github.com/felipealves7/felipealveslab/pull/76. Pipeline `pipelines/aviation-shutdown/`, saved files `data/aviation-shutdown/`, built and tested in this repository.
+- The charts in Altair (`charts/aviation_months.py`, `charts/aviation_delays.py`): pull request https://github.com/felipealves7/felipealveslab/pull/79
 - Saved files: `data/aviation-reliability/`, copied byte for byte from the package, with SHA-256 in its README. Code: `src/lib/aviation/` and `src/components/Aviation*.astro`. Tests: `scripts/aviation-page.test.mjs`, which pins every figure on this page to the saved files.
 - On other platforms, checked signed out on 1 November 2026: the [dashboard on Tableau Public](https://public.tableau.com/app/profile/felipealves7/viz/BTSFlightReliability/Flightreliability), the [notebook on Kaggle](https://www.kaggle.com/code/felipealves7/aviation-reliability-what-average-delay-hides) and the [dataset on Kaggle](https://www.kaggle.com/datasets/felipealves7/aviation-reliability-bts-foundation-v1). The record of that check, with the figures read off the dashboard, is `data/aviation-reliability/external.json`.

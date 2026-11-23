@@ -1,26 +1,28 @@
-// Build-time SVG charts on the airport and Ask the Ledger pages: the numbers come from the checked-in
-// results, and each page places its chart inside `## The live piece`. The PLD page's chart is an
-// Altair chart, tested in scripts/altair-charts.test.mjs; its marker is checked here with the others.
+// The charts on the airport and Ask the Ledger pages: the numbers come from the checked-in results,
+// and each page places its chart inside `## The live piece`. The charts are the site's Altair charts
+// (src/lib/charts/lab.mjs); scripts/altair-charts.test.mjs tests the drawing itself.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { airportChart, airportChartData, ledgerChart, ledgerChartData, fillLabCharts } from '../src/lib/lab/svg-charts.mjs';
+import { airportChartData, ledgerChartData, fillLabCharts } from '../src/lib/lab/charts.mjs';
+import { airportFigure, ledgerFigure, checkRows } from '../src/lib/charts/lab.mjs';
 
 const read = (p) => readFileSync(new URL(`../${p}`, import.meta.url), 'utf8');
 const json = (p) => JSON.parse(read(p));
 const airport = json('data/airport-contract/results.json');
 const ledger = json('data/ledger-eval/results.json');
 
-test('Airport chart: latest non-rehearsal run, 18 passed, 1 within tolerance, 0 failed', () => {
+test('Airport chart: latest non-rehearsal run, 18 passed, 1 within tolerance, 0 failed', async () => {
   const d = airportChartData(airport);
   assert.equal(d.checks.length, 19);
   assert.deepEqual(d.tally, { pass: 18, tolerated: 1, fail: 0 });
   assert.equal(d.checks.find((c) => c.status === 'tolerated').id, 'runways.length_positive');
-  const html = airportChart(airport);
-  assert.equal((html.match(/class="lab-svg-cell lab-svg-cell--/g) || []).length, 19 + 3);
-  assert.match(html, />18 passed</);
-  assert.match(html, />1 within tolerance</);
-  assert.match(html, />0 failed</);
+  // One square per check, ten to a row, in contract order.
+  const rows = checkRows(d.checks);
+  assert.deepEqual(rows.map((r) => [r.col, r.row]).slice(9, 11), [[9, 0], [0, 1]]);
+  assert.deepEqual(rows.map((r) => r.status), d.checks.map((c) => c.status));
+  const html = await airportFigure(airport);
+  assert.match(html, /18 passed · 1 within tolerance · 0 failed\./);
   // The page's replay reads newer weekly runs, so the chart names the copy it was drawn from.
   assert.match(html, /Latest run in the copy saved with this page/);
   assert.doesNotMatch(html, /Latest saved run/);
@@ -31,7 +33,7 @@ test('Airport chart skips rehearsals', () => {
   assert.throws(() => airportChartData(onlyRehearsal), /No saved non-rehearsal/);
 });
 
-test('Ledger chart: six runs on the 47 page questions, as in the page table', () => {
+test('Ledger chart: six runs on the 47 page questions, as in the page table', async () => {
   const d = ledgerChartData(ledger);
   assert.equal(d.total, 47);
   assert.deepEqual(d.bars.map((b) => `${b.model} · ${b.prompt} · ${b.right}`), [
@@ -44,7 +46,7 @@ test('Ledger chart: six runs on the 47 page questions, as in the page table', ()
   ]);
   const page = read('src/content/lab/ask-the-ledger.md');
   for (const b of d.bars) assert.ok(page.includes(`| 47 page questions · ${b.prompt} · ${b.model} | ${b.right} of 47 |`), `${b.model} ${b.prompt}`);
-  assert.match(ledgerChart(ledger), />42 of 47</);
+  assert.match(await ledgerFigure(ledger), />42 of 47</);
 });
 
 test('Ledger chart refuses an unknown model', () => {

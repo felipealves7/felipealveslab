@@ -1,15 +1,19 @@
 """The site's chart theme for Altair, registered as "felipealveslab".
 
-Every Altair chart on felipealveslab.com uses this one theme, so charts share their fonts, text
-colours, gridlines and marks with the rest of the site (tokens in public/css/legacy.css).
+Every chart on felipealveslab.com uses this one theme, so charts share their fonts, text colours,
+gridlines and marks with the rest of the site (tokens in public/css/legacy.css).
 
 Colours, all on the chart surface CREAM (#f8f6f0):
-- INK #1a1a17, 16.1:1, for titles and values.
+- INK #1a1a17, 16.1:1, for titles, values and the item in focus.
 - MUTED #656561, 5.4:1, for axis labels: the site's rgba(26,26,23,.66) mixed onto the surface.
-- DATA #4f5744 (--olive2), 7.0:1, for a single series.
-- COMPARE #9a9588, the warm gray of the flight reliability charts, for a second series. It is under
-  3:1 against the surface and both colours are low in chroma, so a chart that uses both labels its
-  series directly and has a table view. A third series needs a validated colour added here first.
+- DATA #4f5744 (--olive2), 7.0:1: one series, and every bar.
+- Series in this order: DATA, COMPARE #9a9588 (the warm gray of the flight charts), RUST #a5562f.
+  The dataviz validator passes them on lightness, colour-blind separation (worst pair 14.0) and
+  normal vision (worst pair 16.6). DATA and COMPARE are low in chroma and COMPARE is under 3:1, so
+  a chart with more than one series labels them directly and has a table view. A fourth series
+  needs a validated colour added here first.
+- Check states: PASS (--olive), TOLERATED (a pale olive with an olive edge), FAIL (INK). A state
+  always carries a word as well, never colour alone.
 """
 
 import altair as alt
@@ -20,8 +24,15 @@ INK = "#1a1a17"
 MUTED = "#656561"
 GRID = "#dddcd6"
 BASELINE = "#aaa9a4"
+TRACK = "#e7e3d9"  # --paper2: the empty part of a bar
 DATA = "#4f5744"
 COMPARE = "#9a9588"
+RUST = "#a5562f"
+SERIES = [DATA, COMPARE, RUST]
+OLIVE = "#69715a"
+PALE = "#bcc0ac"
+SAND = "#d3cebe"
+PASS, TOLERATED, FAIL = OLIVE, PALE, INK
 
 # The y axis keeps one width whatever its labels, so the chart can be laid out to the exact width
 # of the page column, at build time and in the browser alike.
@@ -70,9 +81,10 @@ CONFIG = {
     "line": {"color": DATA, "strokeWidth": 2, "strokeJoin": "round", "strokeCap": "round"},
     "point": {"color": DATA, "filled": True, "size": 64, "stroke": CREAM, "strokeWidth": 2, "opacity": 1},
     "rule": {"color": INK, "strokeWidth": 1, "opacity": 0.45},
-    "bar": {"color": DATA, "cornerRadiusEnd": 4},
+    "bar": {"color": DATA},
+    "rect": {"color": DATA},
     "text": {"font": SANS, "fontSize": 11, "color": INK},
-    "range": {"category": [DATA, COMPARE]},
+    "range": {"category": SERIES},
     "legend": {
         "labelFont": SANS,
         "labelFontSize": 11,
@@ -91,3 +103,8 @@ CONFIG = {
 @alt.theme.register("felipealveslab", enable=True)
 def felipealveslab() -> alt.theme.ThemeConfig:
     return {"config": CONFIG}
+
+
+def rows(name: str = "rows") -> alt.NamedData:
+    """Rows the page builds from its saved results at build time and hands to the chart."""
+    return alt.NamedData(name=name)

@@ -1,6 +1,7 @@
 // Brazil hourly power price lab: the daily price chart (charts/pld_daily.py), with its period
 // buttons and the yearly table, from the saved results. No figure here is typed in by hand.
 import { altairFigure, tableHtml } from './figure.mjs';
+import { loadSpec } from './render.mjs';
 
 export const SUBMARKETS = ['SUDESTE', 'SUL', 'NORDESTE', 'NORTE'];
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -31,7 +32,7 @@ export function pldYearlyTable(results) {
     + '<p>Mean hourly price by year and submarket, R$/MWh.</p>';
 }
 
-export async function pldFigure(results, vlSpec) {
+export async function pldFigure(results, vlSpec = loadSpec('pld-daily')) {
   const d = pldDaily(results);
   return altairFigure({
     id: 'pld-daily-chart',

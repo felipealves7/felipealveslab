@@ -43,9 +43,9 @@ trial:
     area: in-browser SQL explorer over a lab's joined data, loaded on demand
   - name: Observable Plot
     area: one chart library for build-time SVG
-  - name: Altair (Vega-Lite) with one site theme, drawn at build time and run in the browser with Vega
-    area: one chart library for build-time SVG and the live chart
-    evidence: /lab/brazil-power-price-contract, https://github.com/felipealves7/felipealveslab/pull/78
+  - name: Altair (Vega-Lite)
+    area: the Lab and case-study charts, in one theme; drawn to SVG at build time and run in the browser with Vega
+    evidence: the Lab pages and /case-studies/sinalvo; https://github.com/felipealves7/felipealveslab/pull/78 and https://github.com/felipealves7/felipealveslab/pull/79
   - name: BigQuery public datasets
     area: large public sources, for example GH Archive and NOAA weather
 

@@ -79,7 +79,7 @@ test('one daily price chart: the Altair chart, laid out at the width it is shown
   assert.ok(page.indexOf('<div data-lab-chart="pld"></div>') < page.indexOf('<div id="pld-explorer"'));
   // In the browser the panels take the frame's width, again on every resize; no font is scaled.
   const live = read('src/lib/charts/live.mjs');
-  assert.match(live, /const panelWidth = \(\) => Math\.max\(160, Math\.floor\(frame\.clientWidth - chrome\)\);/);
+  assert.match(live, /const plotWidth = \(\) => Math\.max\(160, Math\.floor\(frame\.clientWidth - chrome\)\);/);
   assert.match(live, /new ResizeObserver\(/);
-  assert.match(live, /view\.signal\('child_width', width\)/);
+  assert.match(live, /view\.signal\(widthSignal, width\)/);
 });

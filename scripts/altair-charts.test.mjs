@@ -1,12 +1,18 @@
-// The site's Altair charts (charts/*.py → src/charts/*.vl.json → src/lib/charts/). The PLD chart is
-// drawn here from the saved results the way the build draws it, and every figure it shows is worked
+// The site's Altair charts (charts/*.py → src/charts/*.vl.json → src/lib/charts/). Each chart is
+// drawn here from its saved results the way the build draws it, and the figures it shows are worked
 // out again from the results to check it. Run: node --test scripts/altair-charts.test.mjs
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { compileChart, renderStatic, siteLoader, relativePolyline, textWidth } from '../src/lib/charts/render.mjs';
+import { readdirSync } from 'node:fs';
+import { compileChart, renderStatic, siteLoader, relativePolyline, textWidth, withRows, loadSpec, widthSignal } from '../src/lib/charts/render.mjs';
 import { pldFigure, pldDaily, longDate, SUBMARKETS } from '../src/lib/charts/pld.mjs';
-import { WIDE, NARROW } from '../src/lib/charts/figure.mjs';
+import { WIDE, NARROW, CARD_NARROW } from '../src/lib/charts/figure.mjs';
+import { dstRows, dstFigure } from '../src/lib/charts/dst.mjs';
+import { monthRows, delayRows, monthsFigure, delaysFigure } from '../src/lib/charts/aviation.mjs';
+import { barRows } from '../src/lib/charts/bars.mjs';
+import { evidenceChart } from '../src/lib/charts/evidence.mjs';
+import { parseMonths, parseHistogram, overview, METRIC_ORDER } from '../src/lib/aviation/metrics.mjs';
 
 const read = (p) => readFileSync(new URL(`../${p}`, import.meta.url), 'utf8');
 const json = (p) => JSON.parse(read(p));
@@ -38,7 +44,7 @@ test('the saved spec is Altair output in the site theme, reading the results fil
 });
 
 test('it compiles with no warning, and names what the page sets', () => {
-  assert.deepEqual(vega.usermeta.live, { day: 'day', key: 'dates', snap: 'line_marks', readout: 'readout_marks', params: ['period'] });
+  assert.deepEqual(vega.usermeta.live, { params: ['period'], pick: { mark: 'line_marks', by: 'x', signal: 'day', key: 'dates', readout: 'readout_marks' } });
   const signal = (name) => vega.signals.find((s) => s.name === name);
   assert.equal(signal('period').value, 'all');
   assert.equal(signal('day').value, null);
@@ -148,7 +154,7 @@ test('build-time text widths are close to the site sans, not Vega\'s 0.8 em fall
 });
 
 test('the figure: a drawing for wide columns and one for a 375 px phone, the compiled chart, buttons and a table', async () => {
-  const html = await pldFigure(results, spec);
+  const html = await pldFigure(results);
   const svgs = [...html.matchAll(/<svg [^>]*class="altair-svg" role="img" aria-label="([^"]+)"[^>]*>/g)];
   assert.equal(svgs.length, 2);
   const widths = [...html.matchAll(/<svg [^>]*width="(\d+)"/g)].map((m) => Number(m[1]));
@@ -181,19 +187,121 @@ test('in the browser: Vega runs with its interpreter, so the site needs no unsaf
   assert.match(live, /expr: expressionInterpreter/);
   assert.match(live, /rootMargin: '400px 0px'/, 'it loads as the visitor nears the chart');
   // A new width lays the chart out again, and resize() lets it shrink as well as grow.
-  assert.match(live, /view\.signal\('child_width', width\)\.resize\(\);/);
+  assert.match(live, /view\.signal\(widthSignal, width\)\.resize\(\);/);
+  assert.match(live, /querySelectorAll\('\[data-altair\]'\)/);
   const csp = read('public/_headers').match(/Content-Security-Policy: ([^\n]+)/)[1];
   assert.doesNotMatch(csp, /unsafe-eval/);
   // The tooltip is written with textContent, never as HTML.
   assert.doesNotMatch(live, /innerHTML/);
 });
 
-test('only the PLD page loads the chart script and its stylesheet', () => {
-  const page = read('src/pages/lab/[slug].astro');
-  assert.match(page, /\{isPld && <AltairCharts \/>\}/);
-  assert.match(page, /\.\.\.\(isPld \? \['lab-pld', 'altair-charts'\] : \[\]\)/);
+test('every page with a chart loads the chart styles, and the runtime when a chart is live', () => {
+  const lab = read('src/pages/lab/[slug].astro');
+  assert.match(lab, /'lab-proof', 'altair-charts'/);
+  assert.match(lab, /\n {2}<AltairCharts \/>\n/);
+  for (const page of ['src/pages/lab/index.astro', 'src/pages/home-v2.astro']) {
+    assert.match(read(page), /'altair-charts'/, page);
+    assert.doesNotMatch(read(page), /AltairCharts/, `${page}: its card charts are drawn at build time only`);
+  }
+  const sinalvo = read('src/pages/case-studies/sinalvo.astro');
+  assert.match(sinalvo, /'altair-charts', 'case-charts'/);
+  assert.match(sinalvo, /<AltairCharts \/>/);
   assert.match(read('src/components/AltairCharts.astro'), /import \{ mountCharts \} from '\.\.\/lib\/charts\/live\.mjs';/);
   const css = read('public/css/altair-charts.css');
-  assert.match(css, /@media \(max-width: 560px\) \{\n {2}\.altair-static--wide \{ display: none; \}\n {2}\.altair-static--narrow \{ display: block; \}/);
+  assert.match(css, /\.altair-frame \{[^}]*container-type: inline-size/);
+  assert.match(css, /@container \(max-width: 560px\) \{\n {2}\.altair-figure:not\(\.altair-figure--compact\) \.altair-static--wide \{ display: none; \}/);
   assert.match(css, /\.altair-controls button \{[^}]*min-height: 36px/);
+});
+
+// ---------------------------------------------------------------------------------------------
+// Every saved spec, and the other charts.
+
+test('every saved spec is Altair output in the site theme that compiles with no warning', () => {
+  const names = readdirSync(new URL('../src/charts/', import.meta.url)).filter((f) => f.endsWith('.vl.json')).map((f) => f.replace('.vl.json', ''));
+  assert.deepEqual(names.sort(), ['aviation-delays', 'aviation-months', 'bars', 'bars-change', 'checks', 'dst-days', 'pld-daily', 'zoom']);
+  for (const name of names) {
+    const vl = loadSpec(name);
+    assert.match(vl.usermeta.generator, /^charts\/[a-z_]+\.py$/, name);
+    assert.equal(vl.config.background, '#f8f6f0', name);
+    assert.deepEqual(vl.config.range.category, ['#4f5744', '#9a9588', '#a5562f'], name);
+    const compiled = compileChart(vl);
+    // Rows come from the page (usermeta.rows) or from a /data/ file; never written into the spec.
+    if (vl.usermeta.rows) assert.ok(vl.usermeta.rows.every((r) => compiled.data.some((d) => d.name === r && !d.values)), name);
+    else assert.match(vl.data.url, /^\/data\//, name);
+    const pick = vl.usermeta.live?.pick;
+    if (pick) assert.ok(JSON.stringify(compiled).includes(`"name":"${pick.mark}"`), `${name}: ${pick.mark}`);
+  }
+});
+
+test('a chart takes only the rows it names, and all of them', () => {
+  const v = compileChart(loadSpec('bars'));
+  assert.throws(() => withRows(v, {}), /No rows/);
+  assert.throws(() => withRows(v, { rows: [{}], other: [] }), /takes no rows called "other"/);
+  assert.equal(withRows(v, { rows: [{ key: 'a' }] }).data.find((d) => d.name === 'rows').values.length, 1);
+  assert.equal(v.data.find((d) => d.name === 'rows').values, undefined, 'the compiled chart is not changed');
+  assert.equal(widthSignal(v), 'width');
+  assert.equal(widthSignal(compileChart(spec)), 'child_width');
+});
+
+test('bars: checked rows, in the order given, on one scale', () => {
+  const rows = barRows([{ key: 'a', label: 'A', value: 3, text: '3' }, { key: 'b', label: 'B', value: 1, text: '1', focus: true }], { scaleMax: 4 });
+  assert.deepEqual(rows.map((r) => [r.key, r.order, r.scaleMax, r.focus]), [['a', 0, 4, false], ['b', 1, 4, true]]);
+  assert.throws(() => barRows([{ key: 'a', label: 'A', value: 5, text: '5' }], { scaleMax: 4 }), /off its scale/);
+  assert.throws(() => barRows([{ key: 'a', label: 'A', value: -1, text: '-1' }], { scaleMax: 4 }), /off its scale/);
+  assert.doesNotThrow(() => barRows([{ key: 'a', label: 'A', value: -1, text: '-1' }], { scaleMax: 4, signed: true }));
+  assert.throws(() => barRows([{ key: 'a', label: 'A', value: 1, text: '1' }, { key: 'a', label: 'B', value: 1, text: '1' }], { scaleMax: 4 }), /unique/);
+  assert.throws(() => barRows([{ key: 'a', label: 'A', value: 0.9, text: '1', lo: 0.95, hi: 1 }], { scaleMax: 1 }), /range should hold/);
+});
+
+test('the clock-change chart: three lines over the same days, from the saved results', async () => {
+  const r = json('data/dst-crashes/results.json');
+  const rows = dstRows(r);
+  assert.equal(rows.length, r.chart.post.length);
+  assert.deepEqual(rows.slice(13, 16).map((x) => x.day), ['\u22121 Sat', '0 Sun', '+1 Mon']);
+  assert.deepEqual(rows.map((x) => [x.post, x.pre, x.standard]), r.chart.post.map((d, i) => [d.index, r.chart.pre[i].index, r.chart.standard[i].index]));
+  const html = await dstFigure(r);
+  const svg = html.match(/<svg [^]*?<\/svg>/)[0];
+  assert.equal((svg.match(/<path [^>]*stroke="#4f5744"/g) ?? []).length >= 1, true);
+  assert.match(svg, /stroke-dasharray="5,3"/, 'Arizona and Hawaii are dashed');
+  for (const label of ['Change in March, 2007–2024', 'Change in April, 1996–2006', 'No change: Arizona and Hawaii', 'Work week after', 'Clocks change']) assert.ok(svg.includes(`>${label}</text>`), label);
+  const broken = structuredClone(r);
+  broken.chart.pre[3].offset += 1;
+  assert.throws(() => dstRows(broken), /does not line up/);
+});
+
+test('the flight charts: one measure at a time, two years, and every delay band', async () => {
+  const months = parseMonths(read('data/aviation-reliability/mart_month.csv'));
+  const { rows } = monthRows(months);
+  assert.equal(new Set(rows.map((r) => r.measure)).size, METRIC_ORDER.length);
+  const html = await monthsFigure(months);
+  const buttons = [...html.matchAll(/data-param="measure" data-value="([a-z_]+)"/g)].map((m) => m[1]);
+  assert.deepEqual(buttons, METRIC_ORDER);
+  // Without JavaScript the first measure shows; its two lines carry their years.
+  const svg = html.match(/<svg [^]*?<\/svg>/)[0];
+  assert.ok(svg.includes('>2025</text>') && svg.includes('>2026</text>'));
+  assert.ok(svg.includes('>Average arrival delay, minutes</text>'));
+  const bins = parseHistogram(read('data/aviation-reliability/delay_histogram.csv'));
+  const delays = await delaysFigure(bins, overview(months));
+  assert.equal(delayRows(bins).length, 16);
+  assert.match(delays, />Late from 15 minutes<\/text>/);
+});
+
+test('the evidence cards: drawn once at card sizes, readable on a 375 px phone, not run live', async () => {
+  const data = {
+    ledger: json('data/ask-the-ledger/results.json'),
+    airport: json('data/airport-contract/results.json'),
+    aviation: read('data/aviation-reliability/mart_month.csv'),
+    pld: results,
+    dst: json('data/dst-crashes/results.json'),
+  };
+  for (const [exhibit, d] of Object.entries(data)) {
+    const { evidence, html } = await evidenceChart(exhibit, d, { compact: true });
+    assert.ok(evidence.title, exhibit);
+    assert.doesNotMatch(html, /data-altair|altair-spec/, `${exhibit}: a card chart does not run live`);
+    const widths = [...html.matchAll(/<svg [^>]*width="([\d.]+)"/g)].map((m) => Number(m[1]));
+    assert.ok(Math.min(...widths) <= CARD_NARROW, exhibit);
+    for (const size of html.matchAll(/font-size="([\d.]+)px"/g)) assert.ok(Number(size[1]) >= 11, `${exhibit} ${size[0]}`);
+    const full = await evidenceChart(exhibit, d);
+    assert.match(full.html, /data-altair/, `${exhibit}: on its page the evidence chart runs live`);
+  }
 });

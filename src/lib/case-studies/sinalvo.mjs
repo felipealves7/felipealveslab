@@ -1,14 +1,11 @@
-// Build-time exhibits for the sinalvo case study (/case-studies/sinalvo).
-// Every number comes from data/sinalvo/figures.json; nothing here is typed by hand. Each chart is
-// plain HTML and CSS (public/css/case-charts.css), so its text stays readable at any width, and each
-// one carries a table view with the exact numbers. scripts/sinalvo-page.test.mjs checks the figures,
-// the charts and the page text against the same file.
+// Figures for the sinalvo case study (/case-studies/sinalvo). Every number comes from
+// data/sinalvo/figures.json; nothing here is typed by hand. The exhibits are drawn from these
+// figures with the site's Altair charts (src/lib/charts/sinalvo.mjs). scripts/sinalvo-page.test.mjs
+// checks the figures, the charts and the page text against the same file.
 
 const nf = new Intl.NumberFormat('en-GB');
 export const int = (n) => nf.format(n);
 export const pct = (x, digits = 0) => `${(x * 100).toFixed(digits)}%`;
-const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-const width = (x) => `${(Math.round(x * 1000) / 10).toFixed(1)}%`;
 
 /** R$438k, R$1.0M: chart labels. */
 export function brlShort(n) {
@@ -91,22 +88,6 @@ export function derived(f) {
   };
 }
 
-function figure({ id, title, subtitle, plot, table, note }) {
-  return `<figure class="cs-figure" id="${esc(id)}">`
-    + `<figcaption class="cs-caption"><strong>${esc(title)}</strong><span>${esc(subtitle)}</span></figcaption>`
-    + plot
-    + (note ? `<p class="cs-note">${esc(note)}</p>` : '')
-    + `<details class="cs-table"><summary>Show the numbers</summary>${table}</details>`
-    + '<p class="cs-source">Source: <code>data/sinalvo/figures.json</code>, results recorded in November 2026 · drawn when the site is built.</p>'
-    + '</figure>';
-}
-
-function tableHtml(head, rows) {
-  const th = head.map((h) => `<th scope="col">${esc(h)}</th>`).join('');
-  const tr = rows.map((cells) => `<tr><th scope="row">${esc(cells[0])}</th>${cells.slice(1).map((c) => `<td>${esc(c)}</td>`).join('')}</tr>`).join('');
-  return `<div class="cs-table-scroll"><table><thead><tr>${th}</tr></thead><tbody>${tr}</tbody></table></div>`;
-}
-
 // ---------------------------------------------------------------------------------------------
 // 1. Sectors over 90 days: how many formal tenders, and how large the median one is.
 export function sectorChartData(f) {
@@ -114,33 +95,6 @@ export function sectorChartData(f) {
   const rows = [...f.pncp90.sectors].sort((a, b) => b.formalTenders - a.formalTenders);
   const max = rows[0].formalTenders;
   return rows.map((s) => ({ ...s, share: s.formalTenders / max, focus: s.key === 'energy' }));
-}
-
-export function sectorChart(f) {
-  const rows = sectorChartData(f);
-  const d = derived(f);
-  const lines = rows.map((s) => `<div class="cs-sector${s.focus ? ' is-focus' : ''}" aria-hidden="true">`
-    + `<span class="cs-sector-label">${esc(s.label)}</span>`
-    + `<span class="cs-track"><span class="cs-fill" style="width:${width(s.share)}"></span></span>`
-    + `<span class="cs-sector-count">${int(s.formalTenders)}</span>`
-    + `<span class="cs-sector-median">${brlShort(s.medianFormalTender)}</span></div>`).join('');
-  const energy = rows.find((s) => s.focus);
-  const label = `Formal tenders by sector over 90 days, with each sector's median estimated value. `
-    + rows.map((s) => `${s.label}: ${int(s.formalTenders)} tenders, median ${brlShort(s.medianFormalTender)}`).join('; ')
-    + `. Energy and lighting has the fewest tenders and the ${ordinal(d.energyMedianRank)}-highest median of ${d.sectorCount} sectors.`;
-  const plot = `<div class="cs-plot cs-sectors" role="img" aria-label="${esc(label)}">`
-    + '<div class="cs-sector cs-sector-head" aria-hidden="true"><span class="cs-sector-label">Sector</span><span class="cs-track-head">Formal tenders</span><span class="cs-sector-count">Count</span><span class="cs-sector-median">Median</span></div>'
-    + lines + '</div>';
-  const table = tableHtml(['Sector', 'Formal tenders, 90 days', 'Median estimated value'],
-    rows.map((s) => [s.label, int(s.formalTenders), brlFull(s.medianFormalTender)]));
-  return figure({
-    id: 'sector-chart',
-    title: 'Energy: the fewest tenders, among the largest',
-    subtitle: `Formal tenders (pregão and concorrência) on PNCP, ${short(f.pncp90.from)} to ${short(f.pncp90.to)} 2026, and each sector's median estimated value. Sector counts are estimates from a weighted sample of ${int(f.pncp90.sample)} notices (about ±${pct(f.pncp90.sampleErrorLarge)} for large sectors, ±${pct(f.pncp90.sampleErrorEnergy)} for energy).`,
-    plot,
-    table,
-    note: `${energy.label}: ${int(energy.formalTenders)} formal tenders, ${ordinal(d.energyMedianRank)}-highest median of ${d.sectorCount} sectors.`,
-  });
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -161,87 +115,11 @@ export function funnelChartData(f) {
   };
 }
 
-export function funnelChart(f) {
-  const d = funnelChartData(f);
-  const p = f.probe;
-  const energyWidth = width(d.energyShare);
-  const baseWidth = width(1 - d.energyShare);
-  const openShare = d.open / d.energy;
-  const workSegs = d.work.filter((w) => w.notices > 0)
-    .map((w) => `<span class="cs-seg cs-seg--${w.tone}" style="width:${width(w.share)}"></span>`).join('');
-  const workLegend = d.work.map((w) => `<li${w.notices === 0 ? ' class="is-zero"' : ''}><i class="cs-key cs-seg--${w.tone}"></i><span>${esc(w.label)}</span><strong>${int(w.notices)}</strong><em>${pct(w.share)}</em></li>`).join('');
-  const label = `One week of PNCP notices, ${span(p.from, p.to)} 2026: ${int(d.notices)} notices, of which ${int(d.energy)} (${pct(d.energyShare, 1)}) matched the energy terms. `
-    + `Of those ${int(d.energy)}, ${int(d.open)} were open tenders and ${int(d.other)} were direct purchases, sole-source awards or accreditation calls. `
-    + `By kind of work: ${d.work.map((w) => `${w.label} ${int(w.notices)}`).join(', ')}.`;
-  const plot = `<div class="cs-plot cs-zoom" role="img" aria-label="${esc(label)}">`
-    + '<div class="cs-zoom-row" aria-hidden="true">'
-    + `<p class="cs-zoom-label"><strong>${int(d.notices)}</strong> notices published, ${span(p.from, p.to, '–')} 2026</p>`
-    + `<div class="cs-stack"><span class="cs-seg cs-seg--base" style="width:${baseWidth}"></span><span class="cs-seg cs-seg--focus cs-seg--sliver" style="width:${energyWidth}"></span></div>`
-    + `<p class="cs-zoom-callout"><strong>${int(d.energy)}</strong> matched the energy terms (${pct(d.energyShare, 1)})</p>`
-    + '</div>'
-    + `<div class="cs-zoom-link" style="--from:${baseWidth}" aria-hidden="true"></div>`
-    + '<div class="cs-zoom-row" aria-hidden="true">'
-    + `<p class="cs-zoom-label">The <strong>${int(d.energy)}</strong> energy notices, by procurement type</p>`
-    + `<div class="cs-stack"><span class="cs-seg cs-seg--focus" style="width:${width(openShare)}"></span><span class="cs-seg cs-seg--muted" style="width:${width(1 - openShare)}"></span></div>`
-    + '<ul class="cs-legend">'
-    + `<li><i class="cs-key cs-seg--focus"></i><span>Open tenders (pregão or concorrência)</span><strong>${int(d.open)}</strong></li>`
-    + `<li><i class="cs-key cs-seg--muted"></i><span>Direct purchases, sole-source awards, accreditation</span><strong>${int(d.other)}</strong></li>`
-    + '</ul></div>'
-    + `<p class="cs-zoom-same" aria-hidden="true">The same ${int(d.energy)}, by kind of work</p>`
-    + '<div class="cs-zoom-row" aria-hidden="true">'
-    + `<div class="cs-stack">${workSegs}</div>`
-    + `<ul class="cs-legend cs-legend--work">${workLegend}</ul>`
-    + '</div></div>';
-  const table = tableHtml(['Step', 'Notices', 'Share of the step above'], [
-    ['All notices, every procurement method', int(d.notices), '–'],
-    ['Matched the energy terms', int(d.energy), pct(d.energyShare, 1)],
-    ['Energy: open tenders', int(d.open), pct(openShare)],
-    ['Energy: direct purchases, sole-source, accreditation', int(d.other), pct(1 - openShare)],
-    ...d.work.map((w) => [`Energy: ${w.label}`, int(w.notices), pct(w.share)]),
-  ]);
-  return figure({
-    id: 'funnel-chart',
-    title: 'One week of tenders, zoomed in',
-    subtitle: `Every notice PNCP published from ${span(p.from, p.to)} 2026 (${p.workingDays} working days), complete against the API's own totals. Energy = a notice whose object matched the agreed energy terms.`,
-    plot,
-    table,
-  });
-}
-
 // ---------------------------------------------------------------------------------------------
 // 3. Payment timing by Treasury grade, from São Paulo's audit-court data.
 export function paymentChartData(f) {
   checkFigures(f);
   return f.paymentRisk.tceSp.byGrade.map((g) => ({ ...g, ungraded: g.grade === 'No grade' }));
-}
-
-export function paymentChart(f) {
-  const rows = paymentChartData(f);
-  const t = f.paymentRisk.tceSp;
-  const towns = (n) => `${int(n)} town${n === 1 ? '' : 's'}`;
-  const lines = rows.map((g) => {
-    const range = g.low !== undefined
-      ? `<span class="cs-range" style="left:${width(g.low)};width:${width(g.high - g.low)}"></span>` : '';
-    const rangeText = g.low !== undefined ? `<span class="cs-pay-range">towns ranged ${pct(g.low)}–${pct(g.high)}</span>` : '';
-    return `<div class="cs-pay-row${g.ungraded ? ' is-ungraded' : ''}" aria-hidden="true">`
-      + `<span class="cs-pay-label"><strong>${esc(g.ungraded ? 'No grade' : `Grade ${g.grade}`)}</strong><span>${towns(g.towns)}</span></span>`
-      + `<span class="cs-track"><span class="cs-fill" style="width:${width(g.paidWithin30Days)}"></span>${range}</span>`
-      + `<span class="cs-pay-value">${pct(g.paidWithin30Days)}</span>${rangeText}</div>`;
-  }).join('');
-  const label = `Share of company invoices paid within 30 days, by Treasury CAPAG grade, ${int(t.towns)} São Paulo towns: `
-    + rows.map((g) => `${g.grade} (${towns(g.towns)}) ${pct(g.paidWithin30Days)}${g.low !== undefined ? `, towns ranged ${pct(g.low)} to ${pct(g.high)}` : ''}`).join('; ') + '.';
-  const plot = `<div class="cs-plot cs-pay" role="img" aria-label="${esc(label)}">${lines}`
-    + '<div class="cs-pay-axis" aria-hidden="true"><span></span><span class="cs-pay-ticks"><span>0%</span><span>50%</span><span>100%</span></span><span></span></div></div>';
-  const table = tableHtml(['CAPAG grade', 'Towns', 'Paid within 30 days (mean of towns)'],
-    rows.map((g) => [g.grade, int(g.towns), pct(g.paidWithin30Days) + (g.low !== undefined ? ` (towns ${pct(g.low)}–${pct(g.high)})` : '')]));
-  return figure({
-    id: 'payment-chart',
-    title: 'Paid within 30 days, by Treasury grade',
-    subtitle: `${int(t.towns)} São Paulo towns that buy energy or were drawn to cover every grade: the mean share of company invoices paid within 30 days of the town confirming delivery. ${int(t.companyLiquidations)} company invoices from ${t.window}. Median time to pay: ${int(t.medianDaysToPay)} days.`,
-    plot,
-    table,
-    note: 'Grade D is a single town: read it as an example, not a rate.',
-  });
 }
 
 // ---------------------------------------------------------------------------------------------

@@ -74,8 +74,10 @@
    "opacity": 0.45
   },
   "bar": {
-   "color": "#4f5744",
-   "cornerRadiusEnd": 4
+   "color": "#4f5744"
+  },
+  "rect": {
+   "color": "#4f5744"
   },
   "text": {
    "font": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
@@ -85,7 +87,8 @@
   "range": {
    "category": [
     "#4f5744",
-    "#9a9588"
+    "#9a9588",
+    "#a5562f"
    ]
   },
   "legend": {
@@ -388,13 +391,16 @@
  "usermeta": {
   "generator": "charts/pld_daily.py",
   "live": {
-   "day": "day",
-   "key": "dates",
-   "snap": "line_marks",
-   "readout": "readout_marks",
    "params": [
     "period"
-   ]
+   ],
+   "pick": {
+    "mark": "line_marks",
+    "by": "x",
+    "signal": "day",
+    "key": "dates",
+    "readout": "readout_marks"
+   }
   },
   "altair": "6.3.0"
  },

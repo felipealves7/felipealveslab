@@ -1,13 +1,39 @@
 // Build-time rendering of the site's Altair charts (charts/*.py → src/charts/<name>.vl.json).
-// compileChart() turns a Vega-Lite spec into Vega; renderStatic() draws it to SVG in Node, reading
-// data only from the files the site serves under /data/. The browser runs the same compiled spec
-// (src/lib/charts/live.mjs), so the picture with no JavaScript and the live chart share one layout.
+// compileChart() turns a Vega-Lite spec into Vega; withRows() hands it the rows the page built
+// from its saved results; renderStatic() draws it to SVG in Node, reading files only from those
+// the site serves under /data/. The browser runs the same compiled spec (src/lib/charts/live.mjs),
+// so the picture with no JavaScript and the live chart share one layout.
 import * as vl from 'vega-lite';
 import { View, parse, loader as vegaLoader, textMetrics } from 'vega';
 import { expressionInterpreter } from 'vega-interpreter';
 import { readFileSync } from 'node:fs';
 
-const PUBLIC = new URL('public/', `file://${process.cwd().replace(/\/$/, '')}/`);
+const ROOT = `file://${process.cwd().replace(/\/$/, '')}/`;
+const PUBLIC = new URL('public/', ROOT);
+
+// A chart's saved Vega-Lite spec, as charts/build.py wrote it.
+export function loadSpec(name) {
+  if (!/^[a-z0-9-]+$/.test(name)) throw new Error(`Bad chart name ${name}`);
+  return JSON.parse(readFileSync(new URL(`src/charts/${name}.vl.json`, ROOT), 'utf8'));
+}
+
+// The width the page lays out: each panel's in a faceted chart, the plot's otherwise.
+export const widthSignal = (vega) => (vega.signals ?? []).some((s) => s.name === 'child_width') ? 'child_width' : 'width';
+
+// Fill the data sources a chart names in usermeta.rows (charts/theme.rows) with the rows the page
+// built from its saved results. Every one must be filled, and nothing else may be.
+export function withRows(vega, rows = {}) {
+  const out = structuredClone(vega);
+  const expected = out.usermeta?.rows ?? [];
+  for (const name of Object.keys(rows)) if (!expected.includes(name)) throw new Error(`The chart takes no rows called "${name}"`);
+  for (const name of expected) {
+    const d = (out.data ?? []).find((x) => x.name === name);
+    if (!d) throw new Error(`The compiled chart has no data source "${name}"`);
+    if (!Array.isArray(rows[name]) || rows[name].length === 0) throw new Error(`No rows for the chart's data source "${name}"`);
+    d.values = rows[name];
+  }
+  return out;
+}
 
 // Compile, refusing any warning: a warning means Vega-Lite dropped or changed part of the spec.
 export function compileChart(spec) {
@@ -78,15 +104,15 @@ export function tidySvg(svg, label) {
     .replace(/^<svg ([^>]*)class="marks"/, `<svg $1class="altair-svg" role="img" aria-label="${esc(label)}" focusable="false"`);
 }
 
-// Draw a compiled chart to SVG. `width` is the width of each panel; `signals` sets parameters
-// such as a period. Returns the SVG and its full size, so callers can work out the room the axes
+// Draw a compiled chart to SVG. `width` is the width of the plot (each panel's, when faceted); a
+// chart that keeps its own size takes none. `signals` sets parameters such as a period. Returns the SVG and its full size, so callers can work out the room the axes
 // and padding take.
 export async function renderStatic(vega, { width, signals = {}, label }) {
   const previous = textMetrics.width;
   textMetrics.width = textWidth;
   try {
     const view = new View(parse(vega, null, { ast: true }), { renderer: 'none', expr: expressionInterpreter, loader: siteLoader() });
-    view.signal('child_width', width);
+    if (width !== undefined) view.signal(widthSignal(vega), width);
     for (const [k, v] of Object.entries(signals)) view.signal(k, v);
     await view.runAsync();
     const raw = await view.toSVG();
@@ -99,12 +125,17 @@ export async function renderStatic(vega, { width, signals = {}, label }) {
   }
 }
 
-// Draw a chart at a given full width: the panel width is what is left after the axes and padding.
+// Draw a chart at a given full width: the plot gets what is left after the axes and padding. A
+// label that overhangs the plot can make that room depend on the width, so the fit is checked at
+// the width itself and corrected once.
 export async function renderAtWidth(vega, { fullWidth, signals, label }) {
   const probe = await renderStatic(vega, { width: 300, signals, label });
-  const chrome = probe.width - 300;
-  const width = Math.floor(fullWidth - chrome);
-  const out = await renderStatic(vega, { width, signals, label });
+  let width = Math.floor(fullWidth - (probe.width - 300));
+  let out = await renderStatic(vega, { width, signals, label });
+  if (out.width !== fullWidth) {
+    width += fullWidth - out.width;
+    out = await renderStatic(vega, { width, signals, label });
+  }
   if (out.width > fullWidth) throw new Error(`Chart is ${out.width} px wide at a ${fullWidth} px column`);
-  return { ...out, panelWidth: width, chrome };
+  return { ...out, panelWidth: width, chrome: fullWidth - width };
 }

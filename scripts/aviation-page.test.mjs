@@ -7,9 +7,10 @@ import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import {
   parseMonths, sum, value, overview, matched, checkAgainstSaved, reconcile, headline, changeBars,
-  parseHistogram, binLabel, lineChart, histogramChart, niceTicks, fmtChange, fmtRelative, fmtValue, METRIC_ORDER,
+  parseHistogram, binLabel, fmtChange, fmtRelative, fmtValue, METRIC_ORDER,
 } from '../src/lib/aviation/metrics.mjs';
 import { STAGES, excerpt, sourceSummary } from '../src/lib/aviation/notebook.mjs';
+import { monthRows, delayRows } from '../src/lib/charts/aviation.mjs';
 
 const dir = fileURLToPath(new URL('../data/aviation-reliability/', import.meta.url));
 const read = (f) => readFileSync(dir + f, 'utf8');
@@ -109,21 +110,20 @@ test('the delay histogram holds every observed arrival, in contiguous 15-minute 
   assert.throws(() => parseHistogram('bin_start,flights\n0,1\n15,2'), /expected 15-minute bins/);
 });
 
-test('chart geometry stays inside the plot', () => {
+test('the charts take every month of each measure, and every band', () => {
+  const { rows: data, years } = monthRows(rows);
+  assert.deepEqual(years, [2025, 2026]);
   for (const key of METRIC_ORDER) {
-    const c = lineChart(rows, key);
-    assert.deepEqual(c.series.map((s) => s.points.length), [12, 8]);
-    for (const p of c.series.flatMap((s) => s.points)) {
-      assert.ok(p.cx >= c.plot.left && p.cx <= c.plot.right, `${key} x`);
-      assert.ok(p.cy >= c.plot.top && p.cy <= c.plot.bottom, `${key} y`);
-    }
-    assert.equal(c.columns.length, 12);
-    assert.equal(c.columns[11].values[1].text, 'not in snapshot', 'the snapshot ends in August 2026; later months are not pending');
+    const m = data.filter((r) => r.measure === key);
+    assert.equal(m.length, 12, key);
+    assert.equal(m.filter((r) => r.before !== null).length, 12, `${key} 2025`);
+    assert.equal(m.filter((r) => r.after !== null).length, 8, `${key} 2026`);
+    // The snapshot ends in August 2026: later months say so rather than look pending.
+    assert.deepEqual(m[11].readout, ['Dec', [m[11].readout[1][0], '2025'], ['not in snapshot', '2026']]);
   }
-  const h = histogramChart(parseHistogram(read('delay_histogram.csv')));
-  assert.ok(h.bars.every((b) => b.width <= 24 && b.y >= h.plot.top && b.y + b.height <= h.plot.bottom + 0.01));
-  assert.ok(h.boundaryX > h.plot.left && h.boundaryX < h.plot.right);
-  assert.deepEqual(niceTicks(0, 4, 4).ticks, [0, 1, 2, 3, 4]);
+  const bands = delayRows(parseHistogram(read('delay_histogram.csv')));
+  assert.deepEqual(bands.map((b) => b.tick), ['< \u221230', '\u221230', '\u221215', '0', '15', '30', '45', '60', '75', '90', '105', '120', '135', '150', '165', '180+']);
+  assert.equal(bands.filter((b) => b.late).length, 12);
 });
 
 test('every code cell shows lines from a byte-identical copy of the code that ran', () => {
@@ -204,19 +204,6 @@ test('the page keeps its claims about the average', () => {
   assert.ok(get('mean_positive_delay').after > get('mean_positive_delay').before, 'the page says minutes late went up');
   const rise = get('cancellation_rate').after / get('cancellation_rate').before - 1;
   assert.ok(Math.abs(rise - 0.4) < 0.01, 'the page says cancellations rose by two fifths');
-});
-
-test('end labels stay inside the chart, clear of both lines and of each other', async () => {
-  const { linesHit, boxesOverlap } = await import('../src/lib/aviation/metrics.mjs');
-  for (const key of METRIC_ORDER) {
-    const c = lineChart(rows, key);
-    const [a, b] = c.series.map((s) => s.label);
-    for (const [s, l] of c.series.map((s) => [s, s.label])) {
-      assert.ok(l.box.x0 >= 0 && l.box.x1 <= c.width, `${key} ${s.year} label is cut off`);
-      assert.ok(!linesHit(l.box, c.series, s.points[s.points.length - 1]), `${key} ${s.year} label sits on a line`);
-    }
-    assert.ok(!boxesOverlap(a.box, b.box), `${key} labels overlap`);
-  }
 });
 
 // External platforms: data/aviation-reliability/external.json is a dated record of a signed-out check.
