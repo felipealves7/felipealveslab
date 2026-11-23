@@ -156,6 +156,7 @@ So, back to the question. One hour is nothing to one person and about 30 lives t
 ## How it was built
 
 - Pull request: https://github.com/felipealves7/felipealveslab/pull/57
+- The chart in Altair (`charts/dst_days.py`): pull request https://github.com/felipealves7/felipealveslab/pull/79
 - Code: `pipelines/dst-crashes/`. Saved outputs: `data/dst-crashes/` (daily counts in the windows, the per-year load log, the results and the IANA rule extract). Tests: `pipelines/dst-crashes/dst.test.mjs` and `scripts/dst-page.test.mjs`.
 - Running cost: US$0 a month. A fixed snapshot, rebuilt by hand when NHTSA releases a new year.
 
