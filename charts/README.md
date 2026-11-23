@@ -62,3 +62,6 @@ python3 charts/build.py --check    # exit 1 if a saved spec is not what the code
 python3 -m unittest discover -s charts
 node --test scripts/altair-charts.test.mjs
 ```
+
+CI runs the check, the Python tests and the Node test on every pull request and every push to
+`main`: the `charts` job runs the first two, and the `test` job runs the Node test with `npm test`.
