@@ -88,7 +88,7 @@ The average delay stayed flat because early arrivals count as negative minutes a
 - **The shutdown test compares groups of routes.** It cannot separate the FAA order from the controller shortages and weather of the same days. Routes between two unlisted airports are few: 7,896 flights over the ten order days.
 - **A fixed snapshot.** BTS can revise past months. The SHA-256 of every archive is in `data/aviation-reliability/source-manifest.json`; a refresh would replace whole months.
 - **Not rebuilt here.** This site does not rerun the pipeline. It recomputes every figure from the saved monthly table and checks that table against the independent counts.
-- **Tableau and Kaggle are extras.** This page does not depend on them. When checked signed out on 1 November 2026, the Tableau dashboard (revision 1.4, republished that day) and the Kaggle notebook and dataset were public. In that check, four of the dashboard's states matched the project's data and September 2026 showed no data; its own year, month and airport controls were not clicked. Loading the dashboard on this page asks public.tableau.com for it, so it happens only when you click.
+- **Tableau and Kaggle are extras.** This page does not depend on them. When checked signed out on 1 November 2026, the Tableau dashboard (revision 1.4, republished that day) and the Kaggle notebook and dataset were public. In that check, four of the dashboard's states matched the project's data and September 2026 showed no data; its own year, month and airport controls were not clicked. On wide screens, this page asks public.tableau.com for the dashboard as you reach it; phones get a link to it instead.
 - **Cost:** US$0 a month. Saved files, no scheduled job, no paid service.
 
 ## How it was built
