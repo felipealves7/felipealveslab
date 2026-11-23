@@ -1,8 +1,8 @@
 ---
 // "The MVP" on /case-studies/aviation-platform: the loader's scan as a clickable Figma prototype.
-// Everything shown when the page loads comes from data/aviation-platform/prototype.json and the four images in
-// public/assets/case-studies/aviation/. Nothing is requested from Figma until a visitor clicks
-// "Try the prototype here", and that button only appears on wide screens with scripts on.
+// The prototype is embedded live and loads from Figma as the visitor reaches it (loading="lazy"), on every
+// screen size. Everything else comes from data/aviation-platform/prototype.json and the four stills in
+// public/assets/case-studies/aviation/, which stay on the page as the fallback.
 import proto from '../../data/aviation-platform/prototype.json';
 import { checkPrototype, contrastFacts, figmaLinks } from '../lib/case-studies/loader-prototype.mjs';
 
@@ -27,6 +27,14 @@ const [labelLead, ...labelRest] = proto.label.split(/(?<=\.)\s+/);
     colour is never the only signal.
   </p>
   <p class="illustration-label"><strong>{labelLead}</strong> {labelRest.join(' ')}</p>
+  <div class="lp-live">
+    <iframe src={links.embed} title="Loader scan prototype, in Figma" loading="lazy" allowfullscreen></iframe>
+  </div>
+  <p class="lp-note">
+    The prototype loads from Figma as you reach it, and Figma sets its own cookies. Tap Scan unit, then Scan bag, and
+    pick a bag. <a href={links.proto} target="_blank" rel="noreferrer">Open it in Figma ↗</a>
+  </p>
+  <h3>The main screens</h3>
   <div class="lp-screens">
     {proto.screens.map((s) => (
       <figure>
@@ -35,12 +43,6 @@ const [labelLead, ...labelRest] = proto.label.split(/(?<=\.)\s+/);
       </figure>
     ))}
   </div>
-  <div class="lp-actions">
-    <button type="button" class="button primary lp-load" data-lp-load aria-controls="lp-slot">Try the prototype here</button>
-    <a class="button ghost" href={links.proto} target="_blank" rel="noreferrer">Open the prototype in Figma ↗</a>
-  </div>
-  <div class="lp-slot" id="lp-slot" hidden data-src={links.embed}></div>
-  <p class="lp-note">Loading it here fetches the prototype from Figma, which sets its own cookies. Nothing is requested from Figma until you click.</p>
   <h3>The rules behind the colours</h3>
   <p>Any failed check turns the screen red.</p>
   <table class="decision-table lp-rules">
@@ -67,24 +69,3 @@ const [labelLead, ...labelRest] = proto.label.split(/(?<=\.)\s+/);
     <a href={proto.figma.designUrl} target="_blank" rel="noreferrer">Open the file ↗</a>
   </p>
 </section>
-<script is:inline>
-(() => {
-  const button = document.querySelector('[data-lp-load]');
-  const slot = document.getElementById('lp-slot');
-  if (!button || !slot) return;
-  button.addEventListener('click', () => {
-    if (slot.dataset.loaded) return;
-    slot.dataset.loaded = 'yes';
-    button.disabled = true;
-    button.textContent = 'Loading…';
-    slot.hidden = false;
-    const frame = document.createElement('iframe');
-    frame.title = 'Loader scan prototype, in Figma';
-    frame.allowFullscreen = true;
-    frame.addEventListener('load', () => { button.textContent = 'Loaded below'; });
-    frame.src = slot.dataset.src;
-    slot.appendChild(frame);
-    slot.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
-})();
-</script>

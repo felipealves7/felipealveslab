@@ -1,9 +1,10 @@
 ---
 // "Also on Tableau Public and Kaggle" on /lab/aviation-reliability. Every URL, date and status comes from
 // data/aviation-reliability/external.json, a dated record of a signed-out check. The page works without
-// any of this: nothing is requested from Tableau until a visitor clicks "Load the dashboard here", and
-// that button only appears on wide screens with scripts on. The embed is Tableau's own Share-dialog code
-// (viz_v1.js), built with DOM methods from the recorded values.
+// any of this. On wide screens (1000 px and up, scripts on) the dashboard loads from Tableau Public as the
+// visitor reaches it, with no click. Phones get the link: the dashboard's phone layout overlapped in the
+// recorded check (external.json, phoneLayout). The embed is Tableau's own Share-dialog code (viz_v1.js),
+// built with DOM methods from the recorded values.
 import external from '../../data/aviation-reliability/external.json';
 
 interface Check { state: string; shown: Record<string, string> | string }
@@ -27,7 +28,6 @@ const emptyCheck = checks.some((c) => typeof c.shown === 'string');
       <p class="av-ext-meta">Republished {day(t.lastPublished)} · revision {t.revision}</p>
       <p>Pick a year and months, then click an origin to filter the routes. In {figureChecks} checks, one of them a single airport, its figures matched the project's data{emptyCheck && '; September 2026, after the last month, shows no data'}.</p>
       <div class="av-ext-actions">
-        <button type="button" class="button primary av-tableau-load" data-av-tableau-load aria-controls="av-tableau-slot">Load the dashboard here</button>
         <a class="button ghost" href={t.url} target="_blank" rel="noreferrer">Open on Tableau Public ↗</a>
       </div>
     </article>
@@ -50,18 +50,15 @@ const emptyCheck = checks.some((c) => typeof c.shown === 'string');
     data-name={t.view} data-host={t.embed.hostUrl} data-static={t.embed.staticImage} data-script={t.embed.script}
     data-min={t.embed.wide.minWidth} data-wide-w={t.embed.wide.width} data-wide-h={t.embed.wide.height}
     data-narrow-w={t.embed.narrow.width} data-narrow-h={t.embed.narrow.height}></div>
-  <p class="av-note av-tableau-note">Loading the dashboard here fetches it and Tableau's script from public.tableau.com, which sets its own cookies. Nothing is requested until you click.</p>
+  <p class="av-note av-tableau-note">The dashboard loads here from Tableau Public as you reach it, with Tableau's own script and cookies.</p>
 </section>
 <script is:inline>
 (() => {
-  const button = document.querySelector('[data-av-tableau-load]');
   const slot = document.getElementById('av-tableau-slot');
-  if (!button || !slot) return;
-  button.addEventListener('click', () => {
-    if (slot.dataset.loaded) return;
-    slot.dataset.loaded = 'yes';
-    button.disabled = true;
-    button.textContent = 'Loading…';
+  const section = slot && slot.closest('section');
+  if (!section || !('IntersectionObserver' in window)) return;
+  if (!window.matchMedia('(min-width: 1000px)').matches) return;
+  const load = () => {
     slot.hidden = false;
     const holder = document.createElement('div');
     holder.className = 'tableauPlaceholder';
@@ -88,10 +85,14 @@ const emptyCheck = checks.some((c) => typeof c.shown === 'string');
     viz.style.height = wide ? slot.dataset.wideH : slot.dataset.narrowH;
     const script = document.createElement('script');
     script.src = slot.dataset.script;
-    script.addEventListener('load', () => { button.textContent = 'Loaded below'; });
-    script.addEventListener('error', () => { button.textContent = 'Could not load: use the link'; });
     viz.parentNode.insertBefore(script, viz);
-    slot.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
+  };
+  // Load once, as the section comes within 400 px of the screen.
+  const seen = new IntersectionObserver((entries) => {
+    if (!entries.some((e) => e.isIntersecting)) return;
+    seen.disconnect();
+    load();
+  }, { rootMargin: '400px 0px' });
+  seen.observe(section);
 })();
 </script>
