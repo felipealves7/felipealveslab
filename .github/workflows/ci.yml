@@ -44,3 +44,20 @@ jobs:
         run: npm run check
       - name: Unit tests
         run: npm test
+
+  charts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          cache: pip
+          cache-dependency-path: charts/requirements.txt
+      - name: Install Altair
+        run: pip install -r charts/requirements.txt
+      - name: Chart specs match the chart code
+        run: python3 charts/build.py --check
+      - name: Chart tests
+        run: python3 -m unittest discover -s charts
