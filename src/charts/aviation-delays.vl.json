@@ -1,0 +1,280 @@
+{
+ "config": {
+  "background": "#f8f6f0",
+  "padding": {
+   "left": 8,
+   "right": 14,
+   "top": 10,
+   "bottom": 6
+  },
+  "font": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+  "view": {
+   "stroke": null
+  },
+  "axis": {
+   "labelFont": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "labelFontSize": 11,
+   "labelColor": "#656561",
+   "titleFont": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "titleFontSize": 11,
+   "titleFontWeight": 400,
+   "titleColor": "#656561",
+   "gridColor": "#dddcd6",
+   "gridWidth": 1,
+   "domainColor": "#aaa9a4",
+   "tickColor": "#aaa9a4",
+   "labelPadding": 5
+  },
+  "axisX": {
+   "grid": true,
+   "domain": true,
+   "ticks": true,
+   "tickSize": 4,
+   "labelFlush": true
+  },
+  "axisY": {
+   "grid": true,
+   "domain": false,
+   "ticks": false,
+   "minExtent": 40,
+   "maxExtent": 40,
+   "labelPadding": 6
+  },
+  "header": {
+   "labelFont": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "labelFontSize": 12,
+   "labelFontWeight": 600,
+   "labelColor": "#1a1a17",
+   "labelAnchor": "start",
+   "labelAngle": 0,
+   "labelOrient": "top",
+   "labelPadding": 6,
+   "titleFontSize": 0
+  },
+  "facet": {
+   "spacing": 20
+  },
+  "line": {
+   "color": "#4f5744",
+   "strokeWidth": 2,
+   "strokeJoin": "round",
+   "strokeCap": "round"
+  },
+  "point": {
+   "color": "#4f5744",
+   "filled": true,
+   "size": 64,
+   "stroke": "#f8f6f0",
+   "strokeWidth": 2,
+   "opacity": 1
+  },
+  "rule": {
+   "color": "#1a1a17",
+   "strokeWidth": 1,
+   "opacity": 0.45
+  },
+  "bar": {
+   "color": "#4f5744"
+  },
+  "rect": {
+   "color": "#4f5744"
+  },
+  "text": {
+   "font": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "fontSize": 11,
+   "color": "#1a1a17"
+  },
+  "range": {
+   "category": [
+    "#4f5744",
+    "#9a9588",
+    "#a5562f"
+   ]
+  },
+  "legend": {
+   "labelFont": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "labelFontSize": 11,
+   "labelColor": "#1a1a17",
+   "titleFont": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "titleFontSize": 11,
+   "titleColor": "#656561",
+   "titleFontWeight": 400,
+   "orient": "top",
+   "symbolStrokeWidth": 2
+  },
+  "title": {
+   "font": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "fontSize": 15,
+   "fontWeight": 600,
+   "color": "#1a1a17",
+   "anchor": "start"
+  }
+ },
+ "layer": [
+  {
+   "data": {
+    "values": [
+     {}
+    ]
+   },
+   "mark": {
+    "type": "text",
+    "align": "left",
+    "aria": false,
+    "baseline": "bottom",
+    "color": "#656561",
+    "dy": -8,
+    "text": "Flights"
+   },
+   "encoding": {
+    "x": {
+     "value": 0
+    },
+    "y": {
+     "value": 0
+    }
+   }
+  },
+  {
+   "data": {
+    "name": "rows"
+   },
+   "mark": {
+    "type": "bar",
+    "aria": false,
+    "cornerRadiusEnd": 4,
+    "tooltip": {
+     "expr": "datum.readout"
+    }
+   },
+   "encoding": {
+    "color": {
+     "condition": {
+      "test": "datum.start === band",
+      "value": "#1a1a17"
+     },
+     "value": "#4f5744"
+    },
+    "x": {
+     "axis": {
+      "grid": false,
+      "labelAngle": 0,
+      "labelOverlap": "parity",
+      "labelSeparation": 6,
+      "ticks": false
+     },
+     "field": "tick",
+     "scale": {
+      "paddingInner": 0.18,
+      "paddingOuter": 0.1
+     },
+     "sort": {
+      "field": "start",
+      "op": "min"
+     },
+     "title": "Minutes late on arrival (negative = early)",
+     "type": "ordinal"
+    },
+    "y": {
+     "axis": {
+      "labelExpr": "datum.value >= 1e6 ? format(datum.value / 1e6, '.1~f') + 'M' : datum.value >= 1e3 ? format(datum.value / 1e3, '.0f') + 'K' : format(datum.value, '.0f')",
+      "tickCount": 4
+     },
+     "field": "flights",
+     "title": null,
+     "type": "quantitative"
+    }
+   },
+   "name": "bars"
+  },
+  {
+   "data": {
+    "name": "rows"
+   },
+   "mark": {
+    "type": "rule",
+    "aria": false,
+    "color": "#1a1a17",
+    "opacity": 1,
+    "xOffset": {
+     "expr": "-bandwidth('x') * 0.09 / 0.82"
+    }
+   },
+   "encoding": {
+    "x": {
+     "bandPosition": 0,
+     "field": "tick",
+     "sort": {
+      "field": "start",
+      "op": "min"
+     },
+     "type": "ordinal"
+    }
+   },
+   "transform": [
+    {
+     "filter": "datum.start === 15"
+    }
+   ]
+  },
+  {
+   "data": {
+    "name": "rows"
+   },
+   "mark": {
+    "type": "text",
+    "align": "left",
+    "aria": false,
+    "baseline": "top",
+    "dx": 6,
+    "dy": 2,
+    "fontWeight": 600,
+    "text": "Late from 15 minutes"
+   },
+   "encoding": {
+    "x": {
+     "bandPosition": 0,
+     "field": "tick",
+     "sort": {
+      "field": "start",
+      "op": "min"
+     },
+     "type": "ordinal"
+    },
+    "y": {
+     "value": 0
+    }
+   },
+   "transform": [
+    {
+     "filter": "datum.start === 15"
+    }
+   ]
+  }
+ ],
+ "description": "Arrival delay of every observed arrival in 15-minute bands, from more than 30 minutes early to 180 minutes or more late, with the line at 15 minutes from which a flight counts as late. The table under the chart lists every band.",
+ "height": 220,
+ "params": [
+  {
+   "name": "band",
+   "value": null
+  }
+ ],
+ "usermeta": {
+  "generator": "charts/aviation_delays.py",
+  "rows": [
+   "rows"
+  ],
+  "live": {
+   "pick": {
+    "mark": "bars_marks",
+    "by": "x",
+    "signal": "band",
+    "key": "start"
+   }
+  },
+  "altair": "6.3.0"
+ },
+ "width": 650,
+ "$schema": "https://vega.github.io/schema/vega-lite/v6.4.1.json"
+}

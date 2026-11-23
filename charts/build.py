@@ -10,9 +10,15 @@ from pathlib import Path
 
 import altair as alt
 
+import aviation_delays
+import aviation_months
+import checks
+import dst_days
 import pld_daily
+import zoom
+from bars import Bars, BarsChange
 
-CHARTS = [pld_daily]
+CHARTS = [pld_daily, dst_days, aviation_months, aviation_delays, Bars, BarsChange, checks, zoom]
 OUT = Path(__file__).resolve().parent.parent / "src" / "charts"
 
 

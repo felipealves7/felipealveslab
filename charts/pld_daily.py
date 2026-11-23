@@ -97,7 +97,10 @@ def chart() -> alt.FacetChart:
             description=DESCRIPTION,
             usermeta={
                 "generator": "charts/pld_daily.py",
-                "live": {"day": "day", "key": "dates", "snap": "line_marks", "readout": "readout_marks", "params": ["period"]},
+                "live": {
+                    "params": ["period"],
+                    "pick": {"mark": "line_marks", "by": "x", "signal": "day", "key": "dates", "readout": "readout_marks"},
+                },
             },
         )
     )

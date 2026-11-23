@@ -1,20 +1,22 @@
 ---
 import Base from '../../layouts/Base.astro';
 import figures from '../../../data/sinalvo/figures.json';
-import { sectorChart, funnelChart, paymentChart } from '../../lib/case-studies/sinalvo.mjs';
+import AltairCharts from '../../components/AltairCharts.astro';
+import { sectorFigure, zoomFigure, paymentFigure } from '../../lib/charts/sinalvo.mjs';
 
-// The three exhibits are drawn at build time from data/sinalvo/figures.json.
+// The exhibits are Altair charts (charts/), drawn at build time from data/sinalvo/figures.json by
+// src/lib/charts/sinalvo.mjs and run in the browser by AltairCharts.
 // scripts/sinalvo-page.test.mjs checks the figures quoted in the text below against the same file.
-const sectors = sectorChart(figures);
-const funnel = funnelChart(figures);
-const payment = paymentChart(figures);
+const sectors = await sectorFigure(figures);
+const funnel = await zoomFigure(figures);
+const payment = await paymentFigure(figures);
 ---
 <Base
   title={'sinalvo case study — Felipe Alves'}
   description={"A B2B data product on Brazil's public tender data, tested in one week and stopped before build: market sizing, two data probes, an investor-style review and a post-mortem."}
   ogDescription={'Product discovery with stop rules, cheap probes and a clear stop: a data product tested in a week.'}
   ogType="article"
-  css={['styles', 'responsive', 'enhancements', 'site-fixes', 'illustrations', 'case-charts']}
+  css={['styles', 'responsive', 'enhancements', 'site-fixes', 'illustrations', 'altair-charts', 'case-charts']}
   bodyClass="case-page"
   script="script"
 >
@@ -157,4 +159,5 @@ const payment = paymentChart(figures);
   </div>
 </section>
 </main>
+<AltairCharts />
 </Base>

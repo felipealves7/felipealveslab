@@ -1,0 +1,520 @@
+{
+ "config": {
+  "background": "#f8f6f0",
+  "padding": {
+   "left": 8,
+   "right": 14,
+   "top": 10,
+   "bottom": 6
+  },
+  "font": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+  "view": {
+   "stroke": null
+  },
+  "axis": {
+   "labelFont": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "labelFontSize": 11,
+   "labelColor": "#656561",
+   "titleFont": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "titleFontSize": 11,
+   "titleFontWeight": 400,
+   "titleColor": "#656561",
+   "gridColor": "#dddcd6",
+   "gridWidth": 1,
+   "domainColor": "#aaa9a4",
+   "tickColor": "#aaa9a4",
+   "labelPadding": 5
+  },
+  "axisX": {
+   "grid": true,
+   "domain": true,
+   "ticks": true,
+   "tickSize": 4,
+   "labelFlush": true
+  },
+  "axisY": {
+   "grid": true,
+   "domain": false,
+   "ticks": false,
+   "minExtent": 40,
+   "maxExtent": 40,
+   "labelPadding": 6
+  },
+  "header": {
+   "labelFont": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "labelFontSize": 12,
+   "labelFontWeight": 600,
+   "labelColor": "#1a1a17",
+   "labelAnchor": "start",
+   "labelAngle": 0,
+   "labelOrient": "top",
+   "labelPadding": 6,
+   "titleFontSize": 0
+  },
+  "facet": {
+   "spacing": 20
+  },
+  "line": {
+   "color": "#4f5744",
+   "strokeWidth": 2,
+   "strokeJoin": "round",
+   "strokeCap": "round"
+  },
+  "point": {
+   "color": "#4f5744",
+   "filled": true,
+   "size": 64,
+   "stroke": "#f8f6f0",
+   "strokeWidth": 2,
+   "opacity": 1
+  },
+  "rule": {
+   "color": "#1a1a17",
+   "strokeWidth": 1,
+   "opacity": 0.45
+  },
+  "bar": {
+   "color": "#4f5744"
+  },
+  "rect": {
+   "color": "#4f5744"
+  },
+  "text": {
+   "font": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "fontSize": 11,
+   "color": "#1a1a17"
+  },
+  "range": {
+   "category": [
+    "#4f5744",
+    "#9a9588",
+    "#a5562f"
+   ]
+  },
+  "legend": {
+   "labelFont": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "labelFontSize": 11,
+   "labelColor": "#1a1a17",
+   "titleFont": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "titleFontSize": 11,
+   "titleColor": "#656561",
+   "titleFontWeight": 400,
+   "orient": "top",
+   "symbolStrokeWidth": 2
+  },
+  "title": {
+   "font": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "fontSize": 15,
+   "fontWeight": 600,
+   "color": "#1a1a17",
+   "anchor": "start"
+  }
+ },
+ "layer": [
+  {
+   "mark": {
+    "type": "text",
+    "align": "left",
+    "aria": false,
+    "baseline": "bottom",
+    "color": "#656561",
+    "dy": -8
+   },
+   "encoding": {
+    "text": {
+     "field": "axisTitle",
+     "type": "nominal"
+    },
+    "x": {
+     "value": 0
+    },
+    "y": {
+     "value": 0
+    }
+   },
+   "transform": [
+    {
+     "filter": "datum.measure === measure"
+    },
+    {
+     "filter": "datum.month === 1"
+    }
+   ]
+  },
+  {
+   "mark": {
+    "type": "line",
+    "aria": false
+   },
+   "encoding": {
+    "color": {
+     "field": "year",
+     "legend": null,
+     "scale": {
+      "range": [
+       "#9a9588",
+       "#4f5744"
+      ]
+     },
+     "sort": "ascending",
+     "type": "nominal"
+    },
+    "x": {
+     "axis": {
+      "grid": false,
+      "labelExpr": "['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][datum.value - 1]",
+      "labelFlush": false,
+      "values": [
+       1,
+       2,
+       3,
+       4,
+       5,
+       6,
+       7,
+       8,
+       9,
+       10,
+       11,
+       12
+      ]
+     },
+     "field": "month",
+     "scale": {
+      "domain": [
+       1,
+       12
+      ],
+      "nice": false
+     },
+     "title": null,
+     "type": "quantitative"
+    },
+    "y": {
+     "axis": {
+      "tickCount": 4
+     },
+     "field": "value",
+     "scale": {
+      "nice": true,
+      "zero": false
+     },
+     "title": null,
+     "type": "quantitative"
+    }
+   },
+   "name": "lines",
+   "transform": [
+    {
+     "filter": "datum.measure === measure"
+    },
+    {
+     "fold": [
+      "before",
+      "after"
+     ],
+     "as": [
+      "series",
+      "value"
+     ]
+    },
+    {
+     "filter": "isValid(datum.value)"
+    },
+    {
+     "calculate": "datum.series === 'before' ? datum.yearBefore : datum.yearAfter",
+     "as": "year"
+    }
+   ]
+  },
+  {
+   "mark": {
+    "type": "text",
+    "align": "left",
+    "aria": false,
+    "dx": 8,
+    "fontWeight": 600
+   },
+   "encoding": {
+    "text": {
+     "field": "year",
+     "type": "nominal"
+    },
+    "x": {
+     "axis": {
+      "grid": false,
+      "labelExpr": "['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][datum.value - 1]",
+      "labelFlush": false,
+      "values": [
+       1,
+       2,
+       3,
+       4,
+       5,
+       6,
+       7,
+       8,
+       9,
+       10,
+       11,
+       12
+      ]
+     },
+     "field": "month",
+     "scale": {
+      "domain": [
+       1,
+       12
+      ],
+      "nice": false
+     },
+     "title": null,
+     "type": "quantitative"
+    },
+    "y": {
+     "axis": {
+      "tickCount": 4
+     },
+     "field": "value",
+     "scale": {
+      "nice": true,
+      "zero": false
+     },
+     "title": null,
+     "type": "quantitative"
+    }
+   },
+   "transform": [
+    {
+     "filter": "datum.measure === measure"
+    },
+    {
+     "fold": [
+      "before",
+      "after"
+     ],
+     "as": [
+      "series",
+      "value"
+     ]
+    },
+    {
+     "filter": "isValid(datum.value)"
+    },
+    {
+     "calculate": "datum.series === 'before' ? datum.yearBefore : datum.yearAfter",
+     "as": "year"
+    },
+    {
+     "joinaggregate": [
+      {
+       "op": "max",
+       "field": "month",
+       "as": "last"
+      }
+     ],
+     "groupby": [
+      "series"
+     ]
+    },
+    {
+     "filter": "datum.month === datum.last"
+    }
+   ]
+  },
+  {
+   "mark": {
+    "type": "rule",
+    "aria": false,
+    "clip": true
+   },
+   "encoding": {
+    "x": {
+     "axis": {
+      "grid": false,
+      "labelExpr": "['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][datum.value - 1]",
+      "labelFlush": false,
+      "values": [
+       1,
+       2,
+       3,
+       4,
+       5,
+       6,
+       7,
+       8,
+       9,
+       10,
+       11,
+       12
+      ]
+     },
+     "field": "month",
+     "scale": {
+      "domain": [
+       1,
+       12
+      ],
+      "nice": false
+     },
+     "title": null,
+     "type": "quantitative"
+    }
+   },
+   "transform": [
+    {
+     "filter": "datum.measure === measure"
+    },
+    {
+     "fold": [
+      "before",
+      "after"
+     ],
+     "as": [
+      "series",
+      "value"
+     ]
+    },
+    {
+     "filter": "isValid(datum.value)"
+    },
+    {
+     "calculate": "datum.series === 'before' ? datum.yearBefore : datum.yearAfter",
+     "as": "year"
+    },
+    {
+     "filter": "datum.month === month"
+    }
+   ]
+  },
+  {
+   "mark": {
+    "type": "point",
+    "aria": false,
+    "clip": true,
+    "tooltip": {
+     "expr": "datum.readout"
+    }
+   },
+   "encoding": {
+    "color": {
+     "field": "year",
+     "legend": null,
+     "scale": {
+      "range": [
+       "#9a9588",
+       "#4f5744"
+      ]
+     },
+     "sort": "ascending",
+     "type": "nominal"
+    },
+    "x": {
+     "axis": {
+      "grid": false,
+      "labelExpr": "['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][datum.value - 1]",
+      "labelFlush": false,
+      "values": [
+       1,
+       2,
+       3,
+       4,
+       5,
+       6,
+       7,
+       8,
+       9,
+       10,
+       11,
+       12
+      ]
+     },
+     "field": "month",
+     "scale": {
+      "domain": [
+       1,
+       12
+      ],
+      "nice": false
+     },
+     "title": null,
+     "type": "quantitative"
+    },
+    "y": {
+     "axis": {
+      "tickCount": 4
+     },
+     "field": "value",
+     "scale": {
+      "nice": true,
+      "zero": false
+     },
+     "title": null,
+     "type": "quantitative"
+    }
+   },
+   "name": "readout",
+   "transform": [
+    {
+     "filter": "datum.measure === measure"
+    },
+    {
+     "fold": [
+      "before",
+      "after"
+     ],
+     "as": [
+      "series",
+      "value"
+     ]
+    },
+    {
+     "filter": "isValid(datum.value)"
+    },
+    {
+     "calculate": "datum.series === 'before' ? datum.yearBefore : datum.yearAfter",
+     "as": "year"
+    },
+    {
+     "filter": "datum.month === month"
+    }
+   ]
+  }
+ ],
+ "data": {
+  "name": "rows"
+ },
+ "description": "One flight reliability measure by month, the latest year against the year before, from the pipeline's monthly totals. The buttons above the chart pick the measure; the table under it lists every value.",
+ "height": 230,
+ "params": [
+  {
+   "name": "measure",
+   "value": "mean_signed_delay"
+  },
+  {
+   "name": "month",
+   "value": null
+  }
+ ],
+ "usermeta": {
+  "generator": "charts/aviation_months.py",
+  "rows": [
+   "rows"
+  ],
+  "live": {
+   "params": [
+    "measure"
+   ],
+   "pick": {
+    "mark": "lines_marks",
+    "by": "x",
+    "signal": "month",
+    "key": "month",
+    "readout": "readout_marks"
+   }
+  },
+  "altair": "6.3.0"
+ },
+ "width": 650,
+ "$schema": "https://vega.github.io/schema/vega-lite/v6.4.1.json"
+}

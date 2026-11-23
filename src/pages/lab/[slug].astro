@@ -12,11 +12,13 @@ import AviationNotebook from '../../components/AviationNotebook.astro';
 import AviationElsewhere from '../../components/AviationElsewhere.astro';
 import AltairCharts from '../../components/AltairCharts.astro';
 import pldResults from '../../../data/ccee-pld/results.json';
-import pldSpec from '../../charts/pld-daily.vl.json';
 import airportResults from '../../../data/airport-contract/results.json';
 import ledgerEvalResults from '../../../data/ledger-eval/results.json';
-import { fillLabCharts, airportChart, ledgerChart } from '../../lib/lab/svg-charts.mjs';
+import { fillLabCharts } from '../../lib/lab/charts.mjs';
+import { ledgerFigure, airportFigure } from '../../lib/charts/lab.mjs';
 import { pldFigure } from '../../lib/charts/pld.mjs';
+import { dstFigure } from '../../lib/charts/dst.mjs';
+import dstResults from '../../../data/dst-crashes/results.json';
 import { wrapTables } from '../../lib/lab/prose.mjs';
 
 export async function getStaticPaths() {
@@ -25,14 +27,18 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-// Build-time SVG charts replace their markers in the rendered Markdown, so they sit inside the page's sections.
-// The PLD chart is made with Altair (charts/pld_daily.py) and drawn here; src/lib/charts/live.mjs runs it in the browser.
+// Each page's chart replaces its marker in the rendered Markdown, so it sits inside the page's sections.
+// The charts are made with Altair (charts/) and drawn here by src/lib/charts/; AltairCharts runs them in the browser.
 // Every table then sits in a container that scrolls sideways on a phone.
-const pldHtml = entry.id === 'brazil-power-price-contract' ? await pldFigure(pldResults, pldSpec) : '';
+const pldHtml = entry.id === 'brazil-power-price-contract' ? await pldFigure(pldResults) : '';
+const dstHtml = entry.id === 'spring-clock-change-road-deaths' ? await dstFigure(dstResults) : '';
+const airportHtml = entry.id === 'airport-data-contract' ? await airportFigure(airportResults) : '';
+const ledgerHtml = entry.id === 'ask-the-ledger' ? await ledgerFigure(ledgerEvalResults) : '';
 const body = wrapTables(fillLabCharts(entry.rendered?.html ?? '', {
   pld: () => pldHtml,
-  airport: () => airportChart(airportResults),
-  ledger: () => ledgerChart(ledgerEvalResults),
+  dst: () => dstHtml,
+  airport: () => airportHtml,
+  ledger: () => ledgerHtml,
 }));
 const d = entry.data;
 const fmt = (date: Date) => date.toISOString().slice(0, 10);
@@ -45,7 +51,7 @@ const isAviation = entry.id === 'aviation-reliability';
 const isPld = entry.id === 'brazil-power-price-contract';
 const isDst = entry.id === 'spring-clock-change-road-deaths';
 const label = d.series === 'human-variable' ? 'The Human Variable' : d.lane;
-const css = ['styles', 'responsive', 'enhancements', 'site-fixes', 'illustrations', 'lab', ...(isAirport ? ['lab-airport'] : []), 'lab-proof', ...(isAirport || isLedger || isPld ? ['lab-charts'] : []), ...(isAviation ? ['lab-aviation'] : []), ...(isPld ? ['lab-pld', 'altair-charts'] : []), ...(isDst ? ['lab-dst'] : [])];
+const css = ['styles', 'responsive', 'enhancements', 'site-fixes', 'illustrations', 'lab', ...(isAirport ? ['lab-airport'] : []), 'lab-proof', 'altair-charts', ...(isAviation ? ['lab-aviation'] : []), ...(isPld ? ['lab-pld'] : []), ...(isDst ? ['lab-dst'] : [])];
 ---
 <Base
   title={`${d.title} — Felipe Alves Lab`}
@@ -94,7 +100,7 @@ const css = ['styles', 'responsive', 'enhancements', 'site-fixes', 'illustration
     </section>
   </main>
   {isAirport && <AirportReplay />}
-  {isPld && <AltairCharts />}
+  <AltairCharts />
   {demoScript && <script is:inline src={demoScript}></script>}
   {extraScript && <script is:inline src={extraScript}></script>}
 </Base>

@@ -7,8 +7,9 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import {
   checkFigures, derived, openTenders, int, pct, brlFull, span,
-  sectorChart, sectorChartData, funnelChart, funnelChartData, paymentChart, paymentChartData,
+  sectorChartData, funnelChartData, paymentChartData,
 } from '../src/lib/case-studies/sinalvo.mjs';
+import { sectorFigure, zoomFigure, zoomRows, paymentFigure } from '../src/lib/charts/sinalvo.mjs';
 import { SITE_PAGES } from '../src/lib/site-pages.mjs';
 
 const read = (p) => readFileSync(new URL(`../${p}`, import.meta.url), 'utf8');
@@ -147,57 +148,67 @@ test('the home card shows the same week, drawn to the same proportions', () => {
   assert.equal((home.match(/class="case-card[ "]/g) ?? []).length, 4);
 });
 
-test('the sector chart draws every sector, longest bar first, energy highlighted', () => {
+test('the sector chart draws every sector, longest bar first, energy in ink', async () => {
   const rows = sectorChartData(figures);
-  const html = sectorChart(figures);
+  const html = await sectorFigure(figures);
   assert.equal(rows.length, figures.pncp90.sectors.length);
   assert.equal(rows[0].share, 1);
   for (let i = 1; i < rows.length; i++) assert.ok(rows[i].formalTenders <= rows[i - 1].formalTenders);
   for (const s of figures.pncp90.sectors) {
-    assert.ok(html.includes(s.label.replace(/&/g, '&amp;')), `${s.label} labelled`);
-    assert.ok(html.includes(`<span class="cs-sector-count">${int(s.formalTenders)}</span>`), `${s.label} count`);
+    assert.ok(html.includes(`>${s.label.replace(/&/g, '&amp;')}</text>`), `${s.label} labelled`);
+    assert.ok(html.includes(`>${int(s.formalTenders)} · median `), `${s.label} count`);
   }
-  const energy = rows.find((s) => s.key === 'energy');
-  assert.match(html, /<div class="cs-sector is-focus"[^>]*><span class="cs-sector-label">Energy &amp; lighting<\/span>/);
-  assert.ok(html.includes(`width:${(Math.round(energy.share * 1000) / 10).toFixed(1)}%`));
-  assert.match(html, /third-highest median of 9 sectors/);
+  // Only the energy bar is drawn in ink, in each of the two drawings.
+  const bars = [...html.matchAll(/<g class="mark-rect role-mark bars_marks"[^>]*>(.*?)<\/g>/g)].map((m) => [...m[1].matchAll(/fill="(#[0-9a-f]{6})"/g)].map((f) => f[1]));
+  assert.equal(bars.length, 2);
+  for (const fills of bars) assert.deepEqual(fills, rows.map((r) => (r.focus ? '#1a1a17' : '#4f5744')));
+  assert.match(html, /Energy &amp; lighting, in ink: 1,618 formal tenders, third-highest median of 9 sectors\./);
 });
 
-test('the zoom chart shows the week, the energy slice and what it was made of', () => {
+test('the zoom chart shows the week, the energy slice and what it was made of', async () => {
   const d = funnelChartData(figures);
-  const html = funnelChart(figures);
-  for (const v of [d.notices, d.energy, d.open, d.other, ...d.work.map((w) => w.notices)]) {
-    assert.ok(html.includes(`<strong>${int(v)}</strong>`), `${v} shown`);
+  const rows = zoomRows(figures);
+  // The two bars are whole: the slices of each step run from 0 to 1 with no gap.
+  for (const step of [1, 2]) {
+    const segs = rows.filter((r) => r.step === step);
+    assert.equal(segs[0].start, 0);
+    assert.ok(Math.abs(segs[segs.length - 1].end - 1) < 1e-12);
+    for (let i = 1; i < segs.length; i++) assert.equal(segs[i].start, segs[i - 1].end);
   }
-  assert.ok(html.includes('style="width:0.7%"'), 'energy sliver at 0.7% of the week');
-  assert.ok(html.includes('--from:99.3%'), 'zoom starts at the sliver');
-  const segs = [...html.matchAll(/cs-seg--w\d" style="width:([\d.]+)%"/g)].map((m) => Number(m[1]));
-  assert.equal(segs.length, d.work.filter((w) => w.notices > 0).length);
-  assert.ok(Math.abs(segs.reduce((a, b) => a + b, 0) - 100) < 0.11, 'kinds of work fill the bar');
-  assert.match(html, /<li class="is-zero"><i class="cs-key cs-seg--w5"><\/i><span>Free electricity market<\/span><strong>0<\/strong>/);
+  const slice = rows.find((r) => r.key === 'energy');
+  assert.ok(Math.abs(slice.end - slice.start - d.energyShare) < 1e-12);
+  assert.equal(slice.zoomFrom, 1 - d.energyShare);
+  const html = await zoomFigure(figures);
+  for (const v of [d.notices, d.energy, d.open, d.other, ...d.work.map((w) => w.notices)]) {
+    assert.ok(html.includes(int(v)), `${v} shown`);
+  }
+  assert.match(html, />173 energy \(0\.7%\)</);
+  // Kinds of work are their own bars, zero included, filling to the 173.
+  assert.match(html, />Free electricity market<\/text>/);
+  assert.match(html, />0 · 0%<\/text>/);
 });
 
-test('the payment chart gives every grade its towns, and the range for grade C', () => {
+test('the payment chart gives every grade its towns, and the range for grade C', async () => {
   const rows = paymentChartData(figures);
-  const html = paymentChart(figures);
+  const html = await paymentFigure(figures);
   for (const g of rows) {
-    assert.ok(html.includes(`<span class="cs-pay-value">${pct(g.paidWithin30Days)}</span>`), `grade ${g.grade} value`);
-    assert.ok(html.includes(`${g.towns} town${g.towns === 1 ? '' : 's'}</span>`), `grade ${g.grade} towns`);
+    assert.ok(html.includes(`>${g.ungraded ? 'No grade' : `Grade ${g.grade}`} · ${g.towns} town${g.towns === 1 ? '' : 's'}</text>`), `grade ${g.grade} towns`);
+    assert.ok(html.includes(`>${pct(g.paidWithin30Days)}`), `grade ${g.grade} value`);
   }
-  assert.ok(html.includes('class="cs-range" style="left:49.0%;width:51.0%"'));
-  assert.match(html, /towns ranged 49%–100%/);
+  assert.match(html, />86% \(towns 49%–100%\)<\/text>/);
   assert.match(html, /Grade D is a single town/);
 });
 
-test('every chart is static HTML with a table view', () => {
-  for (const html of [sectorChart(figures), funnelChart(figures), paymentChart(figures)]) {
-    assert.doesNotMatch(html, /<script/i);
-    assert.match(html, /role="img" aria-label="[^"]{80,}"/);
-    assert.match(html, /<details class="cs-table"><summary>Show the numbers<\/summary><div class="cs-table-scroll"><table>/);
+test('every chart is drawn at build time, with a table view and its source', async () => {
+  for (const html of [await sectorFigure(figures), await zoomFigure(figures), await paymentFigure(figures)]) {
+    assert.match(html, /<svg [^>]*class="altair-svg" role="img" aria-label="[^"]{80,}"/);
+    assert.match(html, /<details class="altair-table"><summary>Show the numbers<\/summary><table>/);
     assert.match(html, /<code>data\/sinalvo\/figures\.json<\/code>/);
+    assert.match(html, /class="altair-figure cs-figure"/);
   }
   assert.match(source, /import figures from '\.\.\/\.\.\/\.\.\/data\/sinalvo\/figures\.json'/);
-  assert.match(source, /css=\{\[[^\]]*'case-charts'[^\]]*\]\}/);
+  assert.match(source, /css=\{\[[^\]]*'altair-charts'[^\]]*'case-charts'[^\]]*\]\}/);
+  assert.match(source, /<AltairCharts \/>/);
 });
 
 test('the case study is in the sitemap list and linked from the home page', () => {

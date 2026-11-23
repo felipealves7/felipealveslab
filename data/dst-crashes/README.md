@@ -46,5 +46,6 @@ Indiana and records outside the 50 states and DC are left out of `window.csv`.
 ```
 node pipelines/dst-crashes/extract.mjs --cache <folder>
 node pipelines/dst-crashes/analyse.mjs
-node pipelines/dst-crashes/chart.mjs --write
 ```
+
+The page's chart is drawn from `results.json` when the site is built (`charts/dst_days.py`, through `src/lib/charts/dst.mjs`).

@@ -1,0 +1,584 @@
+{
+ "config": {
+  "background": "#f8f6f0",
+  "padding": {
+   "left": 8,
+   "right": 14,
+   "top": 10,
+   "bottom": 6
+  },
+  "font": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+  "view": {
+   "stroke": null
+  },
+  "axis": {
+   "labelFont": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "labelFontSize": 11,
+   "labelColor": "#656561",
+   "titleFont": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "titleFontSize": 11,
+   "titleFontWeight": 400,
+   "titleColor": "#656561",
+   "gridColor": "#dddcd6",
+   "gridWidth": 1,
+   "domainColor": "#aaa9a4",
+   "tickColor": "#aaa9a4",
+   "labelPadding": 5
+  },
+  "axisX": {
+   "grid": true,
+   "domain": true,
+   "ticks": true,
+   "tickSize": 4,
+   "labelFlush": true
+  },
+  "axisY": {
+   "grid": true,
+   "domain": false,
+   "ticks": false,
+   "minExtent": 40,
+   "maxExtent": 40,
+   "labelPadding": 6
+  },
+  "header": {
+   "labelFont": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "labelFontSize": 12,
+   "labelFontWeight": 600,
+   "labelColor": "#1a1a17",
+   "labelAnchor": "start",
+   "labelAngle": 0,
+   "labelOrient": "top",
+   "labelPadding": 6,
+   "titleFontSize": 0
+  },
+  "facet": {
+   "spacing": 20
+  },
+  "line": {
+   "color": "#4f5744",
+   "strokeWidth": 2,
+   "strokeJoin": "round",
+   "strokeCap": "round"
+  },
+  "point": {
+   "color": "#4f5744",
+   "filled": true,
+   "size": 64,
+   "stroke": "#f8f6f0",
+   "strokeWidth": 2,
+   "opacity": 1
+  },
+  "rule": {
+   "color": "#1a1a17",
+   "strokeWidth": 1,
+   "opacity": 0.45
+  },
+  "bar": {
+   "color": "#4f5744"
+  },
+  "rect": {
+   "color": "#4f5744"
+  },
+  "text": {
+   "font": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "fontSize": 11,
+   "color": "#1a1a17"
+  },
+  "range": {
+   "category": [
+    "#4f5744",
+    "#9a9588",
+    "#a5562f"
+   ]
+  },
+  "legend": {
+   "labelFont": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "labelFontSize": 11,
+   "labelColor": "#1a1a17",
+   "titleFont": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "titleFontSize": 11,
+   "titleColor": "#656561",
+   "titleFontWeight": 400,
+   "orient": "top",
+   "symbolStrokeWidth": 2
+  },
+  "title": {
+   "font": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "fontSize": 15,
+   "fontWeight": 600,
+   "color": "#1a1a17",
+   "anchor": "start"
+  }
+ },
+ "layer": [
+  {
+   "data": {
+    "values": [
+     {}
+    ]
+   },
+   "mark": {
+    "type": "rect",
+    "aria": false,
+    "color": "#69715a",
+    "opacity": 0.12
+   },
+   "encoding": {
+    "x": {
+     "datum": 0.5
+    },
+    "x2": {
+     "datum": 5.5
+    }
+   }
+  },
+  {
+   "data": {
+    "values": [
+     {}
+    ]
+   },
+   "mark": {
+    "type": "text",
+    "aria": false,
+    "baseline": "bottom",
+    "color": "#656561",
+    "dy": -4,
+    "fontWeight": 600,
+    "text": "Work week after"
+   },
+   "encoding": {
+    "x": {
+     "datum": 3
+    },
+    "y": {
+     "value": 0
+    }
+   }
+  },
+  {
+   "data": {
+    "values": [
+     {}
+    ]
+   },
+   "mark": {
+    "type": "rule",
+    "aria": false,
+    "opacity": 0.6,
+    "strokeDash": [
+     3,
+     3
+    ]
+   },
+   "encoding": {
+    "x": {
+     "datum": -0.5
+    }
+   }
+  },
+  {
+   "data": {
+    "values": [
+     {}
+    ]
+   },
+   "mark": {
+    "type": "text",
+    "align": "right",
+    "aria": false,
+    "baseline": "bottom",
+    "color": "#656561",
+    "dx": -4,
+    "dy": -20,
+    "fontWeight": 600,
+    "text": "Clocks change"
+   },
+   "encoding": {
+    "x": {
+     "datum": -0.5
+    },
+    "y": {
+     "value": 0
+    }
+   }
+  },
+  {
+   "data": {
+    "values": [
+     {}
+    ]
+   },
+   "mark": {
+    "type": "rule",
+    "aria": false,
+    "color": "#1a1a17",
+    "opacity": 0.45
+   },
+   "encoding": {
+    "y": {
+     "datum": 1.0
+    }
+   }
+  },
+  {
+   "data": {
+    "name": "rows"
+   },
+   "mark": {
+    "type": "line",
+    "aria": false
+   },
+   "encoding": {
+    "color": {
+     "field": "group",
+     "legend": {
+      "direction": "vertical",
+      "labelLimit": 0,
+      "offset": 12,
+      "orient": "bottom",
+      "symbolSize": 260,
+      "symbolType": "stroke",
+      "title": null
+     },
+     "scale": {
+      "domain": [
+       "Change in March, 2007–2024",
+       "Change in April, 1996–2006",
+       "No change: Arizona and Hawaii"
+      ],
+      "range": [
+       "#4f5744",
+       "#9a9588",
+       "#a5562f"
+      ]
+     },
+     "type": "nominal"
+    },
+    "strokeDash": {
+     "field": "group",
+     "legend": {
+      "direction": "vertical",
+      "labelLimit": 0,
+      "offset": 12,
+      "orient": "bottom",
+      "symbolSize": 260,
+      "symbolType": "stroke",
+      "title": null
+     },
+     "scale": {
+      "domain": [
+       "Change in March, 2007–2024",
+       "Change in April, 1996–2006",
+       "No change: Arizona and Hawaii"
+      ],
+      "range": [
+       [
+        1,
+        0
+       ],
+       [
+        1,
+        0
+       ],
+       [
+        5,
+        3
+       ]
+      ]
+     },
+     "type": "nominal"
+    },
+    "strokeWidth": {
+     "condition": {
+      "test": "datum.series === 'standard'",
+      "value": 1.5
+     },
+     "value": 2
+    },
+    "x": {
+     "axis": {
+      "grid": false,
+      "labelExpr": "datum.value > 0 ? '+' + datum.value : datum.value < 0 ? '−' + abs(datum.value) : '0'",
+      "labelFlush": false,
+      "values": [
+       -14,
+       -7,
+       0,
+       7,
+       13
+      ]
+     },
+     "field": "offset",
+     "scale": {
+      "domain": [
+       -14.5,
+       13.5
+      ],
+      "nice": false,
+      "zero": false
+     },
+     "title": "Days from the change Sunday (0)",
+     "type": "quantitative"
+    },
+    "y": {
+     "axis": {
+      "format": ".1f",
+      "values": [
+       0.8,
+       0.9,
+       1.0,
+       1.1,
+       1.2
+      ]
+     },
+     "field": "value",
+     "scale": {
+      "clamp": true,
+      "domain": [
+       0.8,
+       1.25
+      ],
+      "nice": false,
+      "zero": false
+     },
+     "title": null,
+     "type": "quantitative"
+    }
+   },
+   "name": "lines",
+   "transform": [
+    {
+     "fold": [
+      "standard",
+      "pre",
+      "post"
+     ],
+     "as": [
+      "series",
+      "value"
+     ]
+    },
+    {
+     "calculate": "datum.series === 'post' ? 'Change in March, 2007–2024' : datum.series === 'pre' ? 'Change in April, 1996–2006' : 'No change: Arizona and Hawaii'",
+     "as": "group"
+    }
+   ]
+  },
+  {
+   "data": {
+    "name": "rows"
+   },
+   "mark": {
+    "type": "rule",
+    "aria": false,
+    "clip": true
+   },
+   "encoding": {
+    "x": {
+     "axis": {
+      "grid": false,
+      "labelExpr": "datum.value > 0 ? '+' + datum.value : datum.value < 0 ? '−' + abs(datum.value) : '0'",
+      "labelFlush": false,
+      "values": [
+       -14,
+       -7,
+       0,
+       7,
+       13
+      ]
+     },
+     "field": "offset",
+     "scale": {
+      "domain": [
+       -14.5,
+       13.5
+      ],
+      "nice": false,
+      "zero": false
+     },
+     "title": "Days from the change Sunday (0)",
+     "type": "quantitative"
+    }
+   },
+   "transform": [
+    {
+     "fold": [
+      "standard",
+      "pre",
+      "post"
+     ],
+     "as": [
+      "series",
+      "value"
+     ]
+    },
+    {
+     "calculate": "datum.series === 'post' ? 'Change in March, 2007–2024' : datum.series === 'pre' ? 'Change in April, 1996–2006' : 'No change: Arizona and Hawaii'",
+     "as": "group"
+    },
+    {
+     "filter": "datum.offset === day"
+    }
+   ]
+  },
+  {
+   "data": {
+    "name": "rows"
+   },
+   "mark": {
+    "type": "point",
+    "aria": false,
+    "clip": true
+   },
+   "encoding": {
+    "color": {
+     "field": "group",
+     "legend": {
+      "direction": "vertical",
+      "labelLimit": 0,
+      "offset": 12,
+      "orient": "bottom",
+      "symbolSize": 260,
+      "symbolType": "stroke",
+      "title": null
+     },
+     "scale": {
+      "domain": [
+       "Change in March, 2007–2024",
+       "Change in April, 1996–2006",
+       "No change: Arizona and Hawaii"
+      ],
+      "range": [
+       "#4f5744",
+       "#9a9588",
+       "#a5562f"
+      ]
+     },
+     "type": "nominal"
+    },
+    "tooltip": [
+     {
+      "field": "day",
+      "title": "Day",
+      "type": "nominal"
+     },
+     {
+      "field": "post",
+      "format": ".2f",
+      "title": "Change in March, 2007–2024",
+      "type": "quantitative"
+     },
+     {
+      "field": "pre",
+      "format": ".2f",
+      "title": "Change in April, 1996–2006",
+      "type": "quantitative"
+     },
+     {
+      "field": "standard",
+      "format": ".2f",
+      "title": "No change: Arizona and Hawaii",
+      "type": "quantitative"
+     }
+    ],
+    "x": {
+     "axis": {
+      "grid": false,
+      "labelExpr": "datum.value > 0 ? '+' + datum.value : datum.value < 0 ? '−' + abs(datum.value) : '0'",
+      "labelFlush": false,
+      "values": [
+       -14,
+       -7,
+       0,
+       7,
+       13
+      ]
+     },
+     "field": "offset",
+     "scale": {
+      "domain": [
+       -14.5,
+       13.5
+      ],
+      "nice": false,
+      "zero": false
+     },
+     "title": "Days from the change Sunday (0)",
+     "type": "quantitative"
+    },
+    "y": {
+     "axis": {
+      "format": ".1f",
+      "values": [
+       0.8,
+       0.9,
+       1.0,
+       1.1,
+       1.2
+      ]
+     },
+     "field": "value",
+     "scale": {
+      "clamp": true,
+      "domain": [
+       0.8,
+       1.25
+      ],
+      "nice": false,
+      "zero": false
+     },
+     "title": null,
+     "type": "quantitative"
+    }
+   },
+   "name": "readout",
+   "transform": [
+    {
+     "fold": [
+      "standard",
+      "pre",
+      "post"
+     ],
+     "as": [
+      "series",
+      "value"
+     ]
+    },
+    {
+     "calculate": "datum.series === 'post' ? 'Change in March, 2007–2024' : datum.series === 'pre' ? 'Change in April, 1996–2006' : 'No change: Arizona and Hawaii'",
+     "as": "group"
+    },
+    {
+     "filter": "datum.offset === day"
+    }
+   ]
+  }
+ ],
+ "description": "Fatal crashes on each day from 14 days before to 13 days after the spring clock change, against an ordinary day of the same weekday (1.0), for states that change their clocks, in two eras, and for Arizona and Hawaii, which do not. The table under the chart lists every value.",
+ "height": 230,
+ "params": [
+  {
+   "name": "day",
+   "value": null
+  }
+ ],
+ "usermeta": {
+  "generator": "charts/dst_days.py",
+  "rows": [
+   "rows"
+  ],
+  "live": {
+   "pick": {
+    "mark": "lines_marks",
+    "by": "x",
+    "signal": "day",
+    "key": "offset",
+    "readout": "readout_marks"
+   }
+  },
+  "altair": "6.3.0"
+ },
+ "width": 650,
+ "$schema": "https://vega.github.io/schema/vega-lite/v6.4.1.json"
+}

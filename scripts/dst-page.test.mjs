@@ -1,10 +1,10 @@
 // Pins the figures on /lab/spring-clock-change-road-deaths to data/dst-crashes/results.json, so a
-// rerun that changes a number fails here until the page is updated. Also checks the chart in the
-// page is the one the code draws from the saved results.
+// rerun that changes a number fails here until the page is updated. The chart is drawn from the same
+// file when the site is built (charts/dst_days.py, src/lib/charts/dst.mjs; tested in
+// scripts/altair-charts.test.mjs).
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { heroBlock, START, END } from '../pipelines/dst-crashes/chart.mjs';
 import { headingsFor, missingHeadings, HUMAN_VARIABLE_HEADINGS } from './check-content.mjs';
 
 const read = (p) => readFileSync(new URL(`../${p}`, import.meta.url), 'utf8');
@@ -30,12 +30,11 @@ test("Felipe's two sections are written and quote the saved figures", () => {
   has(`${below.length} of ${r.perYear.length} years show no rise`);
 });
 
-test('the chart in the page is drawn from the saved results, inside The Experiment', () => {
-  const a = page.indexOf(START);
-  const b = page.indexOf(END) + END.length;
-  assert.equal(page.slice(a, b), heroBlock(r));
-  assert.ok(a > page.indexOf('## The Experiment') && b < page.indexOf('## What Surprised Me'));
-  assert.ok(!/\n\s*\n/.test(page.slice(a, b)), 'no blank line inside the SVG block');
+test('the chart sits once in The Experiment, after the result it shows', () => {
+  const marker = '<div data-lab-chart="dst"></div>';
+  const at = page.indexOf(marker);
+  assert.equal(page.split(marker).length, 2);
+  assert.ok(at > page.indexOf('### Result') && at < page.indexOf('### The three comparisons'));
 });
 
 test('headline figures', () => {

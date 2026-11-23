@@ -27,9 +27,9 @@ Each exhibit is a page backed by code, saved output and tests in this repository
 
 Stack: Astro, hosted on Cloudflare Pages. Lab pipelines run in plain Node; the flight-reliability
 analysis was built with Python and dbt on DuckDB, and its outputs and code are in
-`data/aviation-reliability/`. The Brazil power price chart is made with Altair in Python
-(`charts/`). The Ask the Ledger live box is a Cloudflare Worker on Workers AI and D1. Tests and
-build checks run in GitHub Actions.
+`data/aviation-reliability/`. The Lab and case-study charts are made with Altair in Python, in one
+site theme (`charts/`). The Ask the Ledger live box is a Cloudflare Worker on Workers AI and D1.
+Tests and build checks run in GitHub Actions.
 
 ## Layout
 
