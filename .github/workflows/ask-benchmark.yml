@@ -26,13 +26,13 @@ on:
         type: string
         default: ''
       max_calls:
-        description: Most model calls in this run, up to 1500
+        description: Most model calls in this run, up to 1500 (an answer takes 1 to 4)
         type: number
-        default: 60
+        default: 200
       budget_usd:
         description: Most US$ this run may spend, up to 20
         type: number
-        default: 2
+        default: 3
 
 permissions:
   contents: read
