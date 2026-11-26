@@ -46,6 +46,9 @@ trial:
     evidence: the Lab pages and /case-studies/sinalvo; https://github.com/felipealves7/felipealveslab/pull/78 and https://github.com/felipealves7/felipealveslab/pull/79
   - name: BigQuery public datasets
     area: large public sources, for example GH Archive and NOAA weather
+  - name: MetricFlow (the dbt Semantic Layer engine) on DuckDB
+    area: governed metric definitions for Ask the Ledger and Ask this lab panels; Apache 2.0 from 0.209.0
+    evidence: pipelines/semantic-layer, where 44 of 44 scoped Ask the Ledger cases match the gold answers
 
 assess:
   - name: Mosaic

@@ -1,0 +1,6 @@
+# Pinned so the benchmark and CI run the same engine. MetricFlow is Apache 2.0 from 0.209.0.
+dbt-core==1.12.7
+dbt-duckdb==1.11.1
+dbt-metricflow==0.16.0
+metricflow==0.214.0
+duckdb==2.0.1

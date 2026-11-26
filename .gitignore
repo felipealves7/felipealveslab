@@ -153,3 +153,11 @@ ledger-eval-runs/
 
 # Python bytecode (charts/)
 __pycache__/
+
+# Semantic layer build output and dbt's local files (pipelines/semantic-layer)
+pipelines/semantic-layer/target/
+pipelines/semantic-layer/logs/
+pipelines/semantic-layer/.user.yml
+
+# Four-setup benchmark runs (kept as workflow artifacts, not committed)
+bench-runs/

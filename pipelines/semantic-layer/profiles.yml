@@ -1,0 +1,9 @@
+# Local DuckDB file. No credentials: everything runs on files in this folder.
+# semantic_query.py sets LAB_DUCKDB_PATH to an absolute path so any working directory works.
+lab:
+  target: local
+  outputs:
+    local:
+      type: duckdb
+      path: "{{ env_var('LAB_DUCKDB_PATH', 'target/lab.duckdb') }}"
+      threads: 1

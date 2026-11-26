@@ -1,0 +1,11 @@
+models:
+  - name: dim_date
+    description: One row per day, 2020-01-01 to 2030-12-31. The time spine for every metric.
+    time_spine:
+      standard_granularity_column: date_day
+    columns:
+      - name: date_day
+        granularity: day
+        data_tests:
+          - unique
+          - not_null

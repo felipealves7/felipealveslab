@@ -1,0 +1,28 @@
+# Metrics built from other metrics. Each one sums first and then combines, at whatever grain the
+# question asks for, so a margin is never an average of margins.
+metrics:
+  - name: gross_profit
+    label: Gross profit
+    description: Revenue minus cost of sales.
+    type: derived
+    expr: revenue - cost_of_sales
+    input_metrics:
+      - name: revenue
+      - name: cost_of_sales
+  - name: operating_profit
+    label: Operating profit
+    description: Revenue minus cost of sales minus operating expenses.
+    type: derived
+    expr: revenue - cost_of_sales - opex
+    input_metrics:
+      - name: revenue
+      - name: cost_of_sales
+      - name: opex
+  - name: gross_margin
+    label: Gross margin
+    description: Gross profit divided by revenue, as a percentage. Zero when revenue is zero.
+    type: derived
+    expr: coalesce((revenue - cost_of_sales) * 100.0 / nullif(revenue, 0), 0)
+    input_metrics:
+      - name: revenue
+      - name: cost_of_sales
