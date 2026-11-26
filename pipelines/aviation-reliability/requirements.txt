@@ -1,0 +1,2 @@
+# Kaggle's own client, used signed out to download the public package.
+kagglehub==1.0.3
