@@ -7,7 +7,7 @@ name: ask-benchmark
 # The run files are kept as an artifact for 90 days; publishing results is a separate pull request.
 #
 # Needs one repository secret, added by Felipe: ANTHROPIC_API_KEY, from a Claude Console workspace
-# with a monthly spend limit. run.py also stops itself before it passes max_calls or budget_usd.
+# with a monthly spend limit. run.py also stops before its next call once it reaches max_calls or budget_usd.
 
 on:
   workflow_dispatch:

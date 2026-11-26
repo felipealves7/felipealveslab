@@ -2,8 +2,8 @@
 
     python pipelines/ask-benchmark/run.py --setups A,B,C,D --runs 3 --budget-usd 15 --out bench-runs/run.jsonl
 
-Needs ANTHROPIC_API_KEY in the environment. It stops before any call that would pass --max-calls
-or --budget-usd, and writes one JSON line per answer, so a stopped run keeps what it has.
+Needs ANTHROPIC_API_KEY in the environment. It stops before its next call once --max-calls or
+--budget-usd is reached, and writes one JSON line per answer, so a stopped run keeps what it has.
 --dry-run swaps in a stand-in model that sends nothing, to check the plumbing.
 """
 
