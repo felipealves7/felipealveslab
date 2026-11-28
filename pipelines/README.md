@@ -30,6 +30,14 @@ Cloudflare Worker for the live box on Ask the Ledger: origin check, daily caps, 
 
 Model benchmark for Ask the Ledger: a guarded Workers AI runner, started by hand with the `ledger-benchmark` workflow, and strict offline scoring on four synthetic ledgers. See `pipelines/ledger-eval/README.md`. Tests: `node --test pipelines/ledger-eval/ledger-eval.test.mjs`.
 
+## semantic-layer
+
+The Lab's governed metrics: a dbt project read by MetricFlow on DuckDB, starting with the Ask the Ledger ledger as Parquet and a shared daily calendar. Questions go in as metric and dimension names; MetricFlow writes the SQL. See `pipelines/semantic-layer/README.md`. Tests (Python, and Node for the gold answers): `python -m unittest discover -s pipelines/semantic-layer`.
+
+## ask-benchmark
+
+Is the web enough? The same Claude model answers the same questions with four sets of tools (none; web search, fetch and code; the semantic layer; the semantic layer plus approved calculations), started by hand with the `ask-benchmark` workflow and scored against keys computed from the data. See `pipelines/ask-benchmark/README.md`. Tests, with a scripted model: `python -m unittest discover -s pipelines/ask-benchmark`.
+
 ## dst-crashes
 
 Spring clock change and fatal crashes, for `/lab/spring-clock-change-road-deaths`. `extract.mjs` reads NHTSA's FARS accident files for 1996 to 2024 (downloaded into a cache folder you name), joins each crash to its state's clock rule (IANA extract in `data/dst-crashes/tzdata-us.txt`) and to the sun's elevation at its place and minute, and writes daily counts 14 days either side of two spring Sundays. `analyse.mjs` writes the estimates and `chart.mjs --write` draws the page's SVG chart. Plain Node; `extract.mjs` also needs the `unzip` command. Tests: `node --test pipelines/dst-crashes/dst.test.mjs scripts/dst-page.test.mjs`.

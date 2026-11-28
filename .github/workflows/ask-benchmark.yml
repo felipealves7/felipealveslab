@@ -1,0 +1,94 @@
+name: ask-benchmark
+
+# Manual only, from the Actions tab. The same Claude model answers the questions in
+# pipelines/ask-benchmark/questions.yaml with four sets of tools (A: none; B: web search, web fetch
+# and code execution; C: the semantic layer; D: the semantic layer and approved calculations), then
+# score.py writes the scores to the run page. It never deploys, commits or schedules anything.
+# The run files are kept as an artifact for 90 days; publishing results is a separate pull request.
+#
+# Needs one repository secret, added by Felipe: ANTHROPIC_API_KEY, from a Claude Console workspace
+# with a monthly spend limit. run.py also stops before its next call once it reaches max_calls or budget_usd.
+
+on:
+  workflow_dispatch:
+    inputs:
+      setups:
+        description: Setups to run, comma-separated (A, B, C, D)
+        type: string
+        default: A,B,C,D
+      runs:
+        description: Runs per question (3 for the full benchmark)
+        type: choice
+        options: ['1', '2', '3']
+        default: '1'
+      only:
+        description: Optional. Question ids to run, comma-separated (for example O01,D03)
+        type: string
+        default: ''
+      max_calls:
+        description: Most model calls in this run, up to 1500 (an answer takes 1 to 4)
+        type: number
+        default: 200
+      budget_usd:
+        description: Most US$ this run may spend, up to 20
+        type: number
+        default: 3
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ask-benchmark
+  cancel-in-progress: false
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          cache: pip
+          cache-dependency-path: |
+            pipelines/ask-benchmark/requirements.txt
+            pipelines/semantic-layer/requirements.txt
+      - name: Install dbt, MetricFlow and the Anthropic SDK
+        run: pip install -r pipelines/ask-benchmark/requirements.txt
+      - name: Check the inputs
+        env:
+          SETUPS: ${{ inputs.setups }}
+          ONLY: ${{ inputs.only }}
+          MAX_CALLS: ${{ inputs.max_calls }}
+          BUDGET: ${{ inputs.budget_usd }}
+        run: |
+          # A typo must not start an expensive run.
+          if ! [[ "$SETUPS" =~ ^[ABCDabcd](,[ABCDabcd])*$ ]]; then echo "setups must look like A,B,C,D; nothing was sent." >&2; exit 1; fi
+          if ! [[ "$ONLY" =~ ^[A-Za-z0-9,]*$ ]]; then echo "only must be question ids separated by commas; nothing was sent." >&2; exit 1; fi
+          if ! [[ "$MAX_CALLS" =~ ^[0-9]+$ ]] || (( MAX_CALLS < 1 || MAX_CALLS > 1500 )); then echo "max_calls must be a whole number from 1 to 1500; nothing was sent." >&2; exit 1; fi
+          if ! [[ "$BUDGET" =~ ^[0-9]+(\.[0-9]+)?$ ]] || ! awk -v b="$BUDGET" 'BEGIN { exit !(b > 0 && b <= 20) }'; then echo "budget_usd must be more than 0 and at most 20; nothing was sent." >&2; exit 1; fi
+      - name: Ask the model (Claude API)
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SETUPS: ${{ inputs.setups }}
+          RUNS: ${{ inputs.runs }}
+          ONLY: ${{ inputs.only }}
+          MAX_CALLS: ${{ inputs.max_calls }}
+          BUDGET: ${{ inputs.budget_usd }}
+        run: |
+          python pipelines/ask-benchmark/run.py --setups "$SETUPS" --runs "$RUNS" --only "$ONLY" \
+            --max-calls "$MAX_CALLS" --budget-usd "$BUDGET" --out bench-runs/run.jsonl
+      - name: Score
+        if: ${{ !cancelled() && hashFiles('bench-runs/run.jsonl') != '' }}
+        run: python pipelines/ask-benchmark/score.py bench-runs/run.jsonl >> "$GITHUB_STEP_SUMMARY"
+      - name: Keep the run files
+        if: ${{ !cancelled() && hashFiles('bench-runs/run.jsonl') != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ask-benchmark-run-${{ github.run_number }}
+          path: bench-runs/
+          retention-days: 90

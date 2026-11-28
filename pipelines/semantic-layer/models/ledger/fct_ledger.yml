@@ -1,0 +1,71 @@
+models:
+  - name: fct_ledger
+    description: >
+      Synthetic ledger behind Ask the Ledger: six invented companies, eight invented accounts,
+      January 2025 to September 2026, amounts in thousands of AED.
+    semantic_model:
+      enabled: true
+      name: ledger_lines
+    agg_time_dimension: month_start
+    columns:
+      - name: ledger_line_id
+        description: One company, month and account.
+        entity:
+          type: primary
+          name: ledger_line
+        data_tests:
+          - unique
+          - not_null
+      - name: company
+        description: An invented company.
+        dimension:
+          type: categorical
+        data_tests:
+          - not_null
+      - name: account
+        description: Ledger account, for example Product sales or Payroll.
+        dimension:
+          type: categorical
+        data_tests:
+          - not_null
+      - name: account_group
+        description: Reporting group of the account.
+        dimension:
+          type: categorical
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["Revenue", "Cost of sales", "Operating expense"]
+      - name: month_start
+        description: First day of the month the amount belongs to.
+        granularity: month
+        dimension:
+          type: time
+        data_tests:
+          - not_null
+      - name: amount
+        description: Thousands of AED, always positive.
+        data_tests:
+          - not_null
+    metrics:
+      - name: revenue
+        label: Revenue
+        description: Sum of all accounts in the Revenue group.
+        type: simple
+        agg: sum
+        expr: amount
+        filter: "{{ Dimension('ledger_line__account_group') }} = 'Revenue'"
+      - name: cost_of_sales
+        label: Cost of sales
+        description: Sum of all accounts in the Cost of sales group.
+        type: simple
+        agg: sum
+        expr: amount
+        filter: "{{ Dimension('ledger_line__account_group') }} = 'Cost of sales'"
+      - name: opex
+        label: Operating expenses
+        description: Sum of all accounts in the Operating expense group.
+        type: simple
+        agg: sum
+        expr: amount
+        filter: "{{ Dimension('ledger_line__account_group') }} = 'Operating expense'"

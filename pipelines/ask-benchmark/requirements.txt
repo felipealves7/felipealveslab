@@ -1,0 +1,4 @@
+# The four-setup benchmark: the semantic layer's engine plus the Anthropic SDK.
+-r ../semantic-layer/requirements.txt
+anthropic==2.14.0
+PyYAML==6.0.4

@@ -1,0 +1,52 @@
+# Is the web enough? The question set for the four-setup benchmark (run.py).
+#
+# Four kinds of 10. own_data and decline questions reuse cases from pipelines/ledger-eval/cases.mjs
+# by id: their wording and their answers come from there, computed from raw account names, never
+# typed here. public_fact and relationship questions are written by hand, each with the official
+# source its answer was read from and the date it was read.
+#
+# Fields
+#   id         unique, kind letter + number (O01, P01, R01, D01)
+#   kind       own_data | public_fact | relationship | decline
+#   case       a cases.mjs id; gives the text and the expected answer
+#   text       the question, when there is no case
+#   answer     value (a number), unit, and tolerance (absolute) or tolerance_pct (relative)
+#   expect     decline | caveat, for questions whose right outcome is not a number
+#   source     the page or API the answer was read from (opened, not remembered)
+#   as_of      the date the source was read, YYYY-MM-DD
+#   official   optional: domains that count as an official source for this question
+version: 1
+questions:
+  # Facts only the ledger holds: the right number exists only in the synthetic data.
+  - {id: O01, kind: own_data, case: L01}   # total revenue in 2025
+  - {id: O02, kind: own_data, case: L05}   # gross margin in 2025: a ratio
+  - {id: O03, kind: own_data, case: L12}   # revenue by quarter in 2025
+  - {id: O04, kind: own_data, case: L13}   # company with the highest revenue in 2025
+  - {id: O05, kind: own_data, case: L14}   # lowest gross margin in 2026: ratio and ranking
+  - {id: O06, kind: own_data, case: L16}   # one company's revenue in 2025
+  - {id: O07, kind: own_data, case: L18}   # "last quarter": a relative period
+  - {id: O08, kind: own_data, case: L24}   # gross margin by company: sum first, then divide
+  - {id: O09, kind: own_data, case: L34}   # revenue excluding one company
+  - {id: O10, kind: own_data, case: V03}   # three smallest operating profits in Q1 2025
+
+  # Questions where the right move is to decline or caveat.
+  - {id: D01, kind: decline, case: L35}    # "profit": three metrics could fit
+  - {id: D02, kind: decline, case: L38}    # March of which year?
+  - {id: D03, kind: decline, case: L39}    # EBITDA is not in the ledger
+  - {id: D04, kind: decline, case: L41}    # asks why: the ledger holds no causes
+  - {id: D05, kind: decline, case: L42}    # Q4 2026 is after the data ends
+  - {id: D06, kind: decline, case: V13}    # a company that does not exist
+  # D07 to D10: four public questions that need a caveat, for example a "did X cause Y" question.
+  # Use expect: caveat when a careful answer gives the number and says what it cannot show.
+
+  # P01 to P10: public facts with one official source each. Example of the shape:
+  # - id: P01
+  #   kind: public_fact
+  #   text: "..."
+  #   answer: {value: ..., unit: "...", tolerance: ...}
+  #   source: https://...
+  #   as_of: 2026-11-28
+  #   official: [example.gov]
+
+  # R01 to R10: relationships that need computing from public series (a change, a correlation,
+  # a before and after). Same fields as public_fact; say in a comment how the answer was computed.

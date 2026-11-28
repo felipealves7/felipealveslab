@@ -1,0 +1,14 @@
+# The indicator catalogue: the public series that setup D may fetch, and what each one means.
+# Empty until the first five are chosen (week 2 of the plan). Every entry needs every field:
+#
+# - id: short_snake_case
+#   name: what the series measures, in plain words
+#   provider: the agency that publishes it
+#   api: the request that returns it (SDMX key or URL template)
+#   unit: unit of the values, with currency and base year where relevant
+#   frequency: daily | monthly | quarterly | annual
+#   release_lag: how long after the period the first value appears
+#   revisions: whether and how often published values change
+#   licence: the licence name, with a link to its text
+#   docs: the provider's page describing the series
+series: []

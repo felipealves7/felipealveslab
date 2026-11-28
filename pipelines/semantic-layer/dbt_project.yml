@@ -1,0 +1,20 @@
+# The Lab's semantic layer: one dbt project whose models carry the metric definitions that
+# Ask the Ledger and later labs query through MetricFlow. Runs on DuckDB over Parquet files.
+name: lab_semantic_layer
+version: "1.0.0"
+profile: lab
+
+model-paths: ["models"]
+target-path: target
+clean-targets: ["target"]
+
+flags:
+  send_anonymous_usage_stats: false
+
+vars:
+  # Built by build_ledger.py from pipelines/ledger-api/seed.sql, the same rows the live D1 table holds.
+  ledger_parquet: "{{ env_var('LAB_LEDGER_PARQUET', 'target/ledger.parquet') }}"
+
+models:
+  lab_semantic_layer:
+    +materialized: table
