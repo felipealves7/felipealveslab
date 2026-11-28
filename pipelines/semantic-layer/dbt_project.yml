@@ -14,6 +14,9 @@ flags:
 vars:
   # Built by build_ledger.py from pipelines/ledger-api/seed.sql, the same rows the live D1 table holds.
   ledger_parquet: "{{ env_var('LAB_LEDGER_PARQUET', 'target/ledger.parquet') }}"
+  # The lockdown and power-load lab's files: the raw downloads and the tables
+  # pipelines/power-lockdown/analyse.mjs writes. semantic_query.py sets an absolute path.
+  power_data: "{{ env_var('LAB_POWER_DATA', '../../data/power-lockdown') }}"
 
 models:
   lab_semantic_layer:

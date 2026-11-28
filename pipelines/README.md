@@ -45,3 +45,7 @@ Spring clock change and fatal crashes, for `/lab/spring-clock-change-road-deaths
 ## aviation-reliability
 
 The flight-reliability project behind `/lab/aviation-reliability`. `fetch_package.py` downloads the public Kaggle package (Version 3) signed out and checks it without running any of it: the 34 source files against `data/aviation-reliability/source-code-checksums.json`, and the 16 copies in `data/aviation-reliability/` against the package's own files. The `flight-package` workflow runs it. See `pipelines/aviation-reliability/README.md`. Tests: `python -m unittest discover -s pipelines/aviation-reliability`.
+
+## power-lockdown
+
+Brazil's power load in the 2020 lockdowns, for `/lab/brazil-lockdown-power-load`. `fetch.mjs` downloads ONS hourly load (2018 to 2021), ONS substation and transformer tables, OxCGRT's Brazil state rows and the IBC-Br series into `data/power-lockdown/raw/`, with their SHA-256 hashes. `analyse.mjs` runs 41 checks, builds the calendar and the state-to-subsystem bridge, and writes `data/power-lockdown/results.json` and the tables the semantic layer reads (`models/power_lockdown/` in `pipelines/semantic-layer`). Plain Node. Tests: `node --test pipelines/power-lockdown/power.test.mjs`.

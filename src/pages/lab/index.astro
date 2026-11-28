@@ -16,12 +16,13 @@ const kaggleCheckedOn = onDay(ext.kaggle.rechecked?.date ?? ext.checked);
 const LIVE: Record<string, string> = {
   'ask-the-ledger': '/lab/ask-the-ledger#ask-your-own-question-live-box',
 };
-const CHARTS: Record<string, 'ledger' | 'airport' | 'aviation' | 'pld' | 'dst'> = {
+const CHARTS: Record<string, 'ledger' | 'airport' | 'aviation' | 'pld' | 'dst' | 'power'> = {
   'ask-the-ledger': 'ledger',
   'airport-data-contract': 'airport',
   'aviation-reliability': 'aviation',
   'brazil-power-price-contract': 'pld',
   'spring-clock-change-road-deaths': 'dst',
+  'brazil-lockdown-power-load': 'power',
 };
 ---
 <Base

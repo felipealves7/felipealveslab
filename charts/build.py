@@ -15,10 +15,11 @@ import aviation_months
 import checks
 import dst_days
 import pld_daily
+import power_lockdown
 import zoom
 from bars import Bars, BarsChange
 
-CHARTS = [pld_daily, dst_days, aviation_months, aviation_delays, Bars, BarsChange, checks, zoom]
+CHARTS = [pld_daily, dst_days, aviation_months, aviation_delays, Bars, BarsChange, checks, zoom, power_lockdown]
 OUT = Path(__file__).resolve().parent.parent / "src" / "charts"
 
 

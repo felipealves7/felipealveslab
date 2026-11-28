@@ -3,10 +3,10 @@
 // src/lib/lab/evidence.mjs. Compact charts are drawn at card sizes and do not run live.
 import { barsFigure } from './bars.mjs';
 import { airportFigure } from './lab.mjs';
-import { ledgerEvidence, airportEvidence, aviationEvidence, pldEvidence, dstEvidence } from '../lab/evidence.mjs';
+import { ledgerEvidence, airportEvidence, aviationEvidence, pldEvidence, dstEvidence, powerEvidence } from '../lab/evidence.mjs';
 
 const fmt = (value) => new Intl.NumberFormat('en-GB').format(value);
-const BUILDERS = { ledger: ledgerEvidence, airport: airportEvidence, aviation: aviationEvidence, pld: pldEvidence, dst: dstEvidence };
+const BUILDERS = { ledger: ledgerEvidence, airport: airportEvidence, aviation: aviationEvidence, pld: pldEvidence, dst: dstEvidence, power: powerEvidence };
 
 // The summary (title, subtitle, source, sentence) and the chart's markup for one exhibit.
 export async function evidenceChart(exhibit, data, { compact = false } = {}) {

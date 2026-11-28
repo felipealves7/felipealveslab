@@ -9,6 +9,7 @@ import { compileChart, renderStatic, siteLoader, relativePolyline, textWidth, wi
 import { pldFigure, pldDaily, longDate, SUBMARKETS } from '../src/lib/charts/pld.mjs';
 import { WIDE, NARROW, CARD_NARROW } from '../src/lib/charts/figure.mjs';
 import { dstRows, dstFigure } from '../src/lib/charts/dst.mjs';
+import { powerRows, powerFigure } from '../src/lib/charts/power.mjs';
 import { monthRows, delayRows, monthsFigure, delaysFigure } from '../src/lib/charts/aviation.mjs';
 import { barRows } from '../src/lib/charts/bars.mjs';
 import { evidenceChart } from '../src/lib/charts/evidence.mjs';
@@ -218,7 +219,7 @@ test('every page with a chart loads the chart styles, and the runtime when a cha
 
 test('every saved spec is Altair output in the site theme that compiles with no warning', () => {
   const names = readdirSync(new URL('../src/charts/', import.meta.url)).filter((f) => f.endsWith('.vl.json')).map((f) => f.replace('.vl.json', ''));
-  assert.deepEqual(names.sort(), ['aviation-delays', 'aviation-months', 'bars', 'bars-change', 'checks', 'dst-days', 'pld-daily', 'zoom']);
+  assert.deepEqual(names.sort(), ['aviation-delays', 'aviation-months', 'bars', 'bars-change', 'checks', 'dst-days', 'pld-daily', 'power-lockdown', 'zoom']);
   for (const name of names) {
     const vl = loadSpec(name);
     assert.match(vl.usermeta.generator, /^charts\/[a-z_]+\.py$/, name);
@@ -269,6 +270,26 @@ test('the clock-change chart: three lines over the same days, from the saved res
   assert.throws(() => dstRows(broken), /does not line up/);
 });
 
+test('the lockdown chart: four panels over the same days, gaps on holidays, from the saved results', async () => {
+  const r = json('data/power-lockdown/results.json');
+  const rows = powerRows(r);
+  assert.equal(rows.length, r.chart.length);
+  assert.deepEqual([...new Set(rows.map((x) => x.panel))], ['Southeast/Centre-West', 'South', 'Northeast', 'North']);
+  // Good Friday 2020 is a gap; an ordinary Wednesday is drawn, with its saved value.
+  const friday = rows.find((x) => x.date === '2020-04-10' && x.panel === 'South');
+  assert.equal(friday.load_pct, null);
+  assert.equal(friday.S_load, 'left out');
+  const saved = r.chart.find((x) => x.date === '2020-04-15' && x.subsystem === 'SE');
+  assert.equal(rows.find((x) => x.date === '2020-04-15' && x.panel === 'Southeast/Centre-West').load_pct, saved.load_pct);
+  const html = await powerFigure(r);
+  const svg = html.match(/<svg [^]*?<\/svg>/)[0];
+  for (const label of ['Southeast/Centre-West', 'South', 'Northeast', 'North']) assert.ok(svg.includes(`>${label}</text>`), label);
+  assert.match(html, /altair-static--narrow/, 'drawn for a 375 px phone too');
+  const broken = structuredClone(r);
+  broken.chart = broken.chart.filter((x) => !(x.date === '2020-04-15' && x.subsystem === 'N'));
+  assert.throws(() => powerRows(broken), /lacks a subsystem/);
+});
+
 test('the flight charts: one measure at a time, two years, and every delay band', async () => {
   const months = parseMonths(read('data/aviation-reliability/mart_month.csv'));
   const { rows } = monthRows(months);
@@ -293,6 +314,7 @@ test('the evidence cards: drawn once at card sizes, readable on a 375 px phone, 
     aviation: read('data/aviation-reliability/mart_month.csv'),
     pld: results,
     dst: json('data/dst-crashes/results.json'),
+    power: json('data/power-lockdown/results.json'),
   };
   for (const [exhibit, d] of Object.entries(data)) {
     const { evidence, html } = await evidenceChart(exhibit, d, { compact: true });

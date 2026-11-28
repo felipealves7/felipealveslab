@@ -1,0 +1,219 @@
+# The lockdown and power-load lab (/lab/brazil-lockdown-power-load). Real public data:
+# ONS hourly load and network tables (CC BY 4.0), OxCGRT (CC BY 4.0), Banco Central do Brasil IBC-Br (ODbL).
+models:
+  - name: stg_ons_load_hourly
+    description: ONS hourly load by subsystem, 2018 to 2021, MWh per hour, as downloaded.
+    columns:
+      - name: subsystem_id
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["N", "NE", "S", "SE"]
+      - name: load_mwh
+        data_tests:
+          - not_null
+
+  - name: dim_power_calendar
+    description: >
+      One row per day, 2018 to 2021, with the two weekday-aligned reference days (364 and 728 days
+      earlier) and whether the day can be compared with them: no holiday, bridge, Carnival or
+      Easter day among the three.
+    columns:
+      - name: date_day
+        data_tests:
+          - unique
+          - not_null
+
+  - name: dim_subsystem
+    description: The four ONS subsystems.
+    semantic_model:
+      enabled: true
+      name: subsystems
+    columns:
+      - name: subsystem_id
+        description: ONS subsystem code.
+        entity:
+          type: primary
+          name: subsystem
+        data_tests:
+          - unique
+          - not_null
+      - name: subsystem_name
+        description: North, Northeast, South or Southeast/Centre-West.
+        dimension:
+          type: categorical
+
+  - name: fct_load_daily
+    description: Daily energy by subsystem, MWh, the sum of 24 hourly values. Days with a missing or zero hour are left out.
+    semantic_model:
+      enabled: true
+      name: load_days
+    agg_time_dimension: date_day
+    columns:
+      - name: load_day_id
+        entity:
+          type: primary
+          name: load_day
+        data_tests:
+          - unique
+          - not_null
+      - name: subsystem_id
+        entity:
+          type: foreign
+          name: subsystem
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_subsystem')
+                field: subsystem_id
+      - name: date_day
+        granularity: day
+        dimension:
+          type: time
+      - name: hours
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [24]
+                quote: false
+    metrics:
+      - name: load_mwh
+        label: Power load (MWh)
+        description: Energy drawn from the national grid, in MWh, summed over the days and subsystems asked for.
+        type: simple
+        agg: sum
+        expr: load_mwh
+
+  - name: fct_load_vs_reference
+    description: >
+      Each comparable day of 2020 and 2021 by subsystem, with its load and the mean load of its two
+      weekday-aligned reference days. Sums of the two give the change at any level of detail.
+    semantic_model:
+      enabled: true
+      name: load_comparisons
+    agg_time_dimension: date_day
+    columns:
+      - name: comparison_day_id
+        entity:
+          type: primary
+          name: comparison_day
+        data_tests:
+          - unique
+          - not_null
+      - name: subsystem_id
+        entity:
+          type: foreign
+          name: subsystem
+      - name: date_day
+        granularity: day
+        dimension:
+          type: time
+      - name: comparable
+        description: True when neither the day nor its reference days is a holiday-type day.
+        dimension:
+          type: categorical
+    metrics:
+      - name: compared_load_mwh
+        label: Load on comparable days (MWh)
+        description: Load summed over the comparable days only.
+        type: simple
+        agg: sum
+        expr: compared_load_mwh
+      - name: reference_load_mwh
+        label: Reference load (MWh)
+        description: The mean load of each comparable day's two weekday-aligned reference days, summed.
+        type: simple
+        agg: sum
+        expr: reference_load_mwh
+
+  - name: bridge_state_subsystem
+    description: >
+      The weighted bridge from states to subsystems. Each state belongs to one subsystem, and its
+      weights (capacity, equal) sum to one in each subsystem.
+    columns:
+      - name: state
+        data_tests:
+          - unique
+          - not_null
+      - name: subsystem_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_subsystem')
+                field: subsystem_id
+
+  - name: stg_oxcgrt_stringency
+    description: OxCGRT stringency index (0 to 100) by state and day, 2020 and 2021.
+    columns:
+      - name: stringency
+        data_tests:
+          - not_null
+      - name: state
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('bridge_state_subsystem')
+                field: state
+
+  - name: fct_stringency_subsystem_daily
+    description: Stringency by subsystem and day, weighted across its states through the bridge.
+    semantic_model:
+      enabled: true
+      name: stringency_days
+    agg_time_dimension: date_day
+    columns:
+      - name: stringency_day_id
+        entity:
+          type: primary
+          name: stringency_day
+        data_tests:
+          - unique
+          - not_null
+      - name: subsystem_id
+        entity:
+          type: foreign
+          name: subsystem
+      - name: date_day
+        granularity: day
+        dimension:
+          type: time
+    metrics:
+      - name: stringency
+        label: Lockdown stringency (capacity weights)
+        description: >
+          Mean of the daily OxCGRT stringency index, 0 to 100, weighted across each subsystem's
+          states by transformer capacity. Across subsystems it is a plain mean of the subsystems.
+        type: simple
+        agg: average
+        expr: stringency_capacity
+      - name: stringency_equal_weights
+        label: Lockdown stringency (equal weights)
+        description: As stringency, with every state counting the same in its subsystem.
+        type: simple
+        agg: average
+        expr: stringency_equal
+
+  - name: fct_activity_monthly
+    description: IBC-Br, the Banco Central do Brasil's monthly economic activity index, national.
+    semantic_model:
+      enabled: true
+      name: activity_months
+    agg_time_dimension: month_start
+    columns:
+      - name: month_start
+        granularity: month
+        entity:
+          type: primary
+          name: activity_month
+        dimension:
+          type: time
+        data_tests:
+          - unique
+          - not_null
+    metrics:
+      - name: ibcbr
+        label: IBC-Br (not seasonally adjusted)
+        description: Mean of the monthly IBC-Br index (series 24363) over the months asked for; a quarter is the mean of its three months.
+        type: simple
+        agg: average
+        expr: ibcbr

@@ -150,3 +150,35 @@ export function dstEvidence(r) {
     summary: `In states that change their clocks, fatal crashes were ${pct(m.rateRatio)}% higher in that work week (95% interval ${pct(m.interval95[0])}% to ${pct(m.interval95[1])}%), about ${Math.round(m.excessDeathsPerYear)} extra deaths a year. In Arizona and Hawaii, which do not change their clocks: ${change(st.rateRatio)} (95% interval ${change(st.interval95[0])} to ${change(st.interval95[1])}), from ${fmt(st.treat)} work-week crashes.`,
   };
 }
+
+// Lockdown and power load: Brazil's deepest fall in load at each level of detail, from the hour to
+// the whole period, from data/power-lockdown/results.json.
+export function powerEvidence(r) {
+  const L = r?.levels?.BR;
+  const levels = [
+    { key: 'hour', label: 'Hour' },
+    { key: 'day', label: 'Day' },
+    { key: 'week', label: 'Week' },
+    { key: 'month', label: 'Month' },
+    { key: 'quarter', label: 'Quarter' },
+    { key: 'window', label: '16 Mar to 30 Jun' },
+  ];
+  if (!L || levels.some((l) => !Number.isFinite(L[l.key]?.fall_pct))) throw new Error('Missing levels in the power-load evidence');
+  const maxAbs = Math.max(...levels.map((l) => Math.abs(L[l.key].fall_pct)));
+  const same = r.estimates?.capacity?.same_day;
+  if (!same) throw new Error('Missing the dose estimate in the power-load evidence');
+  return {
+    title: 'Lockdowns and power load: the fall depends on the level of detail',
+    subtitle: 'Brazil, deepest fall from 16 March to 30 June 2020 against the same weekdays and months of 2018 and 2019 · ONS hourly load',
+    source: 'data/power-lockdown/results.json',
+    provenance: 'In source',
+    unit: '%',
+    diverging: true,
+    axis: '% change against 2018–19 · bars scaled to the largest fall',
+    bars: levels.map((l) => {
+      const v = L[l.key].fall_pct;
+      return { key: l.key, label: l.label, value: v, percent: (v / maxAbs) * 100, tone: 'neutral', text: signed(v) };
+    }),
+    summary: `The deepest hour was ${signed(L.hour.fall_pct)}, the deepest day ${signed(L.day.fall_pct)}, April ${signed(L.month.fall_pct)} and the whole period ${signed(L.window.fall_pct)}. Subsystems compared on the same day: ${signed(same.per10_pct)} per 10 points of stringency (95% interval ${signed(same.low_pct)} to ${signed(same.high_pct)}), so harder lockdowns are not shown to have cut more.`,
+  };
+}

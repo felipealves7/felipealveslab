@@ -1,0 +1,13 @@
+# Built from other metrics: summed first and divided after, at whatever level of detail a
+# question asks for, so a month's change is never an average of daily changes.
+metrics:
+  - name: load_change_pct
+    label: Change in power load against 2018-19 (%)
+    description: >
+      Load on comparable days against the mean of the same weekdays 364 and 728 days earlier, in
+      per cent. Negative is a fall. Holidays, bridge, Carnival and Easter days are left out.
+    type: derived
+    expr: (compared_load_mwh - reference_load_mwh) * 100.0 / nullif(reference_load_mwh, 0)
+    input_metrics:
+      - name: compared_load_mwh
+      - name: reference_load_mwh

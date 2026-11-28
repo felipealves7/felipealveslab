@@ -19,6 +19,8 @@ import { ledgerFigure, airportFigure } from '../../lib/charts/lab.mjs';
 import { pldFigure } from '../../lib/charts/pld.mjs';
 import { dstFigure } from '../../lib/charts/dst.mjs';
 import dstResults from '../../../data/dst-crashes/results.json';
+import { powerFigure } from '../../lib/charts/power.mjs';
+import powerResults from '../../../data/power-lockdown/results.json';
 import { wrapTables } from '../../lib/lab/prose.mjs';
 
 export async function getStaticPaths() {
@@ -32,11 +34,13 @@ const { entry } = Astro.props;
 // Every table then sits in a container that scrolls sideways on a phone.
 const pldHtml = entry.id === 'brazil-power-price-contract' ? await pldFigure(pldResults) : '';
 const dstHtml = entry.id === 'spring-clock-change-road-deaths' ? await dstFigure(dstResults) : '';
+const powerHtml = entry.id === 'brazil-lockdown-power-load' ? await powerFigure(powerResults) : '';
 const airportHtml = entry.id === 'airport-data-contract' ? await airportFigure(airportResults) : '';
 const ledgerHtml = entry.id === 'ask-the-ledger' ? await ledgerFigure(ledgerEvalResults) : '';
 const body = wrapTables(fillLabCharts(entry.rendered?.html ?? '', {
   pld: () => pldHtml,
   dst: () => dstHtml,
+  power: () => powerHtml,
   airport: () => airportHtml,
   ledger: () => ledgerHtml,
 }));
@@ -50,8 +54,9 @@ const isLedger = entry.id === 'ask-the-ledger';
 const isAviation = entry.id === 'aviation-reliability';
 const isPld = entry.id === 'brazil-power-price-contract';
 const isDst = entry.id === 'spring-clock-change-road-deaths';
+const isPower = entry.id === 'brazil-lockdown-power-load';
 const label = d.series === 'human-variable' ? 'The Human Variable' : d.lane;
-const css = ['styles', 'responsive', 'enhancements', 'site-fixes', 'illustrations', 'lab', ...(isAirport ? ['lab-airport'] : []), 'lab-proof', 'altair-charts', ...(isAviation ? ['lab-aviation'] : []), ...(isPld ? ['lab-pld'] : []), ...(isDst ? ['lab-dst'] : [])];
+const css = ['styles', 'responsive', 'enhancements', 'site-fixes', 'illustrations', 'lab', ...(isAirport ? ['lab-airport'] : []), 'lab-proof', 'altair-charts', ...(isAviation ? ['lab-aviation'] : []), ...(isPld ? ['lab-pld'] : []), ...(isDst ? ['lab-dst'] : []), ...(isPower ? ['lab-power'] : [])];
 ---
 <Base
   title={`${d.title} — Felipe Alves Lab`}
