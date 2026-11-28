@@ -41,3 +41,7 @@ Is the web enough? The same Claude model answers the same questions with four se
 ## dst-crashes
 
 Spring clock change and fatal crashes, for `/lab/spring-clock-change-road-deaths`. `extract.mjs` reads NHTSA's FARS accident files for 1996 to 2024 (downloaded into a cache folder you name), joins each crash to its state's clock rule (IANA extract in `data/dst-crashes/tzdata-us.txt`) and to the sun's elevation at its place and minute, and writes daily counts 14 days either side of two spring Sundays. `analyse.mjs` writes the estimates and `chart.mjs --write` draws the page's SVG chart. Plain Node; `extract.mjs` also needs the `unzip` command. Tests: `node --test pipelines/dst-crashes/dst.test.mjs scripts/dst-page.test.mjs`.
+
+## aviation-reliability
+
+The flight-reliability project behind `/lab/aviation-reliability`. `fetch_package.py` downloads the public Kaggle package (Version 3) signed out and checks it without running any of it: the 34 source files against `data/aviation-reliability/source-code-checksums.json`, and the 16 copies in `data/aviation-reliability/` against the package's own files. The `flight-package` workflow runs it. See `pipelines/aviation-reliability/README.md`. Tests: `python -m unittest discover -s pipelines/aviation-reliability`.

@@ -41,6 +41,12 @@ The whole package, code included, is public as the Kaggle dataset
 https://www.kaggle.com/datasets/felipealves7/aviation-reliability-bts-foundation-v1 (Version 3, a cleaned
 release of 1 November 2026). `external.json` records the checks of it and of the Tableau dashboard.
 
+`pipelines/aviation-reliability/fetch_package.py` downloads Version 3 with kagglehub, signed out, and
+checks it without running any of it: the 34 files in `source-code-checksums.json` against their
+SHA-256, and the 16 copies in this folder against the package's own files. The `flight-package`
+workflow runs it on every pull request and merge that changes this folder. On 26 November 2026,
+34 of 34 source files and 16 of 16 copies matched.
+
 ## Columns and units
 
 `mart_month.csv`: `source_period` (YYYY-MM), `year`, `month`, then counts of flights: `scheduled`,

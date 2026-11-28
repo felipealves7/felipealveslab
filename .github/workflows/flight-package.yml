@@ -1,0 +1,79 @@
+name: flight-package
+
+# Downloads the public flight-reliability package from Kaggle, signed out, and checks it against
+# data/aviation-reliability/ (pipelines/aviation-reliability/fetch_package.py): every listed source
+# file against source-code-checksums.json, and every copy in that folder against the package's own
+# file. Nothing downloaded is run, and nothing is committed or published. Needs no secrets: the
+# dataset is public. Runs on pull requests and merges that change the pipeline, the folder or this
+# file, and by hand from the Actions tab or the GitHub app, where another dataset version can be
+# checked. The full result is kept as an artifact for 30 days and summarised on the run page.
+#
+# fetch_package.py exit codes: 0 everything matched, 1 something differed, was missing or was refused.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'pipelines/aviation-reliability/**'
+      - 'data/aviation-reliability/**'
+      - '.github/workflows/flight-package.yml'
+  pull_request:
+    paths:
+      - 'pipelines/aviation-reliability/**'
+      - 'data/aviation-reliability/**'
+      - '.github/workflows/flight-package.yml'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Kaggle dataset version to check (the Lab cites Version 3)
+        type: string
+        default: '3'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: flight-package-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          cache: pip
+          cache-dependency-path: pipelines/aviation-reliability/requirements.txt
+
+      - name: Check the version asked for
+        env:
+          VERSION: ${{ inputs.version || '3' }}
+        run: |
+          if ! [[ "$VERSION" =~ ^[1-9][0-9]{0,2}$ ]]; then
+            echo "The version must be a whole number from 1 to 999."
+            exit 1
+          fi
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+
+      - name: Unit tests, with no network
+        run: python -m unittest discover -s pipelines/aviation-reliability
+
+      - name: Install kagglehub
+        run: pip install -r pipelines/aviation-reliability/requirements.txt
+
+      - name: Download the package and check it
+        run: >-
+          python pipelines/aviation-reliability/fetch_package.py --version "$VERSION"
+          --summary "$GITHUB_STEP_SUMMARY" --report flight-package-check.json
+
+      - name: Keep the full result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: flight-package-check
+          path: flight-package-check.json
+          retention-days: 30
+          if-no-files-found: ignore
