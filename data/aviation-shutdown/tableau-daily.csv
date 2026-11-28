@@ -1,0 +1,274 @@
+Date,Group,Period,Cut in force (%),Scheduled flights,Cancelled flights,Cancelled (air traffic system code),Observed arrivals,On-time arrivals,Arrival delay (total minutes)
+2025-09-01,Listed airport at both ends,Before the shutdown,0,8121,49,0,8047,6553,34101
+2025-09-01,No listed airport,Before the shutdown,0,896,0,0,896,771,-152
+2025-09-01,Listed airport at one end,Before the shutdown,0,11140,45,0,11062,9114,42222
+2025-09-02,Listed airport at both ends,Before the shutdown,0,7200,9,0,7187,6056,730
+2025-09-02,No listed airport,Before the shutdown,0,573,0,0,572,502,-1412
+2025-09-02,Listed airport at one end,Before the shutdown,0,9696,18,0,9666,8458,-14235
+2025-09-03,Listed airport at both ends,Before the shutdown,0,7047,2,0,7033,6276,-35589
+2025-09-03,No listed airport,Before the shutdown,0,554,0,0,553,518,-3926
+2025-09-03,Listed airport at one end,Before the shutdown,0,9497,6,0,9485,8656,-49309
+2025-09-04,Listed airport at both ends,Before the shutdown,0,7813,88,35,7693,5953,78045
+2025-09-04,No listed airport,Before the shutdown,0,847,1,0,844,760,-3218
+2025-09-04,Listed airport at one end,Before the shutdown,0,10470,109,69,10333,8603,42009
+2025-09-05,Listed airport at both ends,Before the shutdown,0,7931,41,12,7876,6095,46991
+2025-09-05,No listed airport,Before the shutdown,0,844,2,0,842,735,-651
+2025-09-05,Listed airport at one end,Before the shutdown,0,10652,38,20,10593,8739,29507
+2025-09-06,Listed airport at both ends,Before the shutdown,0,6578,130,45,6369,5019,80259
+2025-09-06,No listed airport,Before the shutdown,0,495,1,0,494,435,-873
+2025-09-06,Listed airport at one end,Before the shutdown,0,8835,147,41,8642,7203,45205
+2025-09-07,Listed airport at both ends,Before the shutdown,0,8091,42,12,8038,6283,54143
+2025-09-07,No listed airport,Before the shutdown,0,839,2,1,837,679,3930
+2025-09-07,Listed airport at one end,Before the shutdown,0,11000,25,4,10963,8979,46457
+2025-09-08,Listed airport at both ends,Before the shutdown,0,8014,28,5,7965,6707,16628
+2025-09-08,No listed airport,Before the shutdown,0,843,1,0,842,713,5133
+2025-09-08,Listed airport at one end,Before the shutdown,0,10830,23,4,10793,9380,-9114
+2025-09-09,Listed airport at both ends,Before the shutdown,0,7086,2,0,7077,6111,-30814
+2025-09-09,No listed airport,Before the shutdown,0,534,0,0,534,505,-3989
+2025-09-09,Listed airport at one end,Before the shutdown,0,9496,5,0,9484,8427,-43177
+2025-09-10,Listed airport at both ends,Before the shutdown,0,7174,5,0,7159,6209,-21656
+2025-09-10,No listed airport,Before the shutdown,0,565,0,0,565,534,-4556
+2025-09-10,Listed airport at one end,Before the shutdown,0,9654,5,1,9637,8650,-43408
+2025-09-11,Listed airport at both ends,Before the shutdown,0,8272,5,0,8235,6502,35023
+2025-09-11,No listed airport,Before the shutdown,0,852,0,0,850,725,-1143
+2025-09-11,Listed airport at one end,Before the shutdown,0,11223,6,1,11193,9160,45583
+2025-09-12,Listed airport at both ends,Before the shutdown,0,8174,10,0,8150,6641,15105
+2025-09-12,No listed airport,Before the shutdown,0,845,3,0,842,718,-545
+2025-09-12,Listed airport at one end,Before the shutdown,0,11001,10,0,10981,9175,16636
+2025-09-13,Listed airport at both ends,Before the shutdown,0,6701,23,9,6665,5512,20452
+2025-09-13,No listed airport,Before the shutdown,0,497,0,0,495,438,-2092
+2025-09-13,Listed airport at one end,Before the shutdown,0,8996,129,45,8839,7348,39205
+2025-09-14,Listed airport at both ends,Before the shutdown,0,8265,3,0,8254,6896,8143
+2025-09-14,No listed airport,Before the shutdown,0,848,1,0,844,727,-1649
+2025-09-14,Listed airport at one end,Before the shutdown,0,11220,2,0,11209,9602,-2911
+2025-09-15,Listed airport at both ends,Before the shutdown,0,8195,0,0,8189,6970,859
+2025-09-15,No listed airport,Before the shutdown,0,841,2,0,837,757,-4304
+2025-09-15,Listed airport at one end,Before the shutdown,0,11069,5,0,11055,9679,-21132
+2025-09-16,Listed airport at both ends,Before the shutdown,0,7207,2,0,7196,6202,-20350
+2025-09-16,No listed airport,Before the shutdown,0,538,0,0,536,481,-1946
+2025-09-16,Listed airport at one end,Before the shutdown,0,9673,3,0,9655,8340,-12343
+2025-09-17,Listed airport at both ends,Before the shutdown,0,7295,67,43,7178,5779,32491
+2025-09-17,No listed airport,Before the shutdown,0,567,1,0,563,510,-1743
+2025-09-17,Listed airport at one end,Before the shutdown,0,9861,42,27,9795,8205,17135
+2025-09-18,Listed airport at both ends,Before the shutdown,0,8274,27,11,8237,6112,96122
+2025-09-18,No listed airport,Before the shutdown,0,856,0,0,855,685,2722
+2025-09-18,Listed airport at one end,Before the shutdown,0,11242,21,7,11212,8916,65566
+2025-09-19,Listed airport at both ends,Before the shutdown,0,8181,186,3,7956,6330,64281
+2025-09-19,No listed airport,Before the shutdown,0,851,1,0,849,701,3968
+2025-09-19,Listed airport at one end,Before the shutdown,0,10998,361,63,10566,8575,73103
+2025-09-20,Listed airport at both ends,Before the shutdown,0,6707,68,2,6633,5653,2177
+2025-09-20,No listed airport,Before the shutdown,0,505,0,0,504,465,-3001
+2025-09-20,Listed airport at one end,Before the shutdown,0,9006,96,12,8882,7532,8327
+2025-09-21,Listed airport at both ends,Before the shutdown,0,8259,28,1,8178,6248,64225
+2025-09-21,No listed airport,Before the shutdown,0,849,0,0,849,723,260
+2025-09-21,Listed airport at one end,Before the shutdown,0,11219,46,0,11128,8714,94322
+2025-09-22,Listed airport at both ends,Before the shutdown,0,8195,31,2,8155,6442,41690
+2025-09-22,No listed airport,Before the shutdown,0,852,0,0,851,734,-1032
+2025-09-22,Listed airport at one end,Before the shutdown,0,11059,41,0,10986,8582,86758
+2025-09-23,Listed airport at both ends,Before the shutdown,0,7206,5,0,7186,5962,-147
+2025-09-23,No listed airport,Before the shutdown,0,544,0,0,543,508,-3512
+2025-09-23,Listed airport at one end,Before the shutdown,0,9631,19,8,9602,8159,-5415
+2025-09-24,Listed airport at both ends,Before the shutdown,0,7296,87,47,7203,5532,64210
+2025-09-24,No listed airport,Before the shutdown,0,573,1,0,571,510,-1945
+2025-09-24,Listed airport at one end,Before the shutdown,0,9824,67,20,9740,7933,45939
+2025-09-25,Listed airport at both ends,Before the shutdown,0,8289,122,103,8158,5915,124295
+2025-09-25,No listed airport,Before the shutdown,0,858,3,0,855,690,2894
+2025-09-25,Listed airport at one end,Before the shutdown,0,11232,63,33,11149,8749,89685
+2025-09-26,Listed airport at both ends,Before the shutdown,0,8221,147,2,7993,6208,102685
+2025-09-26,No listed airport,Before the shutdown,0,855,10,2,844,640,12695
+2025-09-26,Listed airport at one end,Before the shutdown,0,11001,208,14,10761,8887,78258
+2025-09-27,Listed airport at both ends,Before the shutdown,0,6758,40,0,6711,5964,-37955
+2025-09-27,No listed airport,Before the shutdown,0,525,0,0,525,483,-2916
+2025-09-27,Listed airport at one end,Before the shutdown,0,9043,30,4,9002,8036,-37491
+2025-09-28,Listed airport at both ends,Before the shutdown,0,8290,7,0,8278,6964,-3330
+2025-09-28,No listed airport,Before the shutdown,0,852,2,0,850,741,-2271
+2025-09-28,Listed airport at one end,Before the shutdown,0,11244,5,0,11230,9673,-3903
+2025-09-29,Listed airport at both ends,Before the shutdown,0,8244,9,2,8232,6959,-2478
+2025-09-29,No listed airport,Before the shutdown,0,852,0,0,850,748,-1761
+2025-09-29,Listed airport at one end,Before the shutdown,0,11079,8,0,11070,9603,-16738
+2025-09-30,Listed airport at both ends,Before the shutdown,0,7266,3,0,7257,6725,-60561
+2025-09-30,No listed airport,Before the shutdown,0,548,0,0,547,510,-3577
+2025-09-30,Listed airport at one end,Before the shutdown,0,9700,6,0,9688,8968,-62678
+2025-10-01,Listed airport at both ends,"Shutdown, before the order",0,7365,6,0,7355,6540,-41906
+2025-10-01,No listed airport,"Shutdown, before the order",0,635,0,0,635,597,-3103
+2025-10-01,Listed airport at one end,"Shutdown, before the order",0,9920,5,2,9911,8930,-40769
+2025-10-02,Listed airport at both ends,"Shutdown, before the order",0,8402,12,0,8388,7317,-14893
+2025-10-02,No listed airport,"Shutdown, before the order",0,949,3,0,945,834,-2239
+2025-10-02,Listed airport at one end,"Shutdown, before the order",0,11463,7,0,11452,10117,-23239
+2025-10-03,Listed airport at both ends,"Shutdown, before the order",0,8313,4,0,8302,6959,-4662
+2025-10-03,No listed airport,"Shutdown, before the order",0,949,0,0,947,799,1602
+2025-10-03,Listed airport at one end,"Shutdown, before the order",0,11198,8,0,11181,9547,-6312
+2025-10-04,Listed airport at both ends,"Shutdown, before the order",0,6839,2,0,6830,6130,-37225
+2025-10-04,No listed airport,"Shutdown, before the order",0,627,1,0,623,577,-3715
+2025-10-04,Listed airport at one end,"Shutdown, before the order",0,9223,0,0,9216,8167,-32711
+2025-10-05,Listed airport at both ends,"Shutdown, before the order",0,8314,9,0,8299,6869,13216
+2025-10-05,No listed airport,"Shutdown, before the order",0,961,1,0,953,790,-143
+2025-10-05,Listed airport at one end,"Shutdown, before the order",0,11412,8,0,11393,9632,15908
+2025-10-06,Listed airport at both ends,"Shutdown, before the order",0,8496,9,0,8480,6561,60730
+2025-10-06,No listed airport,"Shutdown, before the order",0,935,6,4,929,771,2938
+2025-10-06,Listed airport at one end,"Shutdown, before the order",0,11494,14,8,11461,9126,63665
+2025-10-07,Listed airport at both ends,"Shutdown, before the order",0,7626,9,1,7615,6608,-20316
+2025-10-07,No listed airport,"Shutdown, before the order",0,647,2,0,641,525,4009
+2025-10-07,Listed airport at one end,"Shutdown, before the order",0,10221,16,2,10195,8689,4633
+2025-10-08,Listed airport at both ends,"Shutdown, before the order",0,7663,3,0,7657,6261,15417
+2025-10-08,No listed airport,"Shutdown, before the order",0,694,0,0,694,606,-1353
+2025-10-08,Listed airport at one end,"Shutdown, before the order",0,10410,9,1,10395,9004,-8081
+2025-10-09,Listed airport at both ends,"Shutdown, before the order",0,8493,5,0,8481,6281,64462
+2025-10-09,No listed airport,"Shutdown, before the order",0,949,1,0,945,739,6925
+2025-10-09,Listed airport at one end,"Shutdown, before the order",0,11626,9,1,11596,9044,74083
+2025-10-10,Listed airport at both ends,"Shutdown, before the order",0,8515,14,4,8480,5984,113932
+2025-10-10,No listed airport,"Shutdown, before the order",0,941,2,0,938,678,13873
+2025-10-10,Listed airport at one end,"Shutdown, before the order",0,11584,13,5,11544,8725,111578
+2025-10-11,Listed airport at both ends,"Shutdown, before the order",0,7036,25,0,7004,5635,30809
+2025-10-11,No listed airport,"Shutdown, before the order",0,639,0,0,639,536,394
+2025-10-11,Listed airport at one end,"Shutdown, before the order",0,9627,17,0,9597,8055,16930
+2025-10-12,Listed airport at both ends,"Shutdown, before the order",0,8397,52,17,8339,5645,124492
+2025-10-12,No listed airport,"Shutdown, before the order",0,964,4,0,959,706,8684
+2025-10-12,Listed airport at one end,"Shutdown, before the order",0,11602,38,9,11548,8718,113772
+2025-10-13,Listed airport at both ends,"Shutdown, before the order",0,8531,164,132,8350,5460,192741
+2025-10-13,No listed airport,"Shutdown, before the order",0,936,3,1,930,698,6100
+2025-10-13,Listed airport at one end,"Shutdown, before the order",0,11561,118,89,11414,8521,132076
+2025-10-14,Listed airport at both ends,"Shutdown, before the order",0,7635,27,17,7597,5514,100503
+2025-10-14,No listed airport,"Shutdown, before the order",0,653,6,0,644,536,677
+2025-10-14,Listed airport at one end,"Shutdown, before the order",0,10236,29,12,10182,8322,41127
+2025-10-15,Listed airport at both ends,"Shutdown, before the order",0,7685,9,0,7665,6433,-9381
+2025-10-15,No listed airport,"Shutdown, before the order",0,691,0,0,691,585,-610
+2025-10-15,Listed airport at one end,"Shutdown, before the order",0,10405,13,0,10381,8849,-2106
+2025-10-16,Listed airport at both ends,"Shutdown, before the order",0,8498,7,0,8486,6876,19918
+2025-10-16,No listed airport,"Shutdown, before the order",0,951,0,0,949,790,1950
+2025-10-16,Listed airport at one end,"Shutdown, before the order",0,11614,8,0,11595,9547,35995
+2025-10-17,Listed airport at both ends,"Shutdown, before the order",0,8534,10,0,8521,7354,-4917
+2025-10-17,No listed airport,"Shutdown, before the order",0,940,2,0,938,796,-61
+2025-10-17,Listed airport at one end,"Shutdown, before the order",0,11558,7,2,11541,9939,-6567
+2025-10-18,Listed airport at both ends,"Shutdown, before the order",0,7046,90,0,6908,5311,64997
+2025-10-18,No listed airport,"Shutdown, before the order",0,636,3,0,629,495,3184
+2025-10-18,Listed airport at one end,"Shutdown, before the order",0,9590,196,12,9339,6997,125828
+2025-10-19,Listed airport at both ends,"Shutdown, before the order",0,8416,28,0,8381,6048,87312
+2025-10-19,No listed airport,"Shutdown, before the order",0,973,0,0,973,664,16423
+2025-10-19,Listed airport at one end,"Shutdown, before the order",0,11572,38,0,11519,8474,129868
+2025-10-20,Listed airport at both ends,"Shutdown, before the order",0,8546,11,0,8525,6389,76010
+2025-10-20,No listed airport,"Shutdown, before the order",0,930,2,0,927,696,5840
+2025-10-20,Listed airport at one end,"Shutdown, before the order",0,11534,15,0,11505,8771,101220
+2025-10-21,Listed airport at both ends,"Shutdown, before the order",0,7636,6,0,7624,6594,-18552
+2025-10-21,No listed airport,"Shutdown, before the order",0,653,2,0,648,562,471
+2025-10-21,Listed airport at one end,"Shutdown, before the order",0,10213,7,0,10194,8804,-5811
+2025-10-22,Listed airport at both ends,"Shutdown, before the order",0,7680,9,0,7667,6341,7374
+2025-10-22,No listed airport,"Shutdown, before the order",0,668,1,0,665,564,-157
+2025-10-22,Listed airport at one end,"Shutdown, before the order",0,10388,14,0,10372,8858,882
+2025-10-23,Listed airport at both ends,"Shutdown, before the order",0,8497,105,1,8383,6598,51449
+2025-10-23,No listed airport,"Shutdown, before the order",0,940,7,0,931,719,8032
+2025-10-23,Listed airport at one end,"Shutdown, before the order",0,11576,74,2,11487,9192,67252
+2025-10-24,Listed airport at both ends,"Shutdown, before the order",0,8470,166,1,8289,6166,98342
+2025-10-24,No listed airport,"Shutdown, before the order",0,921,2,0,917,713,5181
+2025-10-24,Listed airport at one end,"Shutdown, before the order",0,11382,205,0,11150,8692,71813
+2025-10-25,Listed airport at both ends,"Shutdown, before the order",0,7023,38,0,6961,5372,46624
+2025-10-25,No listed airport,"Shutdown, before the order",0,610,0,0,609,529,-947
+2025-10-25,Listed airport at one end,"Shutdown, before the order",0,9483,76,0,9370,7470,54716
+2025-10-26,Listed airport at both ends,"Shutdown, before the order",0,8380,39,3,8314,5495,153769
+2025-10-26,No listed airport,"Shutdown, before the order",0,976,1,0,969,621,23998
+2025-10-26,Listed airport at one end,"Shutdown, before the order",0,11476,43,0,11396,7795,190417
+2025-10-27,Listed airport at both ends,"Shutdown, before the order",0,8498,25,3,8424,6040,138474
+2025-10-27,No listed airport,"Shutdown, before the order",0,945,2,0,937,669,13649
+2025-10-27,Listed airport at one end,"Shutdown, before the order",0,11446,26,1,11395,8439,133891
+2025-10-28,Listed airport at both ends,"Shutdown, before the order",0,7286,14,2,7221,5740,22758
+2025-10-28,No listed airport,"Shutdown, before the order",0,656,0,0,656,558,-331
+2025-10-28,Listed airport at one end,"Shutdown, before the order",0,9831,18,0,9794,8172,12903
+2025-10-29,Listed airport at both ends,"Shutdown, before the order",0,7402,19,5,7374,6001,9928
+2025-10-29,No listed airport,"Shutdown, before the order",0,676,3,0,671,599,-1547
+2025-10-29,Listed airport at one end,"Shutdown, before the order",0,10017,14,4,9997,8522,-6235
+2025-10-30,Listed airport at both ends,"Shutdown, before the order",0,8153,448,213,7645,5201,210173
+2025-10-30,No listed airport,"Shutdown, before the order",0,942,15,10,923,724,9102
+2025-10-30,Listed airport at one end,"Shutdown, before the order",0,11129,388,225,10696,8212,133559
+2025-10-31,Listed airport at both ends,"Shutdown, before the order",0,7096,211,73,6875,5009,93020
+2025-10-31,No listed airport,"Shutdown, before the order",0,787,1,1,785,536,16804
+2025-10-31,Listed airport at one end,"Shutdown, before the order",0,9208,125,53,9074,7045,79584
+2025-11-01,Listed airport at both ends,"Shutdown, before the order",0,6681,47,9,6632,5326,26781
+2025-11-01,No listed airport,"Shutdown, before the order",0,606,2,0,604,531,-2690
+2025-11-01,Listed airport at one end,"Shutdown, before the order",0,9082,24,5,9044,7527,10635
+2025-11-02,Listed airport at both ends,"Shutdown, before the order",0,8084,49,29,8029,6096,57399
+2025-11-02,No listed airport,"Shutdown, before the order",0,929,4,0,925,666,8029
+2025-11-02,Listed airport at one end,"Shutdown, before the order",0,11019,52,39,10956,8772,38159
+2025-11-03,Listed airport at both ends,"Shutdown, before the order",0,7912,11,2,7891,6370,23000
+2025-11-03,No listed airport,"Shutdown, before the order",0,839,0,0,838,682,3765
+2025-11-03,Listed airport at one end,"Shutdown, before the order",0,10600,13,4,10579,9027,-2514
+2025-11-04,Listed airport at both ends,"Shutdown, before the order",0,7282,38,9,7221,5672,34935
+2025-11-04,No listed airport,"Shutdown, before the order",0,616,0,0,616,580,-5168
+2025-11-04,Listed airport at one end,"Shutdown, before the order",0,9686,36,8,9630,8237,-9417
+2025-11-05,Listed airport at both ends,"Shutdown, before the order",0,7355,31,20,7315,5913,47671
+2025-11-05,No listed airport,"Shutdown, before the order",0,654,3,0,650,583,-2589
+2025-11-05,Listed airport at one end,"Shutdown, before the order",0,9814,64,45,9737,8435,2321
+2025-11-06,Listed airport at both ends,"Shutdown, before the order",0,8168,69,48,8091,5422,147058
+2025-11-06,No listed airport,"Shutdown, before the order",0,926,0,0,922,741,5463
+2025-11-06,Listed airport at one end,"Shutdown, before the order",0,11085,46,29,11028,8472,81358
+2025-11-07,Listed airport at both ends,Order in force,4,8062,379,318,7680,5650,76343
+2025-11-07,No listed airport,Order in force,4,916,2,0,911,662,7735
+2025-11-07,Listed airport at one end,Order in force,4,10858,403,327,10431,8041,69705
+2025-11-08,Listed airport at both ends,Order in force,4,6816,531,395,6264,3897,191481
+2025-11-08,No listed airport,Order in force,4,586,2,1,581,429,9642
+2025-11-08,Listed airport at one end,Order in force,4,9296,718,504,8540,5943,171092
+2025-11-09,Listed airport at both ends,Order in force,4,8272,1145,727,7094,3671,307507
+2025-11-09,No listed airport,Order in force,4,914,13,8,896,467,39454
+2025-11-09,Listed airport at one end,Order in force,4,11256,1322,820,9887,5669,363107
+2025-11-10,Listed airport at both ends,Order in force,4,8237,842,523,7385,4120,225374
+2025-11-10,No listed airport,Order in force,4,903,3,0,898,576,15471
+2025-11-10,Listed airport at one end,Order in force,4,11084,1133,713,9928,6246,235398
+2025-11-11,Listed airport at both ends,Order in force,6,7425,426,358,6990,5806,13281
+2025-11-11,No listed airport,Order in force,6,608,1,0,606,559,-4238
+2025-11-11,Listed airport at one end,Order in force,6,9834,515,436,9315,7890,3453
+2025-11-12,Listed airport at both ends,Order in force,6,7407,297,278,7106,6376,-39759
+2025-11-12,No listed airport,Order in force,6,644,0,0,644,603,-5744
+2025-11-12,Listed airport at one end,Order in force,6,9795,356,320,9433,8640,-66473
+2025-11-13,Listed airport at both ends,Order in force,6,8311,367,313,7942,6605,6915
+2025-11-13,No listed airport,Order in force,6,919,2,0,916,817,-5005
+2025-11-13,Listed airport at one end,Order in force,6,11260,409,354,10846,9530,-31773
+2025-11-14,Listed airport at both ends,Order in force,6,8200,240,200,7953,6942,-32691
+2025-11-14,No listed airport,Order in force,6,905,1,0,904,822,-5631
+2025-11-14,Listed airport at one end,Order in force,6,11054,224,190,10826,9597,-50580
+2025-11-15,Listed airport at both ends,Order in force,3,6805,116,98,6678,6001,-46691
+2025-11-15,No listed airport,Order in force,3,581,1,0,580,531,-4280
+2025-11-15,Listed airport at one end,Order in force,3,9289,112,96,9166,8476,-77071
+2025-11-16,Listed airport at both ends,Order in force,3,8252,27,21,8217,6712,27957
+2025-11-16,No listed airport,Order in force,3,920,4,0,914,805,-2943
+2025-11-16,Listed airport at one end,Order in force,3,11249,45,33,11186,9507,4785
+2025-11-17,Listed airport at both ends,After the order,0,8070,14,7,8055,6522,32048
+2025-11-17,No listed airport,After the order,0,824,0,0,822,739,-3247
+2025-11-17,Listed airport at one end,After the order,0,10779,23,21,10737,9200,-12388
+2025-11-18,Listed airport at both ends,After the order,0,7393,4,0,7384,6251,-11492
+2025-11-18,No listed airport,After the order,0,610,0,0,609,563,-4759
+2025-11-18,Listed airport at one end,After the order,0,9820,6,1,9801,8574,-34658
+2025-11-19,Listed airport at both ends,After the order,0,7455,6,0,7446,6615,-42074
+2025-11-19,No listed airport,After the order,0,626,0,0,626,591,-5348
+2025-11-19,Listed airport at one end,After the order,0,9949,7,0,9929,8843,-47744
+2025-11-20,Listed airport at both ends,After the order,0,8158,254,9,7859,6069,80227
+2025-11-20,No listed airport,After the order,0,850,5,0,840,678,5372
+2025-11-20,Listed airport at one end,After the order,0,10968,521,133,10380,8189,117895
+2025-11-21,Listed airport at both ends,After the order,0,8414,81,0,8318,6592,42540
+2025-11-21,No listed airport,After the order,0,938,4,0,926,724,6625
+2025-11-21,Listed airport at one end,After the order,0,11412,145,15,11236,8957,79925
+2025-11-22,Listed airport at both ends,After the order,0,7603,22,1,7572,6642,-29603
+2025-11-22,No listed airport,After the order,0,763,3,0,759,656,-424
+2025-11-22,Listed airport at one end,After the order,0,10462,15,3,10433,9104,-22361
+2025-11-23,Listed airport at both ends,After the order,0,8334,16,0,8299,7006,-9044
+2025-11-23,No listed airport,After the order,0,944,0,0,944,819,-2666
+2025-11-23,Listed airport at one end,After the order,0,11310,20,0,11271,9598,-11536
+2025-11-24,Listed airport at both ends,After the order,0,8195,62,2,8095,6262,69302
+2025-11-24,No listed airport,After the order,0,933,3,2,922,738,4592
+2025-11-24,Listed airport at one end,After the order,0,11049,148,27,10878,8553,93658
+2025-11-25,Listed airport at both ends,After the order,0,8370,16,0,8325,6892,17554
+2025-11-25,No listed airport,After the order,0,984,4,0,978,815,2863
+2025-11-25,Listed airport at one end,After the order,0,11385,26,1,11323,9223,35160
+2025-11-26,Listed airport at both ends,After the order,0,8361,11,0,8332,6470,57768
+2025-11-26,No listed airport,After the order,0,1009,1,0,1008,838,4655
+2025-11-26,Listed airport at one end,After the order,0,11413,50,4,11343,8810,109118
+2025-11-27,Listed airport at both ends,After the order,0,4683,9,0,4671,4312,-44815
+2025-11-27,No listed airport,After the order,0,526,0,0,526,501,-5585
+2025-11-27,Listed airport at one end,After the order,0,5792,7,0,5776,5342,-40130
+2025-11-28,Listed airport at both ends,After the order,0,7454,19,5,7427,6244,16565
+2025-11-28,No listed airport,After the order,0,816,1,0,812,706,-1702
+2025-11-28,Listed airport at one end,After the order,0,10110,43,4,10055,8498,22633
+2025-11-29,Listed airport at both ends,After the order,0,8050,591,16,7424,4999,190709
+2025-11-29,No listed airport,After the order,0,965,42,2,920,552,25580
+2025-11-29,Listed airport at one end,After the order,0,11201,1060,7,10110,6803,228256
+2025-11-30,Listed airport at both ends,After the order,0,8612,263,15,8333,4291,293666
+2025-11-30,No listed airport,After the order,0,1091,26,1,1062,534,36046
+2025-11-30,Listed airport at one end,After the order,0,11873,542,67,11305,6169,435615
