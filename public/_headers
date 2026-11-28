@@ -7,7 +7,15 @@
   X-Frame-Options: DENY
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()
   Cross-Origin-Opener-Policy: same-origin
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://public.tableau.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://public.tableau.com; font-src 'self' data:; media-src 'self'; connect-src 'self' https://ledger-api.felipe-s-alves7.workers.dev https://raw.githubusercontent.com https://davidmegginson.github.io https://cloudflareinsights.com https://public.tableau.com; frame-src https://public.tableau.com https://embed.figma.com https://www.figma.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://public.tableau.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://public.tableau.com; font-src 'self' data:; media-src 'self'; connect-src 'self' https://ledger-api.felipe-s-alves7.workers.dev https://raw.githubusercontent.com https://davidmegginson.github.io https://cloudflareinsights.com https://public.tableau.com; frame-src 'self' https://public.tableau.com https://embed.figma.com https://www.figma.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests
+
+# The dbt docs of the semantic layer, embedded on Lab pages from this site only: framing by this
+# origin replaces the site-wide DENY, and the page gets its own policy with frame-ancestors 'self'.
+/lab-docs/*
+  ! X-Frame-Options
+  ! Content-Security-Policy
+  X-Frame-Options: SAMEORIGIN
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; frame-src 'none'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'
 
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable

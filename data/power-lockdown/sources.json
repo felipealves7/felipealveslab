@@ -1,0 +1,82 @@
+{
+ "retrieved": "2026-11-28",
+ "files": [
+  {
+   "file": "ons/CURVA_CARGA_2018.csv",
+   "url": "https://ons-aws-prod-opendata.s3.amazonaws.com/dataset/curva-carga-ho/CURVA_CARGA_2018.csv",
+   "source": "ONS, Curva de Carga Horária",
+   "retrieved": "2026-11-28",
+   "bytes": 1535696,
+   "sha256": "6d71d7783c0e559da601c76223b7fb2b11819a6e2ee2648e8c999b85e9e7f316"
+  },
+  {
+   "file": "ons/CURVA_CARGA_2019.csv",
+   "url": "https://ons-aws-prod-opendata.s3.amazonaws.com/dataset/curva-carga-ho/CURVA_CARGA_2019.csv",
+   "source": "ONS, Curva de Carga Horária",
+   "retrieved": "2026-11-28",
+   "bytes": 1536600,
+   "sha256": "23cc26534ef22c1da59496ef2064b90a3481ef41973256e5fdf69d7780fc9817"
+  },
+  {
+   "file": "ons/CURVA_CARGA_2020.csv",
+   "url": "https://ons-aws-prod-opendata.s3.amazonaws.com/dataset/curva-carga-ho/CURVA_CARGA_2020.csv",
+   "source": "ONS, Curva de Carga Horária",
+   "retrieved": "2026-11-28",
+   "bytes": 1539709,
+   "sha256": "838121d4ba5d8b0d3497da5b8f8522d6d2597e9ec00c6b3821e18e41ee4cc0c2"
+  },
+  {
+   "file": "ons/CURVA_CARGA_2021.csv",
+   "url": "https://ons-aws-prod-opendata.s3.amazonaws.com/dataset/curva-carga-ho/CURVA_CARGA_2021.csv",
+   "source": "ONS, Curva de Carga Horária",
+   "retrieved": "2026-11-28",
+   "bytes": 1539096,
+   "sha256": "b5d76ab85a6807479e054c1b3ac6462838ae4d8ced7c42f0f43e2c101b958345"
+  },
+  {
+   "file": "ons/SUBESTACAO.csv",
+   "url": "https://ons-aws-prod-opendata.s3.amazonaws.com/dataset/subestacao/SUBESTACAO.csv",
+   "source": "ONS, Subestações da Rede de Operação",
+   "retrieved": "2026-11-28",
+   "bytes": 161451,
+   "sha256": "0fca5290269d66124d846fa6d63b722fa24b7f38cd8991755e46dc24826838f6"
+  },
+  {
+   "file": "ons/CAPACIDADE_TRANSFORMACAO.csv",
+   "url": "https://ons-aws-prod-opendata.s3.amazonaws.com/dataset/capacidade-transformacao/CAPACIDADE_TRANSFORMACAO.csv",
+   "source": "ONS, Capacidade de Transformação da Rede Básica",
+   "retrieved": "2026-11-28",
+   "bytes": 432899,
+   "sha256": "91052a4c855bdf0b65b7950bf28d532bd7ee792c3593753aad9fd2d76ded0e1e"
+  },
+  {
+   "file": "bcb/ibcbr-24363.json",
+   "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.24363/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021",
+   "source": "Banco Central do Brasil, IBC-Br (series 24363)",
+   "retrieved": "2026-11-28",
+   "bytes": 2462,
+   "sha256": "f4bc7da3271bf197d1e5f4026dbc54fd63122303434e58032dac6d65a543ec3f"
+  },
+  {
+   "file": "bcb/ibcbr-24364.json",
+   "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.24364/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021",
+   "source": "Banco Central do Brasil, IBC-Br seasonally adjusted (series 24364)",
+   "retrieved": "2026-11-28",
+   "bytes": 2461,
+   "sha256": "ad7d5778d0a7c41c35ed87ef6813e906dcc85837137405e2eff7235858c02b92"
+  },
+  {
+   "file": "oxcgrt/brazil-states-2020-2021.csv",
+   "url": "https://raw.githubusercontent.com/OxCGRT/covid-policy-dataset/main/data/OxCGRT_compact_subnational_v1.csv",
+   "source": "Oxford COVID-19 Government Response Tracker, compact subnational file (v1)",
+   "retrieved": "2026-11-28",
+   "bytes": 848849,
+   "sha256": "36c6d2b52d6514b76d0ea4e27677034f75c029d7b4ded3da0f02888f53e71ba1",
+   "from": {
+    "bytes": 43108990,
+    "sha256": "d242cf3b2332bf021c877012d720931536979f46610898648ba35f96f5615dff",
+    "kept": "Brazil state rows (STATE_TOTAL), 2020 and 2021; columns RegionName, RegionCode, Jurisdiction, Date, StringencyIndex_Average"
+   }
+  }
+ ]
+}

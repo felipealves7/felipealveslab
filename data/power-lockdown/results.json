@@ -1,0 +1,4539 @@
+{
+ "generated_by": "pipelines/power-lockdown/analyse.mjs",
+ "retrieved": "2026-11-28",
+ "synthetic": false,
+ "windows": {
+  "pre": {
+   "from": "2020-01-06",
+   "to": "2020-03-13"
+  },
+  "shock": {
+   "from": "2020-03-16",
+   "to": "2020-06-30"
+  },
+  "chart": {
+   "from": "2020-03-01",
+   "to": "2020-07-31"
+  }
+ },
+ "bootstrap": {
+  "reps": 2000,
+  "seed": 20200316,
+  "block": "ISO week"
+ },
+ "checks": {
+  "total": 41,
+  "passed": 41,
+  "list": [
+   {
+    "id": "load.columns",
+    "says": "CURVA_CARGA_2018: the four columns of the data dictionary",
+    "failed": 0
+   },
+   {
+    "id": "load.subsystem",
+    "says": "CURVA_CARGA_2018: every subsystem code is N, NE, S or SE",
+    "failed": 0
+   },
+   {
+    "id": "load.instant",
+    "says": "CURVA_CARGA_2018: every instant is a whole hour in 2018",
+    "failed": 0
+   },
+   {
+    "id": "load.value",
+    "says": "CURVA_CARGA_2018: every value is present, a number and not negative (data dictionary), except the hour skipped when clocks went forward",
+    "failed": 0,
+    "clock_forward_hours": 4
+   },
+   {
+    "id": "load.unique",
+    "says": "CURVA_CARGA_2018: each subsystem and hour appears once",
+    "failed": 0
+   },
+   {
+    "id": "load.complete",
+    "says": "CURVA_CARGA_2018: every subsystem has all 24 hours of every day",
+    "failed": 0
+   },
+   {
+    "id": "load.zero_hours",
+    "says": "CURVA_CARGA_2018: hours with a load of exactly zero (counted; days holding one are left out)",
+    "failed": 0,
+    "count": 0
+   },
+   {
+    "id": "load.columns",
+    "says": "CURVA_CARGA_2019: the four columns of the data dictionary",
+    "failed": 0
+   },
+   {
+    "id": "load.subsystem",
+    "says": "CURVA_CARGA_2019: every subsystem code is N, NE, S or SE",
+    "failed": 0
+   },
+   {
+    "id": "load.instant",
+    "says": "CURVA_CARGA_2019: every instant is a whole hour in 2019",
+    "failed": 0
+   },
+   {
+    "id": "load.value",
+    "says": "CURVA_CARGA_2019: every value is present, a number and not negative (data dictionary), except the hour skipped when clocks went forward",
+    "failed": 0,
+    "clock_forward_hours": 0
+   },
+   {
+    "id": "load.unique",
+    "says": "CURVA_CARGA_2019: each subsystem and hour appears once",
+    "failed": 0
+   },
+   {
+    "id": "load.complete",
+    "says": "CURVA_CARGA_2019: every subsystem has all 24 hours of every day",
+    "failed": 0
+   },
+   {
+    "id": "load.zero_hours",
+    "says": "CURVA_CARGA_2019: hours with a load of exactly zero (counted; days holding one are left out)",
+    "failed": 0,
+    "count": 0
+   },
+   {
+    "id": "load.columns",
+    "says": "CURVA_CARGA_2020: the four columns of the data dictionary",
+    "failed": 0
+   },
+   {
+    "id": "load.subsystem",
+    "says": "CURVA_CARGA_2020: every subsystem code is N, NE, S or SE",
+    "failed": 0
+   },
+   {
+    "id": "load.instant",
+    "says": "CURVA_CARGA_2020: every instant is a whole hour in 2020",
+    "failed": 0
+   },
+   {
+    "id": "load.value",
+    "says": "CURVA_CARGA_2020: every value is present, a number and not negative (data dictionary), except the hour skipped when clocks went forward",
+    "failed": 0,
+    "clock_forward_hours": 0
+   },
+   {
+    "id": "load.unique",
+    "says": "CURVA_CARGA_2020: each subsystem and hour appears once",
+    "failed": 0
+   },
+   {
+    "id": "load.complete",
+    "says": "CURVA_CARGA_2020: every subsystem has all 24 hours of every day",
+    "failed": 0
+   },
+   {
+    "id": "load.zero_hours",
+    "says": "CURVA_CARGA_2020: hours with a load of exactly zero (counted; days holding one are left out)",
+    "failed": 0,
+    "count": 0
+   },
+   {
+    "id": "load.columns",
+    "says": "CURVA_CARGA_2021: the four columns of the data dictionary",
+    "failed": 0
+   },
+   {
+    "id": "load.subsystem",
+    "says": "CURVA_CARGA_2021: every subsystem code is N, NE, S or SE",
+    "failed": 0
+   },
+   {
+    "id": "load.instant",
+    "says": "CURVA_CARGA_2021: every instant is a whole hour in 2021",
+    "failed": 0
+   },
+   {
+    "id": "load.value",
+    "says": "CURVA_CARGA_2021: every value is present, a number and not negative (data dictionary), except the hour skipped when clocks went forward",
+    "failed": 0,
+    "clock_forward_hours": 0
+   },
+   {
+    "id": "load.unique",
+    "says": "CURVA_CARGA_2021: each subsystem and hour appears once",
+    "failed": 0
+   },
+   {
+    "id": "load.complete",
+    "says": "CURVA_CARGA_2021: every subsystem has all 24 hours of every day",
+    "failed": 0
+   },
+   {
+    "id": "load.zero_hours",
+    "says": "CURVA_CARGA_2021: hours with a load of exactly zero (counted; days holding one are left out)",
+    "failed": 0,
+    "count": 0
+   },
+   {
+    "id": "policy.value",
+    "says": "OxCGRT: every state row is STATE_TOTAL with a stringency from 0 to 100",
+    "failed": 0
+   },
+   {
+    "id": "policy.states",
+    "says": "OxCGRT: all 27 federative units (26 states and the Federal District) are present",
+    "failed": 0
+   },
+   {
+    "id": "policy.complete",
+    "says": "OxCGRT: each state has one row for each of the 731 days of 2020 and 2021",
+    "failed": 0
+   },
+   {
+    "id": "activity.24363.value",
+    "says": "IBC-Br 24363: every month is a positive number",
+    "failed": 0
+   },
+   {
+    "id": "activity.24363.complete",
+    "says": "IBC-Br 24363: all 60 months from January 2017 to December 2021",
+    "failed": 0
+   },
+   {
+    "id": "activity.24364.value",
+    "says": "IBC-Br 24364: every month is a positive number",
+    "failed": 0
+   },
+   {
+    "id": "activity.24364.complete",
+    "says": "IBC-Br 24364: all 60 months from January 2017 to December 2021",
+    "failed": 0
+   },
+   {
+    "id": "bridge.one_subsystem",
+    "says": "Each state belongs to exactly one subsystem",
+    "failed": 0
+   },
+   {
+    "id": "bridge.covers",
+    "says": "Each of the four subsystems has at least one state",
+    "failed": 0
+   },
+   {
+    "id": "bridge.sum_capacity",
+    "says": "The capacity weights sum to one in every subsystem",
+    "failed": 0
+   },
+   {
+    "id": "bridge.sum_equal",
+    "says": "The equal weights sum to one in every subsystem",
+    "failed": 0
+   },
+   {
+    "id": "bridge.daily_weights",
+    "says": "On every day, the weights of the states with a stringency value sum to one in each subsystem",
+    "failed": 0
+   },
+   {
+    "id": "load.no_double_count",
+    "says": "Brazil's daily load equals the sum of every subsystem's hourly values that day",
+    "failed": 0
+   }
+  ]
+ },
+ "rows": {
+  "hourly": 140256,
+  "daily": 5840,
+  "states": 27,
+  "ordinary_days_in_window": 86,
+  "days_in_window": 107
+ },
+ "bridge": [
+  {
+   "state": "PA",
+   "subsystem": "N",
+   "substations": 72,
+   "substations_elsewhere": 2,
+   "mva": 11825,
+   "w_capacity": 0.4217189728958631,
+   "w_equal": 0.16666666666666666
+  },
+  {
+   "state": "MA",
+   "subsystem": "N",
+   "substations": 61,
+   "substations_elsewhere": 0,
+   "mva": 8389,
+   "w_capacity": 0.2991797432239658,
+   "w_equal": 0.16666666666666666
+  },
+  {
+   "state": "AM",
+   "subsystem": "N",
+   "substations": 24,
+   "substations_elsewhere": 0,
+   "mva": 4263,
+   "w_capacity": 0.15203281027104137,
+   "w_equal": 0.16666666666666666
+  },
+  {
+   "state": "TO",
+   "subsystem": "N",
+   "substations": 12,
+   "substations_elsewhere": 5,
+   "mva": 2680,
+   "w_capacity": 0.09557774607703282,
+   "w_equal": 0.16666666666666666
+  },
+  {
+   "state": "AP",
+   "subsystem": "N",
+   "substations": 10,
+   "substations_elsewhere": 0,
+   "mva": 583,
+   "w_capacity": 0.02079172610556348,
+   "w_equal": 0.16666666666666666
+  },
+  {
+   "state": "RR",
+   "subsystem": "N",
+   "substations": 5,
+   "substations_elsewhere": 0,
+   "mva": 300,
+   "w_capacity": 0.010699001426533523,
+   "w_equal": 0.16666666666666666
+  },
+  {
+   "state": "BA",
+   "subsystem": "NE",
+   "substations": 162,
+   "substations_elsewhere": 0,
+   "mva": 28418,
+   "w_capacity": 0.35582545545608213,
+   "w_equal": 0.125
+  },
+  {
+   "state": "CE",
+   "subsystem": "NE",
+   "substations": 72,
+   "substations_elsewhere": 0,
+   "mva": 14283,
+   "w_capacity": 0.17883929130407564,
+   "w_equal": 0.125
+  },
+  {
+   "state": "PE",
+   "subsystem": "NE",
+   "substations": 58,
+   "substations_elsewhere": 0,
+   "mva": 12470,
+   "w_capacity": 0.15613848369122896,
+   "w_equal": 0.125
+  },
+  {
+   "state": "RN",
+   "subsystem": "NE",
+   "substations": 57,
+   "substations_elsewhere": 0,
+   "mva": 9479,
+   "w_capacity": 0.11868778563826457,
+   "w_equal": 0.125
+  },
+  {
+   "state": "PI",
+   "subsystem": "NE",
+   "substations": 51,
+   "substations_elsewhere": 0,
+   "mva": 6516,
+   "w_capacity": 0.08158767920866462,
+   "w_equal": 0.125
+  },
+  {
+   "state": "AL",
+   "subsystem": "NE",
+   "substations": 20,
+   "substations_elsewhere": 0,
+   "mva": 3000,
+   "w_capacity": 0.037563388217617226,
+   "w_equal": 0.125
+  },
+  {
+   "state": "SE",
+   "subsystem": "NE",
+   "substations": 10,
+   "substations_elsewhere": 0,
+   "mva": 2939,
+   "w_capacity": 0.03679959932385901,
+   "w_equal": 0.125
+  },
+  {
+   "state": "PB",
+   "subsystem": "NE",
+   "substations": 25,
+   "substations_elsewhere": 0,
+   "mva": 2760,
+   "w_capacity": 0.03455831716020785,
+   "w_equal": 0.125
+  },
+  {
+   "state": "RS",
+   "subsystem": "S",
+   "substations": 189,
+   "substations_elsewhere": 0,
+   "mva": 23536,
+   "w_capacity": 0.3848770277341706,
+   "w_equal": 0.3333333333333333
+  },
+  {
+   "state": "PR",
+   "subsystem": "S",
+   "substations": 111,
+   "substations_elsewhere": 13,
+   "mva": 20801,
+   "w_capacity": 0.3401524071166928,
+   "w_equal": 0.3333333333333333
+  },
+  {
+   "state": "SC",
+   "subsystem": "S",
+   "substations": 80,
+   "substations_elsewhere": 0,
+   "mva": 16815,
+   "w_capacity": 0.2749705651491366,
+   "w_equal": 0.3333333333333333
+  },
+  {
+   "state": "SP",
+   "subsystem": "SE",
+   "substations": 203,
+   "substations_elsewhere": 0,
+   "mva": 83646,
+   "w_capacity": 0.5045024397010839,
+   "w_equal": 0.1
+  },
+  {
+   "state": "MG",
+   "subsystem": "SE",
+   "substations": 164,
+   "substations_elsewhere": 0,
+   "mva": 32250,
+   "w_capacity": 0.19451263276618075,
+   "w_equal": 0.1
+  },
+  {
+   "state": "RJ",
+   "subsystem": "SE",
+   "substations": 46,
+   "substations_elsewhere": 0,
+   "mva": 13685,
+   "w_capacity": 0.08253970168698244,
+   "w_equal": 0.1
+  },
+  {
+   "state": "GO",
+   "subsystem": "SE",
+   "substations": 69,
+   "substations_elsewhere": 0,
+   "mva": 9500,
+   "w_capacity": 0.05729829492337107,
+   "w_equal": 0.1
+  },
+  {
+   "state": "DF",
+   "subsystem": "SE",
+   "substations": 9,
+   "substations_elsewhere": 0,
+   "mva": 8280,
+   "w_capacity": 0.0499399875753171,
+   "w_equal": 0.1
+  },
+  {
+   "state": "MT",
+   "subsystem": "SE",
+   "substations": 62,
+   "substations_elsewhere": 1,
+   "mva": 6898,
+   "w_capacity": 0.04160459351383301,
+   "w_equal": 0.1
+  },
+  {
+   "state": "MS",
+   "subsystem": "SE",
+   "substations": 32,
+   "substations_elsewhere": 0,
+   "mva": 4750,
+   "w_capacity": 0.028649147461685533,
+   "w_equal": 0.1
+  },
+  {
+   "state": "ES",
+   "subsystem": "SE",
+   "substations": 25,
+   "substations_elsewhere": 0,
+   "mva": 4425,
+   "w_capacity": 0.026688942635359682,
+   "w_equal": 0.1
+  },
+  {
+   "state": "RO",
+   "subsystem": "SE",
+   "substations": 30,
+   "substations_elsewhere": 0,
+   "mva": 1855,
+   "w_capacity": 0.011188246008721404,
+   "w_equal": 0.1
+  },
+  {
+   "state": "AC",
+   "subsystem": "SE",
+   "substations": 9,
+   "substations_elsewhere": 0,
+   "mva": 510,
+   "w_capacity": 0.003076013727465184,
+   "w_equal": 0.1
+  }
+ ],
+ "pre_shock_pct": {
+  "BR": 0.53,
+  "N": 1.5,
+  "NE": 2.43,
+  "S": 4.93,
+  "SE": -1.45
+ },
+ "levels": {
+  "BR": {
+   "hour": {
+    "ratio": 0.8013,
+    "date": "2020-04-09",
+    "hour": 11,
+    "fall_pct": -19.87,
+    "of": 2064
+   },
+   "day": {
+    "ratio": 0.8586,
+    "date": "2020-04-09",
+    "fall_pct": -14.14,
+    "of": 86
+   },
+   "week": {
+    "ratio": 0.8721,
+    "week": "2020-W17",
+    "from": "2020-04-20",
+    "to": "2020-04-26",
+    "days": 5,
+    "fall_pct": -12.79,
+    "of": 11
+   },
+   "month": {
+    "ratio": 0.8837,
+    "month": "2020-04",
+    "fall_pct": -11.63,
+    "of": 4
+   },
+   "quarter": {
+    "ratio": 0.9179,
+    "quarter": "2020-Q2",
+    "fall_pct": -8.21,
+    "of": 1
+   },
+   "window": {
+    "from": "2020-03-16",
+    "to": "2020-06-30",
+    "fall_pct": -6.88,
+    "ratio": 0.9312,
+    "days": 86
+   }
+  },
+  "N": {
+   "hour": {
+    "ratio": 0.6455,
+    "date": "2020-04-26",
+    "hour": 17,
+    "fall_pct": -35.45,
+    "of": 2064
+   },
+   "day": {
+    "ratio": 0.88,
+    "date": "2020-04-01",
+    "fall_pct": -12,
+    "of": 86
+   },
+   "week": {
+    "ratio": 0.9129,
+    "week": "2020-W17",
+    "from": "2020-04-20",
+    "to": "2020-04-26",
+    "days": 5,
+    "fall_pct": -8.71,
+    "of": 11
+   },
+   "month": {
+    "ratio": 0.9213,
+    "month": "2020-04",
+    "fall_pct": -7.87,
+    "of": 4
+   },
+   "quarter": {
+    "ratio": 0.9559,
+    "quarter": "2020-Q2",
+    "fall_pct": -4.41,
+    "of": 1
+   },
+   "window": {
+    "from": "2020-03-16",
+    "to": "2020-06-30",
+    "fall_pct": -4.08,
+    "ratio": 0.9592,
+    "days": 86
+   }
+  },
+  "NE": {
+   "hour": {
+    "ratio": 0.7771,
+    "date": "2020-03-31",
+    "hour": 10,
+    "fall_pct": -22.29,
+    "of": 2064
+   },
+   "day": {
+    "ratio": 0.8589,
+    "date": "2020-03-31",
+    "fall_pct": -14.11,
+    "of": 86
+   },
+   "week": {
+    "ratio": 0.876,
+    "week": "2020-W17",
+    "from": "2020-04-20",
+    "to": "2020-04-26",
+    "days": 5,
+    "fall_pct": -12.4,
+    "of": 11
+   },
+   "month": {
+    "ratio": 0.9009,
+    "month": "2020-04",
+    "fall_pct": -9.91,
+    "of": 4
+   },
+   "quarter": {
+    "ratio": 0.918,
+    "quarter": "2020-Q2",
+    "fall_pct": -8.2,
+    "of": 1
+   },
+   "window": {
+    "from": "2020-03-16",
+    "to": "2020-06-30",
+    "fall_pct": -7.43,
+    "ratio": 0.9257,
+    "days": 86
+   }
+  },
+  "S": {
+   "hour": {
+    "ratio": 0.7461,
+    "date": "2020-04-09",
+    "hour": 14,
+    "fall_pct": -25.39,
+    "of": 2064
+   },
+   "day": {
+    "ratio": 0.8165,
+    "date": "2020-04-09",
+    "fall_pct": -18.35,
+    "of": 86
+   },
+   "week": {
+    "ratio": 0.9131,
+    "week": "2020-W17",
+    "from": "2020-04-20",
+    "to": "2020-04-26",
+    "days": 5,
+    "fall_pct": -8.69,
+    "of": 11
+   },
+   "month": {
+    "ratio": 0.898,
+    "month": "2020-04",
+    "fall_pct": -10.2,
+    "of": 4
+   },
+   "quarter": {
+    "ratio": 0.9385,
+    "quarter": "2020-Q2",
+    "fall_pct": -6.15,
+    "of": 1
+   },
+   "window": {
+    "from": "2020-03-16",
+    "to": "2020-06-30",
+    "fall_pct": -4.23,
+    "ratio": 0.9577,
+    "days": 86
+   }
+  },
+  "SE": {
+   "hour": {
+    "ratio": 0.777,
+    "date": "2020-04-23",
+    "hour": 11,
+    "fall_pct": -22.3,
+    "of": 2064
+   },
+   "day": {
+    "ratio": 0.8355,
+    "date": "2020-04-23",
+    "fall_pct": -16.45,
+    "of": 86
+   },
+   "week": {
+    "ratio": 0.8525,
+    "week": "2020-W17",
+    "from": "2020-04-20",
+    "to": "2020-04-26",
+    "days": 5,
+    "fall_pct": -14.75,
+    "of": 11
+   },
+   "month": {
+    "ratio": 0.869,
+    "month": "2020-04",
+    "fall_pct": -13.1,
+    "of": 4
+   },
+   "quarter": {
+    "ratio": 0.9058,
+    "quarter": "2020-Q2",
+    "fall_pct": -9.42,
+    "of": 1
+   },
+   "window": {
+    "from": "2020-03-16",
+    "to": "2020-06-30",
+    "fall_pct": -7.94,
+    "ratio": 0.9206,
+    "days": 86
+   }
+  }
+ },
+ "activity": {
+  "months": [
+   {
+    "month": "2020-03",
+    "ratio": 0.9731,
+    "fall_pct": -2.69
+   },
+   {
+    "month": "2020-04",
+    "ratio": 0.8607,
+    "fall_pct": -13.93
+   },
+   {
+    "month": "2020-05",
+    "ratio": 0.8879,
+    "fall_pct": -11.21
+   },
+   {
+    "month": "2020-06",
+    "ratio": 0.9345,
+    "fall_pct": -6.55
+   }
+  ],
+  "deepest_month": {
+   "month": "2020-04",
+   "ratio": 0.8607,
+   "fall_pct": -13.93
+  },
+  "quarter": {
+   "quarter": "2020-Q2",
+   "ratio": 0.8941,
+   "fall_pct": -10.59,
+   "note": "mean of the three months"
+  },
+  "sa_feb_to_apr_pct": -15.13
+ },
+ "april": [
+  {
+   "subsystem": "N",
+   "name": "North",
+   "stringency_capacity": 80.6,
+   "stringency_equal": 84.1,
+   "load_fall_pct": -7.96,
+   "comparable_days": 19
+  },
+  {
+   "subsystem": "NE",
+   "name": "Northeast",
+   "stringency_capacity": 83.4,
+   "stringency_equal": 83.9,
+   "load_fall_pct": -9.96,
+   "comparable_days": 19
+  },
+  {
+   "subsystem": "S",
+   "name": "South",
+   "stringency_capacity": 86,
+   "stringency_equal": 86.1,
+   "load_fall_pct": -10.75,
+   "comparable_days": 19
+  },
+  {
+   "subsystem": "SE",
+   "name": "Southeast/Centre-West",
+   "stringency_capacity": 81.6,
+   "stringency_equal": 81.6,
+   "load_fall_pct": -12.27,
+   "comparable_days": 19
+  }
+ ],
+ "dose": {
+  "subsystem_gap": {
+   "capacity": {
+    "mean_gap": 6.1,
+    "max_gap": 12.2
+   },
+   "equal": {
+    "mean_gap": 5.4,
+    "max_gap": 14.2
+   }
+  },
+  "april_states": {
+   "mildest": {
+    "state": "DF",
+    "stringency": 70.4
+   },
+   "strictest": {
+    "state": "RR",
+    "stringency": 94.4
+   }
+  }
+ },
+ "estimates": {
+  "capacity": {
+   "pre_growth_pct": {
+    "N": 1.53,
+    "NE": 2.45,
+    "S": 4.76,
+    "SE": -1.53
+   },
+   "over_time": {
+    "per10_pct": -1.08,
+    "low_pct": -1.35,
+    "high_pct": -0.81,
+    "days": 147,
+    "weeks": 26,
+    "sample": "2020-01-06 to 2020-06-30",
+    "says": "Subsystem effects only: compares each subsystem with itself as stringency rose and fell, so it also carries everything else that changed nationally on those days."
+   },
+   "same_day": {
+    "per10_pct": -1.18,
+    "low_pct": -5.21,
+    "high_pct": 1.56,
+    "days": 86,
+    "weeks": 16,
+    "sample": "2020-03-16 to 2020-06-30",
+    "says": "Subsystem and day effects: compares subsystems with each other on the same day, so national shocks cancel and only differences in stringency between subsystems are left."
+   }
+  },
+  "equal": {
+   "pre_growth_pct": {
+    "N": 1.53,
+    "NE": 2.45,
+    "S": 4.76,
+    "SE": -1.53
+   },
+   "over_time": {
+    "per10_pct": -1.06,
+    "low_pct": -1.32,
+    "high_pct": -0.79,
+    "days": 147,
+    "weeks": 26,
+    "sample": "2020-01-06 to 2020-06-30",
+    "says": "Subsystem effects only: compares each subsystem with itself as stringency rose and fell, so it also carries everything else that changed nationally on those days."
+   },
+   "same_day": {
+    "per10_pct": 1.78,
+    "low_pct": -5.34,
+    "high_pct": 5.35,
+    "days": 86,
+    "weeks": 16,
+    "sample": "2020-03-16 to 2020-06-30",
+    "says": "Subsystem and day effects: compares subsystems with each other on the same day, so national shocks cancel and only differences in stringency between subsystems are left."
+   }
+  }
+ },
+ "chart": [
+  {
+   "date": "2020-03-01",
+   "subsystem": "N",
+   "load_pct": 102.8,
+   "stringency": 4.2
+  },
+  {
+   "date": "2020-03-01",
+   "subsystem": "NE",
+   "load_pct": 108,
+   "stringency": 5.6
+  },
+  {
+   "date": "2020-03-01",
+   "subsystem": "S",
+   "load_pct": 96.9,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-01",
+   "subsystem": "SE",
+   "load_pct": 94,
+   "stringency": 9.9
+  },
+  {
+   "date": "2020-03-02",
+   "subsystem": "N",
+   "load_pct": null,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-02",
+   "subsystem": "NE",
+   "load_pct": null,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-02",
+   "subsystem": "S",
+   "load_pct": null,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-02",
+   "subsystem": "SE",
+   "load_pct": null,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-03",
+   "subsystem": "N",
+   "load_pct": null,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-03",
+   "subsystem": "NE",
+   "load_pct": null,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-03",
+   "subsystem": "S",
+   "load_pct": null,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-03",
+   "subsystem": "SE",
+   "load_pct": null,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-04",
+   "subsystem": "N",
+   "load_pct": null,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-04",
+   "subsystem": "NE",
+   "load_pct": null,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-04",
+   "subsystem": "S",
+   "load_pct": null,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-04",
+   "subsystem": "SE",
+   "load_pct": null,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-05",
+   "subsystem": "N",
+   "load_pct": 100.1,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-05",
+   "subsystem": "NE",
+   "load_pct": 106.1,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-05",
+   "subsystem": "S",
+   "load_pct": 102.1,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-05",
+   "subsystem": "SE",
+   "load_pct": 95.1,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-06",
+   "subsystem": "N",
+   "load_pct": 98.3,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-06",
+   "subsystem": "NE",
+   "load_pct": 102.2,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-06",
+   "subsystem": "S",
+   "load_pct": 102.6,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-06",
+   "subsystem": "SE",
+   "load_pct": 94.5,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-07",
+   "subsystem": "N",
+   "load_pct": 97.9,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-07",
+   "subsystem": "NE",
+   "load_pct": 102.3,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-07",
+   "subsystem": "S",
+   "load_pct": 103.7,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-07",
+   "subsystem": "SE",
+   "load_pct": 93.5,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-08",
+   "subsystem": "N",
+   "load_pct": 99.5,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-08",
+   "subsystem": "NE",
+   "load_pct": 100.2,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-08",
+   "subsystem": "S",
+   "load_pct": 103.9,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-08",
+   "subsystem": "SE",
+   "load_pct": 94.1,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-09",
+   "subsystem": "N",
+   "load_pct": 96.5,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-09",
+   "subsystem": "NE",
+   "load_pct": 100.1,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-09",
+   "subsystem": "S",
+   "load_pct": 111.5,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-09",
+   "subsystem": "SE",
+   "load_pct": 97.2,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-10",
+   "subsystem": "N",
+   "load_pct": 98.1,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-10",
+   "subsystem": "NE",
+   "load_pct": 102.8,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-10",
+   "subsystem": "S",
+   "load_pct": 114.6,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-10",
+   "subsystem": "SE",
+   "load_pct": 98.9,
+   "stringency": 12.9
+  },
+  {
+   "date": "2020-03-11",
+   "subsystem": "N",
+   "load_pct": 99.8,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-11",
+   "subsystem": "NE",
+   "load_pct": 102.2,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-11",
+   "subsystem": "S",
+   "load_pct": 114,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-11",
+   "subsystem": "SE",
+   "load_pct": 97.3,
+   "stringency": 12.9
+  },
+  {
+   "date": "2020-03-12",
+   "subsystem": "N",
+   "load_pct": 96.6,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-12",
+   "subsystem": "NE",
+   "load_pct": 98.6,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-12",
+   "subsystem": "S",
+   "load_pct": 118.6,
+   "stringency": 11.1
+  },
+  {
+   "date": "2020-03-12",
+   "subsystem": "SE",
+   "load_pct": 98.2,
+   "stringency": 13.5
+  },
+  {
+   "date": "2020-03-13",
+   "subsystem": "N",
+   "load_pct": 99.4,
+   "stringency": 23.7
+  },
+  {
+   "date": "2020-03-13",
+   "subsystem": "NE",
+   "load_pct": 95.6,
+   "stringency": 26.5
+  },
+  {
+   "date": "2020-03-13",
+   "subsystem": "S",
+   "load_pct": 122.7,
+   "stringency": 22.7
+  },
+  {
+   "date": "2020-03-13",
+   "subsystem": "SE",
+   "load_pct": 100.1,
+   "stringency": 37
+  },
+  {
+   "date": "2020-03-14",
+   "subsystem": "N",
+   "load_pct": 92.6,
+   "stringency": 24.2
+  },
+  {
+   "date": "2020-03-14",
+   "subsystem": "NE",
+   "load_pct": 95.5,
+   "stringency": 29.4
+  },
+  {
+   "date": "2020-03-14",
+   "subsystem": "S",
+   "load_pct": 119.4,
+   "stringency": 22.7
+  },
+  {
+   "date": "2020-03-14",
+   "subsystem": "SE",
+   "load_pct": 103.6,
+   "stringency": 37.6
+  },
+  {
+   "date": "2020-03-15",
+   "subsystem": "N",
+   "load_pct": 91.7,
+   "stringency": 24.4
+  },
+  {
+   "date": "2020-03-15",
+   "subsystem": "NE",
+   "load_pct": 96.4,
+   "stringency": 29.4
+  },
+  {
+   "date": "2020-03-15",
+   "subsystem": "S",
+   "load_pct": 118.1,
+   "stringency": 25.3
+  },
+  {
+   "date": "2020-03-15",
+   "subsystem": "SE",
+   "load_pct": 104.8,
+   "stringency": 38.3
+  },
+  {
+   "date": "2020-03-16",
+   "subsystem": "N",
+   "load_pct": 93,
+   "stringency": 50
+  },
+  {
+   "date": "2020-03-16",
+   "subsystem": "NE",
+   "load_pct": 96.5,
+   "stringency": 41.1
+  },
+  {
+   "date": "2020-03-16",
+   "subsystem": "S",
+   "load_pct": 112.9,
+   "stringency": 41.5
+  },
+  {
+   "date": "2020-03-16",
+   "subsystem": "SE",
+   "load_pct": 101.3,
+   "stringency": 49.5
+  },
+  {
+   "date": "2020-03-17",
+   "subsystem": "N",
+   "load_pct": 94.7,
+   "stringency": 61.5
+  },
+  {
+   "date": "2020-03-17",
+   "subsystem": "NE",
+   "load_pct": 96.2,
+   "stringency": 54.3
+  },
+  {
+   "date": "2020-03-17",
+   "subsystem": "S",
+   "load_pct": 112.9,
+   "stringency": 63.2
+  },
+  {
+   "date": "2020-03-17",
+   "subsystem": "SE",
+   "load_pct": 99.4,
+   "stringency": 59.9
+  },
+  {
+   "date": "2020-03-18",
+   "subsystem": "N",
+   "load_pct": 100.8,
+   "stringency": 68
+  },
+  {
+   "date": "2020-03-18",
+   "subsystem": "NE",
+   "load_pct": 104.9,
+   "stringency": 60.8
+  },
+  {
+   "date": "2020-03-18",
+   "subsystem": "S",
+   "load_pct": 113.6,
+   "stringency": 67.3
+  },
+  {
+   "date": "2020-03-18",
+   "subsystem": "SE",
+   "load_pct": 102.3,
+   "stringency": 65.7
+  },
+  {
+   "date": "2020-03-19",
+   "subsystem": "N",
+   "load_pct": 92.1,
+   "stringency": 70.5
+  },
+  {
+   "date": "2020-03-19",
+   "subsystem": "NE",
+   "load_pct": 96.5,
+   "stringency": 63.9
+  },
+  {
+   "date": "2020-03-19",
+   "subsystem": "S",
+   "load_pct": 112.5,
+   "stringency": 76.1
+  },
+  {
+   "date": "2020-03-19",
+   "subsystem": "SE",
+   "load_pct": 106.6,
+   "stringency": 71.4
+  },
+  {
+   "date": "2020-03-20",
+   "subsystem": "N",
+   "load_pct": 92.8,
+   "stringency": 71.3
+  },
+  {
+   "date": "2020-03-20",
+   "subsystem": "NE",
+   "load_pct": 96.9,
+   "stringency": 69.1
+  },
+  {
+   "date": "2020-03-20",
+   "subsystem": "S",
+   "load_pct": 104.5,
+   "stringency": 79.3
+  },
+  {
+   "date": "2020-03-20",
+   "subsystem": "SE",
+   "load_pct": 104.3,
+   "stringency": 75.4
+  },
+  {
+   "date": "2020-03-21",
+   "subsystem": "N",
+   "load_pct": 97.2,
+   "stringency": 74.3
+  },
+  {
+   "date": "2020-03-21",
+   "subsystem": "NE",
+   "load_pct": 97.8,
+   "stringency": 72.1
+  },
+  {
+   "date": "2020-03-21",
+   "subsystem": "S",
+   "load_pct": 100.3,
+   "stringency": 79.3
+  },
+  {
+   "date": "2020-03-21",
+   "subsystem": "SE",
+   "load_pct": 98.6,
+   "stringency": 76.5
+  },
+  {
+   "date": "2020-03-22",
+   "subsystem": "N",
+   "load_pct": 101.5,
+   "stringency": 74.8
+  },
+  {
+   "date": "2020-03-22",
+   "subsystem": "NE",
+   "load_pct": 102.5,
+   "stringency": 72.6
+  },
+  {
+   "date": "2020-03-22",
+   "subsystem": "S",
+   "load_pct": 106,
+   "stringency": 80
+  },
+  {
+   "date": "2020-03-22",
+   "subsystem": "SE",
+   "load_pct": 94.9,
+   "stringency": 76.5
+  },
+  {
+   "date": "2020-03-23",
+   "subsystem": "N",
+   "load_pct": 99,
+   "stringency": 76.4
+  },
+  {
+   "date": "2020-03-23",
+   "subsystem": "NE",
+   "load_pct": 96.6,
+   "stringency": 76.5
+  },
+  {
+   "date": "2020-03-23",
+   "subsystem": "S",
+   "load_pct": 97.9,
+   "stringency": 81.5
+  },
+  {
+   "date": "2020-03-23",
+   "subsystem": "SE",
+   "load_pct": 89.2,
+   "stringency": 77.1
+  },
+  {
+   "date": "2020-03-24",
+   "subsystem": "N",
+   "load_pct": 95.6,
+   "stringency": 76.5
+  },
+  {
+   "date": "2020-03-24",
+   "subsystem": "NE",
+   "load_pct": 91.9,
+   "stringency": 77.3
+  },
+  {
+   "date": "2020-03-24",
+   "subsystem": "S",
+   "load_pct": 95,
+   "stringency": 81.5
+  },
+  {
+   "date": "2020-03-24",
+   "subsystem": "SE",
+   "load_pct": 86.5,
+   "stringency": 78.9
+  },
+  {
+   "date": "2020-03-25",
+   "subsystem": "N",
+   "load_pct": 97.6,
+   "stringency": 76.8
+  },
+  {
+   "date": "2020-03-25",
+   "subsystem": "NE",
+   "load_pct": 91.4,
+   "stringency": 77.3
+  },
+  {
+   "date": "2020-03-25",
+   "subsystem": "S",
+   "load_pct": 93,
+   "stringency": 81.5
+  },
+  {
+   "date": "2020-03-25",
+   "subsystem": "SE",
+   "load_pct": 85.9,
+   "stringency": 79.3
+  },
+  {
+   "date": "2020-03-26",
+   "subsystem": "N",
+   "load_pct": 100.1,
+   "stringency": 76.8
+  },
+  {
+   "date": "2020-03-26",
+   "subsystem": "NE",
+   "load_pct": 91,
+   "stringency": 77.3
+  },
+  {
+   "date": "2020-03-26",
+   "subsystem": "S",
+   "load_pct": 92.9,
+   "stringency": 81.5
+  },
+  {
+   "date": "2020-03-26",
+   "subsystem": "SE",
+   "load_pct": 87.7,
+   "stringency": 79.3
+  },
+  {
+   "date": "2020-03-27",
+   "subsystem": "N",
+   "load_pct": null,
+   "stringency": 79.5
+  },
+  {
+   "date": "2020-03-27",
+   "subsystem": "NE",
+   "load_pct": null,
+   "stringency": 81.7
+  },
+  {
+   "date": "2020-03-27",
+   "subsystem": "S",
+   "load_pct": null,
+   "stringency": 84.3
+  },
+  {
+   "date": "2020-03-27",
+   "subsystem": "SE",
+   "load_pct": null,
+   "stringency": 82.2
+  },
+  {
+   "date": "2020-03-28",
+   "subsystem": "N",
+   "load_pct": null,
+   "stringency": 79.5
+  },
+  {
+   "date": "2020-03-28",
+   "subsystem": "NE",
+   "load_pct": null,
+   "stringency": 83
+  },
+  {
+   "date": "2020-03-28",
+   "subsystem": "S",
+   "load_pct": null,
+   "stringency": 84.3
+  },
+  {
+   "date": "2020-03-28",
+   "subsystem": "SE",
+   "load_pct": null,
+   "stringency": 82.2
+  },
+  {
+   "date": "2020-03-29",
+   "subsystem": "N",
+   "load_pct": null,
+   "stringency": 79.5
+  },
+  {
+   "date": "2020-03-29",
+   "subsystem": "NE",
+   "load_pct": null,
+   "stringency": 83
+  },
+  {
+   "date": "2020-03-29",
+   "subsystem": "S",
+   "load_pct": null,
+   "stringency": 84.3
+  },
+  {
+   "date": "2020-03-29",
+   "subsystem": "SE",
+   "load_pct": null,
+   "stringency": 82.2
+  },
+  {
+   "date": "2020-03-30",
+   "subsystem": "N",
+   "load_pct": 93.4,
+   "stringency": 79.6
+  },
+  {
+   "date": "2020-03-30",
+   "subsystem": "NE",
+   "load_pct": 88.3,
+   "stringency": 83
+  },
+  {
+   "date": "2020-03-30",
+   "subsystem": "S",
+   "load_pct": 97.8,
+   "stringency": 84.8
+  },
+  {
+   "date": "2020-03-30",
+   "subsystem": "SE",
+   "load_pct": 90.3,
+   "stringency": 82.4
+  },
+  {
+   "date": "2020-03-31",
+   "subsystem": "N",
+   "load_pct": 90.2,
+   "stringency": 79.6
+  },
+  {
+   "date": "2020-03-31",
+   "subsystem": "NE",
+   "load_pct": 85.9,
+   "stringency": 83
+  },
+  {
+   "date": "2020-03-31",
+   "subsystem": "S",
+   "load_pct": 96.7,
+   "stringency": 84.8
+  },
+  {
+   "date": "2020-03-31",
+   "subsystem": "SE",
+   "load_pct": 89.7,
+   "stringency": 82.2
+  },
+  {
+   "date": "2020-04-01",
+   "subsystem": "N",
+   "load_pct": 88,
+   "stringency": 79.6
+  },
+  {
+   "date": "2020-04-01",
+   "subsystem": "NE",
+   "load_pct": 86.3,
+   "stringency": 83
+  },
+  {
+   "date": "2020-04-01",
+   "subsystem": "S",
+   "load_pct": 94.8,
+   "stringency": 86.2
+  },
+  {
+   "date": "2020-04-01",
+   "subsystem": "SE",
+   "load_pct": 89.1,
+   "stringency": 82.1
+  },
+  {
+   "date": "2020-04-02",
+   "subsystem": "N",
+   "load_pct": 89.9,
+   "stringency": 79.6
+  },
+  {
+   "date": "2020-04-02",
+   "subsystem": "NE",
+   "load_pct": 86.2,
+   "stringency": 83
+  },
+  {
+   "date": "2020-04-02",
+   "subsystem": "S",
+   "load_pct": 90.8,
+   "stringency": 86.8
+  },
+  {
+   "date": "2020-04-02",
+   "subsystem": "SE",
+   "load_pct": 90.2,
+   "stringency": 82.1
+  },
+  {
+   "date": "2020-04-03",
+   "subsystem": "N",
+   "load_pct": 93.3,
+   "stringency": 79.6
+  },
+  {
+   "date": "2020-04-03",
+   "subsystem": "NE",
+   "load_pct": 87.6,
+   "stringency": 83
+  },
+  {
+   "date": "2020-04-03",
+   "subsystem": "S",
+   "load_pct": 84.9,
+   "stringency": 86.8
+  },
+  {
+   "date": "2020-04-03",
+   "subsystem": "SE",
+   "load_pct": 89,
+   "stringency": 81.8
+  },
+  {
+   "date": "2020-04-04",
+   "subsystem": "N",
+   "load_pct": 93.8,
+   "stringency": 79.6
+  },
+  {
+   "date": "2020-04-04",
+   "subsystem": "NE",
+   "load_pct": 94.2,
+   "stringency": 83.1
+  },
+  {
+   "date": "2020-04-04",
+   "subsystem": "S",
+   "load_pct": 89.7,
+   "stringency": 86.8
+  },
+  {
+   "date": "2020-04-04",
+   "subsystem": "SE",
+   "load_pct": 88.1,
+   "stringency": 81.8
+  },
+  {
+   "date": "2020-04-05",
+   "subsystem": "N",
+   "load_pct": 102.5,
+   "stringency": 79.6
+  },
+  {
+   "date": "2020-04-05",
+   "subsystem": "NE",
+   "load_pct": 98.9,
+   "stringency": 83.1
+  },
+  {
+   "date": "2020-04-05",
+   "subsystem": "S",
+   "load_pct": 94.4,
+   "stringency": 86.8
+  },
+  {
+   "date": "2020-04-05",
+   "subsystem": "SE",
+   "load_pct": 91.5,
+   "stringency": 81.8
+  },
+  {
+   "date": "2020-04-06",
+   "subsystem": "N",
+   "load_pct": 94.2,
+   "stringency": 79.6
+  },
+  {
+   "date": "2020-04-06",
+   "subsystem": "NE",
+   "load_pct": 93.2,
+   "stringency": 83.2
+  },
+  {
+   "date": "2020-04-06",
+   "subsystem": "S",
+   "load_pct": 90.1,
+   "stringency": 86.8
+  },
+  {
+   "date": "2020-04-06",
+   "subsystem": "SE",
+   "load_pct": 90,
+   "stringency": 81.8
+  },
+  {
+   "date": "2020-04-07",
+   "subsystem": "N",
+   "load_pct": 94.8,
+   "stringency": 79.6
+  },
+  {
+   "date": "2020-04-07",
+   "subsystem": "NE",
+   "load_pct": 92,
+   "stringency": 83.1
+  },
+  {
+   "date": "2020-04-07",
+   "subsystem": "S",
+   "load_pct": 85.5,
+   "stringency": 86.8
+  },
+  {
+   "date": "2020-04-07",
+   "subsystem": "SE",
+   "load_pct": 90.2,
+   "stringency": 81.6
+  },
+  {
+   "date": "2020-04-08",
+   "subsystem": "N",
+   "load_pct": 95.6,
+   "stringency": 79.6
+  },
+  {
+   "date": "2020-04-08",
+   "subsystem": "NE",
+   "load_pct": 93.3,
+   "stringency": 83.1
+  },
+  {
+   "date": "2020-04-08",
+   "subsystem": "S",
+   "load_pct": 83.1,
+   "stringency": 86.8
+  },
+  {
+   "date": "2020-04-08",
+   "subsystem": "SE",
+   "load_pct": 87.4,
+   "stringency": 81.8
+  },
+  {
+   "date": "2020-04-09",
+   "subsystem": "N",
+   "load_pct": 90.8,
+   "stringency": 79.6
+  },
+  {
+   "date": "2020-04-09",
+   "subsystem": "NE",
+   "load_pct": 92.4,
+   "stringency": 83.1
+  },
+  {
+   "date": "2020-04-09",
+   "subsystem": "S",
+   "load_pct": 81.6,
+   "stringency": 86.8
+  },
+  {
+   "date": "2020-04-09",
+   "subsystem": "SE",
+   "load_pct": 84.7,
+   "stringency": 81.8
+  },
+  {
+   "date": "2020-04-10",
+   "subsystem": "N",
+   "load_pct": null,
+   "stringency": 79.6
+  },
+  {
+   "date": "2020-04-10",
+   "subsystem": "NE",
+   "load_pct": null,
+   "stringency": 83.1
+  },
+  {
+   "date": "2020-04-10",
+   "subsystem": "S",
+   "load_pct": null,
+   "stringency": 86.8
+  },
+  {
+   "date": "2020-04-10",
+   "subsystem": "SE",
+   "load_pct": null,
+   "stringency": 81.8
+  },
+  {
+   "date": "2020-04-11",
+   "subsystem": "N",
+   "load_pct": null,
+   "stringency": 81.2
+  },
+  {
+   "date": "2020-04-11",
+   "subsystem": "NE",
+   "load_pct": null,
+   "stringency": 83.1
+  },
+  {
+   "date": "2020-04-11",
+   "subsystem": "S",
+   "load_pct": null,
+   "stringency": 86.8
+  },
+  {
+   "date": "2020-04-11",
+   "subsystem": "SE",
+   "load_pct": null,
+   "stringency": 81.8
+  },
+  {
+   "date": "2020-04-12",
+   "subsystem": "N",
+   "load_pct": null,
+   "stringency": 81.2
+  },
+  {
+   "date": "2020-04-12",
+   "subsystem": "NE",
+   "load_pct": null,
+   "stringency": 83.1
+  },
+  {
+   "date": "2020-04-12",
+   "subsystem": "S",
+   "load_pct": null,
+   "stringency": 86.8
+  },
+  {
+   "date": "2020-04-12",
+   "subsystem": "SE",
+   "load_pct": null,
+   "stringency": 81.8
+  },
+  {
+   "date": "2020-04-13",
+   "subsystem": "N",
+   "load_pct": 90.1,
+   "stringency": 81.2
+  },
+  {
+   "date": "2020-04-13",
+   "subsystem": "NE",
+   "load_pct": 91.3,
+   "stringency": 83.1
+  },
+  {
+   "date": "2020-04-13",
+   "subsystem": "S",
+   "load_pct": 88.1,
+   "stringency": 86.8
+  },
+  {
+   "date": "2020-04-13",
+   "subsystem": "SE",
+   "load_pct": 87.2,
+   "stringency": 81.8
+  },
+  {
+   "date": "2020-04-14",
+   "subsystem": "N",
+   "load_pct": 90.4,
+   "stringency": 81.2
+  },
+  {
+   "date": "2020-04-14",
+   "subsystem": "NE",
+   "load_pct": 91,
+   "stringency": 83.1
+  },
+  {
+   "date": "2020-04-14",
+   "subsystem": "S",
+   "load_pct": 89.3,
+   "stringency": 86.8
+  },
+  {
+   "date": "2020-04-14",
+   "subsystem": "SE",
+   "load_pct": 87.3,
+   "stringency": 81.8
+  },
+  {
+   "date": "2020-04-15",
+   "subsystem": "N",
+   "load_pct": 89.4,
+   "stringency": 81.2
+  },
+  {
+   "date": "2020-04-15",
+   "subsystem": "NE",
+   "load_pct": 91,
+   "stringency": 83.1
+  },
+  {
+   "date": "2020-04-15",
+   "subsystem": "S",
+   "load_pct": 86.6,
+   "stringency": 86.8
+  },
+  {
+   "date": "2020-04-15",
+   "subsystem": "SE",
+   "load_pct": 89.3,
+   "stringency": 81.8
+  },
+  {
+   "date": "2020-04-16",
+   "subsystem": "N",
+   "load_pct": 89.6,
+   "stringency": 81.2
+  },
+  {
+   "date": "2020-04-16",
+   "subsystem": "NE",
+   "load_pct": 89.3,
+   "stringency": 83.1
+  },
+  {
+   "date": "2020-04-16",
+   "subsystem": "S",
+   "load_pct": 87.1,
+   "stringency": 86.8
+  },
+  {
+   "date": "2020-04-16",
+   "subsystem": "SE",
+   "load_pct": 87.5,
+   "stringency": 81.7
+  },
+  {
+   "date": "2020-04-17",
+   "subsystem": "N",
+   "load_pct": null,
+   "stringency": 81.2
+  },
+  {
+   "date": "2020-04-17",
+   "subsystem": "NE",
+   "load_pct": null,
+   "stringency": 83.1
+  },
+  {
+   "date": "2020-04-17",
+   "subsystem": "S",
+   "load_pct": null,
+   "stringency": 86.8
+  },
+  {
+   "date": "2020-04-17",
+   "subsystem": "SE",
+   "load_pct": null,
+   "stringency": 81.7
+  },
+  {
+   "date": "2020-04-18",
+   "subsystem": "N",
+   "load_pct": null,
+   "stringency": 81.2
+  },
+  {
+   "date": "2020-04-18",
+   "subsystem": "NE",
+   "load_pct": null,
+   "stringency": 83
+  },
+  {
+   "date": "2020-04-18",
+   "subsystem": "S",
+   "load_pct": null,
+   "stringency": 86.8
+  },
+  {
+   "date": "2020-04-18",
+   "subsystem": "SE",
+   "load_pct": null,
+   "stringency": 81.7
+  },
+  {
+   "date": "2020-04-19",
+   "subsystem": "N",
+   "load_pct": null,
+   "stringency": 81.2
+  },
+  {
+   "date": "2020-04-19",
+   "subsystem": "NE",
+   "load_pct": null,
+   "stringency": 83
+  },
+  {
+   "date": "2020-04-19",
+   "subsystem": "S",
+   "load_pct": null,
+   "stringency": 86.8
+  },
+  {
+   "date": "2020-04-19",
+   "subsystem": "SE",
+   "load_pct": null,
+   "stringency": 81.4
+  },
+  {
+   "date": "2020-04-20",
+   "subsystem": "N",
+   "load_pct": null,
+   "stringency": 81.2
+  },
+  {
+   "date": "2020-04-20",
+   "subsystem": "NE",
+   "load_pct": null,
+   "stringency": 84.6
+  },
+  {
+   "date": "2020-04-20",
+   "subsystem": "S",
+   "load_pct": null,
+   "stringency": 86.1
+  },
+  {
+   "date": "2020-04-20",
+   "subsystem": "SE",
+   "load_pct": null,
+   "stringency": 81.4
+  },
+  {
+   "date": "2020-04-21",
+   "subsystem": "N",
+   "load_pct": null,
+   "stringency": 81.2
+  },
+  {
+   "date": "2020-04-21",
+   "subsystem": "NE",
+   "load_pct": null,
+   "stringency": 84
+  },
+  {
+   "date": "2020-04-21",
+   "subsystem": "S",
+   "load_pct": null,
+   "stringency": 85.6
+  },
+  {
+   "date": "2020-04-21",
+   "subsystem": "SE",
+   "load_pct": null,
+   "stringency": 81.4
+  },
+  {
+   "date": "2020-04-22",
+   "subsystem": "N",
+   "load_pct": 90.4,
+   "stringency": 81.2
+  },
+  {
+   "date": "2020-04-22",
+   "subsystem": "NE",
+   "load_pct": 87.1,
+   "stringency": 84
+  },
+  {
+   "date": "2020-04-22",
+   "subsystem": "S",
+   "load_pct": 89.5,
+   "stringency": 84.1
+  },
+  {
+   "date": "2020-04-22",
+   "subsystem": "SE",
+   "load_pct": 84.3,
+   "stringency": 81.4
+  },
+  {
+   "date": "2020-04-23",
+   "subsystem": "N",
+   "load_pct": 89.9,
+   "stringency": 81.2
+  },
+  {
+   "date": "2020-04-23",
+   "subsystem": "NE",
+   "load_pct": 88,
+   "stringency": 83.8
+  },
+  {
+   "date": "2020-04-23",
+   "subsystem": "S",
+   "load_pct": 89.8,
+   "stringency": 84.1
+  },
+  {
+   "date": "2020-04-23",
+   "subsystem": "SE",
+   "load_pct": 83.5,
+   "stringency": 81.4
+  },
+  {
+   "date": "2020-04-24",
+   "subsystem": "N",
+   "load_pct": 88.9,
+   "stringency": 81.2
+  },
+  {
+   "date": "2020-04-24",
+   "subsystem": "NE",
+   "load_pct": 86.9,
+   "stringency": 83.8
+  },
+  {
+   "date": "2020-04-24",
+   "subsystem": "S",
+   "load_pct": 88.4,
+   "stringency": 84.1
+  },
+  {
+   "date": "2020-04-24",
+   "subsystem": "SE",
+   "load_pct": 84.4,
+   "stringency": 81.4
+  },
+  {
+   "date": "2020-04-25",
+   "subsystem": "N",
+   "load_pct": 90.5,
+   "stringency": 81.2
+  },
+  {
+   "date": "2020-04-25",
+   "subsystem": "NE",
+   "load_pct": 87.4,
+   "stringency": 83.8
+  },
+  {
+   "date": "2020-04-25",
+   "subsystem": "S",
+   "load_pct": 92.2,
+   "stringency": 84.1
+  },
+  {
+   "date": "2020-04-25",
+   "subsystem": "SE",
+   "load_pct": 85.8,
+   "stringency": 81.4
+  },
+  {
+   "date": "2020-04-26",
+   "subsystem": "N",
+   "load_pct": 97.5,
+   "stringency": 81.2
+  },
+  {
+   "date": "2020-04-26",
+   "subsystem": "NE",
+   "load_pct": 88.6,
+   "stringency": 83.8
+  },
+  {
+   "date": "2020-04-26",
+   "subsystem": "S",
+   "load_pct": 98.7,
+   "stringency": 84.1
+  },
+  {
+   "date": "2020-04-26",
+   "subsystem": "SE",
+   "load_pct": 88.9,
+   "stringency": 81.4
+  },
+  {
+   "date": "2020-04-27",
+   "subsystem": "N",
+   "load_pct": null,
+   "stringency": 80.4
+  },
+  {
+   "date": "2020-04-27",
+   "subsystem": "NE",
+   "load_pct": null,
+   "stringency": 83.8
+  },
+  {
+   "date": "2020-04-27",
+   "subsystem": "S",
+   "load_pct": null,
+   "stringency": 84.1
+  },
+  {
+   "date": "2020-04-27",
+   "subsystem": "SE",
+   "load_pct": null,
+   "stringency": 81.3
+  },
+  {
+   "date": "2020-04-28",
+   "subsystem": "N",
+   "load_pct": null,
+   "stringency": 80.4
+  },
+  {
+   "date": "2020-04-28",
+   "subsystem": "NE",
+   "load_pct": null,
+   "stringency": 83.8
+  },
+  {
+   "date": "2020-04-28",
+   "subsystem": "S",
+   "load_pct": null,
+   "stringency": 85
+  },
+  {
+   "date": "2020-04-28",
+   "subsystem": "SE",
+   "load_pct": null,
+   "stringency": 81.3
+  },
+  {
+   "date": "2020-04-29",
+   "subsystem": "N",
+   "load_pct": null,
+   "stringency": 80.4
+  },
+  {
+   "date": "2020-04-29",
+   "subsystem": "NE",
+   "load_pct": null,
+   "stringency": 83.8
+  },
+  {
+   "date": "2020-04-29",
+   "subsystem": "S",
+   "load_pct": null,
+   "stringency": 85
+  },
+  {
+   "date": "2020-04-29",
+   "subsystem": "SE",
+   "load_pct": null,
+   "stringency": 80.9
+  },
+  {
+   "date": "2020-04-30",
+   "subsystem": "N",
+   "load_pct": 91.2,
+   "stringency": 80.4
+  },
+  {
+   "date": "2020-04-30",
+   "subsystem": "NE",
+   "load_pct": 87,
+   "stringency": 83.8
+  },
+  {
+   "date": "2020-04-30",
+   "subsystem": "S",
+   "load_pct": 95.3,
+   "stringency": 85
+  },
+  {
+   "date": "2020-04-30",
+   "subsystem": "SE",
+   "load_pct": 88.7,
+   "stringency": 80.9
+  },
+  {
+   "date": "2020-05-01",
+   "subsystem": "N",
+   "load_pct": null,
+   "stringency": 80.4
+  },
+  {
+   "date": "2020-05-01",
+   "subsystem": "NE",
+   "load_pct": null,
+   "stringency": 83.8
+  },
+  {
+   "date": "2020-05-01",
+   "subsystem": "S",
+   "load_pct": null,
+   "stringency": 85
+  },
+  {
+   "date": "2020-05-01",
+   "subsystem": "SE",
+   "load_pct": null,
+   "stringency": 80.9
+  },
+  {
+   "date": "2020-05-02",
+   "subsystem": "N",
+   "load_pct": 91.7,
+   "stringency": 80.4
+  },
+  {
+   "date": "2020-05-02",
+   "subsystem": "NE",
+   "load_pct": 88.6,
+   "stringency": 83.8
+  },
+  {
+   "date": "2020-05-02",
+   "subsystem": "S",
+   "load_pct": 83.6,
+   "stringency": 85
+  },
+  {
+   "date": "2020-05-02",
+   "subsystem": "SE",
+   "load_pct": 85.6,
+   "stringency": 80.9
+  },
+  {
+   "date": "2020-05-03",
+   "subsystem": "N",
+   "load_pct": 95.8,
+   "stringency": 80.4
+  },
+  {
+   "date": "2020-05-03",
+   "subsystem": "NE",
+   "load_pct": 93.4,
+   "stringency": 83.8
+  },
+  {
+   "date": "2020-05-03",
+   "subsystem": "S",
+   "load_pct": 87.8,
+   "stringency": 85
+  },
+  {
+   "date": "2020-05-03",
+   "subsystem": "SE",
+   "load_pct": 87.2,
+   "stringency": 80.9
+  },
+  {
+   "date": "2020-05-04",
+   "subsystem": "N",
+   "load_pct": 90.5,
+   "stringency": 80.4
+  },
+  {
+   "date": "2020-05-04",
+   "subsystem": "NE",
+   "load_pct": 89.6,
+   "stringency": 83.8
+  },
+  {
+   "date": "2020-05-04",
+   "subsystem": "S",
+   "load_pct": 89.3,
+   "stringency": 85
+  },
+  {
+   "date": "2020-05-04",
+   "subsystem": "SE",
+   "load_pct": 84.4,
+   "stringency": 80.7
+  },
+  {
+   "date": "2020-05-05",
+   "subsystem": "N",
+   "load_pct": 92,
+   "stringency": 83.4
+  },
+  {
+   "date": "2020-05-05",
+   "subsystem": "NE",
+   "load_pct": 88.9,
+   "stringency": 83.8
+  },
+  {
+   "date": "2020-05-05",
+   "subsystem": "S",
+   "load_pct": 93.1,
+   "stringency": 85
+  },
+  {
+   "date": "2020-05-05",
+   "subsystem": "SE",
+   "load_pct": 87.6,
+   "stringency": 82.1
+  },
+  {
+   "date": "2020-05-06",
+   "subsystem": "N",
+   "load_pct": 91.9,
+   "stringency": 83.4
+  },
+  {
+   "date": "2020-05-06",
+   "subsystem": "NE",
+   "load_pct": 89.6,
+   "stringency": 83.9
+  },
+  {
+   "date": "2020-05-06",
+   "subsystem": "S",
+   "load_pct": 91.8,
+   "stringency": 85
+  },
+  {
+   "date": "2020-05-06",
+   "subsystem": "SE",
+   "load_pct": 91.4,
+   "stringency": 80.7
+  },
+  {
+   "date": "2020-05-07",
+   "subsystem": "N",
+   "load_pct": 93.6,
+   "stringency": 87.6
+  },
+  {
+   "date": "2020-05-07",
+   "subsystem": "NE",
+   "load_pct": 89.6,
+   "stringency": 83.9
+  },
+  {
+   "date": "2020-05-07",
+   "subsystem": "S",
+   "load_pct": 90.5,
+   "stringency": 85
+  },
+  {
+   "date": "2020-05-07",
+   "subsystem": "SE",
+   "load_pct": 88.3,
+   "stringency": 80.6
+  },
+  {
+   "date": "2020-05-08",
+   "subsystem": "N",
+   "load_pct": 92.7,
+   "stringency": 87.6
+  },
+  {
+   "date": "2020-05-08",
+   "subsystem": "NE",
+   "load_pct": 91.8,
+   "stringency": 84.4
+  },
+  {
+   "date": "2020-05-08",
+   "subsystem": "S",
+   "load_pct": 91.4,
+   "stringency": 85
+  },
+  {
+   "date": "2020-05-08",
+   "subsystem": "SE",
+   "load_pct": 84.7,
+   "stringency": 80.6
+  },
+  {
+   "date": "2020-05-09",
+   "subsystem": "N",
+   "load_pct": 94.8,
+   "stringency": 87.6
+  },
+  {
+   "date": "2020-05-09",
+   "subsystem": "NE",
+   "load_pct": 91.3,
+   "stringency": 84.4
+  },
+  {
+   "date": "2020-05-09",
+   "subsystem": "S",
+   "load_pct": 94.3,
+   "stringency": 85
+  },
+  {
+   "date": "2020-05-09",
+   "subsystem": "SE",
+   "load_pct": 84.9,
+   "stringency": 80.6
+  },
+  {
+   "date": "2020-05-10",
+   "subsystem": "N",
+   "load_pct": 96,
+   "stringency": 87.6
+  },
+  {
+   "date": "2020-05-10",
+   "subsystem": "NE",
+   "load_pct": 90.8,
+   "stringency": 84.4
+  },
+  {
+   "date": "2020-05-10",
+   "subsystem": "S",
+   "load_pct": 98.1,
+   "stringency": 81.5
+  },
+  {
+   "date": "2020-05-10",
+   "subsystem": "SE",
+   "load_pct": 86.5,
+   "stringency": 80.6
+  },
+  {
+   "date": "2020-05-11",
+   "subsystem": "N",
+   "load_pct": 90.3,
+   "stringency": 87.6
+  },
+  {
+   "date": "2020-05-11",
+   "subsystem": "NE",
+   "load_pct": 87.7,
+   "stringency": 82.8
+  },
+  {
+   "date": "2020-05-11",
+   "subsystem": "S",
+   "load_pct": 98,
+   "stringency": 81.5
+  },
+  {
+   "date": "2020-05-11",
+   "subsystem": "SE",
+   "load_pct": 85.6,
+   "stringency": 82.1
+  },
+  {
+   "date": "2020-05-12",
+   "subsystem": "N",
+   "load_pct": 91.5,
+   "stringency": 87.6
+  },
+  {
+   "date": "2020-05-12",
+   "subsystem": "NE",
+   "load_pct": 87.9,
+   "stringency": 83.5
+  },
+  {
+   "date": "2020-05-12",
+   "subsystem": "S",
+   "load_pct": 99.7,
+   "stringency": 81.5
+  },
+  {
+   "date": "2020-05-12",
+   "subsystem": "SE",
+   "load_pct": 87,
+   "stringency": 82.1
+  },
+  {
+   "date": "2020-05-13",
+   "subsystem": "N",
+   "load_pct": 93.2,
+   "stringency": 87.8
+  },
+  {
+   "date": "2020-05-13",
+   "subsystem": "NE",
+   "load_pct": 88.3,
+   "stringency": 83.5
+  },
+  {
+   "date": "2020-05-13",
+   "subsystem": "S",
+   "load_pct": 100.3,
+   "stringency": 82.2
+  },
+  {
+   "date": "2020-05-13",
+   "subsystem": "SE",
+   "load_pct": 90.5,
+   "stringency": 82.1
+  },
+  {
+   "date": "2020-05-14",
+   "subsystem": "N",
+   "load_pct": 91.3,
+   "stringency": 86.5
+  },
+  {
+   "date": "2020-05-14",
+   "subsystem": "NE",
+   "load_pct": 87.6,
+   "stringency": 83.5
+  },
+  {
+   "date": "2020-05-14",
+   "subsystem": "S",
+   "load_pct": 96.7,
+   "stringency": 82.2
+  },
+  {
+   "date": "2020-05-14",
+   "subsystem": "SE",
+   "load_pct": 92.1,
+   "stringency": 82.2
+  },
+  {
+   "date": "2020-05-15",
+   "subsystem": "N",
+   "load_pct": 93.3,
+   "stringency": 86.5
+  },
+  {
+   "date": "2020-05-15",
+   "subsystem": "NE",
+   "load_pct": 88.7,
+   "stringency": 83.8
+  },
+  {
+   "date": "2020-05-15",
+   "subsystem": "S",
+   "load_pct": 96,
+   "stringency": 82.2
+  },
+  {
+   "date": "2020-05-15",
+   "subsystem": "SE",
+   "load_pct": 90.6,
+   "stringency": 82.2
+  },
+  {
+   "date": "2020-05-16",
+   "subsystem": "N",
+   "load_pct": 97.2,
+   "stringency": 86
+  },
+  {
+   "date": "2020-05-16",
+   "subsystem": "NE",
+   "load_pct": 90.3,
+   "stringency": 84.1
+  },
+  {
+   "date": "2020-05-16",
+   "subsystem": "S",
+   "load_pct": 98.8,
+   "stringency": 82.2
+  },
+  {
+   "date": "2020-05-16",
+   "subsystem": "SE",
+   "load_pct": 90.9,
+   "stringency": 82.2
+  },
+  {
+   "date": "2020-05-17",
+   "subsystem": "N",
+   "load_pct": 102.6,
+   "stringency": 86
+  },
+  {
+   "date": "2020-05-17",
+   "subsystem": "NE",
+   "load_pct": 91.2,
+   "stringency": 84.1
+  },
+  {
+   "date": "2020-05-17",
+   "subsystem": "S",
+   "load_pct": 99.7,
+   "stringency": 82.2
+  },
+  {
+   "date": "2020-05-17",
+   "subsystem": "SE",
+   "load_pct": 93.7,
+   "stringency": 81.4
+  },
+  {
+   "date": "2020-05-18",
+   "subsystem": "N",
+   "load_pct": 96.2,
+   "stringency": 83
+  },
+  {
+   "date": "2020-05-18",
+   "subsystem": "NE",
+   "load_pct": 87.7,
+   "stringency": 83.8
+  },
+  {
+   "date": "2020-05-18",
+   "subsystem": "S",
+   "load_pct": 97.5,
+   "stringency": 82.2
+  },
+  {
+   "date": "2020-05-18",
+   "subsystem": "SE",
+   "load_pct": 94.2,
+   "stringency": 77.2
+  },
+  {
+   "date": "2020-05-19",
+   "subsystem": "N",
+   "load_pct": 96.2,
+   "stringency": 83.1
+  },
+  {
+   "date": "2020-05-19",
+   "subsystem": "NE",
+   "load_pct": 89.2,
+   "stringency": 83.4
+  },
+  {
+   "date": "2020-05-19",
+   "subsystem": "S",
+   "load_pct": 97.6,
+   "stringency": 80.8
+  },
+  {
+   "date": "2020-05-19",
+   "subsystem": "SE",
+   "load_pct": 94,
+   "stringency": 77.2
+  },
+  {
+   "date": "2020-05-20",
+   "subsystem": "N",
+   "load_pct": 97.1,
+   "stringency": 83.1
+  },
+  {
+   "date": "2020-05-20",
+   "subsystem": "NE",
+   "load_pct": 88.7,
+   "stringency": 83
+  },
+  {
+   "date": "2020-05-20",
+   "subsystem": "S",
+   "load_pct": 99.9,
+   "stringency": 80.8
+  },
+  {
+   "date": "2020-05-20",
+   "subsystem": "SE",
+   "load_pct": 94.6,
+   "stringency": 77.2
+  },
+  {
+   "date": "2020-05-21",
+   "subsystem": "N",
+   "load_pct": 95.4,
+   "stringency": 83.1
+  },
+  {
+   "date": "2020-05-21",
+   "subsystem": "NE",
+   "load_pct": 88.2,
+   "stringency": 83.7
+  },
+  {
+   "date": "2020-05-21",
+   "subsystem": "S",
+   "load_pct": 104,
+   "stringency": 80.8
+  },
+  {
+   "date": "2020-05-21",
+   "subsystem": "SE",
+   "load_pct": 95,
+   "stringency": 77.2
+  },
+  {
+   "date": "2020-05-22",
+   "subsystem": "N",
+   "load_pct": 94.4,
+   "stringency": 83.1
+  },
+  {
+   "date": "2020-05-22",
+   "subsystem": "NE",
+   "load_pct": 88.8,
+   "stringency": 83.7
+  },
+  {
+   "date": "2020-05-22",
+   "subsystem": "S",
+   "load_pct": 104.2,
+   "stringency": 80.8
+  },
+  {
+   "date": "2020-05-22",
+   "subsystem": "SE",
+   "load_pct": 96.7,
+   "stringency": 77.2
+  },
+  {
+   "date": "2020-05-23",
+   "subsystem": "N",
+   "load_pct": 99.2,
+   "stringency": 83.1
+  },
+  {
+   "date": "2020-05-23",
+   "subsystem": "NE",
+   "load_pct": 93.3,
+   "stringency": 84
+  },
+  {
+   "date": "2020-05-23",
+   "subsystem": "S",
+   "load_pct": 101.9,
+   "stringency": 80.8
+  },
+  {
+   "date": "2020-05-23",
+   "subsystem": "SE",
+   "load_pct": 102.4,
+   "stringency": 77.2
+  },
+  {
+   "date": "2020-05-24",
+   "subsystem": "N",
+   "load_pct": 102.2,
+   "stringency": 83.6
+  },
+  {
+   "date": "2020-05-24",
+   "subsystem": "NE",
+   "load_pct": 95,
+   "stringency": 84
+  },
+  {
+   "date": "2020-05-24",
+   "subsystem": "S",
+   "load_pct": 101.3,
+   "stringency": 80.8
+  },
+  {
+   "date": "2020-05-24",
+   "subsystem": "SE",
+   "load_pct": 101.1,
+   "stringency": 77.2
+  },
+  {
+   "date": "2020-05-25",
+   "subsystem": "N",
+   "load_pct": 101.3,
+   "stringency": 78.9
+  },
+  {
+   "date": "2020-05-25",
+   "subsystem": "NE",
+   "load_pct": 94.1,
+   "stringency": 83.7
+  },
+  {
+   "date": "2020-05-25",
+   "subsystem": "S",
+   "load_pct": 100.8,
+   "stringency": 80.8
+  },
+  {
+   "date": "2020-05-25",
+   "subsystem": "SE",
+   "load_pct": 90.9,
+   "stringency": 77.2
+  },
+  {
+   "date": "2020-05-26",
+   "subsystem": "N",
+   "load_pct": 101.1,
+   "stringency": 78.5
+  },
+  {
+   "date": "2020-05-26",
+   "subsystem": "NE",
+   "load_pct": 97,
+   "stringency": 83.7
+  },
+  {
+   "date": "2020-05-26",
+   "subsystem": "S",
+   "load_pct": 104.2,
+   "stringency": 80.8
+  },
+  {
+   "date": "2020-05-26",
+   "subsystem": "SE",
+   "load_pct": 90.9,
+   "stringency": 77.2
+  },
+  {
+   "date": "2020-05-27",
+   "subsystem": "N",
+   "load_pct": 102.3,
+   "stringency": 78.5
+  },
+  {
+   "date": "2020-05-27",
+   "subsystem": "NE",
+   "load_pct": 98.2,
+   "stringency": 83.7
+  },
+  {
+   "date": "2020-05-27",
+   "subsystem": "S",
+   "load_pct": 107.1,
+   "stringency": 80.8
+  },
+  {
+   "date": "2020-05-27",
+   "subsystem": "SE",
+   "load_pct": 90.6,
+   "stringency": 77
+  },
+  {
+   "date": "2020-05-28",
+   "subsystem": "N",
+   "load_pct": null,
+   "stringency": 78.5
+  },
+  {
+   "date": "2020-05-28",
+   "subsystem": "NE",
+   "load_pct": null,
+   "stringency": 83.7
+  },
+  {
+   "date": "2020-05-28",
+   "subsystem": "S",
+   "load_pct": null,
+   "stringency": 80.8
+  },
+  {
+   "date": "2020-05-28",
+   "subsystem": "SE",
+   "load_pct": null,
+   "stringency": 77
+  },
+  {
+   "date": "2020-05-29",
+   "subsystem": "N",
+   "load_pct": null,
+   "stringency": 78.5
+  },
+  {
+   "date": "2020-05-29",
+   "subsystem": "NE",
+   "load_pct": null,
+   "stringency": 83.7
+  },
+  {
+   "date": "2020-05-29",
+   "subsystem": "S",
+   "load_pct": null,
+   "stringency": 80.8
+  },
+  {
+   "date": "2020-05-29",
+   "subsystem": "SE",
+   "load_pct": null,
+   "stringency": 77
+  },
+  {
+   "date": "2020-05-30",
+   "subsystem": "N",
+   "load_pct": 95.9,
+   "stringency": 78.5
+  },
+  {
+   "date": "2020-05-30",
+   "subsystem": "NE",
+   "load_pct": 92.1,
+   "stringency": 84
+  },
+  {
+   "date": "2020-05-30",
+   "subsystem": "S",
+   "load_pct": 100.6,
+   "stringency": 80.8
+  },
+  {
+   "date": "2020-05-30",
+   "subsystem": "SE",
+   "load_pct": 90.4,
+   "stringency": 77
+  },
+  {
+   "date": "2020-05-31",
+   "subsystem": "N",
+   "load_pct": 98.3,
+   "stringency": 78.5
+  },
+  {
+   "date": "2020-05-31",
+   "subsystem": "NE",
+   "load_pct": 93.6,
+   "stringency": 84
+  },
+  {
+   "date": "2020-05-31",
+   "subsystem": "S",
+   "load_pct": 99.2,
+   "stringency": 80.8
+  },
+  {
+   "date": "2020-05-31",
+   "subsystem": "SE",
+   "load_pct": 91.7,
+   "stringency": 77
+  },
+  {
+   "date": "2020-06-01",
+   "subsystem": "N",
+   "load_pct": 91.2,
+   "stringency": 76.1
+  },
+  {
+   "date": "2020-06-01",
+   "subsystem": "NE",
+   "load_pct": 91.7,
+   "stringency": 83.2
+  },
+  {
+   "date": "2020-06-01",
+   "subsystem": "S",
+   "load_pct": 101.4,
+   "stringency": 77.7
+  },
+  {
+   "date": "2020-06-01",
+   "subsystem": "SE",
+   "load_pct": 91.3,
+   "stringency": 73.8
+  },
+  {
+   "date": "2020-06-02",
+   "subsystem": "N",
+   "load_pct": 93.8,
+   "stringency": 77.7
+  },
+  {
+   "date": "2020-06-02",
+   "subsystem": "NE",
+   "load_pct": 94,
+   "stringency": 83.4
+  },
+  {
+   "date": "2020-06-02",
+   "subsystem": "S",
+   "load_pct": 102.1,
+   "stringency": 77.7
+  },
+  {
+   "date": "2020-06-02",
+   "subsystem": "SE",
+   "load_pct": 93.7,
+   "stringency": 77.4
+  },
+  {
+   "date": "2020-06-03",
+   "subsystem": "N",
+   "load_pct": 96.2,
+   "stringency": 77.6
+  },
+  {
+   "date": "2020-06-03",
+   "subsystem": "NE",
+   "load_pct": 94.4,
+   "stringency": 83.4
+  },
+  {
+   "date": "2020-06-03",
+   "subsystem": "S",
+   "load_pct": 101.4,
+   "stringency": 77.7
+  },
+  {
+   "date": "2020-06-03",
+   "subsystem": "SE",
+   "load_pct": 96.1,
+   "stringency": 77.6
+  },
+  {
+   "date": "2020-06-04",
+   "subsystem": "N",
+   "load_pct": 94.4,
+   "stringency": 77.6
+  },
+  {
+   "date": "2020-06-04",
+   "subsystem": "NE",
+   "load_pct": 94.1,
+   "stringency": 83.6
+  },
+  {
+   "date": "2020-06-04",
+   "subsystem": "S",
+   "load_pct": 100.5,
+   "stringency": 76.9
+  },
+  {
+   "date": "2020-06-04",
+   "subsystem": "SE",
+   "load_pct": 97.5,
+   "stringency": 77.6
+  },
+  {
+   "date": "2020-06-05",
+   "subsystem": "N",
+   "load_pct": 96.1,
+   "stringency": 77.6
+  },
+  {
+   "date": "2020-06-05",
+   "subsystem": "NE",
+   "load_pct": 91.6,
+   "stringency": 83.6
+  },
+  {
+   "date": "2020-06-05",
+   "subsystem": "S",
+   "load_pct": 99.1,
+   "stringency": 76.2
+  },
+  {
+   "date": "2020-06-05",
+   "subsystem": "SE",
+   "load_pct": 96.9,
+   "stringency": 77.8
+  },
+  {
+   "date": "2020-06-06",
+   "subsystem": "N",
+   "load_pct": 99.2,
+   "stringency": 77.6
+  },
+  {
+   "date": "2020-06-06",
+   "subsystem": "NE",
+   "load_pct": 93.9,
+   "stringency": 83.5
+  },
+  {
+   "date": "2020-06-06",
+   "subsystem": "S",
+   "load_pct": 95.6,
+   "stringency": 76.2
+  },
+  {
+   "date": "2020-06-06",
+   "subsystem": "SE",
+   "load_pct": 97.1,
+   "stringency": 77.8
+  },
+  {
+   "date": "2020-06-07",
+   "subsystem": "N",
+   "load_pct": 98.7,
+   "stringency": 77.6
+  },
+  {
+   "date": "2020-06-07",
+   "subsystem": "NE",
+   "load_pct": 95.8,
+   "stringency": 83.5
+  },
+  {
+   "date": "2020-06-07",
+   "subsystem": "S",
+   "load_pct": 94.3,
+   "stringency": 76.2
+  },
+  {
+   "date": "2020-06-07",
+   "subsystem": "SE",
+   "load_pct": 98.3,
+   "stringency": 77.8
+  },
+  {
+   "date": "2020-06-08",
+   "subsystem": "N",
+   "load_pct": 97.3,
+   "stringency": 77.6
+  },
+  {
+   "date": "2020-06-08",
+   "subsystem": "NE",
+   "load_pct": 93.3,
+   "stringency": 83.5
+  },
+  {
+   "date": "2020-06-08",
+   "subsystem": "S",
+   "load_pct": 96.5,
+   "stringency": 76.2
+  },
+  {
+   "date": "2020-06-08",
+   "subsystem": "SE",
+   "load_pct": 95.9,
+   "stringency": 77.8
+  },
+  {
+   "date": "2020-06-09",
+   "subsystem": "N",
+   "load_pct": 98.5,
+   "stringency": 77.6
+  },
+  {
+   "date": "2020-06-09",
+   "subsystem": "NE",
+   "load_pct": 93.5,
+   "stringency": 83.5
+  },
+  {
+   "date": "2020-06-09",
+   "subsystem": "S",
+   "load_pct": 98.9,
+   "stringency": 76.2
+  },
+  {
+   "date": "2020-06-09",
+   "subsystem": "SE",
+   "load_pct": 94.8,
+   "stringency": 77.8
+  },
+  {
+   "date": "2020-06-10",
+   "subsystem": "N",
+   "load_pct": 98.1,
+   "stringency": 77.6
+  },
+  {
+   "date": "2020-06-10",
+   "subsystem": "NE",
+   "load_pct": 94.7,
+   "stringency": 83.5
+  },
+  {
+   "date": "2020-06-10",
+   "subsystem": "S",
+   "load_pct": 96.8,
+   "stringency": 76.2
+  },
+  {
+   "date": "2020-06-10",
+   "subsystem": "SE",
+   "load_pct": 95.3,
+   "stringency": 77.8
+  },
+  {
+   "date": "2020-06-11",
+   "subsystem": "N",
+   "load_pct": null,
+   "stringency": 77.6
+  },
+  {
+   "date": "2020-06-11",
+   "subsystem": "NE",
+   "load_pct": null,
+   "stringency": 83.5
+  },
+  {
+   "date": "2020-06-11",
+   "subsystem": "S",
+   "load_pct": null,
+   "stringency": 76.2
+  },
+  {
+   "date": "2020-06-11",
+   "subsystem": "SE",
+   "load_pct": null,
+   "stringency": 77.8
+  },
+  {
+   "date": "2020-06-12",
+   "subsystem": "N",
+   "load_pct": null,
+   "stringency": 77.6
+  },
+  {
+   "date": "2020-06-12",
+   "subsystem": "NE",
+   "load_pct": null,
+   "stringency": 83.5
+  },
+  {
+   "date": "2020-06-12",
+   "subsystem": "S",
+   "load_pct": null,
+   "stringency": 76.2
+  },
+  {
+   "date": "2020-06-12",
+   "subsystem": "SE",
+   "load_pct": null,
+   "stringency": 78
+  },
+  {
+   "date": "2020-06-13",
+   "subsystem": "N",
+   "load_pct": 98.9,
+   "stringency": 77.6
+  },
+  {
+   "date": "2020-06-13",
+   "subsystem": "NE",
+   "load_pct": 96.5,
+   "stringency": 83.2
+  },
+  {
+   "date": "2020-06-13",
+   "subsystem": "S",
+   "load_pct": 85,
+   "stringency": 76.8
+  },
+  {
+   "date": "2020-06-13",
+   "subsystem": "SE",
+   "load_pct": 95.1,
+   "stringency": 78
+  },
+  {
+   "date": "2020-06-14",
+   "subsystem": "N",
+   "load_pct": 103.7,
+   "stringency": 77.6
+  },
+  {
+   "date": "2020-06-14",
+   "subsystem": "NE",
+   "load_pct": 97.2,
+   "stringency": 83.2
+  },
+  {
+   "date": "2020-06-14",
+   "subsystem": "S",
+   "load_pct": 87.1,
+   "stringency": 76.8
+  },
+  {
+   "date": "2020-06-14",
+   "subsystem": "SE",
+   "load_pct": 96.9,
+   "stringency": 78
+  },
+  {
+   "date": "2020-06-15",
+   "subsystem": "N",
+   "load_pct": 100.5,
+   "stringency": 77.4
+  },
+  {
+   "date": "2020-06-15",
+   "subsystem": "NE",
+   "load_pct": 93.8,
+   "stringency": 82.8
+  },
+  {
+   "date": "2020-06-15",
+   "subsystem": "S",
+   "load_pct": 88.7,
+   "stringency": 76.8
+  },
+  {
+   "date": "2020-06-15",
+   "subsystem": "SE",
+   "load_pct": 93.4,
+   "stringency": 78
+  },
+  {
+   "date": "2020-06-16",
+   "subsystem": "N",
+   "load_pct": 99,
+   "stringency": 77.4
+  },
+  {
+   "date": "2020-06-16",
+   "subsystem": "NE",
+   "load_pct": 94.7,
+   "stringency": 82.8
+  },
+  {
+   "date": "2020-06-16",
+   "subsystem": "S",
+   "load_pct": 90.6,
+   "stringency": 76.8
+  },
+  {
+   "date": "2020-06-16",
+   "subsystem": "SE",
+   "load_pct": 93.2,
+   "stringency": 77
+  },
+  {
+   "date": "2020-06-17",
+   "subsystem": "N",
+   "load_pct": 99.1,
+   "stringency": 77.4
+  },
+  {
+   "date": "2020-06-17",
+   "subsystem": "NE",
+   "load_pct": 94.7,
+   "stringency": 82.8
+  },
+  {
+   "date": "2020-06-17",
+   "subsystem": "S",
+   "load_pct": 93,
+   "stringency": 76.8
+  },
+  {
+   "date": "2020-06-17",
+   "subsystem": "SE",
+   "load_pct": 92.7,
+   "stringency": 77
+  },
+  {
+   "date": "2020-06-18",
+   "subsystem": "N",
+   "load_pct": null,
+   "stringency": 76.2
+  },
+  {
+   "date": "2020-06-18",
+   "subsystem": "NE",
+   "load_pct": null,
+   "stringency": 82.8
+  },
+  {
+   "date": "2020-06-18",
+   "subsystem": "S",
+   "load_pct": null,
+   "stringency": 76.8
+  },
+  {
+   "date": "2020-06-18",
+   "subsystem": "SE",
+   "load_pct": null,
+   "stringency": 77
+  },
+  {
+   "date": "2020-06-19",
+   "subsystem": "N",
+   "load_pct": null,
+   "stringency": 76.2
+  },
+  {
+   "date": "2020-06-19",
+   "subsystem": "NE",
+   "load_pct": null,
+   "stringency": 82.8
+  },
+  {
+   "date": "2020-06-19",
+   "subsystem": "S",
+   "load_pct": null,
+   "stringency": 76.8
+  },
+  {
+   "date": "2020-06-19",
+   "subsystem": "SE",
+   "load_pct": null,
+   "stringency": 76
+  },
+  {
+   "date": "2020-06-20",
+   "subsystem": "N",
+   "load_pct": 101.9,
+   "stringency": 76.2
+  },
+  {
+   "date": "2020-06-20",
+   "subsystem": "NE",
+   "load_pct": 97.9,
+   "stringency": 82.8
+  },
+  {
+   "date": "2020-06-20",
+   "subsystem": "S",
+   "load_pct": 97.3,
+   "stringency": 76.8
+  },
+  {
+   "date": "2020-06-20",
+   "subsystem": "SE",
+   "load_pct": 97.1,
+   "stringency": 76
+  },
+  {
+   "date": "2020-06-21",
+   "subsystem": "N",
+   "load_pct": 101.6,
+   "stringency": 76.2
+  },
+  {
+   "date": "2020-06-21",
+   "subsystem": "NE",
+   "load_pct": 99.1,
+   "stringency": 82.8
+  },
+  {
+   "date": "2020-06-21",
+   "subsystem": "S",
+   "load_pct": 95.8,
+   "stringency": 76.8
+  },
+  {
+   "date": "2020-06-21",
+   "subsystem": "SE",
+   "load_pct": 98.4,
+   "stringency": 76
+  },
+  {
+   "date": "2020-06-22",
+   "subsystem": "N",
+   "load_pct": 101.9,
+   "stringency": 76.1
+  },
+  {
+   "date": "2020-06-22",
+   "subsystem": "NE",
+   "load_pct": 100.4,
+   "stringency": 82.9
+  },
+  {
+   "date": "2020-06-22",
+   "subsystem": "S",
+   "load_pct": 95.8,
+   "stringency": 76.8
+  },
+  {
+   "date": "2020-06-22",
+   "subsystem": "SE",
+   "load_pct": 96.7,
+   "stringency": 76
+  },
+  {
+   "date": "2020-06-23",
+   "subsystem": "N",
+   "load_pct": 100.4,
+   "stringency": 76.1
+  },
+  {
+   "date": "2020-06-23",
+   "subsystem": "NE",
+   "load_pct": 96.8,
+   "stringency": 82.9
+  },
+  {
+   "date": "2020-06-23",
+   "subsystem": "S",
+   "load_pct": 96.1,
+   "stringency": 76.8
+  },
+  {
+   "date": "2020-06-23",
+   "subsystem": "SE",
+   "load_pct": 93.6,
+   "stringency": 76
+  },
+  {
+   "date": "2020-06-24",
+   "subsystem": "N",
+   "load_pct": 105,
+   "stringency": 76.1
+  },
+  {
+   "date": "2020-06-24",
+   "subsystem": "NE",
+   "load_pct": 93.7,
+   "stringency": 82.9
+  },
+  {
+   "date": "2020-06-24",
+   "subsystem": "S",
+   "load_pct": 97.6,
+   "stringency": 77.3
+  },
+  {
+   "date": "2020-06-24",
+   "subsystem": "SE",
+   "load_pct": 94.9,
+   "stringency": 76
+  },
+  {
+   "date": "2020-06-25",
+   "subsystem": "N",
+   "load_pct": 102.9,
+   "stringency": 76.1
+  },
+  {
+   "date": "2020-06-25",
+   "subsystem": "NE",
+   "load_pct": 94.9,
+   "stringency": 82.9
+  },
+  {
+   "date": "2020-06-25",
+   "subsystem": "S",
+   "load_pct": 97.4,
+   "stringency": 79.2
+  },
+  {
+   "date": "2020-06-25",
+   "subsystem": "SE",
+   "load_pct": 94.2,
+   "stringency": 75.9
+  },
+  {
+   "date": "2020-06-26",
+   "subsystem": "N",
+   "load_pct": 101.1,
+   "stringency": 76.1
+  },
+  {
+   "date": "2020-06-26",
+   "subsystem": "NE",
+   "load_pct": 96.2,
+   "stringency": 82.9
+  },
+  {
+   "date": "2020-06-26",
+   "subsystem": "S",
+   "load_pct": 94.8,
+   "stringency": 79.2
+  },
+  {
+   "date": "2020-06-26",
+   "subsystem": "SE",
+   "load_pct": 95.5,
+   "stringency": 75.9
+  },
+  {
+   "date": "2020-06-27",
+   "subsystem": "N",
+   "load_pct": 101.1,
+   "stringency": 76.1
+  },
+  {
+   "date": "2020-06-27",
+   "subsystem": "NE",
+   "load_pct": 96.8,
+   "stringency": 82.9
+  },
+  {
+   "date": "2020-06-27",
+   "subsystem": "S",
+   "load_pct": 95.4,
+   "stringency": 79.2
+  },
+  {
+   "date": "2020-06-27",
+   "subsystem": "SE",
+   "load_pct": 96.6,
+   "stringency": 75.9
+  },
+  {
+   "date": "2020-06-28",
+   "subsystem": "N",
+   "load_pct": 102.1,
+   "stringency": 76.1
+  },
+  {
+   "date": "2020-06-28",
+   "subsystem": "NE",
+   "load_pct": 98.1,
+   "stringency": 82.9
+  },
+  {
+   "date": "2020-06-28",
+   "subsystem": "S",
+   "load_pct": 96.9,
+   "stringency": 79.2
+  },
+  {
+   "date": "2020-06-28",
+   "subsystem": "SE",
+   "load_pct": 96.9,
+   "stringency": 75.9
+  },
+  {
+   "date": "2020-06-29",
+   "subsystem": "N",
+   "load_pct": 100.9,
+   "stringency": 76.1
+  },
+  {
+   "date": "2020-06-29",
+   "subsystem": "NE",
+   "load_pct": 98.8,
+   "stringency": 82.9
+  },
+  {
+   "date": "2020-06-29",
+   "subsystem": "S",
+   "load_pct": 100.2,
+   "stringency": 79.2
+  },
+  {
+   "date": "2020-06-29",
+   "subsystem": "SE",
+   "load_pct": 94.7,
+   "stringency": 75.9
+  },
+  {
+   "date": "2020-06-30",
+   "subsystem": "N",
+   "load_pct": 98,
+   "stringency": 76.1
+  },
+  {
+   "date": "2020-06-30",
+   "subsystem": "NE",
+   "load_pct": 96.8,
+   "stringency": 82.9
+  },
+  {
+   "date": "2020-06-30",
+   "subsystem": "S",
+   "load_pct": 88.9,
+   "stringency": 80.3
+  },
+  {
+   "date": "2020-06-30",
+   "subsystem": "SE",
+   "load_pct": 92.7,
+   "stringency": 76.1
+  },
+  {
+   "date": "2020-07-01",
+   "subsystem": "N",
+   "load_pct": 100.3,
+   "stringency": 76.1
+  },
+  {
+   "date": "2020-07-01",
+   "subsystem": "NE",
+   "load_pct": 95.3,
+   "stringency": 82.9
+  },
+  {
+   "date": "2020-07-01",
+   "subsystem": "S",
+   "load_pct": 85,
+   "stringency": 78.4
+  },
+  {
+   "date": "2020-07-01",
+   "subsystem": "SE",
+   "load_pct": 93.1,
+   "stringency": 76.1
+  },
+  {
+   "date": "2020-07-02",
+   "subsystem": "N",
+   "load_pct": 102.3,
+   "stringency": 76.1
+  },
+  {
+   "date": "2020-07-02",
+   "subsystem": "NE",
+   "load_pct": 94.6,
+   "stringency": 82.9
+  },
+  {
+   "date": "2020-07-02",
+   "subsystem": "S",
+   "load_pct": 93.1,
+   "stringency": 78.4
+  },
+  {
+   "date": "2020-07-02",
+   "subsystem": "SE",
+   "load_pct": 92.1,
+   "stringency": 76.3
+  },
+  {
+   "date": "2020-07-03",
+   "subsystem": "N",
+   "load_pct": 101.6,
+   "stringency": 75
+  },
+  {
+   "date": "2020-07-03",
+   "subsystem": "NE",
+   "load_pct": 96,
+   "stringency": 82.9
+  },
+  {
+   "date": "2020-07-03",
+   "subsystem": "S",
+   "load_pct": 96,
+   "stringency": 78.4
+  },
+  {
+   "date": "2020-07-03",
+   "subsystem": "SE",
+   "load_pct": 94.1,
+   "stringency": 76.3
+  },
+  {
+   "date": "2020-07-04",
+   "subsystem": "N",
+   "load_pct": 101.4,
+   "stringency": 75
+  },
+  {
+   "date": "2020-07-04",
+   "subsystem": "NE",
+   "load_pct": 95.5,
+   "stringency": 82.9
+  },
+  {
+   "date": "2020-07-04",
+   "subsystem": "S",
+   "load_pct": 95.5,
+   "stringency": 78.4
+  },
+  {
+   "date": "2020-07-04",
+   "subsystem": "SE",
+   "load_pct": 95.9,
+   "stringency": 76.3
+  },
+  {
+   "date": "2020-07-05",
+   "subsystem": "N",
+   "load_pct": 103.4,
+   "stringency": 75
+  },
+  {
+   "date": "2020-07-05",
+   "subsystem": "NE",
+   "load_pct": 97.1,
+   "stringency": 82.9
+  },
+  {
+   "date": "2020-07-05",
+   "subsystem": "S",
+   "load_pct": 96.3,
+   "stringency": 78.4
+  },
+  {
+   "date": "2020-07-05",
+   "subsystem": "SE",
+   "load_pct": 100.8,
+   "stringency": 76.3
+  },
+  {
+   "date": "2020-07-06",
+   "subsystem": "N",
+   "load_pct": 101.8,
+   "stringency": 74.5
+  },
+  {
+   "date": "2020-07-06",
+   "subsystem": "NE",
+   "load_pct": 95.6,
+   "stringency": 82.8
+  },
+  {
+   "date": "2020-07-06",
+   "subsystem": "S",
+   "load_pct": 97.1,
+   "stringency": 79.7
+  },
+  {
+   "date": "2020-07-06",
+   "subsystem": "SE",
+   "load_pct": 105.8,
+   "stringency": 76.3
+  },
+  {
+   "date": "2020-07-07",
+   "subsystem": "N",
+   "load_pct": 103.6,
+   "stringency": 74.5
+  },
+  {
+   "date": "2020-07-07",
+   "subsystem": "NE",
+   "load_pct": 96.1,
+   "stringency": 82.3
+  },
+  {
+   "date": "2020-07-07",
+   "subsystem": "S",
+   "load_pct": 98.5,
+   "stringency": 79.7
+  },
+  {
+   "date": "2020-07-07",
+   "subsystem": "SE",
+   "load_pct": 105.4,
+   "stringency": 76.3
+  },
+  {
+   "date": "2020-07-08",
+   "subsystem": "N",
+   "load_pct": 103,
+   "stringency": 74.5
+  },
+  {
+   "date": "2020-07-08",
+   "subsystem": "NE",
+   "load_pct": 97.4,
+   "stringency": 82.3
+  },
+  {
+   "date": "2020-07-08",
+   "subsystem": "S",
+   "load_pct": 97.9,
+   "stringency": 79.7
+  },
+  {
+   "date": "2020-07-08",
+   "subsystem": "SE",
+   "load_pct": 103.2,
+   "stringency": 76.3
+  },
+  {
+   "date": "2020-07-09",
+   "subsystem": "N",
+   "load_pct": 103.4,
+   "stringency": 74.5
+  },
+  {
+   "date": "2020-07-09",
+   "subsystem": "NE",
+   "load_pct": 97.2,
+   "stringency": 82.3
+  },
+  {
+   "date": "2020-07-09",
+   "subsystem": "S",
+   "load_pct": 95.8,
+   "stringency": 79.7
+  },
+  {
+   "date": "2020-07-09",
+   "subsystem": "SE",
+   "load_pct": 101.8,
+   "stringency": 76.3
+  },
+  {
+   "date": "2020-07-10",
+   "subsystem": "N",
+   "load_pct": 101.7,
+   "stringency": 74.5
+  },
+  {
+   "date": "2020-07-10",
+   "subsystem": "NE",
+   "load_pct": 97.2,
+   "stringency": 81.8
+  },
+  {
+   "date": "2020-07-10",
+   "subsystem": "S",
+   "load_pct": 95.5,
+   "stringency": 79.7
+  },
+  {
+   "date": "2020-07-10",
+   "subsystem": "SE",
+   "load_pct": 98.6,
+   "stringency": 76.3
+  },
+  {
+   "date": "2020-07-11",
+   "subsystem": "N",
+   "load_pct": 101,
+   "stringency": 74.5
+  },
+  {
+   "date": "2020-07-11",
+   "subsystem": "NE",
+   "load_pct": 97.6,
+   "stringency": 82.3
+  },
+  {
+   "date": "2020-07-11",
+   "subsystem": "S",
+   "load_pct": 96.9,
+   "stringency": 79.7
+  },
+  {
+   "date": "2020-07-11",
+   "subsystem": "SE",
+   "load_pct": 99.7,
+   "stringency": 76.3
+  },
+  {
+   "date": "2020-07-12",
+   "subsystem": "N",
+   "load_pct": 103.6,
+   "stringency": 74.5
+  },
+  {
+   "date": "2020-07-12",
+   "subsystem": "NE",
+   "load_pct": 98.7,
+   "stringency": 82.3
+  },
+  {
+   "date": "2020-07-12",
+   "subsystem": "S",
+   "load_pct": 96,
+   "stringency": 79.7
+  },
+  {
+   "date": "2020-07-12",
+   "subsystem": "SE",
+   "load_pct": 101.8,
+   "stringency": 76.1
+  },
+  {
+   "date": "2020-07-13",
+   "subsystem": "N",
+   "load_pct": 103,
+   "stringency": 74.7
+  },
+  {
+   "date": "2020-07-13",
+   "subsystem": "NE",
+   "load_pct": 97.5,
+   "stringency": 82.2
+  },
+  {
+   "date": "2020-07-13",
+   "subsystem": "S",
+   "load_pct": 96,
+   "stringency": 79.7
+  },
+  {
+   "date": "2020-07-13",
+   "subsystem": "SE",
+   "load_pct": 101,
+   "stringency": 76.1
+  },
+  {
+   "date": "2020-07-14",
+   "subsystem": "N",
+   "load_pct": 100.9,
+   "stringency": 74.7
+  },
+  {
+   "date": "2020-07-14",
+   "subsystem": "NE",
+   "load_pct": 98.1,
+   "stringency": 82.2
+  },
+  {
+   "date": "2020-07-14",
+   "subsystem": "S",
+   "load_pct": 96.2,
+   "stringency": 78.6
+  },
+  {
+   "date": "2020-07-14",
+   "subsystem": "SE",
+   "load_pct": 100.9,
+   "stringency": 75.6
+  },
+  {
+   "date": "2020-07-15",
+   "subsystem": "N",
+   "load_pct": 102.1,
+   "stringency": 74.7
+  },
+  {
+   "date": "2020-07-15",
+   "subsystem": "NE",
+   "load_pct": 98.5,
+   "stringency": 82.1
+  },
+  {
+   "date": "2020-07-15",
+   "subsystem": "S",
+   "load_pct": 96.7,
+   "stringency": 78.6
+  },
+  {
+   "date": "2020-07-15",
+   "subsystem": "SE",
+   "load_pct": 99.7,
+   "stringency": 75.6
+  },
+  {
+   "date": "2020-07-16",
+   "subsystem": "N",
+   "load_pct": 102.3,
+   "stringency": 74.7
+  },
+  {
+   "date": "2020-07-16",
+   "subsystem": "NE",
+   "load_pct": 97.4,
+   "stringency": 82.1
+  },
+  {
+   "date": "2020-07-16",
+   "subsystem": "S",
+   "load_pct": 99.6,
+   "stringency": 78.6
+  },
+  {
+   "date": "2020-07-16",
+   "subsystem": "SE",
+   "load_pct": 97.9,
+   "stringency": 75.6
+  },
+  {
+   "date": "2020-07-17",
+   "subsystem": "N",
+   "load_pct": 102,
+   "stringency": 74.7
+  },
+  {
+   "date": "2020-07-17",
+   "subsystem": "NE",
+   "load_pct": 96.9,
+   "stringency": 82.1
+  },
+  {
+   "date": "2020-07-17",
+   "subsystem": "S",
+   "load_pct": 97.4,
+   "stringency": 77.8
+  },
+  {
+   "date": "2020-07-17",
+   "subsystem": "SE",
+   "load_pct": 97.9,
+   "stringency": 75.6
+  },
+  {
+   "date": "2020-07-18",
+   "subsystem": "N",
+   "load_pct": 103.4,
+   "stringency": 74.7
+  },
+  {
+   "date": "2020-07-18",
+   "subsystem": "NE",
+   "load_pct": 98.5,
+   "stringency": 82.5
+  },
+  {
+   "date": "2020-07-18",
+   "subsystem": "S",
+   "load_pct": 97.6,
+   "stringency": 77.8
+  },
+  {
+   "date": "2020-07-18",
+   "subsystem": "SE",
+   "load_pct": 99.9,
+   "stringency": 75.9
+  },
+  {
+   "date": "2020-07-19",
+   "subsystem": "N",
+   "load_pct": 103.5,
+   "stringency": 74.7
+  },
+  {
+   "date": "2020-07-19",
+   "subsystem": "NE",
+   "load_pct": 99.8,
+   "stringency": 82.5
+  },
+  {
+   "date": "2020-07-19",
+   "subsystem": "S",
+   "load_pct": 95.9,
+   "stringency": 77.8
+  },
+  {
+   "date": "2020-07-19",
+   "subsystem": "SE",
+   "load_pct": 100.8,
+   "stringency": 75.9
+  },
+  {
+   "date": "2020-07-20",
+   "subsystem": "N",
+   "load_pct": 100.8,
+   "stringency": 74.7
+  },
+  {
+   "date": "2020-07-20",
+   "subsystem": "NE",
+   "load_pct": 98.7,
+   "stringency": 82
+  },
+  {
+   "date": "2020-07-20",
+   "subsystem": "S",
+   "load_pct": 95,
+   "stringency": 77.8
+  },
+  {
+   "date": "2020-07-20",
+   "subsystem": "SE",
+   "load_pct": 98.7,
+   "stringency": 75.6
+  },
+  {
+   "date": "2020-07-21",
+   "subsystem": "N",
+   "load_pct": 98.3,
+   "stringency": 74.7
+  },
+  {
+   "date": "2020-07-21",
+   "subsystem": "NE",
+   "load_pct": 97.9,
+   "stringency": 82
+  },
+  {
+   "date": "2020-07-21",
+   "subsystem": "S",
+   "load_pct": 95,
+   "stringency": 77.2
+  },
+  {
+   "date": "2020-07-21",
+   "subsystem": "SE",
+   "load_pct": 99.6,
+   "stringency": 75.5
+  },
+  {
+   "date": "2020-07-22",
+   "subsystem": "N",
+   "load_pct": 98.9,
+   "stringency": 74.7
+  },
+  {
+   "date": "2020-07-22",
+   "subsystem": "NE",
+   "load_pct": 96.8,
+   "stringency": 82
+  },
+  {
+   "date": "2020-07-22",
+   "subsystem": "S",
+   "load_pct": 96,
+   "stringency": 77.2
+  },
+  {
+   "date": "2020-07-22",
+   "subsystem": "SE",
+   "load_pct": 100,
+   "stringency": 75.5
+  },
+  {
+   "date": "2020-07-23",
+   "subsystem": "N",
+   "load_pct": 98.9,
+   "stringency": 74.7
+  },
+  {
+   "date": "2020-07-23",
+   "subsystem": "NE",
+   "load_pct": 97.7,
+   "stringency": 82
+  },
+  {
+   "date": "2020-07-23",
+   "subsystem": "S",
+   "load_pct": 96.8,
+   "stringency": 77.2
+  },
+  {
+   "date": "2020-07-23",
+   "subsystem": "SE",
+   "load_pct": 100.1,
+   "stringency": 75.5
+  },
+  {
+   "date": "2020-07-24",
+   "subsystem": "N",
+   "load_pct": 100.7,
+   "stringency": 74.7
+  },
+  {
+   "date": "2020-07-24",
+   "subsystem": "NE",
+   "load_pct": 98.1,
+   "stringency": 81
+  },
+  {
+   "date": "2020-07-24",
+   "subsystem": "S",
+   "load_pct": 97.4,
+   "stringency": 77.2
+  },
+  {
+   "date": "2020-07-24",
+   "subsystem": "SE",
+   "load_pct": 99.9,
+   "stringency": 75.2
+  },
+  {
+   "date": "2020-07-25",
+   "subsystem": "N",
+   "load_pct": 103.8,
+   "stringency": 74.1
+  },
+  {
+   "date": "2020-07-25",
+   "subsystem": "NE",
+   "load_pct": 99,
+   "stringency": 81.4
+  },
+  {
+   "date": "2020-07-25",
+   "subsystem": "S",
+   "load_pct": 96.7,
+   "stringency": 77.2
+  },
+  {
+   "date": "2020-07-25",
+   "subsystem": "SE",
+   "load_pct": 101,
+   "stringency": 75.4
+  },
+  {
+   "date": "2020-07-26",
+   "subsystem": "N",
+   "load_pct": 105,
+   "stringency": 74.1
+  },
+  {
+   "date": "2020-07-26",
+   "subsystem": "NE",
+   "load_pct": 99.8,
+   "stringency": 81.4
+  },
+  {
+   "date": "2020-07-26",
+   "subsystem": "S",
+   "load_pct": 97.1,
+   "stringency": 77.2
+  },
+  {
+   "date": "2020-07-26",
+   "subsystem": "SE",
+   "load_pct": 99.8,
+   "stringency": 75.4
+  },
+  {
+   "date": "2020-07-27",
+   "subsystem": "N",
+   "load_pct": 105.3,
+   "stringency": 74.1
+  },
+  {
+   "date": "2020-07-27",
+   "subsystem": "NE",
+   "load_pct": 96.8,
+   "stringency": 80.5
+  },
+  {
+   "date": "2020-07-27",
+   "subsystem": "S",
+   "load_pct": 98.5,
+   "stringency": 77.2
+  },
+  {
+   "date": "2020-07-27",
+   "subsystem": "SE",
+   "load_pct": 98.8,
+   "stringency": 73.8
+  },
+  {
+   "date": "2020-07-28",
+   "subsystem": "N",
+   "load_pct": 105.2,
+   "stringency": 74.1
+  },
+  {
+   "date": "2020-07-28",
+   "subsystem": "NE",
+   "load_pct": 97.5,
+   "stringency": 80.5
+  },
+  {
+   "date": "2020-07-28",
+   "subsystem": "S",
+   "load_pct": 100.4,
+   "stringency": 77.2
+  },
+  {
+   "date": "2020-07-28",
+   "subsystem": "SE",
+   "load_pct": 100.9,
+   "stringency": 73.8
+  },
+  {
+   "date": "2020-07-29",
+   "subsystem": "N",
+   "load_pct": 105.7,
+   "stringency": 65.8
+  },
+  {
+   "date": "2020-07-29",
+   "subsystem": "NE",
+   "load_pct": 97.8,
+   "stringency": 72.5
+  },
+  {
+   "date": "2020-07-29",
+   "subsystem": "S",
+   "load_pct": 99.6,
+   "stringency": 68.9
+  },
+  {
+   "date": "2020-07-29",
+   "subsystem": "SE",
+   "load_pct": 100.9,
+   "stringency": 65.3
+  },
+  {
+   "date": "2020-07-30",
+   "subsystem": "N",
+   "load_pct": 104.8,
+   "stringency": 66.4
+  },
+  {
+   "date": "2020-07-30",
+   "subsystem": "NE",
+   "load_pct": 98.6,
+   "stringency": 72.5
+  },
+  {
+   "date": "2020-07-30",
+   "subsystem": "S",
+   "load_pct": 99.4,
+   "stringency": 68.9
+  },
+  {
+   "date": "2020-07-30",
+   "subsystem": "SE",
+   "load_pct": 97.9,
+   "stringency": 65.3
+  },
+  {
+   "date": "2020-07-31",
+   "subsystem": "N",
+   "load_pct": 104,
+   "stringency": 66.4
+  },
+  {
+   "date": "2020-07-31",
+   "subsystem": "NE",
+   "load_pct": 98.8,
+   "stringency": 72.5
+  },
+  {
+   "date": "2020-07-31",
+   "subsystem": "S",
+   "load_pct": 98.6,
+   "stringency": 68.9
+  },
+  {
+   "date": "2020-07-31",
+   "subsystem": "SE",
+   "load_pct": 95.8,
+   "stringency": 65.2
+  }
+ ]
+}

@@ -14,7 +14,10 @@ export function parseHeaders(text) {
   const rules = [];
   for (const line of text.split(/\r?\n/)) {
     if (!line.trim() || line.trim().startsWith('#')) continue;
-    if (!/^\s/.test(line)) { rules.push({ path: line.trim(), headers: {} }); continue; }
+    if (!/^\s/.test(line)) { rules.push({ path: line.trim(), headers: {}, detach: [] }); continue; }
+    // "! Name" removes a header an earlier rule set, for this path only (Cloudflare Pages).
+    const detach = /^\s+!\s+(\S+)\s*$/.exec(line);
+    if (detach && rules.length) { rules.at(-1).detach.push(detach[1].toLowerCase()); continue; }
     const m = /^\s+([^:]+):\s*(.*)$/.exec(line);
     assert.ok(m && rules.length, `unreadable line: ${line}`);
     rules.at(-1).headers[m[1].trim().toLowerCase()] = m[2].trim();
@@ -84,4 +87,21 @@ test('security.txt names a contact and has not expired', () => {
   const expires = new Date(/^Expires: (.+)$/m.exec(txt)[1]);
   assert.ok(expires > new Date(), 'Expires is in the future; renew it before that date');
   assert.match(txt, /^Canonical: https:\/\/felipealveslab\.com\/\.well-known\/security\.txt$/m);
+});
+
+test('only the dbt docs under /lab-docs/ may be framed, and only by this site', () => {
+  const docs = rules.find((r) => r.path === '/lab-docs/*');
+  assert.ok(docs, 'there is a /lab-docs/* rule');
+  assert.ok(rules.indexOf(docs) > rules.indexOf(all), 'the detach comes after the /* rule it removes');
+  assert.deepEqual(docs.detach.sort(), ['content-security-policy', 'x-frame-options']);
+  assert.equal(docs.headers['x-frame-options'], 'SAMEORIGIN');
+  const policy = Object.fromEntries(docs.headers['content-security-policy'].split(';').map((d) => d.trim()).filter(Boolean)
+    .map((d) => { const [name, ...values] = d.split(/\s+/); return [name, values]; }));
+  assert.deepEqual(policy['frame-ancestors'], ["'self'"]);
+  assert.deepEqual(policy['default-src'], ["'self'"]);
+  assert.deepEqual(policy['object-src'], ["'none'"]);
+  assert.ok(!policy['script-src'].includes("'unsafe-eval'"));
+  for (const r of rules) if (r !== docs) assert.deepEqual(r.detach, [], `${r.path} detaches nothing`);
+  // Lab pages may frame this site's own docs.
+  assert.ok(csp['frame-src'].includes("'self'"));
 });

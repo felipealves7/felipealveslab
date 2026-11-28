@@ -1,0 +1,426 @@
+{
+ "config": {
+  "background": "#f8f6f0",
+  "padding": {
+   "left": 8,
+   "right": 14,
+   "top": 10,
+   "bottom": 6
+  },
+  "font": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+  "view": {
+   "stroke": null
+  },
+  "axis": {
+   "labelFont": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "labelFontSize": 11,
+   "labelColor": "#656561",
+   "titleFont": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "titleFontSize": 11,
+   "titleFontWeight": 400,
+   "titleColor": "#656561",
+   "gridColor": "#dddcd6",
+   "gridWidth": 1,
+   "domainColor": "#aaa9a4",
+   "tickColor": "#aaa9a4",
+   "labelPadding": 5
+  },
+  "axisX": {
+   "grid": true,
+   "domain": true,
+   "ticks": true,
+   "tickSize": 4,
+   "labelFlush": true
+  },
+  "axisY": {
+   "grid": true,
+   "domain": false,
+   "ticks": false,
+   "minExtent": 40,
+   "maxExtent": 40,
+   "labelPadding": 6
+  },
+  "header": {
+   "labelFont": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "labelFontSize": 12,
+   "labelFontWeight": 600,
+   "labelColor": "#1a1a17",
+   "labelAnchor": "start",
+   "labelAngle": 0,
+   "labelOrient": "top",
+   "labelPadding": 6,
+   "titleFontSize": 0
+  },
+  "facet": {
+   "spacing": 20
+  },
+  "line": {
+   "color": "#4f5744",
+   "strokeWidth": 2,
+   "strokeJoin": "round",
+   "strokeCap": "round"
+  },
+  "point": {
+   "color": "#4f5744",
+   "filled": true,
+   "size": 64,
+   "stroke": "#f8f6f0",
+   "strokeWidth": 2,
+   "opacity": 1
+  },
+  "rule": {
+   "color": "#1a1a17",
+   "strokeWidth": 1,
+   "opacity": 0.45
+  },
+  "bar": {
+   "color": "#4f5744"
+  },
+  "rect": {
+   "color": "#4f5744"
+  },
+  "text": {
+   "font": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "fontSize": 11,
+   "color": "#1a1a17"
+  },
+  "range": {
+   "category": [
+    "#4f5744",
+    "#9a9588",
+    "#a5562f"
+   ]
+  },
+  "legend": {
+   "labelFont": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "labelFontSize": 11,
+   "labelColor": "#1a1a17",
+   "titleFont": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "titleFontSize": 11,
+   "titleColor": "#656561",
+   "titleFontWeight": 400,
+   "orient": "top",
+   "symbolStrokeWidth": 2
+  },
+  "title": {
+   "font": "\"Avenir Next\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+   "fontSize": 15,
+   "fontWeight": 600,
+   "color": "#1a1a17",
+   "anchor": "start"
+  }
+ },
+ "data": {
+  "name": "rows"
+ },
+ "facet": {
+  "row": {
+   "field": "panel",
+   "header": {
+    "labelLimit": 0
+   },
+   "sort": {
+    "field": "order",
+    "op": "min"
+   },
+   "title": null,
+   "type": "nominal"
+  }
+ },
+ "spec": {
+  "layer": [
+   {
+    "mark": {
+     "type": "rect",
+     "aria": false,
+     "color": "#a5562f"
+    },
+    "encoding": {
+     "opacity": {
+      "field": "stringency",
+      "legend": null,
+      "scale": {
+       "domain": [
+        0,
+        100
+       ],
+       "range": [
+        0,
+        1
+       ]
+      },
+      "type": "quantitative"
+     },
+     "x": {
+      "axis": {
+       "format": "%-d %b",
+       "tickCount": 5
+      },
+      "field": "day_start",
+      "timeUnit": "utcyearmonthdate",
+      "title": null,
+      "type": "temporal"
+     },
+     "x2": {
+      "field": "day_end"
+     },
+     "y": {
+      "value": 82
+     },
+     "y2": {
+      "value": 96
+     }
+    },
+    "transform": [
+     {
+      "calculate": "toDate(datum.date + 'T00:00:00Z')",
+      "as": "day_start"
+     },
+     {
+      "calculate": "datum.day_start + 86400000",
+      "as": "day_end"
+     }
+    ]
+   },
+   {
+    "mark": {
+     "type": "rule",
+     "aria": false,
+     "color": "#656561",
+     "strokeDash": [
+      4,
+      3
+     ]
+    },
+    "encoding": {
+     "y": {
+      "datum": 100
+     }
+    }
+   },
+   {
+    "mark": {
+     "type": "line",
+     "aria": false,
+     "invalid": "break-paths-show-domains",
+     "strokeWidth": 1.75
+    },
+    "encoding": {
+     "x": {
+      "axis": {
+       "format": "%-d %b",
+       "tickCount": 5
+      },
+      "field": "day_start",
+      "timeUnit": "utcyearmonthdate",
+      "title": null,
+      "type": "temporal"
+     },
+     "y": {
+      "axis": {
+       "format": "d",
+       "values": [
+        80,
+        90,
+        100,
+        110,
+        120
+       ]
+      },
+      "field": "value",
+      "scale": {
+       "clamp": true,
+       "domain": [
+        70,
+        125
+       ],
+       "nice": false,
+       "zero": false
+      },
+      "title": null,
+      "type": "quantitative"
+     }
+    },
+    "name": "line",
+    "transform": [
+     {
+      "calculate": "toDate(datum.date + 'T00:00:00Z')",
+      "as": "day_start"
+     },
+     {
+      "calculate": "datum.load_pct",
+      "as": "value"
+     }
+    ]
+   },
+   {
+    "mark": {
+     "type": "rule",
+     "aria": false,
+     "clip": true
+    },
+    "encoding": {
+     "x": {
+      "axis": {
+       "format": "%-d %b",
+       "tickCount": 5
+      },
+      "field": "day_start",
+      "timeUnit": "utcyearmonthdate",
+      "title": null,
+      "type": "temporal"
+     }
+    },
+    "transform": [
+     {
+      "calculate": "toDate(datum.date + 'T00:00:00Z')",
+      "as": "day_start"
+     },
+     {
+      "filter": "datum.date === day"
+     }
+    ]
+   },
+   {
+    "mark": {
+     "type": "point",
+     "aria": false,
+     "clip": true,
+     "color": "#1a1a17"
+    },
+    "encoding": {
+     "tooltip": [
+      {
+       "field": "day_start",
+       "format": "%a %-d %b %Y",
+       "timeUnit": "utcyearmonthdate",
+       "title": "Day",
+       "type": "temporal"
+      },
+      {
+       "field": "SE_load",
+       "title": "SE load, % of 2018–19",
+       "type": "nominal"
+      },
+      {
+       "field": "S_load",
+       "title": "S load, % of 2018–19",
+       "type": "nominal"
+      },
+      {
+       "field": "NE_load",
+       "title": "NE load, % of 2018–19",
+       "type": "nominal"
+      },
+      {
+       "field": "N_load",
+       "title": "N load, % of 2018–19",
+       "type": "nominal"
+      },
+      {
+       "field": "SE_stringency",
+       "format": ".1f",
+       "title": "SE stringency",
+       "type": "quantitative"
+      },
+      {
+       "field": "S_stringency",
+       "format": ".1f",
+       "title": "S stringency",
+       "type": "quantitative"
+      },
+      {
+       "field": "NE_stringency",
+       "format": ".1f",
+       "title": "NE stringency",
+       "type": "quantitative"
+      },
+      {
+       "field": "N_stringency",
+       "format": ".1f",
+       "title": "N stringency",
+       "type": "quantitative"
+      }
+     ],
+     "x": {
+      "axis": {
+       "format": "%-d %b",
+       "tickCount": 5
+      },
+      "field": "day_start",
+      "timeUnit": "utcyearmonthdate",
+      "title": null,
+      "type": "temporal"
+     },
+     "y": {
+      "axis": {
+       "format": "d",
+       "values": [
+        80,
+        90,
+        100,
+        110,
+        120
+       ]
+      },
+      "field": "value",
+      "scale": {
+       "clamp": true,
+       "domain": [
+        70,
+        125
+       ],
+       "nice": false,
+       "zero": false
+      },
+      "title": null,
+      "type": "quantitative"
+     }
+    },
+    "name": "readout",
+    "transform": [
+     {
+      "calculate": "toDate(datum.date + 'T00:00:00Z')",
+      "as": "day_start"
+     },
+     {
+      "filter": "datum.date === day"
+     },
+     {
+      "filter": "datum.load_pct !== null"
+     },
+     {
+      "calculate": "datum.load_pct",
+      "as": "value"
+     }
+    ]
+   }
+  ],
+  "height": 96,
+  "width": 650
+ },
+ "description": "Daily power load from 1 March to 31 July 2020 as a per cent of the same weekdays in 2018 and 2019, one panel per subsystem: Southeast/Centre-West, South, Northeast and North. The strip at the foot of each panel is the subsystem's lockdown stringency, 0 to 100, darker the stricter, weighted across its states. Holidays and days compared with a holiday are left out. The table under the chart lists every value.",
+ "params": [
+  {
+   "name": "day",
+   "value": null
+  }
+ ],
+ "usermeta": {
+  "generator": "charts/power_lockdown.py",
+  "rows": [
+   "rows"
+  ],
+  "live": {
+   "pick": {
+    "mark": "line_marks",
+    "by": "x",
+    "signal": "day",
+    "key": "date",
+    "readout": "readout_marks"
+   }
+  },
+  "altair": "6.3.0"
+ },
+ "$schema": "https://vega.github.io/schema/vega-lite/v6.4.1.json"
+}

@@ -13,6 +13,7 @@ Each exhibit is a page backed by code, saved output and tests in this repository
 
 | Exhibit | What it shows | Data |
 | --- | --- | --- |
+| [Which demands bend? Brazil's power load in the 2020 lockdowns](https://felipealveslab.com/lab/brazil-lockdown-power-load) | Brazil's hourly power load by subsystem against the same weekdays of 2018 and 2019, joined to state lockdown stringency through a weighted bridge, at five levels of detail | ONS, OxCGRT, BCB IBC-Br |
 | [The lost hour](https://felipealveslab.com/lab/spring-clock-change-road-deaths) | Fatal US road crashes in the work week after the spring clock change, 1996 to 2024, against Arizona and Hawaii and placebo dates | NHTSA FARS, IANA tz |
 | [Brazil hourly power price with a data contract](https://felipealveslab.com/lab/brazil-power-price-contract) | A 13-check data contract on Brazil's hourly spot price, with month fingerprints to catch restated months | CCEE open data |
 | [Flight reliability: what an average delay hides](https://felipealveslab.com/lab/aviation-reliability) | 11.7 million US flights: a flat average delay next to rising cancellations, every figure checked against the raw counts | BTS on-time data |

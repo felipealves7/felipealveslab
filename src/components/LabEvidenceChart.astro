@@ -7,12 +7,13 @@ import airportData from '../../data/airport-contract/results.json';
 import aviationMonths from '../../data/aviation-reliability/mart_month.csv?raw';
 import pldData from '../../data/ccee-pld/results.json';
 import dstData from '../../data/dst-crashes/results.json';
+import powerData from '../../data/power-lockdown/results.json';
 import { evidenceChart } from '../lib/charts/evidence.mjs';
 
-interface Props { exhibit: 'ledger' | 'airport' | 'aviation' | 'pld' | 'dst'; compact?: boolean; }
+interface Props { exhibit: 'ledger' | 'airport' | 'aviation' | 'pld' | 'dst' | 'power'; compact?: boolean; }
 interface Evidence { title: string; subtitle: string; source: string; provenance: string; summary: string }
 const { exhibit, compact = false } = Astro.props;
-const data = { ledger: ledgerData, airport: airportData, aviation: aviationMonths, pld: pldData, dst: dstData }[exhibit];
+const data = { ledger: ledgerData, airport: airportData, aviation: aviationMonths, pld: pldData, dst: dstData, power: powerData }[exhibit];
 const { evidence: raw, html } = await evidenceChart(exhibit, data, { compact });
 const evidence = raw as unknown as Evidence;
 ---

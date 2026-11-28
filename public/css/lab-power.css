@@ -1,0 +1,11 @@
+/* /lab/brazil-lockdown-power-load. The dbt docs load in a frame on wide screens as the reader
+   reaches them (loading="lazy"); phones and narrow columns show the still taken from the same docs.
+   A hidden frame is never loaded. The chart is styled by altair-charts.css and charts/theme.py. */
+.power-docs { margin: 14px 0 22px; }
+.power-docs-live { display: none; width: 100%; height: 620px; border: 1px solid rgba(26,26,23,.18); border-radius: 8px; background: #fff; }
+.power-docs-still { display: block; width: 100%; height: auto; border-radius: 8px; }
+.power-docs figcaption { font-size: 14px; margin-top: 8px; }
+@media (min-width: 900px) {
+  .power-docs-live { display: block; }
+  .power-docs-still { display: none; }
+}

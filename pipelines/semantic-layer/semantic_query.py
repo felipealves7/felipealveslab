@@ -47,6 +47,7 @@ class SemanticLayerError(ValueError):
 def _set_paths() -> None:
     os.environ.setdefault("LAB_DUCKDB_PATH", str(TARGET / "lab.duckdb"))
     os.environ.setdefault("LAB_LEDGER_PARQUET", str(TARGET / "ledger.parquet"))
+    os.environ.setdefault("LAB_POWER_DATA", str(HERE.parents[1] / "data" / "power-lockdown"))
     os.environ.setdefault("DBT_SEND_ANONYMOUS_USAGE_STATS", "false")
     os.environ.setdefault("DO_NOT_TRACK", "1")
 

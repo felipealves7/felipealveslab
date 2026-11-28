@@ -2,7 +2,7 @@
 # adopt: the default. trial: use in the next lab it fits. assess: watch, test small. hold: avoid for now.
 # The Builder adds what each lab used, with its pull request as evidence. The Scout proposes ring
 # moves each quarter (interests.yml cadence.stack_review); Felipe approves them with the brief's go.
-reviewed: 2026-11-17
+reviewed: 2026-11-28
 
 adopt:
   - name: Astro
@@ -33,7 +33,7 @@ adopt:
 trial:
   - name: Plain Node pipelines with no dependencies
     area: ingestion, joins and estimates
-    evidence: pipelines/dst-crashes, https://github.com/felipealves7/felipealveslab/pull/57
+    evidence: pipelines/dst-crashes, https://github.com/felipealves7/felipealveslab/pull/57; pipelines/power-lockdown (/lab/brazil-lockdown-power-load, issue 86)
   - name: IANA Time Zone Database rules and computed sun position as join keys
     area: joining timestamped events to clock law and daylight
     evidence: /lab/spring-clock-change-road-deaths, https://github.com/felipealves7/felipealveslab/pull/57
@@ -48,13 +48,17 @@ trial:
     area: large public sources, for example GH Archive and NOAA weather
   - name: MetricFlow (the dbt Semantic Layer engine) on DuckDB
     area: governed metric definitions for Ask the Ledger and Ask this lab panels; Apache 2.0 from 0.209.0
-    evidence: pipelines/semantic-layer, where 44 of 44 scoped Ask the Ledger cases match the gold answers
+    evidence: pipelines/semantic-layer, where 44 of 44 scoped Ask the Ledger cases match the gold answers; its first joined model, the lockdown and power-load lab's state-to-subsystem bridge (pipelines/semantic-layer/models/power_lockdown, issue 86)
+  - name: dbt docs as one static page served with the site
+    area: the main artifact of a data-engineering lab, embedded on its page
+    evidence: /lab-docs/semantic-layer/, embedded on /lab/brazil-lockdown-power-load (issue 86)
+  - name: Cloudflare Workers Builds
+    area: deploys a Worker on each push to a connected repository
+    evidence: none yet; first use planned for the ledger Worker deploying on merge (brief in issue 86)
 
 assess:
   - name: Mosaic
     area: linked interactive views over DuckDB
-  - name: Evidence
-    area: BI as code, SQL and Markdown pages
   - name: DuckLake
     area: lakehouse tables on DuckDB
   - name: dlt
@@ -65,6 +69,8 @@ assess:
     area: conversational BI; cost estimated in https://github.com/felipealves7/felipealveslab/pull/46, accuracy not measured
 
 hold:
+  - name: Evidence
+    area: BI as code, SQL and Markdown pages; its self-hosting now runs a server in a container, and the Lab serves static pages (brief in issue 86)
   - name: A chart that needs JavaScript as a page's only visual
     area: visuals
   - name: Tableau embeds on phones
