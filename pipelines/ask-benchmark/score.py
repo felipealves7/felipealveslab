@@ -99,13 +99,16 @@ def signature(answer: dict | None):
 
 def score(path: Path, questions: list[dict]) -> dict:
     by_id = {q["id"]: q for q in questions}
-    header, records = None, []
+    header, stop, records = None, None, []
     for line in path.read_text().splitlines():
         r = json.loads(line)
         if r.get("type") == "run":
             header = r
+        elif r.get("type") == "stop":
+            stop = r
         elif r.get("type") == "answer" and r["question"] in by_id:
             records.append(r)
+    first_error = next((r["error"] for r in records if r.get("error")), None)
     per_setup: dict[str, dict] = defaultdict(lambda: defaultdict(float))
     runs: dict[tuple, list] = defaultdict(list)
     details = []
@@ -132,24 +135,40 @@ def score(path: Path, questions: list[dict]) -> dict:
     for (setup, _), sigs in runs.items():
         per_setup[setup]["questions"] += 1
         per_setup[setup]["same_across_runs"] += len(set(map(repr, sigs))) == 1
-    return {"header": header, "setups": {k: dict(v) for k, v in per_setup.items()}, "details": details}
+    return {"header": header, "setups": {k: dict(v) for k, v in per_setup.items()}, "details": details,
+            "stop": stop, "answers": len(records), "errors": sum(bool(r.get("error")) for r in records),
+            "first_error": first_error}
+
+
+KEY_HINT = "If it says `invalid x-api-key`, replace the `ANTHROPIC_API_KEY` repository secret with a key from the Claude Console."
 
 
 def markdown(result: dict) -> str:
     h = result["header"] or {}
+    stop = result.get("stop")
+    lines = [f"### Is the web enough? {h.get('model', '')}, {h.get('runs', '?')} run(s) per question, started {h.get('started', '')}", ""]
+    if stop and stop.get("before_first_question"):
+        return "\n".join(lines + [
+            f"**No scores: the API refused the run before the first question, so nothing was sent.** `{stop.get('error', '')}`",
+            "", KEY_HINT]) + "\n"
+    if stop:
+        lines += [f"**Stopped early: the API refused a call, so the run stopped.** `{stop.get('error', '')}` "
+                  f"The scores below cover only the answers before the stop. {KEY_HINT}", ""]
+    errors, answers = result.get("errors", 0), result.get("answers", 0)
+    if errors and not stop:
+        lines += [f"**{errors} of {answers} answers ended in an error,** so those scores measure the error, not the model. "
+                  f"The first: `{result.get('first_error', '')}`", ""]
     kinds = ["own_data", "public_fact", "relationship", "decline"]
-    lines = [
-        f"### Is the web enough? {h.get('model', '')}, {h.get('runs', '?')} run(s) per question, started {h.get('started', '')}",
-        "",
-        "| Setup | Right | " + " | ".join(k.replace("_", " ") for k in kinds) + " | Same across runs | Over-refusals | Causal flags | Searches | Cost (US$) | Mean seconds |",
-        "| --- | --- | " + " | ".join("---" for _ in kinds) + " | --- | --- | --- | --- | --- | --- |",
+    lines += [
+        "| Setup | Right | Errors | " + " | ".join(k.replace("_", " ") for k in kinds) + " | Same across runs | Over-refusals | Causal flags | Searches | Cost (US$) | Mean seconds |",
+        "| --- | --- | --- | " + " | ".join("---" for _ in kinds) + " | --- | --- | --- | --- | --- | --- |",
     ]
     for name in sorted(result["setups"]):
         s = result["setups"][name]
         n = int(s.get("answers", 0))
         cells = [f"{int(s.get('right_' + k, 0))} of {int(s.get('n_' + k, 0))}" if s.get("n_" + k) else "–" for k in kinds]
         lines.append(
-            f"| {name} | {int(s['right'])} of {n} | " + " | ".join(cells)
+            f"| {name} | {int(s['right'])} of {n} | {int(s.get('errors', 0))} | " + " | ".join(cells)
             + f" | {int(s.get('same_across_runs', 0))} of {int(s.get('questions', 0))} | {int(s.get('over_refusals', 0))}"
             + f" | {int(s.get('causal_flags', 0))} | {int(s.get('searches', 0))} | {s.get('cost_usd', 0):.4f}"
             + f" | {s.get('seconds', 0) / n if n else 0:.1f} |"

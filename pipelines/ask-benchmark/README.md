@@ -41,6 +41,12 @@ python pipelines/ask-benchmark/score.py bench-runs/run.jsonl
 python -m unittest discover -s pipelines/ask-benchmark            # scripted model, no calls
 ```
 
+Before the first question, `run.py` asks the API's Models endpoint, which is free, for the model.
+If the key or the model is refused, nothing is sent and the run page says why. A refusal during
+the run (authentication, permission or an unknown model) stops it at once. Exit codes: 0 when
+every answer came back, 1 when some answers ended in an error (the summary leads with them), and 2
+when the API refused the run. The score summary and the run file are kept whichever way it ends.
+
 ## Cost
 
 Each call is priced from its usage block, at the rates on the
