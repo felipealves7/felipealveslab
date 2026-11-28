@@ -33,7 +33,7 @@ adopt:
 trial:
   - name: Plain Node pipelines with no dependencies
     area: ingestion, joins and estimates
-    evidence: pipelines/dst-crashes, https://github.com/felipealves7/felipealveslab/pull/57; pipelines/power-lockdown (/lab/brazil-lockdown-power-load, issue 86)
+    evidence: pipelines/dst-crashes, https://github.com/felipealves7/felipealveslab/pull/57; pipelines/power-lockdown (/lab/brazil-lockdown-power-load), https://github.com/felipealves7/felipealveslab/pull/88
   - name: IANA Time Zone Database rules and computed sun position as join keys
     area: joining timestamped events to clock law and daylight
     evidence: /lab/spring-clock-change-road-deaths, https://github.com/felipealves7/felipealveslab/pull/57
@@ -48,10 +48,10 @@ trial:
     area: large public sources, for example GH Archive and NOAA weather
   - name: MetricFlow (the dbt Semantic Layer engine) on DuckDB
     area: governed metric definitions for Ask the Ledger and Ask this lab panels; Apache 2.0 from 0.209.0
-    evidence: pipelines/semantic-layer, where 44 of 44 scoped Ask the Ledger cases match the gold answers; its first joined model, the lockdown and power-load lab's state-to-subsystem bridge (pipelines/semantic-layer/models/power_lockdown, issue 86)
+    evidence: pipelines/semantic-layer, where 44 of 44 scoped Ask the Ledger cases match the gold answers; its first joined model, the lockdown and power-load lab's state-to-subsystem bridge (pipelines/semantic-layer/models/power_lockdown), https://github.com/felipealves7/felipealveslab/pull/88
   - name: dbt docs as one static page served with the site
     area: the main artifact of a data-engineering lab, embedded on its page
-    evidence: /lab-docs/semantic-layer/, embedded on /lab/brazil-lockdown-power-load (issue 86)
+    evidence: /lab-docs/semantic-layer/, embedded on /lab/brazil-lockdown-power-load, https://github.com/felipealves7/felipealveslab/pull/88
   - name: Cloudflare Workers Builds
     area: deploys a Worker on each push to a connected repository
     evidence: none yet; first use planned for the ledger Worker deploying on merge (brief in issue 86)

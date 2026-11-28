@@ -11,7 +11,7 @@ dataFreshness: 2026-11-28
 synthetic: false
 limits: "Four subsystems carry the whole cross-sectional comparison, and after weighting their stringency differed by 6.1 points on an average day, so the same-day estimate cannot tell a dose effect from zero. Weather is not modelled. The bridge weights use transformer capacity as a stand-in for each state's load. Months and quarters are calendar periods, not weekday-aligned."
 runningCost: "US$0 a month. No scheduled job and no live service; the page and the embedded dbt docs are files served with this site."
-builtBy: "https://github.com/felipealves7/felipealveslab/pulls?q=is%3Apr+head%3Aclaude%2F86-lockdown-power-load"
+builtBy: "https://github.com/felipealves7/felipealveslab/pull/88"
 published: 2026-11-28
 ---
 
@@ -127,7 +127,7 @@ The metrics are defined once in dbt and read by MetricFlow on DuckDB (`pipelines
 
 ## How it was built
 
-- Pull request: https://github.com/felipealves7/felipealveslab/pulls?q=is%3Apr+head%3Aclaude%2F86-lockdown-power-load. Brief: https://github.com/felipealves7/felipealveslab/issues/86
+- Pull request: https://github.com/felipealves7/felipealveslab/pull/88. Brief: https://github.com/felipealves7/felipealveslab/issues/86
 - Pipeline: `pipelines/power-lockdown/` in plain Node. Semantic layer: `pipelines/semantic-layer/models/power_lockdown/` in dbt with MetricFlow on DuckDB. Chart: `charts/power_lockdown.py` in Altair, drawn by `src/lib/charts/power.mjs`. Data and results: `data/power-lockdown/`.
 
 Data: Operador Nacional do Sistema Elétrico (ONS), Curva de Carga Horária, Subestações and Capacidade de Transformação, Creative Commons Attribution. Oxford COVID-19 Government Response Tracker, Blavatnik School of Government, University of Oxford, CC BY 4.0. Banco Central do Brasil, IBC-Br, ODbL. Every comparison, weight and estimate computed by this Lab.
