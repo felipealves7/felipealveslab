@@ -6,7 +6,8 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { HIGH_IMPACT, APPLIED_CUTS, cutOn, exposure, isListed } from './order.mjs';
 import { splitCsvLine, csvMember, parseFlight, addFlight, newTotals, aggregate, toCsv, TOTALS, MONTHS } from './extract.mjs';
-import { readDaily, rates, analyse, PERIODS } from './analyse.mjs';
+import { readDaily, rates, analyse, PERIODS, tableauCsv, TABLEAU_COLUMNS, GROUP_LABELS } from './analyse.mjs';
+import { parseCsv } from '../airport-contract/csv.mjs';
 
 const data = (f) => readFileSync(new URL(`../../data/aviation-shutdown/${f}`, import.meta.url), 'utf8');
 
@@ -104,4 +105,20 @@ test('the saved outputs agree with each other and with the code', () => {
   assert.deepEqual(extract.high_impact, [...HIGH_IMPACT]);
   assert.deepEqual(results, JSON.parse(JSON.stringify(analyse(daily))), 'results.json is what analyse.mjs computes');
   assert.deepEqual(results.periods.map((p) => p.key), PERIODS.map((p) => p.key));
+});
+
+test('the Tableau file is the daily file with plain labels, and nothing else', () => {
+  const daily = readDaily(data('daily-exposure.csv'));
+  const saved = data('tableau-daily.csv');
+  assert.equal(saved, tableauCsv(daily), 'tableau-daily.csv is what analyse.mjs writes');
+  const { columns, rows } = parseCsv(saved);
+  assert.deepEqual(columns, [...TABLEAU_COLUMNS]);
+  assert.equal(rows.length, daily.length);
+  const total = (k) => rows.reduce((s, r) => s + Number(r[k]), 0);
+  assert.equal(total('Scheduled flights'), rates(daily).scheduled);
+  assert.equal(total('Cancelled flights'), rates(daily).cancelled);
+  assert.deepEqual([...new Set(rows.map((r) => r.Group))].sort(), Object.values(GROUP_LABELS).sort());
+  assert.deepEqual([...new Set(rows.map((r) => r.Period))], PERIODS.map((p) => p.label));
+  const order = rows.filter((r) => r.Period === 'Order in force');
+  assert.equal(new Set(order.map((r) => r.Date)).size, 10);
 });
