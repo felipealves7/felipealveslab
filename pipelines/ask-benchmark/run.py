@@ -150,6 +150,23 @@ def ask(client, setup, question: dict, toolbox: Toolbox, guard) -> dict:
     return rec
 
 
+# Errors that fail every later call the same way, so the run stops at the first one.
+FATAL_ERRORS = ("AuthenticationError", "PermissionDeniedError", "NotFoundError")
+
+
+def is_fatal(error: str | None) -> bool:
+    return bool(error) and error.split(":", 1)[0] in FATAL_ERRORS
+
+
+def preflight(client) -> str | None:
+    """Ask the free Models endpoint for the model before any question: None when the key and model answer."""
+    try:
+        client.models.retrieve(MODEL)
+    except Exception as e:  # noqa: BLE001 - any failure here means nothing should be sent
+        return f"{type(e).__name__}: {str(e)[:300]}"
+    return None
+
+
 class Guard:
     """Stops the run before it passes its call or spending cap."""
 
@@ -177,7 +194,9 @@ class DryRunClient:
     messages = _Messages()
 
 
-def main(argv=None) -> int:
+def main(argv=None, client=None) -> int:
+    """Exit code 0: every answer came back. 1: some answers ended in an error.
+    2: the API refused the key or the model, before or during the run, and the run stopped."""
     p = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     p.add_argument("--setups", default="A,B,C,D")
     p.add_argument("--runs", type=int, default=1)
@@ -203,13 +222,26 @@ def main(argv=None) -> int:
         questions = [q for q in questions if q["id"] in wanted]
     if a.dry_run:
         client = DryRunClient()
-    else:
+    elif client is None:
         if not os.environ.get("ANTHROPIC_API_KEY"):
             print("ANTHROPIC_API_KEY is not set; nothing was sent.", file=sys.stderr)
             return 1
         import anthropic  # noqa: PLC0415
 
         client = anthropic.Anthropic(max_retries=3)
+    started = dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds")
+    header = {"type": "run", "model": MODEL, "setups": chosen, "runs": a.runs, "questions": len(questions),
+              "started": started, "prices": PRICES, "max_calls": a.max_calls, "budget_usd": a.budget_usd,
+              "max_searches": a.max_searches, "max_fetches": a.max_fetches, "dry_run": a.dry_run}
+    a.out.parent.mkdir(parents=True, exist_ok=True)
+    if not a.dry_run:
+        refused = preflight(client)
+        if refused:
+            with a.out.open("w") as f:
+                f.write(json.dumps(header) + "\n")
+                f.write(json.dumps({"type": "stop", "before_first_question": True, "error": refused}) + "\n")
+            print(f"The API refused the run before the first question; nothing was sent. {refused}", file=sys.stderr)
+            return 2
     layer = None
     if any(setups[s].uses_semantic_layer for s in chosen):
         sys.path.insert(0, str(REPO / "pipelines" / "semantic-layer"))
@@ -218,26 +250,33 @@ def main(argv=None) -> int:
         layer = SemanticLayer.open()
 
     guard = Guard(a.max_calls, a.budget_usd)
-    a.out.parent.mkdir(parents=True, exist_ok=True)
-    started = dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds")
-    header = {"type": "run", "model": MODEL, "setups": chosen, "runs": a.runs, "questions": len(questions),
-              "started": started, "prices": PRICES, "max_calls": a.max_calls, "budget_usd": a.budget_usd,
-              "max_searches": a.max_searches, "max_fetches": a.max_fetches, "dry_run": a.dry_run}
-    answered = 0
+    answered = errors = 0
+    fatal = None
     with a.out.open("w") as f:
         f.write(json.dumps(header) + "\n")
         for q in questions:  # every setup answers a question before the next one, so all see the same web
             for run in range(1, a.runs + 1):
                 for s in chosen:
-                    if not guard.allows():
+                    if not guard.allows() or fatal:
                         break
                     rec = ask(client, setups[s], q, Toolbox(layer), guard)
                     rec.update({"type": "answer", "run": run, "kind": q["kind"]})
                     f.write(json.dumps(rec, default=str) + "\n")
                     f.flush()
                     answered += 1
+                    errors += bool(rec["error"])
+                    if is_fatal(rec["error"]):
+                        fatal = rec["error"]
+        if fatal:
+            f.write(json.dumps({"type": "stop", "before_first_question": False, "error": fatal}) + "\n")
     stopped = "" if guard.allows() else " (stopped at the call or budget cap)"
     print(f"{answered} answers, {guard.calls} calls, US${guard.spent:.4f}{stopped} -> {a.out}")
+    if fatal:
+        print(f"The API refused a call, so the run stopped. {fatal}", file=sys.stderr)
+        return 2
+    if errors:
+        print(f"{errors} of {answered} answers ended in an error; the run file has each one.", file=sys.stderr)
+        return 1
     return 0
 
 

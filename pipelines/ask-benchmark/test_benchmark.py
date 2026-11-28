@@ -45,6 +45,35 @@ def last_tool_result(messages):
     return json.loads(messages[-1]["content"][0]["content"])
 
 
+class AuthenticationError(Exception):
+    """Named like the SDK's error: the harness goes by the name."""
+
+
+class InternalServerError(Exception):
+    pass
+
+
+class FakeClient:
+    """A key check and a model that declines everything; either can be made to fail."""
+
+    def __init__(self, refuse_key=None, fail_calls=None):
+        self.refuse_key, self.fail_calls, self.created = refuse_key, fail_calls, 0
+        self.models = NS(retrieve=self._retrieve)
+        self.messages = NS(create=self._create)
+
+    def _retrieve(self, model_id):
+        if self.refuse_key:
+            raise self.refuse_key
+        return NS(id=model_id)
+
+    def _create(self, **_kw):
+        self.created += 1
+        if self.fail_calls:
+            raise self.fail_calls
+        return NS(content=[tool_use("submit_answer", {"outcome": "decline", "explanation": "x"})],
+                  stop_reason="tool_use", usage=usage())
+
+
 class BenchmarkTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -160,6 +189,48 @@ class BenchmarkTest(unittest.TestCase):
         text, is_error = box.call("compute", {"function": "growth", "result_id": "r9", "value_column": "revenue"})
         self.assertTrue(is_error)
         self.assertIn("No stored result", text)
+
+    def run_main(self, client):
+        tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(tmp.cleanup)
+        out = Path(tmp.name) / "run.jsonl"
+        code = run.main(["--setups", "A", "--only", "O01,D01", "--out", str(out)], client=client)
+        lines = [json.loads(line) for line in out.read_text().splitlines()] if out.exists() else []
+        return code, lines, score.score(out, list(self.questions.values())) if lines else None
+
+    def test_a_refused_key_stops_the_run_before_any_question(self):
+        client = FakeClient(refuse_key=AuthenticationError("Error code: 401 - invalid x-api-key"))
+        code, lines, result = self.run_main(client)
+        self.assertEqual((code, client.created), (2, 0))
+        self.assertEqual([line["type"] for line in lines], ["run", "stop"])
+        text = score.markdown(result)
+        self.assertIn("No scores: the API refused the run before the first question", text)
+        self.assertIn("ANTHROPIC_API_KEY", text)
+        self.assertNotIn("| A |", text)
+
+    def test_a_refused_call_stops_the_run_at_once(self):
+        client = FakeClient(fail_calls=AuthenticationError("Error code: 401 - invalid x-api-key"))
+        code, lines, result = self.run_main(client)
+        self.assertEqual((code, client.created), (2, 1))
+        self.assertEqual([line["type"] for line in lines], ["run", "answer", "stop"])
+        self.assertIn("Stopped early", score.markdown(result))
+
+    def test_answers_that_end_in_an_error_fail_the_run_and_lead_the_summary(self):
+        client = FakeClient(fail_calls=InternalServerError("Error code: 500 - overloaded"))
+        code, _, result = self.run_main(client)
+        self.assertEqual((code, client.created), (1, 2))
+        self.assertEqual((result["answers"], result["errors"]), (2, 2))
+        text = score.markdown(result)
+        self.assertIn("2 of 2 answers ended in an error", text)
+        self.assertIn("| A | 0 of 2 | 2 |", text)
+
+    def test_a_clean_run_exits_zero(self):
+        client = FakeClient()
+        code, _, result = self.run_main(client)
+        self.assertEqual((code, client.created), (0, 2))
+        text = score.markdown(result)
+        self.assertIn("| A | 1 of 2 | 0 |", text)  # both declined: D01 right, O01 wrong
+        self.assertNotIn("ended in an error", text)
 
     def test_dry_run_writes_and_scores_a_run_file(self):
         with tempfile.TemporaryDirectory() as tmp:
